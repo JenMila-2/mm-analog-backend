@@ -8,11 +8,12 @@ import lombok.Setter;
 import lombok.NoArgsConstructor;
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
 

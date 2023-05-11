@@ -4,7 +4,6 @@ import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.services.UserService;
 import com.example.mmanalog.exceptions.UserNotFoundException;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -14,7 +13,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
@@ -46,4 +44,13 @@ public UserController(UserService userService) {
         return ResponseEntity.created(uri).body(newId);
     }
 }
+
+@GetMapping
+    public ResponseEntity<List<UserDto>> getUsers() {
+
+    List<UserDto> userDtos = userService.getUsers();
+
+    return ResponseEntity.ok().body(userDtos);
+}
+
 }

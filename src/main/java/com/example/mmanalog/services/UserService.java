@@ -4,28 +4,44 @@ import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.exceptions.UserNotFoundException;
-
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserService {
 
-    private final UserRepository repos;
+    @Autowired
+    private final UserRepository userRepository;
 
-    public UserService(UserRepository repos) {
-        this.repos = repos;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public List<UserDto> getUsers() {
+        List<UserDto> collection = new ArrayList<>();
+        List<User> list = (List<User>) userRepository.findAll();
+        for (User user : list) {
+            collection.add(fromUser(user));
+        }
+        return collection;
+    }
+
+    public static UserDto fromUser(User user) {
+        var dto = new UserDto();
+
+        dto.setName(user.getName());
+        dto.setEmail(user.getEmail());
+        dto.setPassword(user.getPassword());
+        dto.setEnabled(user.isEnabled());
+
+        return dto;
     }
 
     public UserDto getUser(Long id) {
-        User user = repos.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
 
         UserDto userDto = new UserDto();
         userDto.id = user.getId();
@@ -43,7 +59,7 @@ public class UserService {
         user.setEmail(userDto.email);
         user.setPassword(userDto.password);
 
-        repos.save(user);
+        userRepository.save(user);
 
         return user.getId();
     }
