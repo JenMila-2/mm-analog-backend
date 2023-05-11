@@ -18,6 +18,7 @@ public class User {
 
     @Id
     @Email
+    @GeneratedValue
     @Column(nullable = false, unique = true)
 
     private Long id;
