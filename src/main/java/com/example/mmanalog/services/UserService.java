@@ -36,7 +36,6 @@ public class UserService {
         dto.setEmail(user.getEmail());
         dto.setPassword(user.getPassword());
         dto.setEnabled(user.isEnabled());
-
         return dto;
     }
 
