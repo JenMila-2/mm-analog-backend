@@ -13,9 +13,9 @@ import java.util.List;
 @Service
 public class UserService {
 
-    @Autowired
     private final UserRepository userRepository;
 
+    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -40,7 +40,7 @@ public class UserService {
     }
 
     public UserDto getUser(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found!"));
 
         UserDto userDto = new UserDto();
         userDto.id = user.getId();
