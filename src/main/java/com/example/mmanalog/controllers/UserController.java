@@ -33,35 +33,33 @@ public UserController(UserService userService) {
     @GetMapping(path = "/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable("id") Long id) {
 
-    UserDto userDto = userService.getUser(id);
+    UserDto user = userService.getUserById(id);
+
+    return ResponseEntity.ok().body(user);
+    }
+
+    @PostMapping(path = "")
+    public ResponseEntity<UserDto> addUser(@Valid @RequestBody UserDto userDto) {
+
+    UserDto dtoUser = userService.addUser(userDto);
+
+    return ResponseEntity.created(null).body(dtoUser);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Object> deleteUser(@PathVariable Long id) {
+
+    userService.deleteUser(id);
+
+    return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @Valid @RequestBody UserDto newUser) {
+
+    UserDto userDto = userService.updateUser(id, newUser);
 
     return ResponseEntity.ok().body(userDto);
     }
-
-
-
-
-
-/*@PostMapping
-    public ResponseEntity<Object> createUser(@Valid @RequestBody UserDto userDto, BindingResult br) {
-    if (br.hasFieldErrors()) {
-        StringBuilder sb = new StringBuilder();
-        for (FieldError fe : br.getFieldErrors()) {
-            sb.append(fe.getField() + ": ");
-            sb.append(fe.getDefaultMessage());
-            sb.append("`n");
-        }
-        return ResponseEntity.badRequest().body(sb.toString());
-    }
-    else {
-        Long newId = userService.createUser(userDto);
-
-        URI uri = URI.create(ServletUriComponentsBuilder
-                .fromCurrentRequest().path("/" + newId).toUriString());
-
-        return ResponseEntity.created(uri).body(newId);
-    }
-}*/
-
 
 }

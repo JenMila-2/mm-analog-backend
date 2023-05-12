@@ -30,7 +30,7 @@ public class UserDto {
     public String password;
 
     @NotNull
-    public boolean enabled;
+    public boolean isEnabled;
 
     public List<String> authorities;
 

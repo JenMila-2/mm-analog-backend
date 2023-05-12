@@ -26,6 +26,6 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private boolean enabled;
+    private boolean isEnabled;
 
 }
