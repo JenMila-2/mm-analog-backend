@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping(path = "/users")
 public class UserController {
 
 private final UserService userService;
@@ -24,7 +24,26 @@ public UserController(UserService userService) {
     this.userService = userService;
 }
 
-@PostMapping
+    @GetMapping(path = "")
+    public ResponseEntity<List<UserDto>> getUsers() {
+
+        return ResponseEntity.ok().body(userService.getUsers());
+
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<UserDto> getUser(@PathVariable("id") Long id) {
+
+    UserDto userDto = userService.getUser(id);
+
+    return ResponseEntity.ok().body(userDto);
+
+    }
+
+
+
+
+/*@PostMapping
     public ResponseEntity<Object> createUser(@Valid @RequestBody UserDto userDto, BindingResult br) {
     if (br.hasFieldErrors()) {
         StringBuilder sb = new StringBuilder();
@@ -43,14 +62,7 @@ public UserController(UserService userService) {
 
         return ResponseEntity.created(uri).body(newId);
     }
-}
+}*/
 
-@GetMapping
-    public ResponseEntity<List<UserDto>> getUsers() {
-
-    List<UserDto> userDtos = userService.getUsers();
-
-    return ResponseEntity.ok().body(userDtos);
-}
 
 }

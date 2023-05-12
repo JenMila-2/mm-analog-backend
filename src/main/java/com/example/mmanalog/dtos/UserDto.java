@@ -2,6 +2,7 @@ package com.example.mmanalog.dtos;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -17,7 +18,7 @@ public class UserDto {
 
     public Long id;
 
-    @NotBlank
+    @NotNull
     public String name;
 
     @NotBlank
@@ -28,7 +29,7 @@ public class UserDto {
     @Size(min=6, max=30)
     public String password;
 
-    @NotBlank
+    @NotNull
     public boolean enabled;
 
     public List<String> authorities;

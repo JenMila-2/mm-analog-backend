@@ -4,7 +4,7 @@ import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.exceptions.UserNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,30 +13,46 @@ import java.util.List;
 @Service
 public class UserService {
 
+    private PasswordEncoder passwordEncoder;
+
     private final UserRepository userRepository;
 
-    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public List<UserDto> getUsers() {
-        List<UserDto> collection = new ArrayList<>();
-        List<User> list = (List<User>) userRepository.findAll();
-        for (User user : list) {
-            collection.add(fromUser(user));
-        }
-        return collection;
+    public Long createUser(UserDto userDto) {
+
+        String encryptedPassword = passwordEncoder.encode(userDto.getPassword());
+
+        User user = new User();
+
+        user.setName(userDto.name);
+        user.setEmail(userDto.email);
+        user.setPassword(userDto.password);
+
+        User savedUser = userRepository.save(user);
+
+        return savedUser.getId();
     }
 
-    public static UserDto fromUser(User user) {
-        var dto = new UserDto();
+    public List<UserDto> getUsers() {
+        List<User> users = (List<User>) userRepository.findAll();
+        List<UserDto> userDtos = new ArrayList<>();
 
-        dto.setName(user.getName());
-        dto.setEmail(user.getEmail());
-        dto.setPassword(user.getPassword());
-        dto.setEnabled(user.isEnabled());
-        return dto;
+        for (User user : users) {
+
+           UserDto userDto = new UserDto();
+
+           userDto.id = user.getId();
+           userDto.name = user.getName();
+           userDto.email = user.getEmail();
+           userDto.password = user.getPassword();
+
+           userDtos.add(userDto);
+
+        }
+        return userDtos;
     }
 
     public UserDto getUser(Long id) {
@@ -51,15 +67,16 @@ public class UserService {
         return userDto;
     }
 
-    public Long createUser(UserDto userDto) {
-        User user = new User();
+    public static UserDto fromUser(User user) {
+        var dto = new UserDto();
 
-        user.setName(userDto.name);
-        user.setEmail(userDto.email);
-        user.setPassword(userDto.password);
-
-        userRepository.save(user);
-
-        return user.getId();
+        dto.setName(user.getName());
+        dto.setEmail(user.getEmail());
+        dto.setPassword(user.getPassword());
+        dto.setEnabled(user.isEnabled());
+        return dto;
     }
+
+
+
 }
