@@ -28,7 +28,6 @@ public UserController(UserService userService) {
     public ResponseEntity<List<UserDto>> getUsers() {
 
         return ResponseEntity.ok().body(userService.getUsers());
-
     }
 
     @GetMapping(path = "/{id}")
@@ -37,8 +36,8 @@ public UserController(UserService userService) {
     UserDto userDto = userService.getUser(id);
 
     return ResponseEntity.ok().body(userDto);
-
     }
+
 
 
 

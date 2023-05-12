@@ -6,7 +6,9 @@ import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.exceptions.UserNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,20 +23,18 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public Long createUser(UserDto userDto) {
-
-        String encryptedPassword = passwordEncoder.encode(userDto.getPassword());
-
+   public Long createUser(UserDto userDto) {
         User user = new User();
 
         user.setName(userDto.name);
         user.setEmail(userDto.email);
         user.setPassword(userDto.password);
+        user.setEnabled(userDto.enabled);
 
-        User savedUser = userRepository.save(user);
+        userRepository.save(user);
 
-        return savedUser.getId();
-    }
+        return user.getId();
+   }
 
     public List<UserDto> getUsers() {
         List<User> users = (List<User>) userRepository.findAll();
@@ -67,16 +67,20 @@ public class UserService {
         return userDto;
     }
 
-    public static UserDto fromUser(User user) {
-        var dto = new UserDto();
+    public void deleteUser(@RequestBody Long id) {
+
+        userRepository.deleteById(id);
+
+    }
+
+    /*public static UserDto fromUser(User user) {
+        UserDto dto = new UserDto();
 
         dto.setName(user.getName());
         dto.setEmail(user.getEmail());
         dto.setPassword(user.getPassword());
         dto.setEnabled(user.isEnabled());
         return dto;
-    }
-
-
+    }*/
 
 }
