@@ -8,21 +8,24 @@ import lombok.Setter;
 import lombok.NoArgsConstructor;
 import java.util.List;
 
-@AllArgsConstructor
-@NoArgsConstructor
+
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
 
     @Id
     @Email
+    @GeneratedValue
     @Column(nullable = false, unique = true)
 
+    private Long id;
     private String name;
     private String email;
     private String password;
-    private boolean enabled;
+    private boolean isEnabled;
 
 }
