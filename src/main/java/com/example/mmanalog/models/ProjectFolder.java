@@ -12,9 +12,15 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "projectfolders")
 public class ProjectFolder {
 
+    @Id
+    @GeneratedValue
+    private Long folderId;
+    private String projectTitle;
+    private String projectNotes;
 
-
+    // private List<Photo> photos;
 
 }
