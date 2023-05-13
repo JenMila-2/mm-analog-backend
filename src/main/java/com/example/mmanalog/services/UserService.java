@@ -25,7 +25,7 @@ public class UserService {
     }
 
     public List<UserDto> getUsers() {
-        List<User> users = (List<User>) userRepository.findAll();
+        Iterable<User> users = userRepository.findAll();
         List<UserDto> userDtos = new ArrayList<>();
 
         for (User user : users) {

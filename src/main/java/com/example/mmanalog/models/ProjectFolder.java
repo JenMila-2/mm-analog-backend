@@ -21,6 +21,6 @@ public class ProjectFolder {
     private String projectTitle;
     private String projectNotes;
 
-    // private List<Photo> photos;
+    //private List<Photo> photos;
 
 }
