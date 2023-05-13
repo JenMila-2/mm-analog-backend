@@ -17,7 +17,7 @@ public class ProjectFolder {
 
     @Id
     @GeneratedValue
-    private Long folderId;
+    private Long id;
     private String projectTitle;
     private String projectNotes;
 

@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ProjectFolderDto {
 
-    public Long folderId;
+    public Long id;
     @NotNull(message = "Title is required!")
     public String projectTitle;
     public String projectNotes;

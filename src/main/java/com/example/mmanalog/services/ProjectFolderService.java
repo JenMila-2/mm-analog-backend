@@ -73,7 +73,7 @@ public class ProjectFolderService {
 
         var folder = new ProjectFolder();
 
-        folder.setFolderId(projectFolderDto.getFolderId());
+        folder.setId(projectFolderDto.getId());
         folder.setProjectTitle(projectFolderDto.getProjectTitle());
         folder.setProjectNotes(projectFolderDto.getProjectNotes());
 
@@ -83,7 +83,7 @@ public class ProjectFolderService {
     public ProjectFolderDto transferProjectFolderToDto(ProjectFolder projectFolder) {
         ProjectFolderDto projectFolderDto = new ProjectFolderDto();
 
-        projectFolderDto.folderId = projectFolder.getFolderId();
+        projectFolderDto.id = projectFolder.getId();
         projectFolderDto.projectTitle = projectFolder.getProjectTitle();
         projectFolderDto.projectNotes = projectFolder.getProjectNotes();
 
