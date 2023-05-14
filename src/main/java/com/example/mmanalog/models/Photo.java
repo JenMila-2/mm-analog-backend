@@ -1,30 +1,32 @@
 package com.example.mmanalog.models;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import java.util.List;
 
-
 @Getter
 @Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "users")
-public class User {
+@Table(name = "photos")
+public class Photo {
 
     @Id
-    @Email
     @GeneratedValue
-    @Column(nullable = false, unique = true)
 
     private Long id;
-    private String name;
-    private String email;
-    private String password;
-    private boolean isEnabled;
+    private String photoTitle;
+    private String camera;
+    private String filmStock;
+    private String filmFormat;
+    private String developedBy;
+    private int iso;
+    private String fStop;
+    private String shutterSpeed;
+    private String exposureCompensation;
+
 }
