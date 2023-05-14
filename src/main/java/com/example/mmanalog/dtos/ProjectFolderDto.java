@@ -1,5 +1,6 @@
 package com.example.mmanalog.dtos;
 
+import com.example.mmanalog.models.Photo;
 import jakarta.validation.constraints.*;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,5 @@ public class ProjectFolderDto {
     @NotNull(message = "Title is required!")
     public String projectTitle;
     public String projectNote;
-
-    //public List<Photo> photos;
+    public List<Photo> photos;
 }
