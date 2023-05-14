@@ -20,7 +20,7 @@ public class ProjectFolderService {
         this.projectFolderRepository = projectFolderRepository;
     }
 
-    public List<ProjectFolderDto> getFolders() {
+    public List<ProjectFolderDto> getProjectFolders() {
         Iterable<ProjectFolder> projectFolders = projectFolderRepository.findAll();
         List<ProjectFolderDto> projectFolderDtos = new ArrayList<>();
 
@@ -30,7 +30,7 @@ public class ProjectFolderService {
         return projectFolderDtos;
     }
 
-    public ProjectFolderDto getFolderById(Long id) {
+    public ProjectFolderDto getProjectFolderById(Long id) {
         Optional<ProjectFolder> folderOptional = projectFolderRepository.findById(id);
         if (folderOptional.isPresent()) {
             ProjectFolder projectFolder = folderOptional.get();
@@ -58,7 +58,7 @@ public class ProjectFolderService {
             ProjectFolder folder = folderOptional.get();
 
             folder.setProjectTitle(newProjectFolder.getProjectTitle());
-            folder.setProjectNotes(newProjectFolder.getProjectNotes());
+            folder.setProjectNote(newProjectFolder.getProjectNote());
 
             ProjectFolder returnFolder = projectFolderRepository.save(folder);
 
@@ -75,7 +75,7 @@ public class ProjectFolderService {
 
         folder.setId(projectFolderDto.getId());
         folder.setProjectTitle(projectFolderDto.getProjectTitle());
-        folder.setProjectNotes(projectFolderDto.getProjectNotes());
+        folder.setProjectNote(projectFolderDto.getProjectNote());
 
         return folder;
     }
@@ -85,7 +85,7 @@ public class ProjectFolderService {
 
         projectFolderDto.id = projectFolder.getId();
         projectFolderDto.projectTitle = projectFolder.getProjectTitle();
-        projectFolderDto.projectNotes = projectFolder.getProjectNotes();
+        projectFolderDto.projectNote = projectFolder.getProjectNote();
 
         return projectFolderDto;
     }

@@ -1,9 +1,7 @@
 package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.ProjectFolderDto;
-import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.services.ProjectFolderService;
-import com.example.mmanalog.services.UserService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -23,15 +21,15 @@ public ProjectFolderController(ProjectFolderService projectFolderService) {
 }
 
     @GetMapping(path = "")
-    public ResponseEntity<Iterable<ProjectFolderDto>> getAllFolders() {
+    public ResponseEntity<Iterable<ProjectFolderDto>> getAllProjectFolders() {
 
-    return ResponseEntity.ok().body(projectFolderService.getFolders());
+    return ResponseEntity.ok().body(projectFolderService.getProjectFolders());
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<ProjectFolderDto> getProjectFolder(@PathVariable("id") Long id) {
 
-    ProjectFolderDto projectFolder = projectFolderService.getFolderById(id);
+    ProjectFolderDto projectFolder = projectFolderService.getProjectFolderById(id);
 
     return ResponseEntity.ok().body(projectFolder);
     }
@@ -50,5 +48,14 @@ public ProjectFolderController(ProjectFolderService projectFolderService) {
     projectFolderService.deleteProjectFolder(id);
 
     return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<ProjectFolderDto> updateProjectFolder(@PathVariable Long id, @Valid @RequestBody ProjectFolderDto newProjectFolder) {
+
+    ProjectFolderDto dtoProjectFolder = projectFolderService.updateProjectFolder(id, newProjectFolder);
+
+    return ResponseEntity.ok().body(dtoProjectFolder);
+
     }
 }

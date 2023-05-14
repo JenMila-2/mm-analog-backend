@@ -19,8 +19,7 @@ public class ProjectFolder {
     @GeneratedValue
     private Long id;
     private String projectTitle;
-    private String projectNotes;
+    private String projectNote;
 
     //private List<Photo> photos;
-
 }

@@ -32,7 +32,7 @@ public class UserDto {
     @NotNull
     public boolean isEnabled;
 
-    //public List<String> authorities;
+    public List<String> authorities;
 
 }
 
