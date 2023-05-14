@@ -40,6 +40,41 @@ public class PhotoService {
         }
     }
 
+    public PhotoDto addPhoto(PhotoDto dtoPhoto) {
+        Photo photo = transferToPhoto(dtoPhoto);
+        photoRepository.save(photo);
+
+        return transferToPhotoDto(photo);
+    }
+
+    public void deletePhoto(@RequestBody Long id) {
+        photoRepository.deleteById(id);
+    }
+
+    public PhotoDto updatePhotoMetadata(Long id, PhotoDto newPhoto) {
+        Optional<Photo> photoOptional = photoRepository.findById(id);
+        if (photoOptional.isPresent()) {
+            Photo photo = photoOptional.get();
+
+            photo.setPhotoTitle(newPhoto.getPhotoTitle());
+            photo.setCamera(newPhoto.getCamera());
+            photo.setFilmStock(newPhoto.getFilmStock());
+            photo.setFilmFormat(newPhoto.getFilmFormat());
+            photo.setDevelopedBy(newPhoto.getDevelopedBy());
+            photo.setIso(newPhoto.getIso());
+            photo.setFStop(newPhoto.getFStop());
+            photo.setShutterSpeed(newPhoto.getShutterSpeed());
+            photo.setExposureCompensation(newPhoto.getExposureCompensation());
+
+            Photo returnPhoto = photoRepository.save(photo);
+
+            return transferToPhotoDto(returnPhoto);
+
+        } else {
+            throw new RecordNotFoundException("No photo found with id: " + id);
+        }
+    }
+
     public Photo transferToPhoto(PhotoDto photoDto) {
 
         var photo = new Photo();
