@@ -30,6 +30,16 @@ public class PhotoService {
         return photoListDto;
     }
 
+    public PhotoDto getPhotoById(Long id) {
+        Optional<Photo> photoOptional = photoRepository.findById(id);
+        if (photoOptional.isPresent()) {
+            Photo photo = photoOptional.get();
+            return transferToPhotoDto(photo);
+        } else {
+            throw new RecordNotFoundException("No photo found with id: " + id);
+        }
+    }
+
     public Photo transferToPhoto(PhotoDto photoDto) {
 
         var photo = new Photo();

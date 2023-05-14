@@ -36,7 +36,7 @@ public class ProjectFolderService {
             ProjectFolder projectFolder = folderOptional.get();
             return transferProjectFolderToDto(projectFolder);
         } else {
-            throw new RecordNotFoundException("No project folder found with this id: " + id);
+            throw new RecordNotFoundException("No project folder found with id: " + id);
         }
     }
 
@@ -65,7 +65,7 @@ public class ProjectFolderService {
             return transferProjectFolderToDto(returnFolder);
 
         } else {
-            throw new RecordNotFoundException("No project folder found with this id: " + id);
+            throw new RecordNotFoundException("No project folder found with id: " + id);
         }
     }
 
