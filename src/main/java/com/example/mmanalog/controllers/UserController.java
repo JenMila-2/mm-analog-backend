@@ -2,7 +2,6 @@ package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.services.UserService;
-import com.example.mmanalog.exceptions.UserNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 @RequestMapping(path = "/users")
