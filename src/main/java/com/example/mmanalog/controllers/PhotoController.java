@@ -29,4 +29,28 @@ public class PhotoController {
         return ResponseEntity.ok().body(photo);
     }
 
+    @PostMapping(path = "")
+    public ResponseEntity<PhotoDto> addPhoto(@Valid @RequestBody PhotoDto photoDto) {
+
+        PhotoDto dtoPhoto = photoService.addPhoto((photoDto));
+
+        return ResponseEntity.created(null).body(dtoPhoto);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Object> deletePhoto(@PathVariable Long id) {
+
+        photoService.deletePhoto(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<PhotoDto> updatePhotoMetadata(@PathVariable Long id, @Valid @RequestBody PhotoDto newPhoto) {
+
+        PhotoDto dtoPhoto = photoService.updatePhotoMetadata(id, newPhoto);
+
+        return ResponseEntity.ok().body(dtoPhoto);
+    }
+
 }
