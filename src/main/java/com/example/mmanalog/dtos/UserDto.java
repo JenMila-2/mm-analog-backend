@@ -33,7 +33,6 @@ public class UserDto {
     public boolean isEnabled;
 
     public List<String> authorities;
-
 }
 
 // public Set<Authority> getAuthorities() { return authorities }
