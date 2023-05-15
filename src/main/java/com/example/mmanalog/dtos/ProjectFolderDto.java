@@ -15,7 +15,8 @@ import lombok.Setter;
 public class ProjectFolderDto {
 
     public Long id;
-    @NotNull(message = "Title is required!")
+    @NotNull
+    @Size(max = 75, message = "Title must be between 0 and 75 characters!")
     public String projectTitle;
     public String projectNote;
     public List<Photo> photos;

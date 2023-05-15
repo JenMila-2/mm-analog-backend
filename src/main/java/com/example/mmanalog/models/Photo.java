@@ -17,7 +17,6 @@ public class Photo {
 
     @Id
     @GeneratedValue
-
     private Long id;
     private String photoTitle;
     private String camera;
@@ -28,5 +27,4 @@ public class Photo {
     private String fStop;
     private String shutterSpeed;
     private String exposureCompensation;
-
 }

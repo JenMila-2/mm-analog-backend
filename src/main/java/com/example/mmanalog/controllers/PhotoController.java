@@ -52,5 +52,4 @@ public class PhotoController {
 
         return ResponseEntity.ok().body(dtoPhoto);
     }
-
 }

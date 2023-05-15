@@ -16,15 +16,17 @@ public class PhotoDto {
 
     public Long id;
     @NotNull
-    @Size(max = 60, message = "Title must be between 0 and 60 characters!")
+    @Size(max = 75, message = "Title must be between 0 and 75 characters!")
     public String photoTitle;
+    @Size(max=75)
     public String camera;
+    @Size(max=75)
     public String filmStock;
     public String filmFormat;
+    @Size(max=75)
     public String developedBy;
     public int iso;
     public String fStop;
     public String shutterSpeed;
     public String exposureCompensation;
-
 }
