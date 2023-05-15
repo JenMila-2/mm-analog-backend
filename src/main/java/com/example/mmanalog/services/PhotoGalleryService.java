@@ -40,6 +40,36 @@ public class PhotoGalleryService {
         }
     }
 
+    public PhotoGalleryDto addPhotoGallery(PhotoGalleryDto dtoPhotoGallery) {
+
+        PhotoGallery photoGallery = transferToPhotoGallery(dtoPhotoGallery);
+        photoGalleryRepository.save(photoGallery);
+
+        return transferPhotoGalleryToDto(photoGallery);
+    }
+
+    public void deletePhotoGallery(@RequestBody Long id) {
+        photoGalleryRepository.deleteById(id);
+    }
+
+    public PhotoGalleryDto updatePhotoGallery(Long id, PhotoGalleryDto newPhotoGallery) {
+        Optional<PhotoGallery> photoGalleryOptional = photoGalleryRepository.findById(id);
+        if (photoGalleryOptional.isPresent()) {
+            PhotoGallery photoGallery = photoGalleryOptional.get();
+
+            photoGallery.setGalleryTitle(newPhotoGallery.getGalleryTitle());
+            photoGallery.setShortBio(newPhotoGallery.getShortBio());
+            photoGallery.setTags(newPhotoGallery.getTags());
+            photoGallery.setPublic(newPhotoGallery.isPublic());
+
+            PhotoGallery returnPhotoGallery = photoGalleryRepository.save(photoGallery);
+
+            return transferPhotoGalleryToDto(returnPhotoGallery);
+        } else {
+            throw new RecordNotFoundException("No photo gallery found with id: " + id);
+        }
+    }
+
     public PhotoGallery transferToPhotoGallery(PhotoGalleryDto photoGalleryDto) {
 
         var photoGallery = new PhotoGallery();
