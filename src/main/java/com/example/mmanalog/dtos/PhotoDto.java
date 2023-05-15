@@ -18,9 +18,9 @@ public class PhotoDto {
     @NotNull
     @Size(max = 75, message = "Title must be between 0 and 75 characters!")
     public String photoTitle;
-    @Size(max=75)
+    @Size(max=50)
     public String camera;
-    @Size(max=75)
+    @Size(max=50)
     public String filmStock;
     public String filmFormat;
     @Size(max=75)
