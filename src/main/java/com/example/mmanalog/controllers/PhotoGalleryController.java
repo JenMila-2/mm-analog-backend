@@ -26,4 +26,36 @@ public class PhotoGalleryController {
         return ResponseEntity.ok().body(photoGalleryService.getAllPhotoGalleries());
     }
 
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<PhotoGalleryDto> getPhotoGallery(@PathVariable("id") Long id) {
+
+        PhotoGalleryDto photoGallery = photoGalleryService.getPhotoGalleryById(id);
+
+        return ResponseEntity.ok().body(photoGallery);
+    }
+
+    @PostMapping(path = "")
+    public ResponseEntity<PhotoGalleryDto> addPhotoGallery(@Valid @RequestBody PhotoGalleryDto photoGalleryDto) {
+
+        PhotoGalleryDto dtoPhotoGallery = photoGalleryService.addPhotoGallery(photoGalleryDto);
+
+        return ResponseEntity.created(null).body(dtoPhotoGallery);
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Object> deletePhotoGallery(@PathVariable Long id) {
+
+        photoGalleryService.deletePhotoGallery(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<PhotoGalleryDto> updatePhotoGallery(@PathVariable Long id, @Valid PhotoGalleryDto newPhotoGallery) {
+
+        PhotoGalleryDto dtoPhotoGallery = photoGalleryService.updatePhotoGallery(id, newPhotoGallery);
+
+        return ResponseEntity.ok().body(dtoPhotoGallery);
+    }
+
 }

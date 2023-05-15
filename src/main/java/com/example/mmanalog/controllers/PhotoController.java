@@ -33,7 +33,7 @@ public class PhotoController {
     @PostMapping(path = "")
     public ResponseEntity<PhotoDto> addPhoto(@Valid @RequestBody PhotoDto photoDto) {
 
-        PhotoDto dtoPhoto = photoService.addPhoto((photoDto));
+        PhotoDto dtoPhoto = photoService.addPhoto(photoDto);
 
         return ResponseEntity.created(null).body(dtoPhoto);
     }
