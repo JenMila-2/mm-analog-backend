@@ -18,6 +18,7 @@ public class PhotoController {
 
     @GetMapping(path = "")
     public ResponseEntity<Iterable<PhotoDto>> getAllPhotos() {
+
         return ResponseEntity.ok().body(photoService.getAllPhotos());
     }
 

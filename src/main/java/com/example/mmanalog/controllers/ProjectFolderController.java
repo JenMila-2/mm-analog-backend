@@ -14,48 +14,47 @@ import java.util.Map;
 @RequestMapping(path = "/projectfolders")
 public class ProjectFolderController {
 
-private final ProjectFolderService projectFolderService;
+    private final ProjectFolderService projectFolderService;
 
-public ProjectFolderController(ProjectFolderService projectFolderService) {
-    this.projectFolderService = projectFolderService;
-}
+    public ProjectFolderController(ProjectFolderService projectFolderService) {
+        this.projectFolderService = projectFolderService;
+    }
 
     @GetMapping(path = "")
     public ResponseEntity<Iterable<ProjectFolderDto>> getAllProjectFolders() {
 
-    return ResponseEntity.ok().body(projectFolderService.getProjectFolders());
+        return ResponseEntity.ok().body(projectFolderService.getProjectFolders());
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<ProjectFolderDto> getProjectFolder(@PathVariable("id") Long id) {
 
-    ProjectFolderDto projectFolder = projectFolderService.getProjectFolderById(id);
+        ProjectFolderDto projectFolder = projectFolderService.getProjectFolderById(id);
 
-    return ResponseEntity.ok().body(projectFolder);
+        return ResponseEntity.ok().body(projectFolder);
     }
 
     @PostMapping(path = "")
     public ResponseEntity<ProjectFolderDto> addProjectFolder(@Valid @RequestBody ProjectFolderDto folderDto) {
 
-    ProjectFolderDto dtoFolder = projectFolderService.addProjectFolder((folderDto));
+        ProjectFolderDto dtoFolder = projectFolderService.addProjectFolder((folderDto));
 
-    return ResponseEntity.created(null).body(dtoFolder);
+        return ResponseEntity.created(null).body(dtoFolder);
     }
 
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Object> deleteProjectFolder(@PathVariable Long id) {
 
-    projectFolderService.deleteProjectFolder(id);
+        projectFolderService.deleteProjectFolder(id);
 
-    return ResponseEntity.noContent().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<ProjectFolderDto> updateProjectFolder(@PathVariable Long id, @Valid @RequestBody ProjectFolderDto newProjectFolder) {
 
-    ProjectFolderDto dtoProjectFolder = projectFolderService.updateProjectFolder(id, newProjectFolder);
+        ProjectFolderDto dtoProjectFolder = projectFolderService.updateProjectFolder(id, newProjectFolder);
 
-    return ResponseEntity.ok().body(dtoProjectFolder);
-
+        return ResponseEntity.ok().body(dtoProjectFolder);
     }
 }
