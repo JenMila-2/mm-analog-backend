@@ -19,7 +19,7 @@ public class PhotoGallery {
     @Id
     @GeneratedValue
     private Long id;
-    private String galleryTitle;
+    private String galleryName;
     private String shortBio;
     private String tags;
     private boolean isPublic;

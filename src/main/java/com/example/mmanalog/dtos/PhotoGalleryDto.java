@@ -15,9 +15,9 @@ public class PhotoGalleryDto {
 
     public Long id;
     @NotNull
-    @Size(max=75)
-    public String galleryTitle;
-    @Size(max=500)
+    @Size(max=50, message="Gallery name cannot contain more than 50 characters.")
+    public String galleryName;
+    @Size(max=500, message="Bio cannot contain more than 500 characters.")
     public String shortBio;
     public String tags;
     @NotNull

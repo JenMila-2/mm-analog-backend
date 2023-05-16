@@ -57,7 +57,7 @@ public class PhotoGalleryService {
         if (photoGalleryOptional.isPresent()) {
             PhotoGallery photoGallery = photoGalleryOptional.get();
 
-            photoGallery.setGalleryTitle(newPhotoGallery.getGalleryTitle());
+            photoGallery.setGalleryName(newPhotoGallery.getGalleryName());
             photoGallery.setShortBio(newPhotoGallery.getShortBio());
             photoGallery.setTags(newPhotoGallery.getTags());
             photoGallery.setPublic(newPhotoGallery.isPublic());
@@ -75,7 +75,7 @@ public class PhotoGalleryService {
         var photoGallery = new PhotoGallery();
 
         photoGallery.setId(photoGalleryDto.getId());
-        photoGallery.setGalleryTitle(photoGalleryDto.getGalleryTitle());
+        photoGallery.setGalleryName(photoGalleryDto.getGalleryName());
         photoGallery.setShortBio(photoGalleryDto.getShortBio());
         photoGallery.setPublic(photoGalleryDto.isPublic());
 
@@ -86,7 +86,7 @@ public class PhotoGalleryService {
         PhotoGalleryDto photoGalleryDto = new PhotoGalleryDto();
 
         photoGalleryDto.id = photoGallery.getId();
-        photoGalleryDto.galleryTitle = photoGallery.getGalleryTitle();
+        photoGalleryDto.galleryName = photoGallery.getGalleryName();
         photoGalleryDto.shortBio = photoGallery.getShortBio();
         photoGalleryDto.isPublic = photoGallery.isPublic();
 
