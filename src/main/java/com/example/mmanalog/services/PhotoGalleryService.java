@@ -57,9 +57,9 @@ public class PhotoGalleryService {
         if (photoGalleryOptional.isPresent()) {
             PhotoGallery photoGallery = photoGalleryOptional.get();
 
-            photoGallery.setGalleryName(newPhotoGallery.getGalleryName());
+            photoGallery.setPhotographerName(newPhotoGallery.getPhotographerName());
             photoGallery.setShortBio(newPhotoGallery.getShortBio());
-            photoGallery.setTags(newPhotoGallery.getTags());
+            photoGallery.setTag(newPhotoGallery.getTag());
             photoGallery.setPublic(newPhotoGallery.isPublic());
 
             PhotoGallery returnPhotoGallery = photoGalleryRepository.save(photoGallery);
@@ -75,8 +75,9 @@ public class PhotoGalleryService {
         var photoGallery = new PhotoGallery();
 
         photoGallery.setId(photoGalleryDto.getId());
-        photoGallery.setGalleryName(photoGalleryDto.getGalleryName());
+        photoGallery.setPhotographerName(photoGalleryDto.getPhotographerName());
         photoGallery.setShortBio(photoGalleryDto.getShortBio());
+        photoGallery.setTag(photoGalleryDto.getTag());
         photoGallery.setPublic(photoGalleryDto.isPublic());
 
         return photoGallery;
@@ -86,8 +87,9 @@ public class PhotoGalleryService {
         PhotoGalleryDto photoGalleryDto = new PhotoGalleryDto();
 
         photoGalleryDto.id = photoGallery.getId();
-        photoGalleryDto.galleryName = photoGallery.getGalleryName();
+        photoGalleryDto.photographerName = photoGallery.getPhotographerName();
         photoGalleryDto.shortBio = photoGallery.getShortBio();
+        photoGalleryDto.tag = photoGallery.getTag();
         photoGalleryDto.isPublic = photoGallery.isPublic();
 
         return photoGalleryDto;

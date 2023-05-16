@@ -13,14 +13,15 @@ import java.util.List;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "photogalleries")
-public class PhotoGallery {
+@Table(name = "exploregalleries")
+public class ExploreGallery {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long photoId;
     private String photographerName;
-    private String shortBio;
-    private String tag;
-    private boolean isPublic;
+    private String photoTitle;
+    private String imageURL;
+    //private List<PhotoGallery> photoGalleries;
+    //private List<PhotoCategory> photoCategories;
 }
