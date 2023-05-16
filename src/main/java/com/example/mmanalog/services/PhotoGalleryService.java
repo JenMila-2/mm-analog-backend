@@ -74,7 +74,7 @@ public class PhotoGalleryService {
 
         var photoGallery = new PhotoGallery();
 
-        photoGallery.setId(photoGalleryDto.getId());
+        photoGallery.setPhotoId(photoGalleryDto.getPhotoId());
         photoGallery.setPhotographerName(photoGalleryDto.getPhotographerName());
         photoGallery.setShortBio(photoGalleryDto.getShortBio());
         photoGallery.setTag(photoGalleryDto.getTag());
@@ -86,7 +86,7 @@ public class PhotoGalleryService {
     public PhotoGalleryDto transferPhotoGalleryToDto(PhotoGallery photoGallery) {
         PhotoGalleryDto photoGalleryDto = new PhotoGalleryDto();
 
-        photoGalleryDto.id = photoGallery.getId();
+        photoGalleryDto.photoId = photoGallery.getPhotoId();
         photoGalleryDto.photographerName = photoGallery.getPhotographerName();
         photoGalleryDto.shortBio = photoGallery.getShortBio();
         photoGalleryDto.tag = photoGallery.getTag();

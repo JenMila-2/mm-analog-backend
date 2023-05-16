@@ -18,7 +18,7 @@ public class PhotoGallery {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long photoId;
     private String photographerName;
     private String shortBio;
     private String tag;

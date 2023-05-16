@@ -22,6 +22,4 @@ public class ExploreGallery {
     private String photographerName;
     private String photoTitle;
     private String imageURL;
-    //private List<PhotoGallery> photoGalleries;
-    //private List<PhotoCategory> photoCategories;
 }

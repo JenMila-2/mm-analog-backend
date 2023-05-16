@@ -14,7 +14,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class PhotoGalleryDto {
 
-    public Long id;
+    public Long photoId;
     @NotNull
     @Size(max=50, message="This field cannot contain more than 50 characters.")
     public String photographerName;

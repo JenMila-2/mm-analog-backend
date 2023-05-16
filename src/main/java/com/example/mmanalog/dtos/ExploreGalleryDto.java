@@ -25,4 +25,6 @@ public class ExploreGalleryDto {
     @NotNull
     public String imageURL;
     List<PhotoGallery> photoGalleryList;
+
+    //List<PhotoCategory> photoCategories;
 }
