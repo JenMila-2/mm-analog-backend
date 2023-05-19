@@ -1,6 +1,5 @@
 package com.example.mmanalog.dtos;
 
-import com.example.mmanalog.models.Photo;
 import com.example.mmanalog.models.PhotoGallery;
 import jakarta.validation.constraints.*;
 import java.util.List;
@@ -25,6 +24,5 @@ public class ExploreGalleryDto {
     @NotNull
     public String imageURL;
     List<PhotoGallery> photoGalleryList;
-
-    //List<PhotoCategory> photoCategories;
+    
 }

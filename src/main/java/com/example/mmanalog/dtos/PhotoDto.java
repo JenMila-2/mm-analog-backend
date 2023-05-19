@@ -1,6 +1,5 @@
 package com.example.mmanalog.dtos;
 
-import com.example.mmanalog.models.Photo;
 import jakarta.validation.constraints.*;
 import java.util.List;
 import lombok.AllArgsConstructor;

@@ -2,6 +2,7 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.exceptions.InvalidPasswordException;
+import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.exceptions.UserNotFoundException;
@@ -41,6 +42,25 @@ public class UserService {
             return transferUserToDto(user);
         } else {
             throw new UserNotFoundException("No user found with this id: " + id);
+        }
+    }
+
+    public List<UserDto> getAllUsersByEmail(String email) {
+        List<User> userEmailList = userRepository.findAllUsersByEmail(email);
+        List<UserDto> userDtos = new ArrayList<>();
+
+        for (User user : userEmailList) {
+            UserDto userDto = transferUserToDto(user);
+            userDtos.add(userDto);
+        } return userDtos;
+    }
+
+    public UserDto getUserByEmail(String email) {
+        User user = userRepository.findUserByEmail(email);
+        if (user == null) {
+            throw new RecordNotFoundException("No user found with email: " + email);
+        } else {
+            return transferUserToDto(user);
         }
     }
 

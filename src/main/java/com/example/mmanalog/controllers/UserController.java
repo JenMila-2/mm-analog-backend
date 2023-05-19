@@ -11,6 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -35,6 +36,12 @@ public UserController(UserService userService) {
     UserDto user = userService.getUserById(id);
 
     return ResponseEntity.ok().body(user);
+    }
+
+    @GetMapping(path = "emails/{email}")
+    public ResponseEntity<UserDto> getUserByEmail(@PathVariable String email) {
+
+    return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
     @PostMapping(path = "")
