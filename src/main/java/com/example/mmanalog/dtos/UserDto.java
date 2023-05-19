@@ -17,21 +17,16 @@ import lombok.Setter;
 public class UserDto {
 
     public Long id;
-
     @NotNull
     public String name;
-
     @NotBlank
     @Email
     public String email;
-
     @NotBlank
     @Size(min=6, max=30)
     public String password;
-
     @NotNull
     public boolean isEnabled;
-
     public List<String> authorities;
 }
 

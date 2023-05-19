@@ -37,7 +37,7 @@ public class ProjectFolderController {
     @PostMapping(path = "")
     public ResponseEntity<ProjectFolderDto> addProjectFolder(@Valid @RequestBody ProjectFolderDto folderDto) {
 
-        ProjectFolderDto dtoFolder = projectFolderService.addProjectFolder((folderDto));
+        ProjectFolderDto dtoFolder = projectFolderService.addProjectFolder(folderDto);
 
         return ResponseEntity.created(null).body(dtoFolder);
     }
