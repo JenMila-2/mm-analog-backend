@@ -1,6 +1,7 @@
 package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.ExploreGalleryDto;
+import com.example.mmanalog.dtos.ExploreGalleryInputDto;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.models.ExploreGallery;
 import com.example.mmanalog.repositories.ExploreGalleryRepository;
@@ -22,7 +23,7 @@ public ExploreGalleryService(ExploreGalleryRepository exploreGalleryRepository) 
 }
 
 public List<ExploreGalleryDto> getAllPhotographerGalleries() {
-    Iterable<ExploreGallery> galleries = exploreGalleryRepository.findAll();
+    List<ExploreGallery> galleries = exploreGalleryRepository.findAll();
     List<ExploreGalleryDto> galleryDtos = new ArrayList<>();
 
     for (ExploreGallery gallery : galleries) {
@@ -32,7 +33,7 @@ public List<ExploreGalleryDto> getAllPhotographerGalleries() {
 }
 
 public List<ExploreGalleryDto> getAllPhotos() {
-    Iterable<ExploreGallery> explorePhotos = exploreGalleryRepository.findAll();
+    List<ExploreGallery> explorePhotos = exploreGalleryRepository.findAll();
     List<ExploreGalleryDto> explorePhotoDtos = new ArrayList<>();
 
     for (ExploreGallery photo : explorePhotos) {
@@ -41,14 +42,13 @@ public List<ExploreGalleryDto> getAllPhotos() {
     return explorePhotoDtos;
 }
 
-public ExploreGallery transferToExploreGallery(ExploreGalleryDto exploreGalleryDto) {
+public ExploreGallery transferToExploreGallery(ExploreGalleryInputDto exploreGalleryInputDto) {
 
     var exploreGallery = new ExploreGallery();
 
-    exploreGallery.setPhotoId(exploreGalleryDto.getPhotoId());
-    exploreGallery.setPhotographerName(exploreGalleryDto.getPhotographerName());
-    exploreGallery.setPhotoTitle(exploreGalleryDto.getPhotoTitle());
-    exploreGallery.setImageURL(exploreGalleryDto.getImageURL());
+    exploreGallery.setPhotographerName(exploreGalleryInputDto.getPhotographerName());
+    exploreGallery.setPhotoTitle(exploreGalleryInputDto.getPhotoTitle());
+    exploreGallery.setImageURL(exploreGalleryInputDto.getImageURL());
 
     return exploreGallery;
 }
@@ -56,10 +56,10 @@ public ExploreGallery transferToExploreGallery(ExploreGalleryDto exploreGalleryD
 public ExploreGalleryDto transferExploreGalleryToDto(ExploreGallery exploreGallery) {
     ExploreGalleryDto exploreGalleryDto = new ExploreGalleryDto();
 
-    exploreGalleryDto.photoId = exploreGallery.getPhotoId();
-    exploreGalleryDto.photographerName = exploreGallery.getPhotographerName();
-    exploreGalleryDto.photoTitle = exploreGallery.getPhotoTitle();
-    exploreGalleryDto.imageURL = exploreGallery.getImageURL();
+    exploreGalleryDto.setId(exploreGallery.getId());
+    exploreGalleryDto.setPhotographerName(exploreGallery.getPhotographerName());
+    exploreGalleryDto.setPhotoTitle(exploreGallery.getPhotoTitle());
+    exploreGalleryDto.setImageURL(exploreGallery.getImageURL());
 
     return exploreGalleryDto;
 }

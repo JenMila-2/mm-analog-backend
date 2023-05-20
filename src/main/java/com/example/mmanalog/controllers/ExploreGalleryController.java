@@ -24,13 +24,13 @@ public class ExploreGalleryController {
     }
 
     @GetMapping(path = "")
-    public ResponseEntity<Iterable<ExploreGalleryDto>> getAllPhotoGalleries() {
+    public ResponseEntity<List<ExploreGalleryDto>> getAllPhotoGalleries() {
 
         return ResponseEntity.ok().body(exploreGalleryService.getAllPhotographerGalleries());
     }
 
     @GetMapping(path = "/photos")
-    public ResponseEntity<Iterable<ExploreGalleryDto>> getAllPhotosInGalleries() {
+    public ResponseEntity<List<ExploreGalleryDto>> getAllPhotosInGalleries() {
 
         return ResponseEntity.ok().body(exploreGalleryService.getAllPhotos());
     }
