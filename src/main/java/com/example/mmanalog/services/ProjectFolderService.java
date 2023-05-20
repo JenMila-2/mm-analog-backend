@@ -2,6 +2,7 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.ProjectFolderDto;
 import com.example.mmanalog.models.ProjectFolder;
+import com.example.mmanalog.repositories.PhotoRepository;
 import com.example.mmanalog.repositories.ProjectFolderRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import org.springframework.stereotype.Service;
@@ -15,9 +16,13 @@ import java.util.Optional;
 public class ProjectFolderService {
 
     private final ProjectFolderRepository projectFolderRepository;
+    private final PhotoRepository photoRepository;
+    private final PhotoService photoService;
 
-    public ProjectFolderService(ProjectFolderRepository projectFolderRepository) {
+    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, PhotoRepository photoRepository, PhotoService photoService) {
         this.projectFolderRepository = projectFolderRepository;
+        this.photoRepository = photoRepository;
+        this.photoService = photoService;
     }
 
     public List<ProjectFolderDto> getProjectFolders() {
@@ -68,6 +73,21 @@ public class ProjectFolderService {
             throw new RecordNotFoundException("No project folder found with id: " + id);
         }
     }
+
+    /*public void assignPhotoToProjectFolder(Long id, Long projectFolderId) {
+        var optionalProjectFolder = projectFolderRepository.findById(id);
+        var optionalPhoto = photoRepository.findById(projectFolderId);
+
+        if (optionalProjectFolder.isPresent() && optionalPhoto.isPresent()) {
+            var projectFolder = optionalProjectFolder.get();
+            var photo = optionalPhoto.get();
+
+            projectFolder.setPhotos(photos);
+            projectFolderRepository.save(projectFolder);
+        } else {
+            throw new RecordNotFoundException();
+        }
+    }*/
 
     public ProjectFolder transferToProjectFolder(ProjectFolderDto projectFolderDto) {
 

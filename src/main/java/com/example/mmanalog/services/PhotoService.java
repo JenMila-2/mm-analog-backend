@@ -1,6 +1,7 @@
 package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.PhotoDto;
+import com.example.mmanalog.dtos.PhotoInputDto;
 import com.example.mmanalog.models.Photo;
 import com.example.mmanalog.repositories.PhotoRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
@@ -21,7 +22,7 @@ public class PhotoService {
     }
 
     public List<PhotoDto> getAllPhotos() {
-        Iterable<Photo> photoList = photoRepository.findAll();
+        List<Photo> photoList = photoRepository.findAll();
         List<PhotoDto> photoListDto = new ArrayList<>();
 
         for (Photo photo : photoList) {
@@ -40,8 +41,8 @@ public class PhotoService {
         }
     }
 
-    public PhotoDto addPhoto(PhotoDto dtoPhoto) {
-        Photo photo = transferToPhoto(dtoPhoto);
+    public PhotoDto addPhoto(PhotoInputDto inputDtoPhoto) {
+        Photo photo = transferToPhoto(inputDtoPhoto);
         photoRepository.save(photo);
 
         return transferToPhotoDto(photo);
@@ -51,44 +52,35 @@ public class PhotoService {
         photoRepository.deleteById(id);
     }
 
-    public PhotoDto updatePhotoMetadata(Long id, PhotoDto newPhoto) {
-        Optional<Photo> photoOptional = photoRepository.findById(id);
-        if (photoOptional.isPresent()) {
-            Photo photo = photoOptional.get();
+    public PhotoDto updatePhotoMetadata(Long id, PhotoInputDto inputDtoPhoto) {
 
-            photo.setPhotoTitle(newPhoto.getPhotoTitle());
-            photo.setCamera(newPhoto.getCamera());
-            photo.setFilmStock(newPhoto.getFilmStock());
-            photo.setFilmFormat(newPhoto.getFilmFormat());
-            photo.setDevelopedBy(newPhoto.getDevelopedBy());
-            photo.setIso(newPhoto.getIso());
-            photo.setFStop(newPhoto.getFStop());
-            photo.setShutterSpeed(newPhoto.getShutterSpeed());
-            photo.setExposureCompensation(newPhoto.getExposureCompensation());
+        if (photoRepository.findById(id).isPresent()) {
 
-            Photo returnPhoto = photoRepository.save(photo);
+            Photo photo = photoRepository.findById(id).get();
 
-            return transferToPhotoDto(returnPhoto);
+            Photo photo1 = transferToPhoto(inputDtoPhoto);
+            photo1.setId(photo.getId());
 
+            photoRepository.save(photo1);
+
+            return transferToPhotoDto(photo1);
         } else {
             throw new RecordNotFoundException("No photo found with id: " + id);
         }
     }
 
-    public Photo transferToPhoto(PhotoDto photoDto) {
-
+    public Photo transferToPhoto(PhotoInputDto photoInputDto) {
         var photo = new Photo();
 
-        photo.setId(photoDto.getId());
-        photo.setPhotoTitle(photoDto.getPhotoTitle());
-        photo.setCamera(photoDto.getCamera());
-        photo.setFilmStock(photoDto.getFilmStock());
-        photo.setFilmFormat(photoDto.getFilmFormat());
-        photo.setDevelopedBy(photoDto.getDevelopedBy());
-        photo.setIso(photoDto.getIso());
-        photo.setFStop(photoDto.getFStop());
-        photo.setShutterSpeed(photoDto.getShutterSpeed());
-        photo.setExposureCompensation(photoDto.getExposureCompensation());
+        photo.setPhotoTitle(photoInputDto.getPhotoTitle());
+        photo.setCamera(photoInputDto.getCamera());
+        photo.setFilmStock(photoInputDto.getFilmStock());
+        photo.setFilmFormat(photoInputDto.getFilmFormat());
+        photo.setDevelopedBy(photoInputDto.getDevelopedBy());
+        photo.setIso(photoInputDto.getIso());
+        photo.setFStop(photoInputDto.getFStop());
+        photo.setShutterSpeed(photoInputDto.getShutterSpeed());
+        photo.setExposureCompensation(photoInputDto.getExposureCompensation());
 
         return photo;
     }
@@ -96,16 +88,16 @@ public class PhotoService {
     public PhotoDto transferToPhotoDto(Photo photo) {
         PhotoDto photoDto = new PhotoDto();
 
-        photoDto.id = photo.getId();
-        photoDto.photoTitle = photo.getPhotoTitle();
-        photoDto.camera = photo.getCamera();
-        photoDto.filmStock = photo.getFilmStock();
-        photoDto.filmFormat = photo.getFilmFormat();
-        photoDto.developedBy = photo.getDevelopedBy();
-        photoDto.iso = photo.getIso();
-        photoDto.fStop = photo.getFStop();
-        photoDto.shutterSpeed = photo.getShutterSpeed();
-        photoDto.exposureCompensation = photo.getExposureCompensation();
+        photoDto.setId(photo.getId());
+        photoDto.setPhotoTitle(photo.getPhotoTitle());
+        photoDto.setCamera(photo.getCamera());
+        photoDto.setFilmStock(photo.getFilmStock());
+        photoDto.setFilmFormat(photo.getFilmFormat());
+        photoDto.setDevelopedBy(photo.getDevelopedBy());
+        photoDto.setIso(photo.getIso());
+        photoDto.setFStop(photo.getFStop());
+        photoDto.setShutterSpeed(photo.getShutterSpeed());
+        photoDto.setExposureCompensation(photo.getExposureCompensation());
 
         return photoDto;
     }

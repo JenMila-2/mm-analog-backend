@@ -27,4 +27,8 @@ public class Photo {
     private String fStop;
     private String shutterSpeed;
     private String exposureCompensation;
+
+    @ManyToOne
+    @JoinColumn(name = "project_folder_id")
+    ProjectFolder projectFolder;
 }

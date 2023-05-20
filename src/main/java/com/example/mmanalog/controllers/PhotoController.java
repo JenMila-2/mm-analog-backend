@@ -1,10 +1,13 @@
 package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.PhotoDto;
+import com.example.mmanalog.dtos.PhotoInputDto;
 import com.example.mmanalog.services.PhotoService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/photos")
@@ -17,7 +20,7 @@ public class PhotoController {
     }
 
     @GetMapping(path = "")
-    public ResponseEntity<Iterable<PhotoDto>> getAllPhotos() {
+    public ResponseEntity<List<PhotoDto>> getAllPhotos() {
 
         return ResponseEntity.ok().body(photoService.getAllPhotos());
     }
@@ -31,9 +34,9 @@ public class PhotoController {
     }
 
     @PostMapping(path = "")
-    public ResponseEntity<PhotoDto> addPhoto(@Valid @RequestBody PhotoDto photoDto) {
+    public ResponseEntity<Object> addPhoto(@Valid @RequestBody PhotoInputDto photoInputDto) {
 
-        PhotoDto dtoPhoto = photoService.addPhoto(photoDto);
+        PhotoDto dtoPhoto = photoService.addPhoto(photoInputDto);
 
         return ResponseEntity.created(null).body(dtoPhoto);
     }
@@ -47,7 +50,7 @@ public class PhotoController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<PhotoDto> updatePhotoMetadata(@PathVariable Long id, @Valid @RequestBody PhotoDto newPhoto) {
+    public ResponseEntity<Object> updatePhotoMetadata(@PathVariable Long id, @Valid @RequestBody PhotoInputDto newPhoto) {
 
         PhotoDto dtoPhoto = photoService.updatePhotoMetadata(id, newPhoto);
 

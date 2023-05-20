@@ -3,6 +3,7 @@ package com.example.mmanalog.controllers;
 import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.services.UserService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -17,6 +18,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
+
 
 private final UserService userService;
 
