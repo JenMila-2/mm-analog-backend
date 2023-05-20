@@ -1,6 +1,7 @@
 package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.PhotoGalleryDto;
+import com.example.mmanalog.dtos.PhotoGalleryInputDto;
 import com.example.mmanalog.models.PhotoGallery;
 import com.example.mmanalog.repositories.PhotoGalleryRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
@@ -21,7 +22,7 @@ public class PhotoGalleryService {
     }
 
     public List<PhotoGalleryDto> getAllPhotoGalleries() {
-        Iterable<PhotoGallery> photoGalleries = photoGalleryRepository.findAll();
+        List<PhotoGallery> photoGalleries = photoGalleryRepository.findAll();
         List<PhotoGalleryDto> photoGalleryDtos = new ArrayList<>();
 
         for (PhotoGallery photoGallery : photoGalleries) {
@@ -40,9 +41,9 @@ public class PhotoGalleryService {
         }
     }
 
-    public PhotoGalleryDto addPhotoGallery(PhotoGalleryDto dtoPhotoGallery) {
+    public PhotoGalleryDto addPhotoGallery(PhotoGalleryInputDto inputDtoPhotoGallery) {
 
-        PhotoGallery photoGallery = transferToPhotoGallery(dtoPhotoGallery);
+        PhotoGallery photoGallery = transferToPhotoGallery(inputDtoPhotoGallery);
         photoGalleryRepository.save(photoGallery);
 
         return transferPhotoGalleryToDto(photoGallery);
@@ -52,33 +53,28 @@ public class PhotoGalleryService {
         photoGalleryRepository.deleteById(id);
     }
 
-    public PhotoGalleryDto updatePhotoGallery(Long id, PhotoGalleryDto newPhotoGallery) {
-        Optional<PhotoGallery> photoGalleryOptional = photoGalleryRepository.findById(id);
-        if (photoGalleryOptional.isPresent()) {
-            PhotoGallery photoGallery = photoGalleryOptional.get();
+    public PhotoGalleryDto updatePhotoGallery(Long id, PhotoGalleryInputDto photoGalleryInputDto) {
 
-            photoGallery.setPhotographerName(newPhotoGallery.getPhotographerName());
-            photoGallery.setShortBio(newPhotoGallery.getShortBio());
-            photoGallery.setTag(newPhotoGallery.getTag());
-            photoGallery.setPublic(newPhotoGallery.isPublic());
+        if (photoGalleryRepository.findById(id).isPresent()) {
 
-            PhotoGallery returnPhotoGallery = photoGalleryRepository.save(photoGallery);
+            PhotoGallery photoGallery = photoGalleryRepository.findById(id).get();
 
-            return transferPhotoGalleryToDto(returnPhotoGallery);
+            PhotoGallery photoGallery1 = transferToPhotoGallery(photoGalleryInputDto);
+            photoGallery1.setId(photoGallery.getId());
+
+            return transferPhotoGalleryToDto(photoGallery1);
         } else {
             throw new RecordNotFoundException("No photo gallery found with id: " + id);
         }
     }
 
-    public PhotoGallery transferToPhotoGallery(PhotoGalleryDto photoGalleryDto) {
-
+    public PhotoGallery transferToPhotoGallery(PhotoGalleryInputDto photoGalleryInputDto) {
         var photoGallery = new PhotoGallery();
 
-        photoGallery.setPhotoId(photoGalleryDto.getPhotoId());
-        photoGallery.setPhotographerName(photoGalleryDto.getPhotographerName());
-        photoGallery.setShortBio(photoGalleryDto.getShortBio());
-        photoGallery.setTag(photoGalleryDto.getTag());
-        photoGallery.setPublic(photoGalleryDto.isPublic());
+        photoGallery.setPhotographerName(photoGalleryInputDto.getPhotographerName());
+        photoGallery.setShortBio(photoGalleryInputDto.getShortBio());
+        photoGallery.setTag(photoGalleryInputDto.getTag());
+        photoGallery.setPublic(photoGalleryInputDto.isPublic());
 
         return photoGallery;
     }
@@ -86,11 +82,11 @@ public class PhotoGalleryService {
     public PhotoGalleryDto transferPhotoGalleryToDto(PhotoGallery photoGallery) {
         PhotoGalleryDto photoGalleryDto = new PhotoGalleryDto();
 
-        photoGalleryDto.photoId = photoGallery.getPhotoId();
-        photoGalleryDto.photographerName = photoGallery.getPhotographerName();
-        photoGalleryDto.shortBio = photoGallery.getShortBio();
-        photoGalleryDto.tag = photoGallery.getTag();
-        photoGalleryDto.isPublic = photoGallery.isPublic();
+        photoGalleryDto.setId(photoGallery.getId());
+        photoGalleryDto.setPhotographerName(photoGallery.getPhotographerName());
+        photoGalleryDto.setShortBio(photoGallery.getShortBio());
+        photoGalleryDto.setTag(photoGallery.getTag());
+        photoGalleryDto.setPublic(photoGallery.isPublic());
 
         return photoGalleryDto;
     }
