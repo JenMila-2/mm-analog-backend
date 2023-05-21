@@ -3,8 +3,12 @@ package com.example.mmanalog.services;
 import com.example.mmanalog.dtos.PhotoDto;
 import com.example.mmanalog.dtos.PhotoInputDto;
 import com.example.mmanalog.models.Photo;
+import com.example.mmanalog.models.ProjectFolder;
+import com.example.mmanalog.repositories.PhotoGalleryRepository;
 import com.example.mmanalog.repositories.PhotoRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
+import com.example.mmanalog.repositories.ProjectFolderRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -16,9 +20,11 @@ import java.util.Optional;
 public class PhotoService {
 
     private final PhotoRepository photoRepository;
+    private final ProjectFolderRepository projectFolderRepository;
 
-    public PhotoService(PhotoRepository photoRepository) {
+    public PhotoService(PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository) {
         this.photoRepository = photoRepository;
+        this.projectFolderRepository = projectFolderRepository;
     }
 
     public List<PhotoDto> getAllPhotos() {
@@ -101,4 +107,23 @@ public class PhotoService {
 
         return photoDto;
     }
+
+    //Method to assign photos to a project folder.
+    public PhotoDto assignPhotoToFolder(Long photoId, Long folderId) {
+        Optional<Photo> photoOptional = photoRepository.findById(photoId);
+        Optional<ProjectFolder> folderOptional = projectFolderRepository.findById(folderId);
+
+        if (photoOptional.isPresent() && folderOptional.isPresent()) {
+            Photo photo = photoOptional.get();
+            ProjectFolder folder = folderOptional.get();
+
+            photo.setProjectFolder(folder);
+            photoRepository.save(photo);
+
+            return transferToPhotoDto(photo);
+        } else {
+            throw new RecordNotFoundException("Photo or project folder not found");
+        }
+    }
+
 }

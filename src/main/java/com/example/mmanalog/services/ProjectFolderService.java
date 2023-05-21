@@ -7,6 +7,7 @@ import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.repositories.PhotoRepository;
 import com.example.mmanalog.repositories.ProjectFolderRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
