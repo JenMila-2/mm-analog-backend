@@ -69,12 +69,6 @@ public class PhotoService {
         }
     }
 
-    //Method to remove a photo from a project folder
-    public void removePhotoFromProjectFolder(Photo photo) {
-        photo.setProjectFolder(null);
-        photoRepository.save(photo);
-    }
-
     public Photo transferToPhoto(PhotoInputDto photoInputDto) {
         var photo = new Photo();
 

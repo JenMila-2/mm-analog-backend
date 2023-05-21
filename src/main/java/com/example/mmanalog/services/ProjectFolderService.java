@@ -1,6 +1,5 @@
 package com.example.mmanalog.services;
 
-import com.example.mmanalog.dtos.PhotoDto;
 import com.example.mmanalog.dtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.ProjectFolderInputDto;
 import com.example.mmanalog.models.Photo;
@@ -20,12 +19,10 @@ public class ProjectFolderService {
 
     private final ProjectFolderRepository projectFolderRepository;
     private final PhotoRepository photoRepository;
-    private final PhotoService photoService;
 
-    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, PhotoRepository photoRepository, PhotoService photoService) {
+    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, PhotoRepository photoRepository) {
         this.projectFolderRepository = projectFolderRepository;
         this.photoRepository = photoRepository;
-        this.photoService = photoService;
     }
 
     public List<ProjectFolderDto> getProjectFolders() {
@@ -76,12 +73,6 @@ public class ProjectFolderService {
         } else {
             throw new RecordNotFoundException("No photo folder found with id: " + id);
         }
-    }
-
-    //Add photo to a folder
-    public void assignPhotoToFolder(Photo photo, ProjectFolder projectFolder) {
-        photo.setProjectFolder(projectFolder);
-        photoRepository.save(photo);
     }
 
     //Method to get photos by their associated project folder
