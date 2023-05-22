@@ -58,7 +58,7 @@ public class PhotoController {
     }
 
     //Method to assign photos to a project folder
-    @PostMapping(path = "/{photoId}/assign-to-folder/{folderId}")
+    @PostMapping(path = "/{photoId}/{folderId}")
     public ResponseEntity<Object> assignPhotoToFolder(@PathVariable("photoId") Long photoId, @PathVariable("folderId") Long folderId) {
         PhotoDto dtoPhoto = photoService.assignPhotoToFolder(photoId, folderId);
 

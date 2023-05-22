@@ -125,5 +125,4 @@ public class PhotoService {
             throw new RecordNotFoundException("Photo or project folder not found");
         }
     }
-
 }
