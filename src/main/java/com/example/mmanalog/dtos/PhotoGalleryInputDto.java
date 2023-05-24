@@ -20,7 +20,6 @@ public class PhotoGalleryInputDto {
     public String photographerName;
     @Size(max=500, message="Bio cannot contain more than 500 characters.")
     public String shortBio;
-    public String tag;
     @NotNull
     public boolean isPublic;
     List<Photo> photoList;

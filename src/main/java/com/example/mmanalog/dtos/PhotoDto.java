@@ -1,9 +1,14 @@
 package com.example.mmanalog.dtos;
 
+import com.example.mmanalog.models.Category;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -21,5 +26,7 @@ public class PhotoDto {
     public String fStop;
     public String shutterSpeed;
     public String exposureCompensation;
+    @Enumerated(EnumType.STRING)
+    private Set<Category> categories;
 }
 

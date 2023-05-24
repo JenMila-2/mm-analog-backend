@@ -1,0 +1,7 @@
+package com.example.mmanalog.models;
+
+public enum Category {
+
+    ABSTRACT, ANIMALS, ARCHITECTURE, BLACK_AND_WHITE, COLOR, FASHION, LANDSCAPE, NATURE, NIGHT, PEOPLE, PORTRAITS, STILL_LIVE, STREET, TRAVEL
+
+}

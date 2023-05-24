@@ -151,3 +151,13 @@ VALUES
     (98, 'Untitled_4', 'Contax G2', 'Kodak Ultra Max', '35mm', 'Self developed at home', 400, 'f5.6', '1/125', '0'),
     (99, 'Untitled_5', 'Contax G2', 'Kodak Ultra Max', '35mm', 'Self developed at home', 400, 'f4', '1/250', '0'),
     (100, 'Untitled_6', 'Contax G2', 'Kodak Ultra Max', '35mm', 'Self developed at home', 400, 'f3.5', '1/250', '0');
+
+--Photo Galleries
+INSERT INTO photogalleries (id, photographer_name, short_bio, is_public)
+VALUES
+    (1, 'Barry Allen', 'Hi, I am Barry. I am a film photographer based in New York.', true),
+    (2, 'Jensy Franco', 'Dutch photographer based in Utrecht, the Netherlands. Passionate about film and instant photography.', true),
+    (3, 'Marisol Mendez', 'Hi, I am Marisol. Welcome to my profile, I hope you enjoy checking out my work.', true),
+    (4, 'Scott Bennie', 'I am a landscape photographer based in Scotland. When I am not photographing the beautiful landscapes of my hometown I am traveling across the world.', true),
+    (5, 'Lucy Cho', 'Twenty-something year old photography student, based in Amsterdam. Gear of choice, my trusted Canon AE-1.', true),
+    (6, 'Kevin Spratt', 'Portrait, Wedding, Nature photographer.', true);

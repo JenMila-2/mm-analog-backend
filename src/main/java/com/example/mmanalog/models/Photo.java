@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -27,6 +28,10 @@ public class Photo {
     private String fStop;
     private String shutterSpeed;
     private String exposureCompensation;
+    // This a collection of categories
+    @ElementCollection(targetClass = Category.class)
+    @Enumerated(EnumType.STRING)
+    private Set<Category> categories;
 
     @ManyToOne
     @JoinColumn(name = "project_folder_id")
@@ -39,4 +44,5 @@ public class Photo {
     @ManyToOne
     @JoinColumn(name = "photo_gallery_id")
     private PhotoGallery photoGallery;
+
 }

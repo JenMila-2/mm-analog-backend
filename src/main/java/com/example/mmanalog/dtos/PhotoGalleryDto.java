@@ -16,7 +16,6 @@ public class PhotoGalleryDto {
     public Long id;
     public String photographerName;
     public String shortBio;
-    public String tag;
     public boolean isPublic;
     List<Photo> photoList;
 }

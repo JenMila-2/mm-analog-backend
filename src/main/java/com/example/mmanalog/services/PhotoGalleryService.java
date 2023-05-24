@@ -73,7 +73,6 @@ public class PhotoGalleryService {
 
         photoGallery.setPhotographerName(photoGalleryInputDto.getPhotographerName());
         photoGallery.setShortBio(photoGalleryInputDto.getShortBio());
-        photoGallery.setTag(photoGalleryInputDto.getTag());
         photoGallery.setPublic(photoGalleryInputDto.isPublic());
 
         return photoGallery;
@@ -85,7 +84,6 @@ public class PhotoGalleryService {
         photoGalleryDto.setId(photoGallery.getId());
         photoGalleryDto.setPhotographerName(photoGallery.getPhotographerName());
         photoGalleryDto.setShortBio(photoGallery.getShortBio());
-        photoGalleryDto.setTag(photoGallery.getTag());
         photoGalleryDto.setPublic(photoGallery.isPublic());
 
         return photoGalleryDto;

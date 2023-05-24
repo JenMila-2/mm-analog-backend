@@ -2,7 +2,6 @@ package com.example.mmanalog.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,7 +21,6 @@ public class PhotoGallery {
     private Long id;
     private String photographerName;
     private String shortBio;
-    private String tag;
     private boolean isPublic;
 
     @OneToOne(mappedBy = "photoGallery")
@@ -36,3 +34,4 @@ public class PhotoGallery {
     @JoinColumn(name = "user_galleries_id")
     private ExploreGallery exploreGallery;
 }
+
