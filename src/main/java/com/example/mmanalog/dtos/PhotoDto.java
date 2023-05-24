@@ -22,3 +22,4 @@ public class PhotoDto {
     public String shutterSpeed;
     public String exposureCompensation;
 }
+

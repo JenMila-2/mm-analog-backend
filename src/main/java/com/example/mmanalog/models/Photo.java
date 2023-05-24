@@ -32,3 +32,4 @@ public class Photo {
     @JoinColumn(name = "project_folder_id")
     private ProjectFolder projectFolder;
 }
+

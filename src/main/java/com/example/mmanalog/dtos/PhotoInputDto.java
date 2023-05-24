@@ -29,3 +29,4 @@ public class PhotoInputDto {
     public String shutterSpeed;
     public String exposureCompensation;
 }
+
