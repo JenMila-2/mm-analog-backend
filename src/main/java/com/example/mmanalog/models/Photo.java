@@ -36,4 +36,3 @@ public class Photo {
     @JoinColumn(name = "user_photo_id")
     private User user;
 }
-

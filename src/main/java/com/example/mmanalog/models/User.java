@@ -39,4 +39,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     List<Photo> userPhotos;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_photo_gallery_id")
+    PhotoGallery photoGallery;
 }
