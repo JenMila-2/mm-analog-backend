@@ -32,4 +32,7 @@ public class User {
     private String password;
     private boolean isEnabled;
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    List<ProjectFolder> userProjectFolders;
 }

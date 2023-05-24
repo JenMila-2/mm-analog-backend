@@ -10,5 +10,5 @@ import java.util.List;
 public interface PhotoRepository extends JpaRepository<Photo, Long> {
 
     List<Photo> findByProjectFolder(ProjectFolder projectFolder);
-
 }
+
