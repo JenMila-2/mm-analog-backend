@@ -35,4 +35,8 @@ public class Photo {
     @ManyToOne
     @JoinColumn(name = "user_photo_id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "photo_gallery_id")
+    private PhotoGallery photoGallery;
 }

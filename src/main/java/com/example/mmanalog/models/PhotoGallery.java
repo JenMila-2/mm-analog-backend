@@ -27,4 +27,12 @@ public class PhotoGallery {
 
     @OneToOne(mappedBy = "photoGallery")
     User user;
+
+    @OneToMany(mappedBy = "photoGallery")
+    @JsonIgnore
+    List<Photo> photos;
+
+    @ManyToOne
+    @JoinColumn(name = "user_galleries_id")
+    private ExploreGallery exploreGallery;
 }

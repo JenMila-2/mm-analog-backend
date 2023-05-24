@@ -1,5 +1,6 @@
 package com.example.mmanalog.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,4 +22,8 @@ public class ExploreGallery {
     private String photographerName;
     private String photoTitle;
     private String imageURL;
+
+    @OneToMany(mappedBy = "exploreGallery")
+    @JsonIgnore
+    List<PhotoGallery> photoGalleries;
 }
