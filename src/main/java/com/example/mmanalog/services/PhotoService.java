@@ -4,11 +4,9 @@ import com.example.mmanalog.dtos.PhotoDto;
 import com.example.mmanalog.dtos.PhotoInputDto;
 import com.example.mmanalog.models.Photo;
 import com.example.mmanalog.models.ProjectFolder;
-import com.example.mmanalog.repositories.PhotoGalleryRepository;
 import com.example.mmanalog.repositories.PhotoRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.repositories.ProjectFolderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
