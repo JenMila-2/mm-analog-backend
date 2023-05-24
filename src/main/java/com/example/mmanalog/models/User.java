@@ -35,4 +35,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     List<ProjectFolder> userProjectFolders;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    List<Photo> userPhotos;
 }

@@ -31,5 +31,9 @@ public class Photo {
     @ManyToOne
     @JoinColumn(name = "project_folder_id")
     private ProjectFolder projectFolder;
+
+    @ManyToOne
+    @JoinColumn(name = "user_photo_id")
+    private User user;
 }
 
