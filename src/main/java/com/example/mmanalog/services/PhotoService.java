@@ -3,7 +3,9 @@ package com.example.mmanalog.services;
 import com.example.mmanalog.dtos.PhotoDto;
 import com.example.mmanalog.dtos.PhotoInputDto;
 import com.example.mmanalog.models.Photo;
+import com.example.mmanalog.models.PhotoGallery;
 import com.example.mmanalog.models.ProjectFolder;
+import com.example.mmanalog.repositories.PhotoGalleryRepository;
 import com.example.mmanalog.repositories.PhotoRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.repositories.ProjectFolderRepository;
@@ -19,10 +21,12 @@ public class PhotoService {
 
     private final PhotoRepository photoRepository;
     private final ProjectFolderRepository projectFolderRepository;
+    private final PhotoGalleryRepository photoGalleryRepository;
 
-    public PhotoService(PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository) {
+    public PhotoService(PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository, PhotoGalleryRepository photoGalleryRepository) {
         this.photoRepository = photoRepository;
         this.projectFolderRepository = projectFolderRepository;
+        this.photoGalleryRepository = photoGalleryRepository;
     }
 
     public List<PhotoDto> getAllPhotos() {
@@ -121,6 +125,23 @@ public class PhotoService {
             return transferToPhotoDto(photo);
         } else {
             throw new RecordNotFoundException("Photo or project folder not found");
+        }
+    }
+
+    public PhotoDto assignPhotoToGallery(Long photoId, Long galleryId) {
+        Optional<Photo> photoOptional = photoRepository.findById(photoId);
+        Optional<PhotoGallery> galleryOptional = photoGalleryRepository.findById(galleryId);
+
+        if (photoOptional.isPresent() && galleryOptional.isPresent()) {
+            Photo photo = photoOptional.get();
+            PhotoGallery photoGallery = galleryOptional.get();
+
+            photo.setPhotoGallery(photoGallery);
+            photoRepository.save(photo);
+
+            return transferToPhotoDto(photo);
+        } else {
+            throw new RecordNotFoundException("Photo or photo gallery not found");
         }
     }
 }
