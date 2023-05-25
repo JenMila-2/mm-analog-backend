@@ -35,3 +35,4 @@ public class ExploreGalleryController {
         return ResponseEntity.ok().body(exploreGalleryService.getAllPhotos());
     }
 }
+

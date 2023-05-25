@@ -5,10 +5,13 @@ import com.example.mmanalog.dtos.PhotoInputDto;
 import com.example.mmanalog.models.Photo;
 import com.example.mmanalog.models.PhotoGallery;
 import com.example.mmanalog.models.ProjectFolder;
+import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.PhotoGalleryRepository;
 import com.example.mmanalog.repositories.PhotoRepository;
-import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.repositories.ProjectFolderRepository;
+import com.example.mmanalog.repositories.UserRepository;
+import com.example.mmanalog.exceptions.RecordNotFoundException;
+import org.springframework.security.config.annotation.web.oauth2.resourceserver.OpaqueTokenDsl;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -22,11 +25,13 @@ public class PhotoService {
     private final PhotoRepository photoRepository;
     private final ProjectFolderRepository projectFolderRepository;
     private final PhotoGalleryRepository photoGalleryRepository;
+    private final UserRepository userRepository;
 
-    public PhotoService(PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository, PhotoGalleryRepository photoGalleryRepository) {
+    public PhotoService(PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository, PhotoGalleryRepository photoGalleryRepository, UserRepository userRepository) {
         this.photoRepository = photoRepository;
         this.projectFolderRepository = projectFolderRepository;
         this.photoGalleryRepository = photoGalleryRepository;
+        this.userRepository = userRepository;
     }
 
     public List<PhotoDto> getAllPhotos() {
@@ -110,7 +115,7 @@ public class PhotoService {
         return photoDto;
     }
 
-    //Method to assign photos to a project folder.
+    //Method to assign photos to a project folder
     public PhotoDto assignPhotoToFolder(Long photoId, Long folderId) {
         Optional<Photo> photoOptional = photoRepository.findById(photoId);
         Optional<ProjectFolder> folderOptional = projectFolderRepository.findById(folderId);
@@ -128,6 +133,7 @@ public class PhotoService {
         }
     }
 
+    //Method to assign photos to a photo gallery
     public PhotoDto assignPhotoToGallery(Long photoId, Long galleryId) {
         Optional<Photo> photoOptional = photoRepository.findById(photoId);
         Optional<PhotoGallery> galleryOptional = photoGalleryRepository.findById(galleryId);
@@ -142,6 +148,24 @@ public class PhotoService {
             return transferToPhotoDto(photo);
         } else {
             throw new RecordNotFoundException("Photo or photo gallery not found");
+        }
+    }
+
+    //Assign photos to user
+    public PhotoDto assignPhotoToUser(Long photoId, Long userId) {
+        Optional<Photo> optionalPhoto = photoRepository.findById(photoId);
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+        if (optionalPhoto.isPresent() && optionalUser.isPresent()) {
+            Photo photo = optionalPhoto.get();
+            User user = optionalUser.get();
+
+            photo.setUser(user);
+            photoRepository.save(photo);
+
+            return transferToPhotoDto(photo);
+        } else {
+            throw new RecordNotFoundException("Photo or user not found");
         }
     }
 }

@@ -58,7 +58,7 @@ public class PhotoController {
     }
 
     //Method to assign photos to a project folder
-    @PostMapping(path = "/{photoId}/{folderId}")
+    @PutMapping(path = "/{photoId}/{folderId}")
     public ResponseEntity<Object> assignPhotoToFolder(@PathVariable("photoId") Long photoId, @PathVariable("folderId") Long folderId) {
         PhotoDto dtoPhoto = photoService.assignPhotoToFolder(photoId, folderId);
 
@@ -66,7 +66,7 @@ public class PhotoController {
     }
 
     //Method to assign photos to a photo gallery
-    @PostMapping(path = "/{photoId}/{galleryId}")
+    @PutMapping(path = "/{photoId}/{galleryId}")
     public ResponseEntity<Object> assignPhotoToPhotoGallery(@PathVariable("photoId") Long photoId, @PathVariable("galleryId") Long galleryId) {
         PhotoDto photoDto = photoService.assignPhotoToGallery(photoId, galleryId);
 

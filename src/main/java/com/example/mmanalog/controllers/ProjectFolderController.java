@@ -57,7 +57,8 @@ public class ProjectFolderController {
         return ResponseEntity.ok().body(dtoProjectFolder);
     }
 
-    @PostMapping(path = "/{folderId}/{userId}")
+    //Method to assign a folder to an user
+    @PutMapping(path = "/{folderId}/{userId}")
     public ResponseEntity<Object> assignFolderToUser(@PathVariable("folderId") Long folderId, @PathVariable("userId") Long userId) {
         ProjectFolderDto projectFolderDto = projectFolderService.assignFolderToUser(folderId, userId);
 
