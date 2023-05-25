@@ -4,8 +4,10 @@ import com.example.mmanalog.dtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.ProjectFolderInputDto;
 import com.example.mmanalog.models.Photo;
 import com.example.mmanalog.models.ProjectFolder;
+import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.PhotoRepository;
 import com.example.mmanalog.repositories.ProjectFolderRepository;
+import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,10 +22,12 @@ public class ProjectFolderService {
 
     private final ProjectFolderRepository projectFolderRepository;
     private final PhotoRepository photoRepository;
+    private final UserRepository userRepository;
 
-    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, PhotoRepository photoRepository) {
+    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, PhotoRepository photoRepository, UserRepository userRepository) {
         this.projectFolderRepository = projectFolderRepository;
         this.photoRepository = photoRepository;
+        this.userRepository = userRepository;
     }
 
     public List<ProjectFolderDto> getProjectFolders() {
@@ -99,6 +103,23 @@ public class ProjectFolderService {
         projectFolderDto.setProjectNote(projectFolder.getProjectNote());
 
         return projectFolderDto;
+    }
+
+    public ProjectFolderDto assignFolderToUser(Long folderId, Long userId) {
+        Optional<ProjectFolder> projectFolderOptional = projectFolderRepository.findById(folderId);
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        if (projectFolderOptional.isPresent() && userOptional.isPresent()) {
+            ProjectFolder projectFolder = projectFolderOptional.get();
+            User user = userOptional.get();
+
+            projectFolder.setUser(user);
+            projectFolderRepository.save(projectFolder);
+
+            return transferProjectFolderToDto(projectFolder);
+        } else {
+            throw new RecordNotFoundException("No project folder or user found");
+        }
     }
 }
 
