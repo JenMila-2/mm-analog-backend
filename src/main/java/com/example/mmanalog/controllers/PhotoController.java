@@ -72,4 +72,11 @@ public class PhotoController {
 
         return ResponseEntity.ok().body(photoDto);
     }
+
+    @PutMapping(path = "/{photoId}/{userId}")
+    public ResponseEntity<Object> assignPhotoToUser(@PathVariable("photoId") Long photoId, @PathVariable("userId") Long userId) {
+        PhotoDto photoDto = photoService.assignPhotoToUser(photoId, userId);
+
+        return ResponseEntity.ok().body(photoDto);
+    }
 }
