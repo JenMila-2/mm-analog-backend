@@ -64,4 +64,12 @@ public class PhotoController {
 
         return ResponseEntity.ok().body(dtoPhoto);
     }
+
+    //Method to assign photos to a photo gallery
+    @PostMapping(path = "/{photoId}/{galleryId}")
+    public ResponseEntity<Object> assignPhotoToPhotoGallery(@PathVariable("photoId") Long photoId, @PathVariable("galleryId") Long galleryId) {
+        PhotoDto photoDto = photoService.assignPhotoToGallery(photoId, galleryId);
+
+        return ResponseEntity.ok().body(photoDto);
+    }
 }
