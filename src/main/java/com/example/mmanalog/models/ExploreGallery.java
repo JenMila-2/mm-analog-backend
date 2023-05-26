@@ -1,7 +1,7 @@
 package com.example.mmanalog.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,8 +18,12 @@ public class ExploreGallery {
 
     @Id
     @GeneratedValue
-    private Long photoId;
+    private Long id;
     private String photographerName;
     private String photoTitle;
     private String imageURL;
+
+    @OneToMany(mappedBy = "exploreGallery")
+    @JsonIgnore
+    List<PhotoGallery> photoGalleries;
 }

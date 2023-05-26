@@ -3,6 +3,7 @@ package com.example.mmanalog.controllers;
 import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.services.UserService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -11,11 +12,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
+
 
 private final UserService userService;
 
@@ -35,6 +38,12 @@ public UserController(UserService userService) {
     UserDto user = userService.getUserById(id);
 
     return ResponseEntity.ok().body(user);
+    }
+
+    @GetMapping(path = "emails/{email}")
+    public ResponseEntity<UserDto> getUserByEmail(@PathVariable String email) {
+
+    return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
     @PostMapping(path = "")

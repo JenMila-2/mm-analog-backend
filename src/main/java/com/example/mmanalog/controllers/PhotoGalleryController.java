@@ -1,6 +1,7 @@
 package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.PhotoGalleryDto;
+import com.example.mmanalog.dtos.PhotoGalleryInputDto;
 import com.example.mmanalog.services.PhotoGalleryService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class PhotoGalleryController {
     }
 
     @GetMapping(path = "")
-    public ResponseEntity<Iterable<PhotoGalleryDto>> getAllPhotoGalleries() {
+    public ResponseEntity<List<PhotoGalleryDto>> getAllPhotoGalleries() {
 
         return ResponseEntity.ok().body(photoGalleryService.getAllPhotoGalleries());
     }
@@ -35,9 +36,9 @@ public class PhotoGalleryController {
     }
 
     @PostMapping(path = "")
-    public ResponseEntity<PhotoGalleryDto> addPhotoGallery(@Valid @RequestBody PhotoGalleryDto photoGalleryDto) {
+    public ResponseEntity<Object> addPhotoGallery(@Valid @RequestBody PhotoGalleryInputDto photoGalleryInputDto) {
 
-        PhotoGalleryDto dtoPhotoGallery = photoGalleryService.addPhotoGallery(photoGalleryDto);
+        PhotoGalleryDto dtoPhotoGallery = photoGalleryService.addPhotoGallery(photoGalleryInputDto);
 
         return ResponseEntity.created(null).body(dtoPhotoGallery);
     }
@@ -51,7 +52,7 @@ public class PhotoGalleryController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<PhotoGalleryDto> updatePhotoGallery(@PathVariable Long id, @Valid PhotoGalleryDto newPhotoGallery) {
+    public ResponseEntity<Object> updatePhotoGallery(@PathVariable Long id, @Valid PhotoGalleryInputDto newPhotoGallery) {
 
         PhotoGalleryDto dtoPhotoGallery = photoGalleryService.updatePhotoGallery(id, newPhotoGallery);
 

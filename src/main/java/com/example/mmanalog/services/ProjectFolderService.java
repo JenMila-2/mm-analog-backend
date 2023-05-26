@@ -1,9 +1,15 @@
 package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.ProjectFolderDto;
+import com.example.mmanalog.dtos.ProjectFolderInputDto;
+import com.example.mmanalog.models.Photo;
 import com.example.mmanalog.models.ProjectFolder;
+import com.example.mmanalog.models.User;
+import com.example.mmanalog.repositories.PhotoRepository;
 import com.example.mmanalog.repositories.ProjectFolderRepository;
+import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -15,13 +21,17 @@ import java.util.Optional;
 public class ProjectFolderService {
 
     private final ProjectFolderRepository projectFolderRepository;
+    private final PhotoRepository photoRepository;
+    private final UserRepository userRepository;
 
-    public ProjectFolderService(ProjectFolderRepository projectFolderRepository) {
+    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, PhotoRepository photoRepository, UserRepository userRepository) {
         this.projectFolderRepository = projectFolderRepository;
+        this.photoRepository = photoRepository;
+        this.userRepository = userRepository;
     }
 
     public List<ProjectFolderDto> getProjectFolders() {
-        Iterable<ProjectFolder> projectFolders = projectFolderRepository.findAll();
+        List<ProjectFolder> projectFolders = projectFolderRepository.findAll();
         List<ProjectFolderDto> projectFolderDtos = new ArrayList<>();
 
         for (ProjectFolder projectFolder : projectFolders) {
@@ -40,7 +50,7 @@ public class ProjectFolderService {
         }
     }
 
-    public ProjectFolderDto addProjectFolder(ProjectFolderDto dtoProjectFolder) {
+    public ProjectFolderDto addProjectFolder(ProjectFolderInputDto dtoProjectFolder) {
 
         ProjectFolder folder = transferToProjectFolder(dtoProjectFolder);
         projectFolderRepository.save(folder);
@@ -52,30 +62,35 @@ public class ProjectFolderService {
         projectFolderRepository.deleteById(id);
     }
 
-    public ProjectFolderDto updateProjectFolder(Long id, ProjectFolderDto newProjectFolder) {
-        Optional<ProjectFolder> folderOptional = projectFolderRepository.findById(id);
-        if (folderOptional.isPresent()) {
-            ProjectFolder folder = folderOptional.get();
+    public ProjectFolderDto updateProjectFolder(Long id, ProjectFolderInputDto inputDtoProjectFolder) {
 
-            folder.setProjectTitle(newProjectFolder.getProjectTitle());
-            folder.setProjectNote(newProjectFolder.getProjectNote());
+        if (projectFolderRepository.findById(id).isPresent()) {
 
-            ProjectFolder returnFolder = projectFolderRepository.save(folder);
+            ProjectFolder projectFolder = projectFolderRepository.findById(id).get();
 
-            return transferProjectFolderToDto(returnFolder);
+            ProjectFolder projectFolder1 = transferToProjectFolder(inputDtoProjectFolder);
+            projectFolder1.setId(projectFolder.getId());
+
+            projectFolderRepository.save(projectFolder1);
+
+            return transferProjectFolderToDto(projectFolder1);
 
         } else {
-            throw new RecordNotFoundException("No project folder found with id: " + id);
+            throw new RecordNotFoundException("No photo folder found with id: " + id);
         }
     }
 
-    public ProjectFolder transferToProjectFolder(ProjectFolderDto projectFolderDto) {
+    //Method to get photos by their associated project folder
+    public List<Photo> getPhotosByFolder(ProjectFolder projectFolder) {
+        return photoRepository.findByProjectFolder(projectFolder);
+    }
+
+    public ProjectFolder transferToProjectFolder(ProjectFolderInputDto projectFolderInputDto) {
 
         var folder = new ProjectFolder();
 
-        folder.setId(projectFolderDto.getId());
-        folder.setProjectTitle(projectFolderDto.getProjectTitle());
-        folder.setProjectNote(projectFolderDto.getProjectNote());
+        folder.setProjectTitle(projectFolderInputDto.getProjectTitle());
+        folder.setProjectNote(projectFolderInputDto.getProjectNote());
 
         return folder;
     }
@@ -83,10 +98,28 @@ public class ProjectFolderService {
     public ProjectFolderDto transferProjectFolderToDto(ProjectFolder projectFolder) {
         ProjectFolderDto projectFolderDto = new ProjectFolderDto();
 
-        projectFolderDto.id = projectFolder.getId();
-        projectFolderDto.projectTitle = projectFolder.getProjectTitle();
-        projectFolderDto.projectNote = projectFolder.getProjectNote();
+        projectFolderDto.setId(projectFolder.getId());
+        projectFolderDto.setProjectTitle(projectFolder.getProjectTitle());
+        projectFolderDto.setProjectNote(projectFolder.getProjectNote());
 
         return projectFolderDto;
     }
+
+    public ProjectFolderDto assignFolderToUser(Long folderId, Long userId) {
+        Optional<ProjectFolder> projectFolderOptional = projectFolderRepository.findById(folderId);
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        if (projectFolderOptional.isPresent() && userOptional.isPresent()) {
+            ProjectFolder projectFolder = projectFolderOptional.get();
+            User user = userOptional.get();
+
+            projectFolder.setUser(user);
+            projectFolderRepository.save(projectFolder);
+
+            return transferProjectFolderToDto(projectFolder);
+        } else {
+            throw new RecordNotFoundException("No project folder or user found");
+        }
+    }
 }
+

@@ -1,14 +1,13 @@
 package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.ProjectFolderDto;
+import com.example.mmanalog.dtos.ProjectFolderInputDto;
 import com.example.mmanalog.services.ProjectFolderService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
-import java.net.URI;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/projectfolders")
@@ -21,7 +20,7 @@ public class ProjectFolderController {
     }
 
     @GetMapping(path = "")
-    public ResponseEntity<Iterable<ProjectFolderDto>> getAllProjectFolders() {
+    public ResponseEntity<List<ProjectFolderDto>> getAllProjectFolders() {
 
         return ResponseEntity.ok().body(projectFolderService.getProjectFolders());
     }
@@ -35,9 +34,9 @@ public class ProjectFolderController {
     }
 
     @PostMapping(path = "")
-    public ResponseEntity<ProjectFolderDto> addProjectFolder(@Valid @RequestBody ProjectFolderDto folderDto) {
+    public ResponseEntity<Object> addProjectFolder(@Valid @RequestBody ProjectFolderInputDto folderInputDto) {
 
-        ProjectFolderDto dtoFolder = projectFolderService.addProjectFolder(folderDto);
+        ProjectFolderDto dtoFolder = projectFolderService.addProjectFolder(folderInputDto);
 
         return ResponseEntity.created(null).body(dtoFolder);
     }
@@ -51,10 +50,18 @@ public class ProjectFolderController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ProjectFolderDto> updateProjectFolder(@PathVariable Long id, @Valid @RequestBody ProjectFolderDto newProjectFolder) {
+    public ResponseEntity<Object> updateProjectFolder(@PathVariable Long id, @Valid @RequestBody ProjectFolderInputDto newProjectFolder) {
 
         ProjectFolderDto dtoProjectFolder = projectFolderService.updateProjectFolder(id, newProjectFolder);
 
         return ResponseEntity.ok().body(dtoProjectFolder);
+    }
+
+    //Method to assign a folder to an user
+    @PutMapping(path = "/{folderId}/{userId}")
+    public ResponseEntity<Object> assignFolderToUser(@PathVariable("folderId") Long folderId, @PathVariable("userId") Long userId) {
+        ProjectFolderDto projectFolderDto = projectFolderService.assignFolderToUser(folderId, userId);
+
+        return ResponseEntity.ok().body(projectFolderDto);
     }
 }

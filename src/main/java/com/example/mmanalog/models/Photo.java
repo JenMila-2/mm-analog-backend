@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
-import java.util.List;
 
 @Getter
 @Setter
@@ -27,4 +26,16 @@ public class Photo {
     private String fStop;
     private String shutterSpeed;
     private String exposureCompensation;
+
+    @ManyToOne
+    @JoinColumn(name = "project_folder_id")
+    private ProjectFolder projectFolder;
+
+    @ManyToOne
+    @JoinColumn(name = "user_photo_id")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "photo_gallery_id")
+    private PhotoGallery photoGallery;
 }

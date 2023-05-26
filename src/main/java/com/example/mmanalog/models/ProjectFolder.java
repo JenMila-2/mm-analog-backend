@@ -1,5 +1,6 @@
 package com.example.mmanalog.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,5 +22,11 @@ public class ProjectFolder {
     private String projectTitle;
     private String projectNote;
 
-    //private List<Photo> photos;
+    @OneToMany(mappedBy = "projectFolder")
+    @JsonIgnore
+    List<Photo> photos;
+
+    @ManyToOne
+    @JoinColumn(name = "user_folder_id")
+    private User user;
 }

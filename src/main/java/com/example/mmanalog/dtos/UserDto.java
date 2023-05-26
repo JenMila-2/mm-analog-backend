@@ -26,7 +26,7 @@ public class UserDto {
     @Size(min=6, max=30)
     public String password;
     @NotNull
-    public boolean isEnabled;
+    public boolean enabled;
     public List<String> authorities;
 }
 
