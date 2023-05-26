@@ -116,7 +116,7 @@ public class UserService {
         userDto.name = user.getName();
         userDto.email = user.getEmail();
         userDto.password = user.getPassword();
-        userDto.isEnabled = user.isEnabled();
+        userDto.enabled = user.isEnabled();
 
         return userDto;
     }

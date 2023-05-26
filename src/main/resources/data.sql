@@ -161,3 +161,13 @@ VALUES
     (4, 'Scott Bennie', 'I am a landscape photographer based in Scotland. When I am not photographing the beautiful landscapes of my hometown I am traveling across the world.', true),
     (5, 'Lucy Cho', 'Twenty-something year old photography student, based in Amsterdam. Gear of choice, my trusted Canon AE-1.', true),
     (6, 'Kevin Spratt', 'Portrait, Wedding, Nature photographer.', true);
+
+--Users
+INSERT INTO users (id, name, email, password, enabled)
+VALUES
+    (1, 'Barry Allen', 'barry@gmail.com', 'B23A@_Flash9', true),
+    (2, 'Jensy Franco', 'jenmilafran@gmail.com', '2@2J29SolER_56', true),
+    (3, 'Marisol', 'marisol-mendez@gmail.com', 'Mari_47_&99_0', true),
+    (4, 'Scott Bennie', 'bennie2@gmail.com', 'BS7355@@67&Sgh', true),
+    (5, 'Lucy Cho', 'lucy.cho@gmail.com', 'lC0&3921@@cho', true),
+    (6, 'Kevin Spratt', 'Spratt.Kevin@gmail.com', 'spratt@BHjkl90&2', true);

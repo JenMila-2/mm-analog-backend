@@ -30,7 +30,7 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private boolean isEnabled;
+    private boolean enabled;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
