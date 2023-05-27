@@ -25,6 +25,11 @@ public class PhotoController {
         return ResponseEntity.ok().body(photoService.getAllPhotos());
     }
 
+    @GetMapping(path = "/filmstock/{filmStock}")
+        public ResponseEntity<List<PhotoDto>> getPhotoByFilmStock(@PathVariable String filmStock) {
+            return ResponseEntity.ok(photoService.getPhotoByFilmStock(filmStock));
+    }
+
     @GetMapping(path = "/{id}")
     public ResponseEntity<PhotoDto> getPhoto(@PathVariable("id") Long id) {
 

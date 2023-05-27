@@ -56,6 +56,16 @@ public class PhotoService {
         }
     }
 
+    public List<PhotoDto> getPhotoByFilmStock(String filmStock) {
+        List<Photo> filmStockPhotoList = photoRepository.findByFilmStock(filmStock);
+        List<PhotoDto> filmStockPhotoListDto = new ArrayList<>();
+
+        for (Photo photo : filmStockPhotoList) {
+            filmStockPhotoListDto.add(transferToPhotoDto(photo));
+        }
+        return filmStockPhotoListDto;
+    }
+
     public PhotoDto addPhoto(PhotoInputDto inputDtoPhoto) {
         Photo photo = transferToPhoto(inputDtoPhoto);
         photoRepository.save(photo);

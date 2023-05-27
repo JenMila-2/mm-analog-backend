@@ -10,6 +10,6 @@ public interface PhotoRepository extends JpaRepository<Photo, Long> {
 
     List<Photo> findByProjectFolder(ProjectFolder projectFolder);
 
-    List<Photo> findPhotoByFilmStock(String filmStock);
+    List<Photo> findByFilmStock(String filmStock);
 }
 

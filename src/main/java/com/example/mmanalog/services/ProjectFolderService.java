@@ -85,8 +85,7 @@ public class ProjectFolderService {
     }
 
     public ProjectFolder transferToProjectFolder(ProjectFolderInputDto projectFolderInputDto) {
-
-        var folder = new ProjectFolder();
+        ProjectFolder folder = new ProjectFolder();
 
         folder.setId(projectFolderInputDto.getId());
         folder.setProjectTitle(projectFolderInputDto.getProjectTitle());
