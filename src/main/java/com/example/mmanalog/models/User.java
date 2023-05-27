@@ -32,11 +32,11 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
-    List<ProjectFolder> userProjectFolders;
+    private List<ProjectFolder> userProjectFolders;
 
     @OneToMany(mappedBy = "user")
     @JsonIgnore
-    List<Photo> userPhotos;
+    private List<Photo> userPhotos;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_photo_gallery_id")

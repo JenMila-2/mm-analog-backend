@@ -24,11 +24,11 @@ public class PhotoGallery {
     private boolean publish;
 
     @OneToOne(mappedBy = "photoGallery")
-    User user;
+    private User user;
 
     @OneToMany(mappedBy = "photoGallery")
     @JsonIgnore
-    List<Photo> photos;
+    private List<Photo> photos;
 
     @ManyToOne
     @JoinColumn(name = "explore_user_gallery_id")

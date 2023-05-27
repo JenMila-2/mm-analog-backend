@@ -25,5 +25,5 @@ public class ExploreGallery {
 
     @OneToMany(mappedBy = "exploreGallery")
     @JsonIgnore
-    List<PhotoGallery> photoGalleries;
+    private List<PhotoGallery> photoGalleries;
 }

@@ -24,7 +24,7 @@ public class ProjectFolder {
 
     @OneToMany(mappedBy = "projectFolder", cascade = CascadeType.ALL)
     @JsonIgnore
-    List<Photo> photos;
+    private List<Photo> photos;
 
     @ManyToOne
     @JoinColumn(name = "user_folder_id")
