@@ -1,4 +1,4 @@
-package com.example.mmanalog.dtos;
+package com.example.mmanalog.dtos.InputDtos;
 
 import jakarta.validation.constraints.*;
 

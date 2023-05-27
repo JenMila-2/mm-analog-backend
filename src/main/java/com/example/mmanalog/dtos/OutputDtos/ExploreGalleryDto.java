@@ -1,4 +1,4 @@
-package com.example.mmanalog.dtos;
+package com.example.mmanalog.dtos.OutputDtos;
 
 import com.example.mmanalog.models.PhotoGallery;
 import java.util.List;

@@ -22,7 +22,7 @@ public class ProjectFolder {
     private String projectTitle;
     private String projectNote;
 
-    @OneToMany(mappedBy = "projectFolder")
+    @OneToMany(mappedBy = "projectFolder", cascade = CascadeType.ALL)
     @JsonIgnore
     List<Photo> photos;
 

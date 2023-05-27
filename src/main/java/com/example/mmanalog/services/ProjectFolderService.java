@@ -1,7 +1,7 @@
 package com.example.mmanalog.services;
 
-import com.example.mmanalog.dtos.ProjectFolderDto;
-import com.example.mmanalog.dtos.ProjectFolderInputDto;
+import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
+import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
 import com.example.mmanalog.models.Photo;
 import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.models.User;
@@ -9,7 +9,6 @@ import com.example.mmanalog.repositories.PhotoRepository;
 import com.example.mmanalog.repositories.ProjectFolderRepository;
 import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -89,6 +88,7 @@ public class ProjectFolderService {
 
         var folder = new ProjectFolder();
 
+        folder.setId(projectFolderInputDto.getId());
         folder.setProjectTitle(projectFolderInputDto.getProjectTitle());
         folder.setProjectNote(projectFolderInputDto.getProjectNote());
 
@@ -105,8 +105,8 @@ public class ProjectFolderService {
         return projectFolderDto;
     }
 
-    public ProjectFolderDto assignFolderToUser(Long folderId, Long userId) {
-        Optional<ProjectFolder> projectFolderOptional = projectFolderRepository.findById(folderId);
+    public ProjectFolderDto assignFolderToUser(Long id, Long userId) {
+        Optional<ProjectFolder> projectFolderOptional = projectFolderRepository.findById(id);
         Optional<User> userOptional = userRepository.findById(userId);
 
         if (projectFolderOptional.isPresent() && userOptional.isPresent()) {

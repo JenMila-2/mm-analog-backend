@@ -1,6 +1,6 @@
-package com.example.mmanalog.dtos;
-
+package com.example.mmanalog.dtos.OutputDtos;
 import com.example.mmanalog.models.Photo;
+
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,10 +11,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProjectFolderDto {
+public class PhotoGalleryDto {
 
     public Long id;
-    public String projectTitle;
-    public String projectNote;
-    public List<Photo> photos;
+    public String photographerName;
+    public String shortBio;
+    public boolean isPublic;
+    List<Photo> photoList;
 }

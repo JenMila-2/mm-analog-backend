@@ -1,4 +1,4 @@
-package com.example.mmanalog.dtos;
+package com.example.mmanalog.dtos.OutputDtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,5 +21,10 @@ public class PhotoDto {
     public String fStop;
     public String shutterSpeed;
     public String exposureCompensation;
+
+    /*private ProjectFolderDto projectFolderDto;
+    private PhotoGalleryDto photoGalleryDto;
+    private UserDto userDto;*/
 }
+
 

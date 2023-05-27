@@ -1,7 +1,7 @@
 package com.example.mmanalog.services;
 
-import com.example.mmanalog.dtos.PhotoGalleryDto;
-import com.example.mmanalog.dtos.PhotoGalleryInputDto;
+import com.example.mmanalog.dtos.OutputDtos.PhotoGalleryDto;
+import com.example.mmanalog.dtos.InputDtos.PhotoGalleryInputDto;
 import com.example.mmanalog.models.PhotoGallery;
 import com.example.mmanalog.repositories.PhotoGalleryRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;

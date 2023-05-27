@@ -1,6 +1,6 @@
-package com.example.mmanalog.dtos;
-import com.example.mmanalog.models.Photo;
+package com.example.mmanalog.dtos.InputDtos;
 
+import com.example.mmanalog.models.PhotoGallery;
 import jakarta.validation.constraints.*;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -12,15 +12,16 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PhotoGalleryInputDto {
+public class ExploreGalleryInputDto {
 
     public Long id;
     @NotNull
     @Size(max=50, message="This field cannot contain more than 50 characters.")
     public String photographerName;
-    @Size(max=500, message="Bio cannot contain more than 500 characters.")
-    public String shortBio;
     @NotNull
-    public boolean isPublic;
-    List<Photo> photoList;
+    @Size(max = 75, message = "Title must be between 0 and 75 characters!")
+    public String photoTitle;
+    @NotNull
+    public String imageURL;
+    List<PhotoGallery> photoGalleryList;
 }

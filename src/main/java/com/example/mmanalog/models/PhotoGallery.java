@@ -31,7 +31,7 @@ public class PhotoGallery {
     List<Photo> photos;
 
     @ManyToOne
-    @JoinColumn(name = "user_galleries_id")
+    @JoinColumn(name = "explore_user_gallery_id")
     private ExploreGallery exploreGallery;
 }
 

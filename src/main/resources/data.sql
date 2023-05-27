@@ -14,16 +14,16 @@ VALUES
     (12, 'Mix', 'Photographs who are not part of a project yet.');
 
 --Photos for project folder 1
-INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, f_stop, shutter_speed, exposure_compensation)
+INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, f_stop, shutter_speed, exposure_compensation, project_folder_id)
 VALUES
-    (10, 'Dreaming_1', 'Minolta SRT101', 'Kodak Portra 400', '35mm', 'Fotowereld Utrecht', 400, 'f8', '1/60', '+1'),
-    (11, 'Dreaming_2', 'Minolta SRT101', 'Kodak Portra 400', '35mm', 'Fotowereld Utrecht', 400, 'f8', '1/60', '0'),
-    (12, 'Dreaming_3', 'Minolta SRT101', 'Kodak Portra 400', '35mm', 'Fotowereld Utrecht', 400, 'f8', '1/60', '+1'),
-    (13, 'Dreaming_4', 'Minolta SRT101', 'Kodak Portra 400', '35mm', 'Fotowereld Utrecht', 400, 'f5.6', '1/80', '0'),
-    (14, 'Dreaming_5', 'Minolta SRT101', 'Kodak Portra 400', '35mm', 'Fotowereld Utrecht', 400, 'f4', '1/125', '0'),
-    (15, 'Dreaming_6', 'Minolta SRT101', 'Kodak Gold', '35mm', 'Fotowereld Utrecht', 200, 'f5.6', '1/60', '0'),
-    (16, 'Dreaming_7', 'Minolta SRT101', 'Kodak Gold', '35mm', 'Fotowereld Utrecht', 200, 'f4', '1/80', '+1'),
-    (17, 'Dreaming_8', 'Minolta SRT101', 'Kodak Gold', '35mm', 'Fotowereld Utrecht', 200, 'f5.6', '1/125', '+1');
+    (10, 'Dreaming_1', 'Minolta SRT101', 'Kodak Portra 400', '35mm', 'Fotowereld Utrecht', 400, 'f8', '1/60', '+1', 1),
+    (11, 'Dreaming_2', 'Minolta SRT101', 'Kodak Portra 400', '35mm', 'Fotowereld Utrecht', 400, 'f8', '1/60', '0', 1),
+    (12, 'Dreaming_3', 'Minolta SRT101', 'Kodak Portra 400', '35mm', 'Fotowereld Utrecht', 400, 'f8', '1/60', '+1', 1),
+    (13, 'Dreaming_4', 'Minolta SRT101', 'Kodak Portra 400', '35mm', 'Fotowereld Utrecht', 400, 'f5.6', '1/80', '0', 1),
+    (14, 'Dreaming_5', 'Minolta SRT101', 'Kodak Portra 400', '35mm', 'Fotowereld Utrecht', 400, 'f4', '1/125', '0', 1),
+    (15, 'Dreaming_6', 'Minolta SRT101', 'Kodak Gold', '35mm', 'Fotowereld Utrecht', 200, 'f5.6', '1/60', '0', 1),
+    (16, 'Dreaming_7', 'Minolta SRT101', 'Kodak Gold', '35mm', 'Fotowereld Utrecht', 200, 'f4', '1/80', '+1', 1),
+    (17, 'Dreaming_8', 'Minolta SRT101', 'Kodak Gold', '35mm', 'Fotowereld Utrecht', 200, 'f5.6', '1/125', '+1', 1);
 
 --Photos for project folder 2
 INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, f_stop, shutter_speed, exposure_compensation)
