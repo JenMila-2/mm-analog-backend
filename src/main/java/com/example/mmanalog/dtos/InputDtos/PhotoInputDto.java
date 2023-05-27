@@ -1,6 +1,9 @@
 package com.example.mmanalog.dtos.InputDtos;
 
 import jakarta.validation.constraints.*;
+import com.example.mmanalog.models.ProjectFolder;
+import com.example.mmanalog.models.User;
+import com.example.mmanalog.models.PhotoGallery;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,5 +31,9 @@ public class PhotoInputDto {
     public String fStop;
     public String shutterSpeed;
     public String exposureCompensation;
+
+    private ProjectFolder projectFolder;
+    private User user;
+    private PhotoGallery photoGallery;
 }
 

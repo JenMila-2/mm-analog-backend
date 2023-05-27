@@ -23,5 +23,7 @@ public class ExploreGalleryInputDto {
     public String photoTitle;
     @NotNull
     public String imageURL;
+
     List<PhotoGallery> photoGalleryList;
+    private PhotoGallery photoGallery;
 }

@@ -1,5 +1,9 @@
 package com.example.mmanalog.dtos.OutputDtos;
 
+import com.example.mmanalog.models.PhotoGallery;
+import com.example.mmanalog.models.ProjectFolder;
+import com.example.mmanalog.models.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,9 +26,12 @@ public class PhotoDto {
     public String shutterSpeed;
     public String exposureCompensation;
 
-    /*private ProjectFolderDto projectFolderDto;
-    private PhotoGalleryDto photoGalleryDto;
-    private UserDto userDto;*/
+    @JsonIgnore
+    private ProjectFolder projectFolder;
+    @JsonIgnore
+    private PhotoGallery photoGallery;
+    @JsonIgnore
+    private User user;
 }
 
 

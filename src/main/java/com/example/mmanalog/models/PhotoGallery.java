@@ -21,7 +21,7 @@ public class PhotoGallery {
     private Long id;
     private String photographerName;
     private String shortBio;
-    private boolean isPublic;
+    private boolean publish;
 
     @OneToOne(mappedBy = "photoGallery")
     User user;

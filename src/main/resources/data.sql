@@ -153,7 +153,7 @@ VALUES
     (100, 'Untitled_6', 'Contax G2', 'Kodak Ultra Max', '35mm', 'Self developed at home', 400, 'f3.5', '1/250', '0');
 
 --Photo Galleries
-INSERT INTO photogalleries (id, photographer_name, short_bio, is_public)
+INSERT INTO photogalleries (id, photographer_name, short_bio, publish)
 VALUES
     (1, 'Barry Allen', 'Hi, I am Barry. I am a film photographer based in New York.', true),
     (2, 'Jensy Franco', 'Dutch photographer based in Utrecht, the Netherlands. Passionate about film and instant photography.', true),

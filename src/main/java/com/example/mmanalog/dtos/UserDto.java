@@ -1,9 +1,13 @@
 package com.example.mmanalog.dtos;
 
+import com.example.mmanalog.models.PhotoGallery;
+import com.example.mmanalog.models.ProjectFolder;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import com.example.mmanalog.models.Photo;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,6 +31,15 @@ public class UserDto {
     public String password;
     @NotNull
     public boolean enabled;
+
+    @JsonIgnore
+    public List<Photo> photos;
+
+    @JsonIgnore
+    public List<PhotoGallery> photoGalleries;
+    @JsonIgnore
+    public List<ProjectFolder> projectFolders;
+    @JsonIgnore
     public List<String> authorities;
 }
 

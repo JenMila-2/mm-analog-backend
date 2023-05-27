@@ -1,6 +1,7 @@
 package com.example.mmanalog.dtos.InputDtos;
-import com.example.mmanalog.models.Photo;
 
+import com.example.mmanalog.models.Photo;
+import com.example.mmanalog.models.User;
 import jakarta.validation.constraints.*;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,9 @@ public class PhotoGalleryInputDto {
     @Size(max=500, message="Bio cannot contain more than 500 characters.")
     public String shortBio;
     @NotNull
-    public boolean isPublic;
+    public boolean publish;
     List<Photo> photoList;
+
+    private Photo photo;
+    private User user;
 }
