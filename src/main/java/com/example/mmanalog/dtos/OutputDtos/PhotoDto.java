@@ -26,7 +26,6 @@ public class PhotoDto {
     public String shutterSpeed;
     public String exposureCompensation;
 
-    @JsonIgnore
     private ProjectFolder projectFolder;
     @JsonIgnore
     private PhotoGallery photoGallery;

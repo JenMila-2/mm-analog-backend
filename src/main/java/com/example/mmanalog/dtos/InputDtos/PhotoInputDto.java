@@ -32,7 +32,6 @@ public class PhotoInputDto {
     public String shutterSpeed;
     public String exposureCompensation;
 
-    private ProjectFolder projectFolder;
     private User user;
     private PhotoGallery photoGallery;
 }

@@ -27,7 +27,7 @@ public class Photo {
     private String shutterSpeed;
     private String exposureCompensation;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "project_folder_id")
     private ProjectFolder projectFolder;
 
