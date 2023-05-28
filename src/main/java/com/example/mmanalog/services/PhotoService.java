@@ -23,17 +23,15 @@ public class PhotoService {
 
     private final PhotoRepository photoRepository;
     private final ProjectFolderRepository projectFolderRepository;
-    private ProjectFolderService projectFolderService;
     private final PhotoGalleryRepository photoGalleryRepository;
     private final UserRepository userRepository;
 
 
-    public PhotoService(PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository, ProjectFolderService projectFolderService, PhotoGalleryRepository photoGalleryRepository, UserRepository userRepository) {
+    public PhotoService(PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository, PhotoGalleryRepository photoGalleryRepository, UserRepository userRepository) {
         this.photoRepository = photoRepository;
         this.projectFolderRepository = projectFolderRepository;
         this.photoGalleryRepository = photoGalleryRepository;
         this.userRepository = userRepository;
-        this.projectFolderService = projectFolderService;
     }
 
     public List<PhotoDto> getAllPhotos() {
@@ -145,7 +143,6 @@ public class PhotoService {
         }
     }
 
-
     //Method to assign photos to a photo gallery
     public PhotoDto assignPhotoToGallery(Long id, Long galleryId) {
         Optional<Photo> photoOptional = photoRepository.findById(id);
@@ -164,7 +161,7 @@ public class PhotoService {
         }
     }
 
-    //Assign photos to user
+    //Method to assign photos to users
     public PhotoDto assignPhotoToUser(Long id, Long userId) {
         Optional<Photo> optionalPhoto = photoRepository.findById(id);
         Optional<User> optionalUser = userRepository.findById(userId);

@@ -1,11 +1,16 @@
 package com.example.mmanalog.services;
 
+import com.example.mmanalog.dtos.OutputDtos.PhotoDto;
+import com.example.mmanalog.dtos.OutputDtos.PhotoGalleryDto;
 import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.exceptions.InvalidPasswordException;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
+import com.example.mmanalog.models.Photo;
 import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.PhotoGalleryRepository;
+import com.example.mmanalog.repositories.PhotoRepository;
+import com.example.mmanalog.repositories.ProjectFolderRepository;
 import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.exceptions.UserNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,9 +27,15 @@ public class UserService {
     //private PasswordEncoder passwordEncoder;
 
     private final UserRepository userRepository;
+    private final PhotoRepository photoRepository;
+    private final ProjectFolderRepository projectFolderRepository;
+    private final PhotoGalleryRepository photoGalleryRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository, PhotoGalleryRepository photoGalleryRepository) {
         this.userRepository = userRepository;
+        this.photoRepository = photoRepository;
+        this.projectFolderRepository = projectFolderRepository;
+        this.photoGalleryRepository = photoGalleryRepository;
     }
 
     public List<UserDto> getUsers() {
@@ -119,5 +130,23 @@ public class UserService {
         userDto.enabled = user.isEnabled();
 
         return userDto;
+    }
+
+    //Method to assign a gallery to the user
+    public UserDto assignPhotoGalleryToUser(Long id, Long galleryId) {
+        var optionalUser = userRepository.findById(id);
+        var optionalPhotoGallery = photoGalleryRepository.findById(galleryId);
+
+        if (optionalUser.isPresent() && optionalUser.isPresent()) {
+            var user = optionalUser.get();
+            var photoGallery = optionalPhotoGallery.get();
+
+            user.setPhotoGallery(photoGallery);
+            userRepository.save(user);
+
+            return transferUserToDto(user);
+        } else {
+            throw new RecordNotFoundException("No user or photo gallery found");
+        }
     }
 }

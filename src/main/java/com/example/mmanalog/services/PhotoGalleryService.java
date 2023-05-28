@@ -3,8 +3,10 @@ package com.example.mmanalog.services;
 import com.example.mmanalog.dtos.OutputDtos.PhotoGalleryDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoGalleryInputDto;
 import com.example.mmanalog.models.PhotoGallery;
+import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.PhotoGalleryRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
+import com.example.mmanalog.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -16,9 +18,11 @@ import java.util.Optional;
 public class PhotoGalleryService {
 
     private final PhotoGalleryRepository photoGalleryRepository;
+    private final UserRepository userRepository;
 
-    public PhotoGalleryService(PhotoGalleryRepository photoGalleryRepository) {
+    public PhotoGalleryService(PhotoGalleryRepository photoGalleryRepository, UserRepository userRepository) {
         this.photoGalleryRepository = photoGalleryRepository;
+        this.userRepository = userRepository;
     }
 
     public List<PhotoGalleryDto> getAllPhotoGalleries() {

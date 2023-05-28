@@ -34,13 +34,16 @@ public class UserDto {
 
     @JsonIgnore
     public List<Photo> photos;
-
     @JsonIgnore
     public List<PhotoGallery> photoGalleries;
     @JsonIgnore
     public List<ProjectFolder> projectFolders;
     @JsonIgnore
     public List<String> authorities;
+
+    private ProjectFolder projectFolder;
+    private Photo photo;
+    private PhotoGallery photoGallery;
 }
 
 // public Set<Authority> getAuthorities() { return authorities }

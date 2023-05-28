@@ -30,15 +30,15 @@ public class User {
     private String password;
     private boolean enabled;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<ProjectFolder> userProjectFolders;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Photo> userPhotos;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_photo_gallery_id")
+    @JoinColumn(name = "user_gallery_id")
     PhotoGallery photoGallery;
 }

@@ -104,6 +104,7 @@ public class ProjectFolderService {
         return projectFolderDto;
     }
 
+    //Method to assign project folder to user
     public ProjectFolderDto assignFolderToUser(Long id, Long userId) {
         Optional<ProjectFolder> projectFolderOptional = projectFolderRepository.findById(id);
         Optional<User> userOptional = userRepository.findById(userId);
