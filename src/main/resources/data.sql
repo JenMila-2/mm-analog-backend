@@ -163,11 +163,11 @@ VALUES
     (6, 'Kevin Spratt', 'Portrait, Wedding, Nature photographer.', true);
 
 --Users
-INSERT INTO users (id, name, email, password, enabled)
+INSERT INTO users (id, name, email, password, enabled, user_gallery_id)
 VALUES
-    (1, 'Barry Allen', 'barry@gmail.com', 'B23A@_Flash9', true),
-    (2, 'Jensy Franco', 'jenmilafran@gmail.com', '2@2J29SolER_56', true),
-    (3, 'Marisol', 'marisol-mendez@gmail.com', 'Mari_47_&99_0', true),
-    (4, 'Scott Bennie', 'bennie2@gmail.com', 'BS7355@@67&Sgh', true),
-    (5, 'Lucy Cho', 'lucy.cho@gmail.com', 'lC0&3921@@cho', true),
-    (6, 'Kevin Spratt', 'Spratt.Kevin@gmail.com', 'spratt@BHjkl90&2', true);
+    (1, 'Barry Allen', 'barry@gmail.com', 'B23A@_Flash9', true, 1),
+    (2, 'Jensy Franco', 'jenmilafran@gmail.com', '2@2J29SolER_56', true, 2),
+    (3, 'Marisol', 'marisol-mendez@gmail.com', 'Mari_47_&99_0', true, 3),
+    (4, 'Scott Bennie', 'bennie2@gmail.com', 'BS7355@@67&Sgh', true, 4),
+    (5, 'Lucy Cho', 'lucy.cho@gmail.com', 'lC0&3921@@cho', true, 5),
+    (6, 'Kevin Spratt', 'Spratt.Kevin@gmail.com', 'spratt@BHjkl90&2', true, 6);
