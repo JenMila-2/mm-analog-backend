@@ -2,20 +2,21 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.PhotoDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoInputDto;
-import com.example.mmanalog.models.Photo;
-import com.example.mmanalog.models.PhotoGallery;
-import com.example.mmanalog.models.ProjectFolder;
+import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.models.User;
-import com.example.mmanalog.repositories.PhotoGalleryRepository;
+import com.example.mmanalog.models.Photo;
+import com.example.mmanalog.models.ProjectFolder;
+import com.example.mmanalog.models.PhotoGallery;
+import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.repositories.PhotoRepository;
 import com.example.mmanalog.repositories.ProjectFolderRepository;
-import com.example.mmanalog.repositories.UserRepository;
+import com.example.mmanalog.repositories.PhotoGalleryRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -23,13 +24,15 @@ public class PhotoService {
 
     private final PhotoRepository photoRepository;
     private final ProjectFolderRepository projectFolderRepository;
+    private final ProjectFolderService projectFolderService;
     private final PhotoGalleryRepository photoGalleryRepository;
     private final UserRepository userRepository;
 
 
-    public PhotoService(PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository, PhotoGalleryRepository photoGalleryRepository, UserRepository userRepository) {
+    public PhotoService(PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository, ProjectFolderService projectFolderService, PhotoGalleryRepository photoGalleryRepository, UserRepository userRepository) {
         this.photoRepository = photoRepository;
         this.projectFolderRepository = projectFolderRepository;
+        this.projectFolderService = projectFolderService;
         this.photoGalleryRepository = photoGalleryRepository;
         this.userRepository = userRepository;
     }
@@ -95,6 +98,7 @@ public class PhotoService {
     public Photo transferToPhoto(PhotoInputDto photoInputDto) {
         var photo = new Photo();
 
+        photo.setId(photoInputDto.getId());
         photo.setPhotoTitle(photoInputDto.getPhotoTitle());
         photo.setCamera(photoInputDto.getCamera());
         photo.setFilmStock(photoInputDto.getFilmStock());
@@ -122,10 +126,21 @@ public class PhotoService {
         photoDto.setShutterSpeed(photo.getShutterSpeed());
         photoDto.setExposureCompensation(photo.getExposureCompensation());
 
+        /*ProjectFolderDto projectFolderDto = new ProjectFolderDto();
+        ProjectFolder projectFolder = photo.getProjectFolder();
+
+        if (projectFolder != null) {
+            projectFolderDto.setId(projectFolder.getId());
+            projectFolderDto.setProjectTitle(projectFolder.getProjectTitle());
+            projectFolderDto.setProjectNote(projectFolder.getProjectNote());
+
+        }
+        photoDto.setProjectFolderDto(projectFolderDto);*/
+
         return photoDto;
     }
 
-    //Method to assign photos to a project folder
+    // *** Methods related to the relationship between entities ***
     public PhotoDto assignPhotoToFolder(Long id, Long folderId) {
         Optional<Photo> photoOptional = photoRepository.findById(id);
         Optional<ProjectFolder> folderOptional = projectFolderRepository.findById(folderId);
@@ -139,11 +154,10 @@ public class PhotoService {
 
             return transferToPhotoDto(photo);
         } else {
-            throw new RecordNotFoundException("Photo or project folder not found");
+            throw new RecordNotFoundException("Photo or project folder not found.");
         }
     }
 
-    //Method to assign photos to a photo gallery
     public PhotoDto assignPhotoToGallery(Long id, Long galleryId) {
         Optional<Photo> photoOptional = photoRepository.findById(id);
         Optional<PhotoGallery> galleryOptional = photoGalleryRepository.findById(galleryId);
@@ -157,11 +171,10 @@ public class PhotoService {
 
             return transferToPhotoDto(photo);
         } else {
-            throw new RecordNotFoundException("Photo or photo gallery not found");
+            throw new RecordNotFoundException("Photo or photo gallery not found.");
         }
     }
 
-    //Method to assign photos to users
     public PhotoDto assignPhotoToUser(Long id, Long userId) {
         Optional<Photo> optionalPhoto = photoRepository.findById(id);
         Optional<User> optionalUser = userRepository.findById(userId);
@@ -175,7 +188,7 @@ public class PhotoService {
 
             return transferToPhotoDto(photo);
         } else {
-            throw new RecordNotFoundException("Photo or user not found");
+            throw new RecordNotFoundException("Photo or user not found.");
         }
     }
 }

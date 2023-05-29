@@ -1,11 +1,11 @@
 package com.example.mmanalog.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.util.List;

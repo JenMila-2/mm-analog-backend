@@ -3,11 +3,11 @@ package com.example.mmanalog.dtos.InputDtos;
 import com.example.mmanalog.models.Photo;
 import com.example.mmanalog.models.User;
 import jakarta.validation.constraints.*;
-import java.util.List;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,7 +17,7 @@ public class ProjectFolderInputDto {
 
     public Long id;
     @NotNull
-    @Size(max = 75, message = "Title must be between 0 and 75 characters!")
+    @Size(max = 75, message = "Title must be between 0 and 75 characters.")
     public String projectTitle;
     public String projectNote;
 

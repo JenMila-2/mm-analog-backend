@@ -2,18 +2,18 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
+import com.example.mmanalog.models.User;
 import com.example.mmanalog.models.Photo;
 import com.example.mmanalog.models.ProjectFolder;
-import com.example.mmanalog.models.User;
+import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.repositories.PhotoRepository;
 import com.example.mmanalog.repositories.ProjectFolderRepository;
-import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -79,11 +79,6 @@ public class ProjectFolderService {
         }
     }
 
-    //Method to get photos by their associated project folder
-    public List<Photo> getPhotosByFolder(ProjectFolder projectFolder) {
-        return photoRepository.findByProjectFolder(projectFolder);
-    }
-
     public ProjectFolder transferToProjectFolder(ProjectFolderInputDto projectFolderInputDto) {
         ProjectFolder folder = new ProjectFolder();
 
@@ -104,7 +99,7 @@ public class ProjectFolderService {
         return projectFolderDto;
     }
 
-    //Method to assign project folder to user
+    // *** Methods related to the relationship between entities ***
     public ProjectFolderDto assignFolderToUser(Long id, Long userId) {
         Optional<ProjectFolder> projectFolderOptional = projectFolderRepository.findById(id);
         Optional<User> userOptional = userRepository.findById(userId);
@@ -118,7 +113,7 @@ public class ProjectFolderService {
 
             return transferProjectFolderToDto(projectFolder);
         } else {
-            throw new RecordNotFoundException("No project folder or user found");
+            throw new RecordNotFoundException("No project folder or user found.");
         }
     }
 }

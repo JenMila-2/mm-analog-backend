@@ -2,11 +2,11 @@ package com.example.mmanalog.dtos.InputDtos;
 
 import com.example.mmanalog.models.PhotoGallery;
 import jakarta.validation.constraints.*;
-import java.util.List;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import java.util.List;
 
 @Getter
 @Setter

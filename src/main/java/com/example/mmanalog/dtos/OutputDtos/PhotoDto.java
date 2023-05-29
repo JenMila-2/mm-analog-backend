@@ -4,10 +4,10 @@ import com.example.mmanalog.models.PhotoGallery;
 import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.models.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Setter

@@ -1,24 +1,25 @@
 package com.example.mmanalog.services;
 
+import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.dtos.OutputDtos.PhotoDto;
 import com.example.mmanalog.dtos.OutputDtos.PhotoGalleryDto;
-import com.example.mmanalog.dtos.UserDto;
+import com.example.mmanalog.models.User;
+import com.example.mmanalog.models.Photo;
+import com.example.mmanalog.models.PhotoGallery;
+import com.example.mmanalog.models.ProjectFolder;
+import com.example.mmanalog.repositories.UserRepository;
+import com.example.mmanalog.repositories.PhotoRepository;
+import com.example.mmanalog.repositories.PhotoGalleryRepository;
+import com.example.mmanalog.repositories.ProjectFolderRepository;
 import com.example.mmanalog.exceptions.InvalidPasswordException;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
-import com.example.mmanalog.models.Photo;
-import com.example.mmanalog.models.ProjectFolder;
-import com.example.mmanalog.models.User;
-import com.example.mmanalog.repositories.PhotoGalleryRepository;
-import com.example.mmanalog.repositories.PhotoRepository;
-import com.example.mmanalog.repositories.ProjectFolderRepository;
-import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.exceptions.UserNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -54,7 +55,7 @@ public class UserService {
             User user = userOptional.get();
             return transferUserToDto(user);
         } else {
-            throw new UserNotFoundException("No user found with this id: " + id);
+            throw new UserNotFoundException("No user found with id: " + id);
         }
     }
 
@@ -103,7 +104,7 @@ public class UserService {
             return transferUserToDto(returnUser);
 
         } else {
-            throw new UserNotFoundException("No user found with this id: " + id);
+            throw new UserNotFoundException("No user found with id: " + id);
         }
     }
 
@@ -132,21 +133,21 @@ public class UserService {
         return userDto;
     }
 
-    //Method to assign a gallery to the user
+    //Methods related to the relationship between entities
     public UserDto assignPhotoGalleryToUser(Long id, Long galleryId) {
         var optionalUser = userRepository.findById(id);
         var optionalPhotoGallery = photoGalleryRepository.findById(galleryId);
 
         if (optionalUser.isPresent() && optionalUser.isPresent()) {
-            var user = optionalUser.get();
-            var photoGallery = optionalPhotoGallery.get();
+            User user = optionalUser.get();
+            PhotoGallery photoGallery = optionalPhotoGallery.get();
 
             user.setPhotoGallery(photoGallery);
             userRepository.save(user);
 
             return transferUserToDto(user);
         } else {
-            throw new RecordNotFoundException("No user or photo gallery found");
+            throw new RecordNotFoundException("No user or photo gallery found.");
         }
     }
 }

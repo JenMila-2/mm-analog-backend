@@ -3,9 +3,9 @@ package com.example.mmanalog.controllers;
 import com.example.mmanalog.dtos.OutputDtos.PhotoGalleryDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoGalleryInputDto;
 import com.example.mmanalog.services.PhotoGalleryService;
-import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import jakarta.validation.Valid;
 
 import java.util.List;
 

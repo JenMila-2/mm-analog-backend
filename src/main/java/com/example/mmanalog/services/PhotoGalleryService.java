@@ -2,16 +2,16 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.PhotoGalleryDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoGalleryInputDto;
-import com.example.mmanalog.models.PhotoGallery;
 import com.example.mmanalog.models.User;
+import com.example.mmanalog.models.PhotoGallery;
+import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.repositories.PhotoGalleryRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
-import com.example.mmanalog.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -75,6 +75,7 @@ public class PhotoGalleryService {
     public PhotoGallery transferToPhotoGallery(PhotoGalleryInputDto photoGalleryInputDto) {
         var photoGallery = new PhotoGallery();
 
+        photoGallery.setId(photoGalleryInputDto.getId());
         photoGallery.setPhotographerName(photoGalleryInputDto.getPhotographerName());
         photoGallery.setShortBio(photoGalleryInputDto.getShortBio());
         photoGallery.setPublish(photoGalleryInputDto.isPublish());
