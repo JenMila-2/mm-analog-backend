@@ -171,3 +171,5 @@ VALUES
     (4, 'Scott Bennie', 'bennie2@gmail.com', 'BS7355@@67&Sgh', true, 4),
     (5, 'Lucy Cho', 'lucy.cho@gmail.com', 'lC0&3921@@cho', true, 5),
     (6, 'Kevin Spratt', 'Spratt.Kevin@gmail.com', 'spratt@BHjkl90&2', true, 6);
+
+INSERT INTO exploregalleries (id) VALUES (1);

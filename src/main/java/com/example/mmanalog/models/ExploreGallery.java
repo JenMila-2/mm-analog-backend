@@ -17,11 +17,8 @@ import java.util.List;
 public class ExploreGallery {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String photographerName;
-    private String photoTitle;
-    private String imageURL;
 
     @OneToMany(mappedBy = "exploreGallery")
     @JsonIgnore

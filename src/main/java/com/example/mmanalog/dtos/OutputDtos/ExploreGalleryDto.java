@@ -15,12 +15,9 @@ import java.util.List;
 public class ExploreGalleryDto {
 
     public Long id;
-    public String photographerName;
-    public String photoTitle;
-    public String imageURL;
 
     @JsonIgnore
-    List<PhotoGallery> photoGalleryList;
+    List<PhotoGallery> photoGalleries;
     @JsonIgnore
     private PhotoGallery photoGallery;
 }

@@ -15,15 +15,7 @@ import java.util.List;
 public class ExploreGalleryInputDto {
 
     public Long id;
-    @NotNull
-    @Size(max=50, message="This field cannot contain more than 50 characters.")
-    public String photographerName;
-    @NotNull
-    @Size(max = 75, message = "Title must be between 0 and 75 characters!")
-    public String photoTitle;
-    @NotNull
-    public String imageURL;
 
-    List<PhotoGallery> photoGalleryList;
+    List<PhotoGallery> photoGalleries;
     private PhotoGallery photoGallery;
 }
