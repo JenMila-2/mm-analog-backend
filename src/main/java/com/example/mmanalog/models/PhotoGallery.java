@@ -2,9 +2,9 @@ package com.example.mmanalog.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import java.util.List;
 
@@ -21,17 +21,17 @@ public class PhotoGallery {
     private Long id;
     private String photographerName;
     private String shortBio;
-    private boolean isPublic;
+    private boolean publish;
 
     @OneToOne(mappedBy = "photoGallery")
-    User user;
+    private User user;
 
     @OneToMany(mappedBy = "photoGallery")
     @JsonIgnore
-    List<Photo> photos;
+    private List<Photo> photos;
 
     @ManyToOne
-    @JoinColumn(name = "user_galleries_id")
+    @JoinColumn(name = "explore_user_gallery_id")
     private ExploreGallery exploreGallery;
 }
 

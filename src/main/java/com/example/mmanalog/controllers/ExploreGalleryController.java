@@ -1,17 +1,12 @@
 package com.example.mmanalog.controllers;
 
-import com.example.mmanalog.dtos.ExploreGalleryDto;
-import com.example.mmanalog.dtos.PhotoGalleryDto;
+import com.example.mmanalog.dtos.OutputDtos.ExploreGalleryDto;
+import com.example.mmanalog.models.ExploreGallery;
 import com.example.mmanalog.services.ExploreGalleryService;
-import com.example.mmanalog.services.PhotoGalleryService;
-import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 
-import java.net.URI;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/exploregalleries")
@@ -23,16 +18,14 @@ public class ExploreGalleryController {
         this.exploreGalleryService = exploreGalleryService;
     }
 
-    @GetMapping(path = "")
-    public ResponseEntity<List<ExploreGalleryDto>> getAllPhotoGalleries() {
-
-        return ResponseEntity.ok().body(exploreGalleryService.getAllPhotographerGalleries());
-    }
-
-    @GetMapping(path = "/photos")
-    public ResponseEntity<List<ExploreGalleryDto>> getAllPhotosInGalleries() {
-
-        return ResponseEntity.ok().body(exploreGalleryService.getAllPhotos());
+    @GetMapping("/explore")
+    public ResponseEntity<ExploreGallery> getExploreGallery() {
+        ExploreGallery exploreGallery = exploreGalleryService.getExploreGallery();
+        if (exploreGallery != null) {
+            return ResponseEntity.ok(exploreGallery);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
 

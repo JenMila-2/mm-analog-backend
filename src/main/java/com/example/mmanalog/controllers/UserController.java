@@ -2,15 +2,13 @@ package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.services.UserService;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import jakarta.validation.Valid;
 
-import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +16,6 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
-
 
 private final UserService userService;
 
@@ -70,4 +67,11 @@ public UserController(UserService userService) {
     return ResponseEntity.ok().body(userDto);
     }
 
+    //Method to assign a gallery to the user
+    @PutMapping(path ="/{id}/photogallery/{galleryId}")
+    public ResponseEntity<Object> assignPhotoGalleryToUser(@PathVariable("id") Long id, @PathVariable("galleryId") Long galleryId) {
+    UserDto userDto = userService.assignPhotoGalleryToUser(id, galleryId);
+
+    return ResponseEntity.ok().body(userDto);
+    }
 }

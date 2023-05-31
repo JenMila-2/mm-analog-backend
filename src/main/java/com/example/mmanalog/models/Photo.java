@@ -1,9 +1,9 @@
 package com.example.mmanalog.models;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @Getter
@@ -27,7 +27,7 @@ public class Photo {
     private String shutterSpeed;
     private String exposureCompensation;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "project_folder_id")
     private ProjectFolder projectFolder;
 

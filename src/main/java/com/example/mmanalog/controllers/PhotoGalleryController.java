@@ -1,15 +1,13 @@
 package com.example.mmanalog.controllers;
 
-import com.example.mmanalog.dtos.PhotoGalleryDto;
-import com.example.mmanalog.dtos.PhotoGalleryInputDto;
+import com.example.mmanalog.dtos.OutputDtos.PhotoGalleryDto;
+import com.example.mmanalog.dtos.InputDtos.PhotoGalleryInputDto;
 import com.example.mmanalog.services.PhotoGalleryService;
-import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import jakarta.validation.Valid;
 
-import java.net.URI;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/photogalleries")

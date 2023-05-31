@@ -1,24 +1,28 @@
 package com.example.mmanalog.services;
 
-import com.example.mmanalog.dtos.PhotoGalleryDto;
-import com.example.mmanalog.dtos.PhotoGalleryInputDto;
+import com.example.mmanalog.dtos.OutputDtos.PhotoGalleryDto;
+import com.example.mmanalog.dtos.InputDtos.PhotoGalleryInputDto;
+import com.example.mmanalog.models.User;
 import com.example.mmanalog.models.PhotoGallery;
+import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.repositories.PhotoGalleryRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
 public class PhotoGalleryService {
 
     private final PhotoGalleryRepository photoGalleryRepository;
+    private final UserRepository userRepository;
 
-    public PhotoGalleryService(PhotoGalleryRepository photoGalleryRepository) {
+    public PhotoGalleryService(PhotoGalleryRepository photoGalleryRepository, UserRepository userRepository) {
         this.photoGalleryRepository = photoGalleryRepository;
+        this.userRepository = userRepository;
     }
 
     public List<PhotoGalleryDto> getAllPhotoGalleries() {
@@ -71,9 +75,10 @@ public class PhotoGalleryService {
     public PhotoGallery transferToPhotoGallery(PhotoGalleryInputDto photoGalleryInputDto) {
         var photoGallery = new PhotoGallery();
 
+        photoGallery.setId(photoGalleryInputDto.getId());
         photoGallery.setPhotographerName(photoGalleryInputDto.getPhotographerName());
         photoGallery.setShortBio(photoGalleryInputDto.getShortBio());
-        photoGallery.setPublic(photoGalleryInputDto.isPublic());
+        photoGallery.setPublish(photoGalleryInputDto.isPublish());
 
         return photoGallery;
     }
@@ -84,7 +89,7 @@ public class PhotoGalleryService {
         photoGalleryDto.setId(photoGallery.getId());
         photoGalleryDto.setPhotographerName(photoGallery.getPhotographerName());
         photoGalleryDto.setShortBio(photoGallery.getShortBio());
-        photoGalleryDto.setPublic(photoGallery.isPublic());
+        photoGalleryDto.setPublish(photoGallery.isPublish());
 
         return photoGalleryDto;
     }

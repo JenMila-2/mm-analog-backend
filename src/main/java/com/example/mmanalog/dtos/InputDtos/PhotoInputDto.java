@@ -1,11 +1,13 @@
-package com.example.mmanalog.dtos;
+package com.example.mmanalog.dtos.InputDtos;
 
+import com.example.mmanalog.models.ProjectFolder;
+import com.example.mmanalog.models.PhotoGallery;
+import com.example.mmanalog.models.User;
 import jakarta.validation.constraints.*;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Setter
@@ -15,7 +17,7 @@ public class PhotoInputDto {
 
     public Long id;
     @NotNull
-    @Size(max = 75, message = "Title must be between 0 and 75 characters!")
+    @Size(max = 75, message = "Title must be between 0 and 75 characters.")
     public String photoTitle;
     @Size(max=50, message="This field cannot contain more than 50 characters.")
     public String camera;
@@ -28,5 +30,9 @@ public class PhotoInputDto {
     public String fStop;
     public String shutterSpeed;
     public String exposureCompensation;
+
+    private User user;
+    private PhotoGallery photoGallery;
+    private ProjectFolder projectFolder;
 }
 

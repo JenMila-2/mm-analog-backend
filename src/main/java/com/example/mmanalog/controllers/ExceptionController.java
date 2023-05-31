@@ -1,13 +1,13 @@
 package com.example.mmanalog.controllers;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import com.example.mmanalog.exceptions.BadRequestException;
-import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.exceptions.IndexOutOfBoundsException;
 import com.example.mmanalog.exceptions.InvalidEmailException;
 import com.example.mmanalog.exceptions.InvalidPasswordException;
+import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.exceptions.UserNotFoundException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 

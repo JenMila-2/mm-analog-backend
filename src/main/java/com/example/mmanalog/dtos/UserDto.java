@@ -1,14 +1,19 @@
 package com.example.mmanalog.dtos;
 
+import com.example.mmanalog.models.PhotoGallery;
+import com.example.mmanalog.models.ProjectFolder;
+import com.example.mmanalog.models.Photo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import java.util.List;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -27,8 +32,18 @@ public class UserDto {
     public String password;
     @NotNull
     public boolean enabled;
-    public List<String> authorities;
-}
 
-// public Set<Authority> getAuthorities() { return authorities }
-// public void setAuthorities(Set<Authority> authorities) { this.authorities = authorities; }
+    @JsonIgnore
+    public Set<String> authorities;
+
+    @JsonIgnore
+    public List<Photo> photos;
+    @JsonIgnore
+    public List<PhotoGallery> photoGalleries;
+    @JsonIgnore
+    public List<ProjectFolder> projectFolders;
+
+    private ProjectFolder projectFolder;
+    private Photo photo;
+    private PhotoGallery photoGallery;
+}

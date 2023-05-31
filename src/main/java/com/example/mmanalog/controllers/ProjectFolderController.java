@@ -1,11 +1,11 @@
 package com.example.mmanalog.controllers;
 
-import com.example.mmanalog.dtos.ProjectFolderDto;
-import com.example.mmanalog.dtos.ProjectFolderInputDto;
+import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
+import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
 import com.example.mmanalog.services.ProjectFolderService;
-import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import jakarta.validation.Valid;
 
 import java.util.List;
 
@@ -57,10 +57,10 @@ public class ProjectFolderController {
         return ResponseEntity.ok().body(dtoProjectFolder);
     }
 
-    //Method to assign a folder to an user
-    @PutMapping(path = "/{folderId}/{userId}")
-    public ResponseEntity<Object> assignFolderToUser(@PathVariable("folderId") Long folderId, @PathVariable("userId") Long userId) {
-        ProjectFolderDto projectFolderDto = projectFolderService.assignFolderToUser(folderId, userId);
+    // *** Methods related to the relationship between entities ***
+    @PutMapping(path = "/{id}/user/{userId}")
+    public ResponseEntity<Object> assignFolderToUser(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
+        ProjectFolderDto projectFolderDto = projectFolderService.assignFolderToUser(id, userId);
 
         return ResponseEntity.ok().body(projectFolderDto);
     }
