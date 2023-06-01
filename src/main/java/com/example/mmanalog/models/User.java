@@ -40,5 +40,6 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_gallery_id")
+    @JsonIgnore
     PhotoGallery photoGallery;
 }

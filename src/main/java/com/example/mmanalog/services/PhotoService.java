@@ -2,7 +2,6 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.PhotoDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoInputDto;
-import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.models.Photo;
 import com.example.mmanalog.models.ProjectFolder;
@@ -24,15 +23,13 @@ public class PhotoService {
 
     private final PhotoRepository photoRepository;
     private final ProjectFolderRepository projectFolderRepository;
-    private final ProjectFolderService projectFolderService;
     private final PhotoGalleryRepository photoGalleryRepository;
     private final UserRepository userRepository;
 
 
-    public PhotoService(PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository, ProjectFolderService projectFolderService, PhotoGalleryRepository photoGalleryRepository, UserRepository userRepository) {
+    public PhotoService(PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository, PhotoGalleryRepository photoGalleryRepository, UserRepository userRepository) {
         this.photoRepository = photoRepository;
         this.projectFolderRepository = projectFolderRepository;
-        this.projectFolderService = projectFolderService;
         this.photoGalleryRepository = photoGalleryRepository;
         this.userRepository = userRepository;
     }
@@ -125,17 +122,9 @@ public class PhotoService {
         photoDto.setFStop(photo.getFStop());
         photoDto.setShutterSpeed(photo.getShutterSpeed());
         photoDto.setExposureCompensation(photo.getExposureCompensation());
-
-        /*ProjectFolderDto projectFolderDto = new ProjectFolderDto();
-        ProjectFolder projectFolder = photo.getProjectFolder();
-
-        if (projectFolder != null) {
-            projectFolderDto.setId(projectFolder.getId());
-            projectFolderDto.setProjectTitle(projectFolder.getProjectTitle());
-            projectFolderDto.setProjectNote(projectFolder.getProjectNote());
-
-        }
-        photoDto.setProjectFolderDto(projectFolderDto);*/
+        photoDto.setProjectFolder(photo.getProjectFolder());
+        photoDto.setPhotoGallery(photo.getPhotoGallery());
+        photoDto.setUser(photo.getUser());
 
         return photoDto;
     }

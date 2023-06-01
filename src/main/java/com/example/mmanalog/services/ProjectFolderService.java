@@ -95,6 +95,7 @@ public class ProjectFolderService {
         projectFolderDto.setId(projectFolder.getId());
         projectFolderDto.setProjectTitle(projectFolder.getProjectTitle());
         projectFolderDto.setProjectNote(projectFolder.getProjectNote());
+        projectFolderDto.setUser(projectFolder.getUser());
 
         return projectFolderDto;
     }

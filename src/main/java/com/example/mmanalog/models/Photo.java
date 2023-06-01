@@ -1,5 +1,6 @@
 package com.example.mmanalog.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,13 +30,16 @@ public class Photo {
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "project_folder_id")
+    @JsonIgnore
     private ProjectFolder projectFolder;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_photo_id")
+    @JsonIgnore
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "photo_gallery_id")
+    @JsonIgnore
     private PhotoGallery photoGallery;
 }

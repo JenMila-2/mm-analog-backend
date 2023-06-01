@@ -1,12 +1,8 @@
 package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.UserDto;
-import com.example.mmanalog.dtos.OutputDtos.PhotoDto;
-import com.example.mmanalog.dtos.OutputDtos.PhotoGalleryDto;
 import com.example.mmanalog.models.User;
-import com.example.mmanalog.models.Photo;
 import com.example.mmanalog.models.PhotoGallery;
-import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.repositories.PhotoRepository;
 import com.example.mmanalog.repositories.PhotoGalleryRepository;
@@ -129,16 +125,17 @@ public class UserService {
         userDto.email = user.getEmail();
         userDto.password = user.getPassword();
         userDto.enabled = user.isEnabled();
+        userDto.photoGallery = user.getPhotoGallery();
 
         return userDto;
     }
 
     //Methods related to the relationship between entities
     public UserDto assignPhotoGalleryToUser(Long id, Long galleryId) {
-        var optionalUser = userRepository.findById(id);
-        var optionalPhotoGallery = photoGalleryRepository.findById(galleryId);
+        Optional<User> optionalUser = userRepository.findById(id);
+        Optional<PhotoGallery> optionalPhotoGallery = photoGalleryRepository.findById(galleryId);
 
-        if (optionalUser.isPresent() && optionalUser.isPresent()) {
+        if (optionalUser.isPresent() && optionalPhotoGallery.isPresent()) {
             User user = optionalUser.get();
             PhotoGallery photoGallery = optionalPhotoGallery.get();
 

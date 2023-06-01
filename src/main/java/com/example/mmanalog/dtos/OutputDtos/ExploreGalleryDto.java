@@ -1,7 +1,6 @@
 package com.example.mmanalog.dtos.OutputDtos;
 
 import com.example.mmanalog.models.PhotoGallery;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
@@ -16,8 +15,6 @@ public class ExploreGalleryDto {
 
     public Long id;
 
-    @JsonIgnore
     List<PhotoGallery> photoGalleries;
-    @JsonIgnore
-    private PhotoGallery photoGallery;
+    public PhotoGallery photoGallery;
 }

@@ -17,5 +17,5 @@ public class ExploreGalleryInputDto {
     public Long id;
 
     List<PhotoGallery> photoGalleries;
-    private PhotoGallery photoGallery;
+    public PhotoGallery photoGallery;
 }

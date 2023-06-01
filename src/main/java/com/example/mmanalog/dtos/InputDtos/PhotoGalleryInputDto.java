@@ -23,8 +23,9 @@ public class PhotoGalleryInputDto {
     public String shortBio;
     @NotNull
     public boolean publish;
-    List<Photo> photoList;
 
-    private Photo photo;
-    private User user;
+    public Photo photo;
+    public User user;
+
+    //List<Photo> photoList;
 }

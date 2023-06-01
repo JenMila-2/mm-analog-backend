@@ -22,6 +22,6 @@ public class ProjectFolderInputDto {
     public String projectNote;
 
     public List<Photo> photos;
-    private Photo photo;
-    private User user;
+    public Photo photo;
+    public User user;
 }

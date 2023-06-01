@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ExploreGalleryRepository extends JpaRepository<ExploreGallery, Long> {
-
     @Query("SELECT eg FROM ExploreGallery eg")
     ExploreGallery getExploreGallery();
 }

@@ -24,14 +24,16 @@ public class PhotoGallery {
     private boolean publish;
 
     @OneToOne(mappedBy = "photoGallery")
+    @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "photoGallery")
+    @OneToMany(mappedBy = "photoGallery", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Photo> photos;
 
     @ManyToOne
     @JoinColumn(name = "explore_user_gallery_id")
+    @JsonIgnore
     private ExploreGallery exploreGallery;
 }
 

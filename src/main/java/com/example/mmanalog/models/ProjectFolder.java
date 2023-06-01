@@ -22,11 +22,12 @@ public class ProjectFolder {
     private String projectTitle;
     private String projectNote;
 
-    @OneToMany(mappedBy = "projectFolder", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "projectFolder")
     @JsonIgnore
     private List<Photo> photos;
 
     @ManyToOne
     @JoinColumn(name = "user_folder_id")
+    @JsonIgnore
     private User user;
 }
