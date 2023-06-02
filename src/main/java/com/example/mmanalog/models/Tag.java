@@ -7,6 +7,9 @@ import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -19,4 +22,8 @@ public class Tag {
     @GeneratedValue
     private Long id;
     private String tagName;
+
+    @ManyToMany(mappedBy = "tags")
+    @JsonIgnore
+    private Set<Photo> photos = new HashSet<>();
 }

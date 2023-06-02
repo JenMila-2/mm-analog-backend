@@ -7,6 +7,9 @@ import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
@@ -42,4 +45,12 @@ public class Photo {
     @JoinColumn(name = "photo_gallery_id")
     @JsonIgnore
     private PhotoGallery photoGallery;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "photo_tags",
+            joinColumns = @JoinColumn(name = "photo_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    @JsonIgnore
+    private Set<Tag> tags = new HashSet<>();
+    //Used HashSet to avoid duplicate tags being added to a photo
 }
