@@ -1,8 +1,6 @@
 package com.example.mmanalog.dtos;
 
 import com.example.mmanalog.models.PhotoGallery;
-import com.example.mmanalog.models.ProjectFolder;
-import com.example.mmanalog.models.Photo;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -34,7 +32,4 @@ public class UserDto {
 
     public PhotoGallery photoGallery;
     //public Set<String> authorities;
-
-    //public Photo photo;
-    //public ProjectFolder projectFolder;
 }

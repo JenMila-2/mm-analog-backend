@@ -2,7 +2,6 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.PhotoGalleryDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoGalleryInputDto;
-import com.example.mmanalog.models.User;
 import com.example.mmanalog.models.PhotoGallery;
 import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.repositories.PhotoGalleryRepository;

@@ -1,6 +1,5 @@
 package com.example.mmanalog.dtos.OutputDtos;
 
-import com.example.mmanalog.models.Photo;
 import com.example.mmanalog.models.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,6 +17,4 @@ public class ProjectFolderDto {
     public String projectNote;
 
     public User user;
-
-    //public Photo photo;
 }

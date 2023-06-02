@@ -173,5 +173,4 @@ VALUES
     (99, 'Untitled_5', 'Contax G2', 'Kodak Ultra Max', '35mm', 'Self developed at home', 400, 'f4', '1/250', '0', 12, 103),
     (100, 'Untitled_6', 'Contax G2', 'Kodak Ultra Max', '35mm', 'Self developed at home', 400, 'f3.5', '1/250', '0', 12, 103);
 
-INSERT INTO exploregalleries (id) VALUES (1);
 

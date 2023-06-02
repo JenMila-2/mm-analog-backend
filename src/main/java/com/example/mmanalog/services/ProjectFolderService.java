@@ -3,7 +3,6 @@ package com.example.mmanalog.services;
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
 import com.example.mmanalog.models.User;
-import com.example.mmanalog.models.Photo;
 import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.repositories.PhotoRepository;
