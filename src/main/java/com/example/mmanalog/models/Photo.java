@@ -47,7 +47,7 @@ public class Photo {
     private PhotoGallery photoGallery;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "photo_tags",
+    @JoinTable(name = "photo_tag",
             joinColumns = @JoinColumn(name = "photo_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     @JsonIgnore

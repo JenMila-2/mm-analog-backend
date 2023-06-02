@@ -3,6 +3,7 @@ package com.example.mmanalog.dtos.InputDtos;
 import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.models.PhotoGallery;
 import com.example.mmanalog.models.User;
+import com.example.mmanalog.models.Tag;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,5 +35,6 @@ public class PhotoInputDto {
     public User user;
     public PhotoGallery photoGallery;
     public ProjectFolder projectFolder;
+    public Tag tag;
 }
 

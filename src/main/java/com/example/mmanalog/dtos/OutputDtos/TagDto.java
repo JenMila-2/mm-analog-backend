@@ -1,7 +1,6 @@
 package com.example.mmanalog.dtos.OutputDtos;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import com.example.mmanalog.models.Photo;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
@@ -13,8 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TagDto {
 
-    @Id
-    @GeneratedValue
+
     public Long id;
     public String tagName;
+
+    public Photo photo;
 }

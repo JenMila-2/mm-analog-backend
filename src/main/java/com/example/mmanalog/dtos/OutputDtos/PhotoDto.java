@@ -3,6 +3,7 @@ package com.example.mmanalog.dtos.OutputDtos;
 import com.example.mmanalog.models.PhotoGallery;
 import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.models.User;
+import com.example.mmanalog.models.Tag;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
@@ -28,6 +29,7 @@ public class PhotoDto {
     public ProjectFolder projectFolder;
     public PhotoGallery photoGallery;
     public User user;
+    public Tag tag;
 }
 
 

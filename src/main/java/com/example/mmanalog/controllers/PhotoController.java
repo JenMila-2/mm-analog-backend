@@ -84,5 +84,11 @@ public class PhotoController {
 
         return ResponseEntity.ok().body(photoDto);
     }
+
+    //Alle relatie controllers aanpassen naar onderstaand voorbeeld, is korter?
+    @PutMapping(path = "/{id}/tag/{tagId}")
+    public ResponseEntity<String> assignTagToPhoto(@PathVariable Long id, @PathVariable Long tagId) {
+        return ResponseEntity.ok(photoService.assignTagToPhoto(id, tagId));
+    }
 }
 
