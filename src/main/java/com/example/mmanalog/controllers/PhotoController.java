@@ -84,13 +84,5 @@ public class PhotoController {
 
         return ResponseEntity.ok().body(photoDto);
     }
-
-
-    //Method to assign photos to a project folder
-    /*@PutMapping(path = "/{id}/folder/{folderId}")
-    public ResponseEntity<Object> assignPhotoToFolder(@PathVariable("id") Long id, @PathVariable("folderId") Long folderId) {
-        photoService.assignPhotoToFolder(id, folderId);
-        return ResponseEntity.noContent().build();
-    }*/
 }
 

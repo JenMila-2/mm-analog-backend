@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import java.util.List;
 
 @Getter
 @Setter
@@ -23,8 +22,7 @@ public class PhotoGalleryInputDto {
     public String shortBio;
     @NotNull
     public boolean publish;
-    List<Photo> photoList;
 
-    private Photo photo;
-    private User user;
+    public Photo photo;
+    public User user;
 }

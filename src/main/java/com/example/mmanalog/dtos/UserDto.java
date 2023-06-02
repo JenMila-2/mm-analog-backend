@@ -1,9 +1,6 @@
 package com.example.mmanalog.dtos;
 
 import com.example.mmanalog.models.PhotoGallery;
-import com.example.mmanalog.models.ProjectFolder;
-import com.example.mmanalog.models.Photo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -33,17 +30,6 @@ public class UserDto {
     @NotNull
     public boolean enabled;
 
-    @JsonIgnore
-    public Set<String> authorities;
-
-    @JsonIgnore
-    public List<Photo> photos;
-    @JsonIgnore
-    public List<PhotoGallery> photoGalleries;
-    @JsonIgnore
-    public List<ProjectFolder> projectFolders;
-
-    private ProjectFolder projectFolder;
-    private Photo photo;
-    private PhotoGallery photoGallery;
+    public PhotoGallery photoGallery;
+    //public Set<String> authorities;
 }
