@@ -2,8 +2,6 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.TagDto;
 import com.example.mmanalog.dtos.InputDtos.TagInputDto;
-import com.example.mmanalog.models.Photo;
-import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.models.Tag;
 import com.example.mmanalog.repositories.PhotoRepository;
 import com.example.mmanalog.repositories.TagRepository;

@@ -103,7 +103,7 @@ public class PhotoService {
         photo.setFilmFormat(photoInputDto.getFilmFormat());
         photo.setDevelopedBy(photoInputDto.getDevelopedBy());
         photo.setIso(photoInputDto.getIso());
-        photo.setFStop(photoInputDto.getFStop());
+        photo.setAperture(photoInputDto.getAperture());
         photo.setShutterSpeed(photoInputDto.getShutterSpeed());
         photo.setExposureCompensation(photoInputDto.getExposureCompensation());
 
@@ -120,7 +120,7 @@ public class PhotoService {
         photoDto.setFilmFormat(photo.getFilmFormat());
         photoDto.setDevelopedBy(photo.getDevelopedBy());
         photoDto.setIso(photo.getIso());
-        photoDto.setFStop(photo.getFStop());
+        photoDto.setAperture(photo.getAperture());
         photoDto.setShutterSpeed(photo.getShutterSpeed());
         photoDto.setExposureCompensation(photo.getExposureCompensation());
         photoDto.setProjectFolder(photo.getProjectFolder());

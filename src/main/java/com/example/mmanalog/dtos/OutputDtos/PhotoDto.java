@@ -22,7 +22,7 @@ public class PhotoDto {
     public String filmFormat;
     public String developedBy;
     public int iso;
-    public String fStop;
+    public String aperture;
     public String shutterSpeed;
     public String exposureCompensation;
 

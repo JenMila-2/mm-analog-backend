@@ -35,7 +35,7 @@ VALUES
     (12, 'Mix', 'Photographs who are not part of a project yet.', 103);
 
 --Photos for project folder 1, user 102, photo gallery 2
-INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, f_stop, shutter_speed, exposure_compensation, photo_gallery_id, project_folder_id, user_photo_id)
+INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, aperture, shutter_speed, exposure_compensation, photo_gallery_id, project_folder_id, user_photo_id)
 VALUES
     (10, 'Dreaming_1', 'Minolta SRT101', 'Kodak Portra 400', '35mm', 'Fotowereld Utrecht', 400, 'f8', '1/60', '+1', 2, 1, 102),
     (11, 'Dreaming_2', 'Minolta SRT101', 'Kodak Portra 400', '35mm', 'Fotowereld Utrecht', 400, 'f8', '1/60', '0', 2, 1, 102),
@@ -47,7 +47,7 @@ VALUES
     (17, 'Dreaming_8', 'Minolta SRT101', 'Kodak Gold', '35mm', 'Fotowereld Utrecht', 200, 'f5.6', '1/125', '+1', 2, 1, 102);
 
 --Photos for project folder 2, user 106
-INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, f_stop, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
+INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, aperture, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
 VALUES
     (18, 'Faces_1', 'Mamiya M645', 'Ilford HP5 Plus', 'Medium - 120', 'Foto Verweij Nijmegen', 400, 'f4', '1/60', '0', 2, 106),
     (19, 'Faces_2', 'Mamiya M645', 'Ilford HP5 Plus', 'Medium - 120', 'Foto Verweij Nijmegen', 400, 'f4', '1/60', '0', 2, 106),
@@ -57,7 +57,7 @@ VALUES
     (23, 'Faces_6', 'Mamiya M645', 'Ilford HP5 Plus', 'Medium - 120', 'Foto Verweij Nijmegen', 400, 'f2.8', '1/80', '+1', 2, 106);
 
 --Photos for project folder 3, user 101
-INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, f_stop, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
+INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, aperture, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
 VALUES
     (24, 'Free_Spirits_1', 'Pentax 6x7', 'Kodak Gold', 'Medium - 120', 'Self developed at home', 200, 'f5.6', '1/60', '0', 3, 101),
     (25, 'Free_Spirits_2', 'Pentax 6x7', 'Kodak Gold', 'Medium - 120', 'Self developed at home', 200, 'f5.6', '1/60', '+1', 3, 101),
@@ -68,7 +68,7 @@ VALUES
     (30, 'Free_Spirits_7', 'Pentax 6x7', 'Kodak Gold', 'Medium - 120', 'Self developed at home', 200, 'f11', '1/60', '+1', 3, 101);
 
 --Photos for project folder 4, user 103
-INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, f_stop, shutter_speed, exposure_compensation, project_folder_id)
+INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, aperture, shutter_speed, exposure_compensation, project_folder_id)
 VALUES
     (31, 'Flowers_1', 'Pentax 6x7', 'Kodak Portra 400', 'Medium - 120', 'Fotowereld Utrecht', 400, 'f11', '1/60', '+1', 4),
     (32, 'Flowers_2', 'Pentax 6x7', 'Kodak Portra 400', 'Medium - 120', 'Fotowereld Utrecht', 400, 'f11', '1/60', '+1', 4),
@@ -80,7 +80,7 @@ VALUES
     (38, 'Flowers_8', 'Pentax K2 Black', 'Kodak Portra 400', '35mm', 'Fotowereld Utrecht', 400, 'f8', '1/80', '+1', 4);
 
 --Photos for project folder 5, user 101
-INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, f_stop, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
+INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, aperture, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
 VALUES
     (39, 'Sleepless_night_1', 'Canon AE-1 black', 'Ilford Delta 3200', '35mm', 'Self developed at home', 3200, 'f8', '1/60', '+1', 5, 101),
     (40, 'Sleepless_night_2', 'Canon AE-1 black', 'Ilford Delta 3200', '35mm', 'Self developed at home', 3200, 'f8', '1/60', '+1', 5, 101),
@@ -94,7 +94,7 @@ VALUES
     (48, 'Sleepless_night_10', 'Canon AE-1 black', 'Ilford Delta 3200', '35mm', 'Self developed at home', 3200, 'f4', '1/80', '0', 5, 101);
 
 --Photos for project folder 6, user 105
-INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, f_stop, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
+INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, aperture, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
 VALUES
     (49, 'Goddess_1', 'Pentax 6x7', 'Ilford Delta 400', 'Medium - 120', 'Foto Verweij Nijmegen', 400, 'f2.8', '1/125', '0', 6, 105),
     (50, 'Goddess_2', 'Pentax 6x7', 'Ilford Delta 400', 'Medium - 120', 'Foto Verweij Nijmegen', 400, 'f2.8', '1/125', '0', 6, 105),
@@ -106,7 +106,7 @@ VALUES
     (56, 'Goddess_8', 'Pentax 6x7', 'Kodak Portra 400', 'Medium - 120', 'Foto Verweij Nijmegen', 400, 'f2.8', '1/125', '+1', 6, 105);
 
 --Photos for project folder 7, user 102
-INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, f_stop, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
+INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, aperture, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
 VALUES
     (57, 'Self_portrait_1', 'Mamiya M645', 'Kodak Portra 400', 'Medium - 120', 'Fotowereld Utrecht', 400, 'f5.6', '1/80', '0', 7, 102),
     (58, 'Self_portrait_2', 'Mamiya M645', 'Kodak Portra 400', 'Medium - 120', 'Fotowereld Utrecht', 400, 'f5.6', '1/80', '0', 7, 102),
@@ -116,7 +116,7 @@ VALUES
     (62, 'Self_portrait_6', 'Mamiya M645', 'Kodak Portra 400', 'Medium - 120', 'Fotowereld Utrecht', 400, 'f8', '1/60', '+1', 7, 102);
 
 --Photos for project folder 8, user 106
-INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, f_stop, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
+INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, aperture, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
 VALUES
     (63, 'Mother_1', 'Pentax 6x7', 'Ilford HP5 Plus', 'Medium - 120', 'Self developed at home', 400, 'f4', '1/125', '0', 8, 106),
     (64, 'Mother_2', 'Pentax 6x7', 'Ilford HP5 Plus', 'Medium - 120', 'Self developed at home', 400, 'f4', '1/125', '0', 8, 106),
@@ -128,7 +128,7 @@ VALUES
     (70, 'Mother_8', 'Pentax 6x7', 'Ilford HP5 Plus', 'Medium - 120', 'Self developed at home', 400, 'f8', '1/60', '+1', 8, 106);
 
 --Photos for project folder 9, user 104
-INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, f_stop, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
+INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, aperture, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
 VALUES
     (71, 'Midnight_Streets_1', 'Canon AE-1 black', 'Cinestill 800 Tungsten', '35mm', 'Key Color Fotolab Amsterdam', 800, 'f8', '1/60', '+1', 9, 104),
     (72, 'Midnight_Streets_2', 'Canon AE-1 black', 'Cinestill 800 Tungsten', '35mm', 'Key Color Fotolab Amsterdam', 800, 'f8', '1/60', '+1', 9, 104),
@@ -142,7 +142,7 @@ VALUES
     (80, 'Midnight_Streets_10', 'Canon AE-1 black', 'Cinestill 800 Tungsten', '35mm', 'Key Color Fotolab Amsterdam', 800, 'f8', '1/60', '0', 9, 104);
 
 --Photos for project folder 10, user 105
-INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, f_stop, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
+INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, aperture, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
 VALUES
     (81, 'Family_Lopez', 'Mamiya M645', 'Kodak Portra 400', 'Medium - 120', 'Foto Verweij Nijmegen', 400, 'f11', '1/125', '+1', 10, 105),
     (82, 'Family_Mendez', 'Mamiya M645', 'Kodak Portra 400', 'Medium - 120', 'Foto Verweij Nijmegen', 400, 'f11', '1/125', '+1', 10, 105),
@@ -154,7 +154,7 @@ VALUES
     (88, 'Family_Rijnschot', 'Mamiya M645', 'Kodak Portra 400', 'Medium - 120', 'Foto Verweij Nijmegen', 400, 'f11', '1/125', '+1', 10, 105);
 
 --Photos for project folder 11, user 104
-INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, f_stop, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
+INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, aperture, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
 VALUES
     (89, 'By_the_river_portrait_1', 'Linhof Super Technika V 4X5', 'Kodak Professional T-Max 400', 'Large - 4X5', 'Foto Verweij Nijmegen', 400, 'f5.6', '1/60', '0', 11, 104),
     (90, 'By_the_river_portrait_2', 'Linhof Super Technika V 4X5', 'Kodak Professional T-Max 400', 'Large - 4X5', 'Foto Verweij Nijmegen', 400, 'f5.6', '1/60', '0', 11, 104),
@@ -164,7 +164,7 @@ VALUES
     (94, 'By_the_river_landscape_3', 'Linhof Super Technika V 4X5', 'Kodak Professional T-Max 400', 'Large - 4X5', 'Foto Verweij Nijmegen', 400, 'f16', '1/125', '0', 11, 104);
 
 --Photos for project folder 12, user 103
-INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, f_stop, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
+INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, aperture, shutter_speed, exposure_compensation, project_folder_id, user_photo_id)
 VALUES
     (95, 'Untitled_1', 'Contax G2', 'Kodak Ultra Max', '35mm', 'Self developed at home', 400, 'f8', '1/60', '+1', 12, 103),
     (96, 'Untitled_2', 'Contax G2', 'Kodak Ultra Max', '35mm', 'Self developed at home', 400, 'f8', '1/60', '+1', 12, 103),

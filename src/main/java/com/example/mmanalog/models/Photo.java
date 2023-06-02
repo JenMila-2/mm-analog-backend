@@ -27,7 +27,7 @@ public class Photo {
     private String filmFormat;
     private String developedBy;
     private int iso;
-    private String fStop;
+    private String aperture;
     private String shutterSpeed;
     private String exposureCompensation;
 

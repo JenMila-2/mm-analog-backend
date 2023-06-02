@@ -28,7 +28,7 @@ public class PhotoInputDto {
     @Size(max=50, message="This field cannot contain more than 50 characters.")
     public String developedBy;
     public int iso;
-    public String fStop;
+    public String aperture;
     public String shutterSpeed;
     public String exposureCompensation;
 
