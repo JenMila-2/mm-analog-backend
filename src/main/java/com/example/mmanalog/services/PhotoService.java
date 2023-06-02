@@ -93,7 +93,7 @@ public class PhotoService {
     }
 
     public Photo transferToPhoto(PhotoInputDto photoInputDto) {
-        var photo = new Photo();
+        Photo photo = new Photo();
 
         photo.setId(photoInputDto.getId());
         photo.setPhotoTitle(photoInputDto.getPhotoTitle());
