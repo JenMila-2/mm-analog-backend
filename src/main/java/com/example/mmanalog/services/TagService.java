@@ -85,7 +85,6 @@ public class TagService {
     public TagDto transferToTagDto(Tag tag) {
         TagDto tagDto = new TagDto();
 
-        tagDto.setId(tag.getId());
         tagDto.setTagName(tag.getTagName());
 
         return tagDto;

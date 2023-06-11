@@ -2,10 +2,22 @@ package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.OutputDtos.PhotoDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoInputDto;
+import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.services.PhotoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import jakarta.validation.Valid;
+
+import java.io.IOException;
 
 import java.util.List;
 
@@ -19,18 +31,16 @@ public class PhotoController {
         this.photoService = photoService;
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<PhotoDto> getPhotoById(@PathVariable Long id) {
+        PhotoDto photoDto = photoService.getPhotoById(id);
+        return ResponseEntity.ok().body(photoDto);
+    }
+
     @GetMapping(path = "")
     public ResponseEntity<List<PhotoDto>> getAllPhotos() {
 
         return ResponseEntity.ok().body(photoService.getAllPhotos());
-    }
-
-    @GetMapping(path = "/{id}")
-    public ResponseEntity<PhotoDto> getPhoto(@PathVariable("id") Long id) {
-
-        PhotoDto photo = photoService.getPhotoById(id);
-
-        return ResponseEntity.ok().body(photo);
     }
 
     @GetMapping(path = "/filmstock/{filmStock}")
@@ -91,4 +101,5 @@ public class PhotoController {
         return ResponseEntity.ok(photoService.assignTagToPhoto(id, tagId));
     }
 }
+
 

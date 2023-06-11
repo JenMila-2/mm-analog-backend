@@ -22,12 +22,10 @@ public class UserDto {
     @NotNull
     public String name;
     @NotBlank
-    @Email
     public String email;
     @NotBlank
     @Size(min=6, max=30)
     public String password;
-    @NotNull
     public boolean enabled;
 
     public PhotoGallery photoGallery;

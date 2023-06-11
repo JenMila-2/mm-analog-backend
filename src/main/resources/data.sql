@@ -34,7 +34,7 @@ VALUES
     (11, 'By the River', 'New project. Planning on shooting portraits and landscape photos for this project.', 104),
     (12, 'Mix', 'Photographs who are not part of a project yet.', 103);
 
---Photos for project folder 1, user 102, photo gallery 2
+/*--Photos for project folder 1, user 102, photo gallery 2
 INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, aperture, shutter_speed, exposure_compensation, photo_gallery_id, project_folder_id, user_photo_id)
 VALUES
     (10, 'Dreaming_1', 'Minolta SRT101', 'Kodak Portra 400', '35mm', 'Fotowereld Utrecht', 400, 'f8', '1/60', '+1', 2, 1, 102),
@@ -172,5 +172,4 @@ VALUES
     (98, 'Untitled_4', 'Contax G2', 'Kodak Ultra Max', '35mm', 'Self developed at home', 400, 'f5.6', '1/125', '0', 12, 103),
     (99, 'Untitled_5', 'Contax G2', 'Kodak Ultra Max', '35mm', 'Self developed at home', 400, 'f4', '1/250', '0', 12, 103),
     (100, 'Untitled_6', 'Contax G2', 'Kodak Ultra Max', '35mm', 'Self developed at home', 400, 'f3.5', '1/250', '0', 12, 103);
-
-
+*/

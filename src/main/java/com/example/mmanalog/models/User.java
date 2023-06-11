@@ -1,7 +1,7 @@
 package com.example.mmanalog.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.validation.constraints.Email;
+//import jakarta.validation.constraints.Email;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +19,6 @@ import java.util.List;
 public class User {
 
     @Id
-    @Email
     @GeneratedValue
     @Column(nullable = false, unique = true)
 

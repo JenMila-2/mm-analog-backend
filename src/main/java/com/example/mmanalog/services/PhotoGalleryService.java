@@ -85,7 +85,6 @@ public class PhotoGalleryService {
     public PhotoGalleryDto transferPhotoGalleryToDto(PhotoGallery photoGallery) {
         PhotoGalleryDto photoGalleryDto = new PhotoGalleryDto();
 
-        photoGalleryDto.setId(photoGallery.getId());
         photoGalleryDto.setPhotographerName(photoGallery.getPhotographerName());
         photoGalleryDto.setShortBio(photoGallery.getShortBio());
         photoGalleryDto.setPublish(photoGallery.isPublish());

@@ -17,6 +17,7 @@ public class PhotoDto {
 
     public Long id;
     public String photoTitle;
+    public String imageURL;
     public String camera;
     public String filmStock;
     public String filmFormat;
