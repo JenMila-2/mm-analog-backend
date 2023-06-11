@@ -1,6 +1,5 @@
 package com.example.mmanalog.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class PhotoUpload {
+public class PhotoUploadResponse {
 
     @Id
     @GeneratedValue

@@ -11,13 +11,7 @@ import com.example.mmanalog.repositories.PhotoGalleryRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.multipart.MultipartFile;
-import java.io.IOException;
 
-
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -106,7 +100,6 @@ public class PhotoService {
 
         photo.setId(photoInputDto.getId());
         photo.setPhotoTitle(photoInputDto.getPhotoTitle());
-        photo.setImageURL(photoInputDto.getImageURL());
         photo.setCamera(photoInputDto.getCamera());
         photo.setFilmStock(photoInputDto.getFilmStock());
         photo.setFilmFormat(photoInputDto.getFilmFormat());
@@ -124,7 +117,6 @@ public class PhotoService {
 
         photoDto.setId(photo.getId());
         photoDto.setPhotoTitle(photo.getPhotoTitle());
-        photoDto.setImageURL(photo.getImageURL());
         photoDto.setCamera(photo.getCamera());
         photoDto.setFilmStock(photo.getFilmStock());
         photoDto.setFilmFormat(photo.getFilmFormat());

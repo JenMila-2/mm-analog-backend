@@ -22,7 +22,6 @@ public class Photo {
     @GeneratedValue
     private Long id;
     private String photoTitle;
-    private String imageURL;
     private String camera;
     private String filmStock;
     private String filmFormat;

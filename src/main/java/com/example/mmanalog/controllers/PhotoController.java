@@ -4,20 +4,11 @@ import com.example.mmanalog.dtos.OutputDtos.PhotoDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoInputDto;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.services.PhotoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import jakarta.validation.Valid;
 
-import java.io.IOException;
 
 import java.util.List;
 
