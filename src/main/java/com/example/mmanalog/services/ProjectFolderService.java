@@ -91,6 +91,7 @@ public class ProjectFolderService {
     public ProjectFolderDto transferProjectFolderToDto(ProjectFolder projectFolder) {
         ProjectFolderDto projectFolderDto = new ProjectFolderDto();
 
+        projectFolderDto.setId(projectFolder.getId());
         projectFolderDto.setProjectTitle(projectFolder.getProjectTitle());
         projectFolderDto.setProjectNote(projectFolder.getProjectNote());
         projectFolderDto.setUser(projectFolder.getUser());

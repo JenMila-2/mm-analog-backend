@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 public class PhotoUploadResponse {
 
     @Id
-    @GeneratedValue
     private String fileName;
     private String contentType;
     private String imageUrl;

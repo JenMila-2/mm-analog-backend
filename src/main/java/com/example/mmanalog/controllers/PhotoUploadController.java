@@ -36,7 +36,7 @@ public class PhotoUploadController {
         return new PhotoUploadResponse(fileName, contentType, imageUrl);
     }
 
-    @GetMapping("/download/{fileName}")
+    @GetMapping(path = "/download/{fileName}")
     ResponseEntity<Resource> downloadPhoto(@PathVariable String fileName, HttpServletRequest request) {
         Resource resource = photoUploadService.downloadFile(fileName);
 
