@@ -17,7 +17,7 @@ import java.util.Set;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "image")
+@Table(name = "images")
 @Data
 @Builder
 public class Image {
@@ -35,4 +35,9 @@ public class Image {
 
     @Column(name = "image", unique = false, nullable = false, length = 100000)
     private byte[] image;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
 }

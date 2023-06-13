@@ -124,7 +124,6 @@ public class PhotoService {
         photoDto.setProjectFolder(photo.getProjectFolder());
         photoDto.setPhotoGallery(photo.getPhotoGallery());
         photoDto.setUser(photo.getUser());
-        //photoDto.setPhotoUploadResponse(photo.getPhotoUploadResponse());
 
         return photoDto;
     }
