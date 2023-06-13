@@ -33,3 +33,7 @@ VALUES
     (10, 'Family Portraits', 'Photographers of different families. Ongoing project.', 105),
     (11, 'By the River', 'New project. Planning on shooting portraits and landscape photos for this project.', 104),
     (12, 'Mix', 'Photographs who are not part of a project yet.', 103);
+
+INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, aperture, shutter_speed, exposure_compensation, photo_gallery_id, project_folder_id, user_photo_id)
+VALUES
+    (10, 'Dreaming_1', 'Minolta SRT101', 'Kodak Portra 400', '35mm', 'Fotowereld Utrecht', 400, 'f8', '1/60', '+1', 2, 1, 102);

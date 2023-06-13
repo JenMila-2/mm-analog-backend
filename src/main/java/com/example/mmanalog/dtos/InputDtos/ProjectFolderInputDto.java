@@ -1,6 +1,7 @@
 package com.example.mmanalog.dtos.InputDtos;
 
 import com.example.mmanalog.models.Photo;
+//import com.example.mmanalog.models.PhotoUploadResponse;
 import com.example.mmanalog.models.User;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
@@ -22,6 +23,7 @@ public class ProjectFolderInputDto {
     public String projectNote;
 
     public List<Photo> photos;
+    //public List<PhotoUploadResponse> photoUploadResponse;
     public Photo photo;
     public User user;
 }

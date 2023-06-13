@@ -52,5 +52,6 @@ public class Photo {
             inverseJoinColumns = @JoinColumn(name = "tag_id"))
     @JsonIgnore
     private Set<Tag> tags = new HashSet<>();
-    //Used HashSet to avoid duplicate tags being added to a photo
+    //I used HashSet to avoid duplicate tags being added to a photo
+
 }

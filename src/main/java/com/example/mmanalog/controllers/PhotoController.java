@@ -20,6 +20,7 @@ public class PhotoController {
 
     public PhotoController(PhotoService photoService) {
         this.photoService = photoService;
+
     }
 
     @GetMapping("/{id}")
@@ -40,14 +41,6 @@ public class PhotoController {
         return ResponseEntity.ok(photoService.getPhotoByFilmStock(filmStock));
     }
 
-    @PostMapping(path = "")
-    public ResponseEntity<Object> addPhoto(@Valid @RequestBody PhotoInputDto photoInputDto) {
-
-        PhotoDto dtoPhoto = photoService.addPhoto(photoInputDto);
-
-        return ResponseEntity.created(null).body(dtoPhoto);
-    }
-
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<Object> deletePhoto(@PathVariable Long id) {
 
@@ -55,6 +48,15 @@ public class PhotoController {
 
         return ResponseEntity.noContent().build();
     }
+    /////////
+    @PostMapping(path = "")
+    public ResponseEntity<Object> addPhotoMetadata(@Valid @RequestBody PhotoInputDto photoInputDto) {
+
+        PhotoDto dtoPhoto = photoService.addPhotoMetadata(photoInputDto);
+
+        return ResponseEntity.created(null).body(dtoPhoto);
+    }
+    //////
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<Object> updatePhotoMetadata(@PathVariable Long id, @Valid @RequestBody PhotoInputDto newPhoto) {
@@ -64,7 +66,7 @@ public class PhotoController {
         return ResponseEntity.ok().body(dtoPhoto);
     }
 
-    // *** Methods related to the relationship between entities ***
+    //// *** Methods related to the relationship between entities *** ////
     @PutMapping(path = "/{id}/folder/{folderId}")
     public ResponseEntity<Object> assignPhotoToFolder(@PathVariable("id") Long id, @PathVariable("folderId") Long folderId) {
         PhotoDto photoDto = photoService.assignPhotoToFolder(id, folderId);

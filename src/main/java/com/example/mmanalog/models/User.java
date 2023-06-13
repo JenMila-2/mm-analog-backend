@@ -40,4 +40,5 @@ public class User {
     @JoinColumn(name = "user_gallery_id")
     @JsonIgnore
     PhotoGallery photoGallery;
+
 }

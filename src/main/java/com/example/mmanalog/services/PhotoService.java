@@ -3,11 +3,7 @@ package com.example.mmanalog.services;
 import com.example.mmanalog.dtos.OutputDtos.PhotoDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoInputDto;
 import com.example.mmanalog.models.*;
-import com.example.mmanalog.repositories.UserRepository;
-import com.example.mmanalog.repositories.PhotoRepository;
-import com.example.mmanalog.repositories.TagRepository;
-import com.example.mmanalog.repositories.ProjectFolderRepository;
-import com.example.mmanalog.repositories.PhotoGalleryRepository;
+import com.example.mmanalog.repositories.*;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -67,7 +63,7 @@ public class PhotoService {
         return filmStockPhotoListDto;
     }
 
-    public PhotoDto addPhoto(PhotoInputDto inputDtoPhoto) {
+    public PhotoDto addPhotoMetadata(PhotoInputDto inputDtoPhoto) {
         Photo photo = transferToPhoto(inputDtoPhoto);
         photoRepository.save(photo);
 
@@ -128,6 +124,7 @@ public class PhotoService {
         photoDto.setProjectFolder(photo.getProjectFolder());
         photoDto.setPhotoGallery(photo.getPhotoGallery());
         photoDto.setUser(photo.getUser());
+        //photoDto.setPhotoUploadResponse(photo.getPhotoUploadResponse());
 
         return photoDto;
     }
