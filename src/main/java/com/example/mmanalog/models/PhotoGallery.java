@@ -17,7 +17,7 @@ import java.util.List;
 public class PhotoGallery {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String photographerName;
     private String shortBio;

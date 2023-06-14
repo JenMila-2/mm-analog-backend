@@ -9,6 +9,12 @@ import com.example.mmanalog.repositories.*;
 import com.example.mmanalog.exceptions.InvalidPasswordException;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.exceptions.UserNotFoundException;
+import com.example.mmanalog.utilities.ImageUtility;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.security.crypto.password.PasswordEncoder;
@@ -169,20 +175,20 @@ public class UserService {
         }
     }
 
-    public List<ImageDto> getUserImages(Long userId) {
+    public List<byte[]> getAllUserImages(Long userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             List<Image> images = user.getUserImages();
 
-            List<ImageDto> imageDtos = new ArrayList<>();
+            List<byte[]> imageList = new ArrayList<>();
             for (Image image : images) {
-                imageDtos.add(transferImageToDto(image));
+                imageList.add(image.getImage());
             }
-            return imageDtos;
+            return imageList;
         } else {
-            throw new UserNotFoundException("No user found with id: " + userId);
+            throw new RecordNotFoundException("No user found with id: " + userId);
         }
     }
 
@@ -205,6 +211,30 @@ public class UserService {
             }
         } else {
             throw new UserNotFoundException("No user found with id: " + userId);
+        }
+    }
+
+    public void deleteUserImage(Long userId, Long imageId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            List<Image> images = user.getUserImages();
+
+            Optional<Image> optionalImage = images.stream()
+                    .filter(image -> image.getId().equals(imageId))
+                    .findFirst();
+
+            if (optionalImage.isPresent()) {
+                Image image = optionalImage.get();
+                images.remove(image); // Remove the image from the user's image list
+                imageRepository.delete(image); // Delete the image from the repository
+                userRepository.save(user); // Update the user entity
+            } else {
+                throw new RecordNotFoundException("No image found with ID: " + imageId);
+            }
+        } else {
+            throw new UserNotFoundException("No user found with ID: " + userId);
         }
     }
 

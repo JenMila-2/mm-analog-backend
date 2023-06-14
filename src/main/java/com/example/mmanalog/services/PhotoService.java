@@ -31,8 +31,6 @@ public class PhotoService {
         this.tagRepository = tagRepository;
     }
 
-    /////////////////////
-
     public List<PhotoDto> getAllPhotos() {
         List<Photo> photoList = photoRepository.findAll();
         List<PhotoDto> photoListDto = new ArrayList<>();
@@ -128,7 +126,7 @@ public class PhotoService {
         return photoDto;
     }
 
-    // *** Methods related to the relationship between entities ***
+    // *** Methods related to the relationship between entities *** //
     public PhotoDto assignPhotoToFolder(Long id, Long folderId) {
         Optional<Photo> photoOptional = photoRepository.findById(id);
         Optional<ProjectFolder> folderOptional = projectFolderRepository.findById(folderId);

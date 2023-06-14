@@ -2,7 +2,9 @@ package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.OutputDtos.ImageDto;
 import com.example.mmanalog.dtos.UserDto;
+import com.example.mmanalog.exceptions.BadRequestException;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
+import com.example.mmanalog.exceptions.UserNotFoundException;
 import com.example.mmanalog.models.Image;
 import com.example.mmanalog.services.UserService;
 import com.example.mmanalog.utilities.ImageUtility;
@@ -12,11 +14,14 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import jakarta.validation.Valid;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -89,37 +94,16 @@ public UserController(UserService userService) {
         return ResponseEntity.ok().body(userDto);
     }
 
+    //Method below only returns the data
     @GetMapping("/{userId}/images")
-    public ResponseEntity<List<ImageDto>> getUserImages(@PathVariable("userId") Long userId) {
-        List<ImageDto> images = userService.getUserImages(userId);
-        return ResponseEntity.ok(images);
-    }
-
-    @GetMapping("/{userId}/images/{imageId}")
-    public ResponseEntity<Resource> getUserImage(@PathVariable("userId") Long userId, @PathVariable("imageId") Long imageId) {
+    public ResponseEntity<List<byte[]>> getAllUserImages(@PathVariable("userId") Long userId) {
         try {
-            byte[] imageData = userService.getUserImage(userId, imageId);
+            List<byte[]> images = userService.getAllUserImages(userId);
 
-            if (imageData != null && imageData.length > 0) {
-                // You can modify this part to retrieve the image details based on your data model
-                String imageName = "example.jpg";
-                String imageType = "image/jpeg";
-
-                // Process the image data using your ImageUtility class
-                byte[] processedImageData = ImageUtility.decompressImage(imageData);
-
-                ByteArrayResource resource = new ByteArrayResource(processedImageData);
-
-                HttpHeaders headers = new HttpHeaders();
-                headers.setContentType(MediaType.parseMediaType(imageType));
-                headers.setContentLength(resource.contentLength());
-                headers.setContentDisposition(ContentDisposition.builder("inline").filename(imageName).build());
-
-                return ResponseEntity.ok()
-                        .headers(headers)
-                        .body(resource);
+            if (!images.isEmpty()) {
+                return new ResponseEntity<>(images, HttpStatus.OK);
             } else {
-                throw new RecordNotFoundException("Image data not found.");
+                throw new RecordNotFoundException("No images found for the user.");
             }
         } catch (Exception e) {
             // Log the error for debugging
@@ -129,7 +113,41 @@ public UserController(UserService userService) {
         }
     }
 
+    @GetMapping("/{userId}/images/{imageId}")
+    public ResponseEntity<Resource> getUserImage(@PathVariable("userId") Long userId, @PathVariable("imageId") Long imageId) {
+        byte[] imageData = userService.getUserImage(userId, imageId);
 
+        if (imageData != null && imageData.length > 0) {
+            String imageName = "example.jpg";
+            String imageType = "image/jpeg";
 
+            // Process the image data using the ImageUtility class
+            byte[] processedImageData = ImageUtility.decompressImage(imageData);
 
+            ByteArrayResource resource = new ByteArrayResource(processedImageData);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.parseMediaType(imageType));
+            headers.setContentLength(resource.contentLength());
+            headers.setContentDisposition(ContentDisposition.builder("inline").filename(imageName).build());
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .body(resource);
+        } else {
+            throw new BadRequestException("Error. Image or user not found.");
+        }
+    }
+
+    @DeleteMapping("/{userId}/images/{imageId}")
+    public ResponseEntity<String> deleteImage(@PathVariable("userId") Long userId, @PathVariable("imageId") Long imageId) {
+        try {
+            userService.deleteUserImage(userId, imageId);
+            return ResponseEntity.ok("Image deleted successfully.");
+        } catch (UserNotFoundException e) {
+            throw new RecordNotFoundException("User not found with id: " + userId);
+        } catch (RecordNotFoundException e) {
+            throw new RecordNotFoundException("Image with id: " + imageId + " does not exist or has already been deleted.");
+        }
+    }
 }
