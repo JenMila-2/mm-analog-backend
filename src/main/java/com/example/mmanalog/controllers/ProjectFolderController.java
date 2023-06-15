@@ -3,15 +3,13 @@ package com.example.mmanalog.controllers;
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
 import com.example.mmanalog.exceptions.BadRequestException;
+import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.services.ProjectFolderService;
 import com.example.mmanalog.utilities.ImageUtility;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
-import org.springframework.http.ContentDisposition;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.ResponseEntity;
 import jakarta.validation.Valid;
 
 import java.util.List;
@@ -102,6 +100,34 @@ public class ProjectFolderController {
                     .body(resource);
         } else {
             throw new BadRequestException("Error. Folder or user not found.");
+        }
+    }
+
+    @DeleteMapping(path = "/{folderId}/images/{imageId}")
+    public ResponseEntity<String> deleteFolderImage(@PathVariable("folderId") Long folderId, @PathVariable("imageId") Long imageId) {
+        try {
+            projectFolderService.deleteFolderImage(folderId, imageId);
+            return ResponseEntity.ok("Image deleted successfully.");
+        } catch (RecordNotFoundException e) {
+            throw new RecordNotFoundException("Image with id: " + imageId + " or folder with id: " + folderId + " do not exist.");
+        }
+    }
+
+    ////*** Specials ***////
+
+    //Method below only returns the image data and not the actual images
+    @GetMapping(path = "/{folderId}/images")
+    public ResponseEntity<List<byte[]>> getAllFolderImages(@PathVariable("folderId") Long folderId) {
+        try {
+            List<byte[]> images = projectFolderService.getAllFolderImages(folderId);
+
+            if (!images.isEmpty()) {
+                return new ResponseEntity<>(images, HttpStatus.OK);
+            } else {
+                throw new RecordNotFoundException("No images found for folder with id: " + folderId);
+            }
+        } catch (Exception e) {
+            throw new BadRequestException("Error while retrieving data.");
         }
     }
 }

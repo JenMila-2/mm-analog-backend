@@ -89,7 +89,7 @@ public UserController(UserService userService) {
         return ResponseEntity.ok().body(userDto);
     }
 
-    @GetMapping("/{userId}/images/{imageId}")
+    @GetMapping(path = "/{userId}/images/{imageId}")
     public ResponseEntity<Resource> getUserImage(@PathVariable("userId") Long userId, @PathVariable("imageId") Long imageId) {
         byte[] imageData = userService.getUserImage(userId, imageId);
 
@@ -115,7 +115,7 @@ public UserController(UserService userService) {
         }
     }
 
-    @DeleteMapping("/{userId}/images/{imageId}")
+    @DeleteMapping(path = "/{userId}/images/{imageId}")
     public ResponseEntity<String> deleteImage(@PathVariable("userId") Long userId, @PathVariable("imageId") Long imageId) {
         try {
             userService.deleteUserImage(userId, imageId);
@@ -127,8 +127,10 @@ public UserController(UserService userService) {
         }
     }
 
+    ////*** Specials ***////
+
     //Method below only returns the image data and not the actual images
-    @GetMapping("/{userId}/images")
+    @GetMapping(path = "/{userId}/images")
     public ResponseEntity<List<byte[]>> getAllUserImages(@PathVariable("userId") Long userId) {
         try {
             List<byte[]> images = userService.getAllUserImages(userId);
@@ -136,7 +138,7 @@ public UserController(UserService userService) {
             if (!images.isEmpty()) {
                 return new ResponseEntity<>(images, HttpStatus.OK);
             } else {
-                throw new RecordNotFoundException("No images found for the user.");
+                throw new RecordNotFoundException("No images found for user with id. " + userId);
             }
         } catch (Exception e) {
             throw new BadRequestException("Error while retrieving data.");
@@ -144,7 +146,7 @@ public UserController(UserService userService) {
     }
 
     //Method to retrieve the id's of the images//
-    @GetMapping("/{userId}/imageIds")
+    @GetMapping(path = "/{userId}/imageIds")
     public ResponseEntity<List<Long>> getUserImageIds(@PathVariable("userId") Long userId) {
         try {
             List<Long> imageIds = userService.getUserImageIds(userId);

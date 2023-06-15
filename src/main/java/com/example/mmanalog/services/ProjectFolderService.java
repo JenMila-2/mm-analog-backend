@@ -2,6 +2,7 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
+import com.example.mmanalog.exceptions.UserNotFoundException;
 import com.example.mmanalog.models.Image;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.models.ProjectFolder;
@@ -161,6 +162,50 @@ public class ProjectFolderService {
             }
         } else {
             throw new RecordNotFoundException("No folder found with id: " + folderId);
+        }
+    }
+
+    public void deleteFolderImage(Long folderId, Long imageId) {
+        Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);
+
+        if (optionalProjectFolder.isPresent()) {
+            ProjectFolder projectFolder = optionalProjectFolder.get();
+            List<Image> images = projectFolder.getImages();
+
+            Optional<Image> optionalImage = images.stream()
+                    .filter(image -> image.getId().equals(imageId))
+                    .findFirst();
+
+            if (optionalImage.isPresent()) {
+                Image image = optionalImage.get();
+                images.remove(image);
+                imageRepository.delete(image);
+                projectFolderRepository.save(projectFolder);
+            } else {
+                throw new RecordNotFoundException("No image found with id: " + imageId);
+            }
+        } else {
+            throw new RecordNotFoundException("No project folder found with id: " + folderId);
+        }
+    }
+
+    ////*** Specials ***////
+
+    //Method below only returns the image data and not the actual images
+    public List<byte[]> getAllFolderImages(Long folderId) {
+        Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);
+
+        if (optionalProjectFolder.isPresent()) {
+            ProjectFolder projectFolder = optionalProjectFolder.get();
+            List<Image> images = projectFolder.getImages();
+
+            List<byte[]> imageList = new ArrayList<>();
+            for (Image image : images) {
+                imageList.add(image.getImage());
+            }
+            return imageList;
+        } else {
+            throw new RecordNotFoundException("Np folder found with id: " + folderId);
         }
     }
 }

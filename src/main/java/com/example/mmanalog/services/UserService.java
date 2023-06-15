@@ -214,6 +214,9 @@ public class UserService {
         }
     }
 
+    ////*** Specials ***////
+
+    //Method below only returns the image data and not the actual images
     public List<byte[]> getAllUserImages(Long userId) {
         Optional<User> optionalUser = userRepository.findById(userId);
 
@@ -225,7 +228,6 @@ public class UserService {
             for (Image image : images) {
                 imageList.add(image.getImage());
             }
-
             return imageList;
         } else {
             throw new RecordNotFoundException("No user found with id: " + userId);
