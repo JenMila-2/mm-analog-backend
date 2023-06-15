@@ -58,7 +58,6 @@ public class PhotoController {
 
         return ResponseEntity.created(null).body(dtoPhoto);
     }
-    //////
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<Object> updatePhotoMetadata(@PathVariable Long id, @Valid @RequestBody PhotoInputDto newPhoto) {
@@ -95,7 +94,6 @@ public class PhotoController {
     public ResponseEntity<String> assignTagToPhoto(@PathVariable Long id, @PathVariable Long tagId) {
         return ResponseEntity.ok(photoService.assignTagToPhoto(id, tagId));
     }
-
 }
 
 

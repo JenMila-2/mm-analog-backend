@@ -45,4 +45,7 @@ public class Image {
     @JoinColumn(name = "folder_id")
     @JsonIgnore
     private ProjectFolder projectFolder;
+
+    @OneToOne(mappedBy = "image", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Photo photo;
 }

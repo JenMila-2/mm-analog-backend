@@ -3,6 +3,7 @@ package com.example.mmanalog.controllers;
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.models.Image;
+import com.example.mmanalog.models.Photo;
 import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.services.ProjectFolderService;
 import com.example.mmanalog.repositories.ImageRepository;
