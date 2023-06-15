@@ -30,7 +30,7 @@ public class PhotoInputDto {
     public String exposureCompensation;
 
     public User user;
-    public PhotoGallery photoGallery;
+    public FilmStockInventory filmStockInventory;
     public ProjectFolder projectFolder;
     public Tag tag;
 }

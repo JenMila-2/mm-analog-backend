@@ -75,13 +75,6 @@ public class PhotoController {
         return ResponseEntity.ok().body(photoDto);
     }
 
-    @PutMapping(path = "/{id}/gallery/{galleryId}")
-    public ResponseEntity<Object> assignPhotoToPhotoGallery(@PathVariable("id") Long id, @PathVariable("galleryId") Long galleryId) {
-        PhotoDto photoDto = photoService.assignPhotoToGallery(id, galleryId);
-
-        return ResponseEntity.ok().body(photoDto);
-    }
-
     @PutMapping(path = "/{id}/user/{userId}")
     public ResponseEntity<Object> assignPhotoToUser(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
         PhotoDto photoDto = photoService.assignPhotoToUser(id, userId);

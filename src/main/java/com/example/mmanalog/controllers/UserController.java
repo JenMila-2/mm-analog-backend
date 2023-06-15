@@ -74,13 +74,6 @@ public UserController(UserService userService) {
     }
 
     // *** Methods related to the relationship between entities ***
-    @PutMapping(path ="/{id}/photogallery/{galleryId}")
-    public ResponseEntity<Object> assignPhotoGalleryToUser(@PathVariable("id") Long id, @PathVariable("galleryId") Long galleryId) {
-    UserDto userDto = userService.assignPhotoGalleryToUser(id, galleryId);
-
-    return ResponseEntity.ok().body(userDto);
-    }
-
     @PutMapping(path = "/{userId}/images/{imageId}")
     public ResponseEntity<UserDto> assignImageToUser(
             @PathVariable("userId") Long userId,

@@ -27,7 +27,7 @@ public class ProjectFolder {
     private List<Photo> photos;
 
     @ManyToOne
-    @JoinColumn(name = "user_folder_id")
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
 

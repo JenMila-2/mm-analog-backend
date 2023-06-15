@@ -24,7 +24,7 @@ public class PhotoDto {
     public String exposureCompensation;
 
     public ProjectFolder projectFolder;
-    public PhotoGallery photoGallery;
+    public FilmStockInventory filmStockInventory;
     public User user;
     public Tag tag;
 }

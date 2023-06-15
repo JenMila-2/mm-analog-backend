@@ -41,11 +41,6 @@ public class Photo {
     @JsonIgnore
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "photo_gallery_id")
-    @JsonIgnore
-    private PhotoGallery photoGallery;
-
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "photo_tag",
             joinColumns = @JoinColumn(name = "photo_id"),

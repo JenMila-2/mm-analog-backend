@@ -2,7 +2,6 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.PhotoDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoInputDto;
-import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.models.*;
 import com.example.mmanalog.repositories.*;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
@@ -19,15 +18,15 @@ public class PhotoService {
 
     private final PhotoRepository photoRepository;
     private final ProjectFolderRepository projectFolderRepository;
-    private final PhotoGalleryRepository photoGalleryRepository;
+    private final FilmStockInventoryRepository filmStockInventoryRepository;
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
 
 
-    public PhotoService(PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository, PhotoGalleryRepository photoGalleryRepository, UserRepository userRepository, TagRepository tagRepository) {
+    public PhotoService(PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository, FilmStockInventoryRepository filmStockInventoryRepository, UserRepository userRepository, TagRepository tagRepository) {
         this.photoRepository = photoRepository;
         this.projectFolderRepository = projectFolderRepository;
-        this.photoGalleryRepository = photoGalleryRepository;
+        this.filmStockInventoryRepository = filmStockInventoryRepository;
         this.userRepository = userRepository;
         this.tagRepository = tagRepository;
     }
@@ -121,7 +120,6 @@ public class PhotoService {
         photoDto.setShutterSpeed(photo.getShutterSpeed());
         photoDto.setExposureCompensation(photo.getExposureCompensation());
         photoDto.setProjectFolder(photo.getProjectFolder());
-        photoDto.setPhotoGallery(photo.getPhotoGallery());
         photoDto.setUser(photo.getUser());
 
         return photoDto;
@@ -142,23 +140,6 @@ public class PhotoService {
             return transferToPhotoDto(photo);
         } else {
             throw new RecordNotFoundException("Photo or project folder not found.");
-        }
-    }
-
-    public PhotoDto assignPhotoToGallery(Long id, Long galleryId) {
-        Optional<Photo> photoOptional = photoRepository.findById(id);
-        Optional<PhotoGallery> galleryOptional = photoGalleryRepository.findById(galleryId);
-
-        if (photoOptional.isPresent() && galleryOptional.isPresent()) {
-            Photo photo = photoOptional.get();
-            PhotoGallery photoGallery = galleryOptional.get();
-
-            photo.setPhotoGallery(photoGallery);
-            photoRepository.save(photo);
-
-            return transferToPhotoDto(photo);
-        } else {
-            throw new RecordNotFoundException("Photo or photo gallery not found.");
         }
     }
 
@@ -193,9 +174,6 @@ public class PhotoService {
         photoRepository.save(photo);
         return "Tag added to photo";
     }
-
-    ///////////////
-
 }
 
 

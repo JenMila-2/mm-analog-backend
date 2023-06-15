@@ -1,15 +1,5 @@
---Photo Galleries
-INSERT INTO photogalleries (id, photographer_name, short_bio, publish)
-VALUES
-    (1, 'Barry Allen', 'Hi, I am Barry. I am a film photographer based in New York.', true),
-    (2, 'Jensy Franco', 'Dutch photographer based in Utrecht, the Netherlands. Passionate about film and instant photography.', true),
-    (3, 'Marisol Mendez', 'Hi, I am Marisol. Welcome to my profile, I hope you enjoy checking out my work.', true),
-    (4, 'Scott Bennie', 'I am a landscape photographer based in Scotland. When I am not photographing the beautiful landscapes of my hometown I am traveling across the world.', true),
-    (5, 'Lucy Cho', 'Twenty-something year old photography student, based in Amsterdam. Gear of choice, my trusted Canon AE-1.', true),
-    (6, 'Kevin Spratt', 'Portrait, Wedding, Nature photographer.', true);
-
 --Users
-INSERT INTO users (id, name, email, password, enabled, user_gallery_id)
+INSERT INTO users (id, name, email, password, enabled, inventory_id)
 VALUES
     (101, 'Barry Allen', 'barry@gmail.com', 'B23A@_Flash9', true, 1),
     (102, 'Jensy Franco', 'jenmilafran@gmail.com', '2@2J29SolER_56', true, 2),
@@ -18,8 +8,18 @@ VALUES
     (105, 'Lucy Cho', 'lucy.cho@gmail.com', 'lC0&3921@@cho', true, 5),
     (106, 'Kevin Spratt', 'Spratt.Kevin@gmail.com', 'spratt@BHjkl90&2', true, 6);
 
+--Film Stock Inventory
+INSERT INTO filmstockinventories (id, filmstock_name, remaining_rolls, brand, stock, format, development_process, storage, rolls_shot, film_expiration_date)
+VALUES
+    (1, 'Kodak Ultra Max', 'Hi, I am Barry. I am a film photographer based in New York.', true),
+    (2, 'Jensy Franco', 'Dutch photographer based in Utrecht, the Netherlands. Passionate about film and instant photography.', true),
+    (3, 'Marisol Mendez', 'Hi, I am Marisol. Welcome to my profile, I hope you enjoy checking out my work.', true),
+    (4, 'Scott Bennie', 'I am a landscape photographer based in Scotland. When I am not photographing the beautiful landscapes of my hometown I am traveling across the world.', true),
+    (5, 'Lucy Cho', 'Twenty-something year old photography student, based in Amsterdam. Gear of choice, my trusted Canon AE-1.', true),
+    (6, 'Kevin Spratt', 'Portrait, Wedding, Nature photographer.', true);
+
 --Project Folders
-INSERT INTO projectfolders (id, project_title, project_note, user_folder_id)
+INSERT INTO projectfolders (id, project_title, project_note, user_id)
 VALUES
     (1, 'In between dreams', 'A poetic, photographic meditation on the subtlety of everyday life. Ongoing project.', 102),
     (2, 'Faces', 'A collection of intimate portraits. Planning on shooting more portraits in 2023.', 106),
@@ -34,6 +34,7 @@ VALUES
     (11, 'By the River', 'New project. Planning on shooting portraits and landscape photos for this project.', 104),
     (12, 'Mix', 'Photographs who are not part of a project yet.', 103);
 
-INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, aperture, shutter_speed, exposure_compensation, photo_gallery_id, project_folder_id, user_photo_id)
+/*INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, aperture, shutter_speed, exposure_compensation, photo_gallery_id, project_folder_id, user_photo_id)
 VALUES
     (10, 'Dreaming_1', 'Minolta SRT101', 'Kodak Portra 400', '35mm', 'Fotowereld Utrecht', 400, 'f8', '1/60', '+1', 2, 1, 102);
+*/

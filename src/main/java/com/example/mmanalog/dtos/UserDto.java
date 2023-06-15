@@ -1,7 +1,6 @@
 package com.example.mmanalog.dtos;
 
-import com.example.mmanalog.models.PhotoGallery;
-import jakarta.validation.constraints.Email;
+import com.example.mmanalog.models.FilmStockInventory;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -9,8 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -28,6 +25,6 @@ public class UserDto {
     public String password;
     public boolean enabled;
 
-    public PhotoGallery photoGallery;
+    public FilmStockInventory filmStockInventory;
     //public Set<String> authorities;
 }

@@ -3,9 +3,8 @@ package com.example.mmanalog.services;
 import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.models.Image;
 import com.example.mmanalog.models.User;
-import com.example.mmanalog.models.PhotoGallery;
+import com.example.mmanalog.models.FilmStockInventory;
 import com.example.mmanalog.repositories.*;
-import com.example.mmanalog.exceptions.InvalidPasswordException;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.exceptions.UserNotFoundException;
 import org.springframework.stereotype.Service;
@@ -24,14 +23,14 @@ public class UserService {
     private final UserRepository userRepository;
     private final PhotoRepository photoRepository;
     private final ProjectFolderRepository projectFolderRepository;
-    private final PhotoGalleryRepository photoGalleryRepository;
+    private final FilmStockInventoryRepository filmStockInventoryRepository;
     private final ImageRepository imageRepository;
 
-    public UserService(UserRepository userRepository, PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository, PhotoGalleryRepository photoGalleryRepository, ImageRepository imageRepository) {
+    public UserService(UserRepository userRepository, PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository, FilmStockInventoryRepository filmStockInventoryRepository, ImageRepository imageRepository) {
         this.userRepository = userRepository;
         this.photoRepository = photoRepository;
         this.projectFolderRepository = projectFolderRepository;
-        this.photoGalleryRepository = photoGalleryRepository;
+        this.filmStockInventoryRepository = filmStockInventoryRepository;
         this.imageRepository = imageRepository;
     }
 
@@ -89,13 +88,13 @@ public class UserService {
     public UserDto updateUser(Long id, UserDto newUser) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()) {
-            User user1 = userOptional.get();
+            User user = userOptional.get();
 
-            user1.setName(newUser.getName());
-            user1.setEmail(newUser.getEmail());
-            user1.setPassword(newUser.getPassword());
+            user.setName(newUser.getName());
+            user.setEmail(newUser.getEmail());
+            user.setPassword(newUser.getPassword());
 
-            User returnUser = userRepository.save(user1);
+            User returnUser = userRepository.save(user);
 
             return transferUserToDto(returnUser);
 
@@ -126,29 +125,11 @@ public class UserService {
         userDto.email = user.getEmail();
         userDto.password = user.getPassword();
         userDto.enabled = user.isEnabled();
-        userDto.photoGallery = user.getPhotoGallery();
 
         return userDto;
     }
 
     // *** Methods related to the relationship between entities *** //
-    public UserDto assignPhotoGalleryToUser(Long id, Long galleryId) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        Optional<PhotoGallery> optionalPhotoGallery = photoGalleryRepository.findById(galleryId);
-
-        if (optionalUser.isPresent() && optionalPhotoGallery.isPresent()) {
-            User user = optionalUser.get();
-            PhotoGallery photoGallery = optionalPhotoGallery.get();
-
-            user.setPhotoGallery(photoGallery);
-            userRepository.save(user);
-
-            return transferUserToDto(user);
-        } else {
-            throw new RecordNotFoundException("No user or photo gallery found.");
-        }
-    }
-
     public UserDto assignImageToUser(Long userId, Long imageId) {
         Optional<User> optionalUser = userRepository.findById(userId);
         Optional<Image> optionalImage = imageRepository.findById(imageId);
