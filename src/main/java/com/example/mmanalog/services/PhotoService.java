@@ -2,6 +2,7 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.PhotoDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoInputDto;
+import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.models.*;
 import com.example.mmanalog.repositories.*;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
@@ -161,7 +162,7 @@ public class PhotoService {
         }
     }
 
-    public PhotoDto assignPhotoToUser(Long id, Long userId) {
+   public PhotoDto assignPhotoToUser(Long id, Long userId) {
         Optional<Photo> optionalPhoto = photoRepository.findById(id);
         Optional<User> optionalUser = userRepository.findById(userId);
 
@@ -192,6 +193,9 @@ public class PhotoService {
         photoRepository.save(photo);
         return "Tag added to photo";
     }
+
+    ///////////////
+
 }
 
 

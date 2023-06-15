@@ -2,8 +2,10 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
+import com.example.mmanalog.models.Image;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.models.ProjectFolder;
+import com.example.mmanalog.repositories.ImageRepository;
 import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.repositories.PhotoRepository;
 import com.example.mmanalog.repositories.ProjectFolderRepository;
@@ -11,6 +13,7 @@ import com.example.mmanalog.exceptions.RecordNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -21,11 +24,13 @@ public class ProjectFolderService {
     private final ProjectFolderRepository projectFolderRepository;
     private final PhotoRepository photoRepository;
     private final UserRepository userRepository;
+    private final ImageRepository imageRepository;
 
-    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, PhotoRepository photoRepository, UserRepository userRepository) {
+    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, PhotoRepository photoRepository, UserRepository userRepository, ImageRepository imageRepository) {
         this.projectFolderRepository = projectFolderRepository;
         this.photoRepository = photoRepository;
         this.userRepository = userRepository;
+        this.imageRepository = imageRepository;
     }
 
     public List<ProjectFolderDto> getProjectFolders() {
@@ -114,6 +119,48 @@ public class ProjectFolderService {
             return transferProjectFolderToDto(projectFolder);
         } else {
             throw new RecordNotFoundException("No project folder or user found.");
+        }
+    }
+
+    ////Assign image to folder method//////
+    public ProjectFolderDto assignImageToFolder(Long folderId, Long imageId) {
+        Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);
+        Optional<Image> optionalImage = imageRepository.findById(imageId);
+
+        if (optionalProjectFolder.isPresent() && optionalImage.isPresent()) {
+            ProjectFolder projectFolder = optionalProjectFolder.get();
+            Image image = optionalImage.get();
+
+            image.setProjectFolder(projectFolder);
+            projectFolder.getImages().add(image);
+
+            projectFolderRepository.save(projectFolder);
+
+            return transferProjectFolderToDto(projectFolder);
+        } else {
+            throw new RecordNotFoundException("No user or image found.");
+        }
+    }
+
+    public byte[] getFolderImages(Long folderId, Long imageId) {
+        Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);
+
+        if (optionalProjectFolder.isPresent()) {
+            ProjectFolder projectFolder = optionalProjectFolder.get();
+            List<Image> images = projectFolder.getImages();
+
+            Optional<Image> optionalImage = images.stream()
+                    .filter(image -> image.getId().equals(imageId))
+                    .findFirst();
+
+            if (optionalImage.isPresent()) {
+                Image image = optionalImage.get();
+                return image.getImage();
+            } else {
+                throw new RecordNotFoundException("No image found with id: " + imageId);
+            }
+        } else {
+            throw new RecordNotFoundException("No folder found with id: " + folderId);
         }
     }
 }

@@ -2,25 +2,27 @@ package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.OutputDtos.PhotoDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoInputDto;
-import com.example.mmanalog.exceptions.RecordNotFoundException;
+import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.services.PhotoService;
+import com.example.mmanalog.services.ProjectFolderService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
-
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/photos")
 public class PhotoController {
 
     private final PhotoService photoService;
+    private final ProjectFolderService projectFolderService;
 
-    public PhotoController(PhotoService photoService) {
+    public PhotoController(PhotoService photoService, ProjectFolderService projectFolderService) {
         this.photoService = photoService;
-
+        this.projectFolderService = projectFolderService;
     }
 
     @GetMapping("/{id}")
@@ -93,6 +95,7 @@ public class PhotoController {
     public ResponseEntity<String> assignTagToPhoto(@PathVariable Long id, @PathVariable Long tagId) {
         return ResponseEntity.ok(photoService.assignTagToPhoto(id, tagId));
     }
+
 }
 
 

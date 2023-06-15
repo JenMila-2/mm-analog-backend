@@ -1,6 +1,5 @@
 package com.example.mmanalog.services;
 
-import com.example.mmanalog.dtos.OutputDtos.ImageDto;
 import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.models.Image;
 import com.example.mmanalog.models.User;
@@ -9,12 +8,6 @@ import com.example.mmanalog.repositories.*;
 import com.example.mmanalog.exceptions.InvalidPasswordException;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.exceptions.UserNotFoundException;
-import com.example.mmanalog.utilities.ImageUtility;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.ContentDisposition;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.security.crypto.password.PasswordEncoder;
@@ -62,6 +55,15 @@ public class UserService {
         }
     }
 
+    public UserDto getUserByEmail(String email) {
+        User user = userRepository.findUserByEmail(email);
+        if (user == null) {
+            throw new RecordNotFoundException("No user found with email: " + email);
+        } else {
+            return transferUserToDto(user);
+        }
+    }
+
     public List<UserDto> getAllUsersByEmail(String email) {
         List<User> userEmailList = userRepository.findAllUsersByEmail(email);
         List<UserDto> userDtos = new ArrayList<>();
@@ -70,15 +72,6 @@ public class UserService {
             UserDto userDto = transferUserToDto(user);
             userDtos.add(userDto);
         } return userDtos;
-    }
-
-    public UserDto getUserByEmail(String email) {
-        User user = userRepository.findUserByEmail(email);
-        if (user == null) {
-            throw new RecordNotFoundException("No user found with email: " + email);
-        } else {
-            return transferUserToDto(user);
-        }
     }
 
     public UserDto addUser(UserDto dtoUser) {
@@ -111,6 +104,7 @@ public class UserService {
         }
     }
 
+    //Transfers
     public User transferToUser(UserDto userDto) {
 
         var user = new User();
@@ -137,7 +131,7 @@ public class UserService {
         return userDto;
     }
 
-    //Methods related to the relationship between entities
+    // *** Methods related to the relationship between entities *** //
     public UserDto assignPhotoGalleryToUser(Long id, Long galleryId) {
         Optional<User> optionalUser = userRepository.findById(id);
         Optional<PhotoGallery> optionalPhotoGallery = photoGalleryRepository.findById(galleryId);
@@ -155,8 +149,7 @@ public class UserService {
         }
     }
 
-    ///////
-    public UserDto addImageToUser(Long userId, Long imageId) {
+    public UserDto assignImageToUser(Long userId, Long imageId) {
         Optional<User> optionalUser = userRepository.findById(userId);
         Optional<Image> optionalImage = imageRepository.findById(imageId);
 
@@ -172,23 +165,6 @@ public class UserService {
             return transferUserToDto(user);
         } else {
             throw new RecordNotFoundException("No user or image found.");
-        }
-    }
-
-    public List<byte[]> getAllUserImages(Long userId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            List<Image> images = user.getUserImages();
-
-            List<byte[]> imageList = new ArrayList<>();
-            for (Image image : images) {
-                imageList.add(image.getImage());
-            }
-            return imageList;
-        } else {
-            throw new RecordNotFoundException("No user found with id: " + userId);
         }
     }
 
@@ -238,7 +214,44 @@ public class UserService {
         }
     }
 
-    private ImageDto transferImageToDto(Image image) {
+    public List<byte[]> getAllUserImages(Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            List<Image> images = user.getUserImages();
+
+            List<byte[]> imageList = new ArrayList<>();
+            for (Image image : images) {
+                imageList.add(image.getImage());
+            }
+
+            return imageList;
+        } else {
+            throw new RecordNotFoundException("No user found with id: " + userId);
+        }
+    }
+
+    //Method to retrieve the id's of the images//
+    public List<Long> getUserImageIds(Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            List<Image> images = user.getUserImages();
+
+            List<Long> imageIds = new ArrayList<>();
+            for (Image image : images) {
+                imageIds.add(image.getId());
+            }
+
+            return imageIds;
+        } else {
+            throw new UserNotFoundException("No user found with id: " + userId);
+        }
+    }
+
+    /*private ImageDto transferImageToDto(Image image) {
         ImageDto imageDto = new ImageDto();
         imageDto.setId(image.getId());
         imageDto.setName(image.getName());
@@ -246,7 +259,7 @@ public class UserService {
         imageDto.setImage(image.getImage());
 
         return imageDto;
-    }
+    }*/
 }
 
 

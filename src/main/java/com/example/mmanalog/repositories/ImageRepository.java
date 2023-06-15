@@ -1,6 +1,8 @@
 package com.example.mmanalog.repositories;
 
 import com.example.mmanalog.models.Image;
+
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 

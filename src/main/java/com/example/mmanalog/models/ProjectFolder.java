@@ -30,4 +30,9 @@ public class ProjectFolder {
     @JoinColumn(name = "user_folder_id")
     @JsonIgnore
     private User user;
+
+    //
+   @OneToMany(mappedBy = "projectFolder", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Image> images;
 }

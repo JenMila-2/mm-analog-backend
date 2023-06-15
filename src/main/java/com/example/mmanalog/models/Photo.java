@@ -53,5 +53,4 @@ public class Photo {
     @JsonIgnore
     private Set<Tag> tags = new HashSet<>();
     //I used HashSet to avoid duplicate tags being added to a photo
-
 }
