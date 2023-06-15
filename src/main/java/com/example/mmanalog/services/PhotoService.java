@@ -2,12 +2,10 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.PhotoDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoInputDto;
-import com.example.mmanalog.models.User;
-import com.example.mmanalog.models.Photo;
-import com.example.mmanalog.models.ProjectFolder;
-import com.example.mmanalog.models.PhotoGallery;
+import com.example.mmanalog.models.*;
 import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.repositories.PhotoRepository;
+import com.example.mmanalog.repositories.TagRepository;
 import com.example.mmanalog.repositories.ProjectFolderRepository;
 import com.example.mmanalog.repositories.PhotoGalleryRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class PhotoService {
@@ -25,13 +24,15 @@ public class PhotoService {
     private final ProjectFolderRepository projectFolderRepository;
     private final PhotoGalleryRepository photoGalleryRepository;
     private final UserRepository userRepository;
+    private final TagRepository tagRepository;
 
 
-    public PhotoService(PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository, PhotoGalleryRepository photoGalleryRepository, UserRepository userRepository) {
+    public PhotoService(PhotoRepository photoRepository, ProjectFolderRepository projectFolderRepository, PhotoGalleryRepository photoGalleryRepository, UserRepository userRepository, TagRepository tagRepository) {
         this.photoRepository = photoRepository;
         this.projectFolderRepository = projectFolderRepository;
         this.photoGalleryRepository = photoGalleryRepository;
         this.userRepository = userRepository;
+        this.tagRepository = tagRepository;
     }
 
     public List<PhotoDto> getAllPhotos() {
@@ -93,7 +94,7 @@ public class PhotoService {
     }
 
     public Photo transferToPhoto(PhotoInputDto photoInputDto) {
-        var photo = new Photo();
+        Photo photo = new Photo();
 
         photo.setId(photoInputDto.getId());
         photo.setPhotoTitle(photoInputDto.getPhotoTitle());
@@ -102,7 +103,7 @@ public class PhotoService {
         photo.setFilmFormat(photoInputDto.getFilmFormat());
         photo.setDevelopedBy(photoInputDto.getDevelopedBy());
         photo.setIso(photoInputDto.getIso());
-        photo.setFStop(photoInputDto.getFStop());
+        photo.setAperture(photoInputDto.getAperture());
         photo.setShutterSpeed(photoInputDto.getShutterSpeed());
         photo.setExposureCompensation(photoInputDto.getExposureCompensation());
 
@@ -119,7 +120,7 @@ public class PhotoService {
         photoDto.setFilmFormat(photo.getFilmFormat());
         photoDto.setDevelopedBy(photo.getDevelopedBy());
         photoDto.setIso(photo.getIso());
-        photoDto.setFStop(photo.getFStop());
+        photoDto.setAperture(photo.getAperture());
         photoDto.setShutterSpeed(photo.getShutterSpeed());
         photoDto.setExposureCompensation(photo.getExposureCompensation());
         photoDto.setProjectFolder(photo.getProjectFolder());
@@ -179,6 +180,21 @@ public class PhotoService {
         } else {
             throw new RecordNotFoundException("Photo or user not found.");
         }
+    }
+
+    public String assignTagToPhoto(Long id, Long tagId) throws RecordNotFoundException {
+        Optional<Photo> optionalPhoto = photoRepository.findById(id);
+        Optional<Tag> optionalTag = tagRepository.findById(tagId);
+        if (optionalPhoto.isEmpty() && optionalTag.isEmpty()) {
+            throw new RecordNotFoundException("No tag or photo found.");
+        }
+        Photo photo = optionalPhoto.get();
+        Tag tag = optionalTag.get();
+        Set<Tag> tagList = photo.getTags();
+        tagList.add(tag);
+        photo.setTags(tagList);
+        photoRepository.save(photo);
+        return "Tag added to photo";
     }
 }
 
