@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,8 +17,8 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "photos")
-public class Photo {
+@Table(name = "photologs")
+public class PhotoLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,28 +27,25 @@ public class Photo {
     private String camera;
     private String filmStock;
     private String filmFormat;
-    private String developedBy;
-    private int iso;
+    private int shotAtIso;
     private String aperture;
     private String shutterSpeed;
     private String exposureCompensation;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate rollStarted;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate rollFinished;
+    private String developedByLab;
+    private boolean scanned;
+    private String notes;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "project_folder_id")
+    @JoinColumn(name = "folder_id")
     @JsonIgnore
     private ProjectFolder projectFolder;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_photo_id")
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "photo_tag",
-            joinColumns = @JoinColumn(name = "photo_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    @JsonIgnore
-    private Set<Tag> tags = new HashSet<>();
-    //I used HashSet to avoid duplicate tags being added to a photo
-
 }

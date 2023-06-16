@@ -17,13 +17,11 @@ import java.util.Optional;
 public class ProjectFolderService {
 
     private final ProjectFolderRepository projectFolderRepository;
-    private final PhotoRepository photoRepository;
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
 
-    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, PhotoRepository photoRepository, UserRepository userRepository, ImageRepository imageRepository) {
+    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, UserRepository userRepository, ImageRepository imageRepository) {
         this.projectFolderRepository = projectFolderRepository;
-        this.photoRepository = photoRepository;
         this.userRepository = userRepository;
         this.imageRepository = imageRepository;
     }
@@ -59,12 +57,12 @@ public class ProjectFolderService {
         projectFolderRepository.deleteById(id);
     }
 
-    public ProjectFolderDto updateProjectFolder(Long id, ProjectFolderInputDto inputDtoProjectFolder) {
+    public ProjectFolderDto updateProjectFolder(Long id, ProjectFolderInputDto updatedProjectFolder) {
 
         if (projectFolderRepository.findById(id).isPresent()) {
             ProjectFolder projectFolder = projectFolderRepository.findById(id).get();
 
-            ProjectFolder projectFolder1 = transferToProjectFolder(inputDtoProjectFolder);
+            ProjectFolder projectFolder1 = transferToProjectFolder(updatedProjectFolder);
             projectFolder1.setId(projectFolder.getId());
 
             projectFolderRepository.save(projectFolder1);

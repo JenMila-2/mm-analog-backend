@@ -3,26 +3,21 @@ package com.example.mmanalog.services;
 import com.example.mmanalog.dtos.OutputDtos.TagDto;
 import com.example.mmanalog.dtos.InputDtos.TagInputDto;
 import com.example.mmanalog.models.Tag;
-import com.example.mmanalog.repositories.PhotoRepository;
 import com.example.mmanalog.repositories.TagRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 public class TagService {
 
     private final TagRepository tagRepository;
-    private final PhotoRepository photoRepository;
 
-    public TagService(TagRepository tagRepository, PhotoRepository photoRepository) {
+    public TagService(TagRepository tagRepository) {
         this.tagRepository = tagRepository;
-        this.photoRepository = photoRepository;
     }
 
     public List<TagDto> getAllTags() {
@@ -56,13 +51,13 @@ public class TagService {
         tagRepository.deleteById(id);
     }
 
-    public TagDto updateTags(Long id, TagInputDto tagInputDto) {
+    public TagDto updateTags(Long id, TagInputDto updatedTag) {
 
         if (tagRepository.findById(id).isPresent()) {
 
             Tag tag = tagRepository.findById(id).get();
 
-            Tag tag1 = transferToTag(tagInputDto);
+            Tag tag1 = transferToTag(updatedTag);
             tag1.setId(tag.getId());
 
             tagRepository.save(tag1);

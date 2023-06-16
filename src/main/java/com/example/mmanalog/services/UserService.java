@@ -78,14 +78,14 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public UserDto updateUser(Long id, UserDto newUser) {
+    public UserDto updateUser(Long id, UserDto updatedUser) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
 
-            user.setName(newUser.getName());
-            user.setEmail(newUser.getEmail());
-            user.setPassword(newUser.getPassword());
+            user.setName(updatedUser.getName());
+            user.setEmail(updatedUser.getEmail());
+            user.setPassword(updatedUser.getPassword());
 
             User returnUser = userRepository.save(user);
 

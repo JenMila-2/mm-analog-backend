@@ -23,8 +23,3 @@ VALUES
     (6, 'The Constructed Self', 'Collection of self portraits.', 102),
     (7, 'At midnight', 'Photographing the streets of London by night.', 103),
     (8, 'Family Portraits', 'Photographers of different families. Ongoing project.', 103);
-
-/*INSERT INTO photos (id, photo_title, camera, film_stock, film_format, developed_by, iso, aperture, shutter_speed, exposure_compensation, photo_gallery_id, project_folder_id, user_photo_id)
-VALUES
-    (10, 'Dreaming_1', 'Minolta SRT101', 'Kodak Portra 400', '35mm', 'Fotowereld Utrecht', 400, 'f8', '1/60', '+1', 2, 1, 102);
-*/

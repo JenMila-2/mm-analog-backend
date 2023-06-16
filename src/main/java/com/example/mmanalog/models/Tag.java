@@ -22,8 +22,4 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String tagName;
-
-    @ManyToMany(mappedBy = "tags")
-    @JsonIgnore
-    private Set<Photo> photos = new HashSet<>();
 }

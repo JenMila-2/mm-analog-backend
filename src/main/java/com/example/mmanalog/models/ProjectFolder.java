@@ -25,7 +25,7 @@ public class ProjectFolder {
 
     @OneToMany(mappedBy = "projectFolder")
     @JsonIgnore
-    private List<Photo> photos;
+    private List<PhotoLog> photoLogs;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -1,6 +1,6 @@
 package com.example.mmanalog.dtos.InputDtos;
 
-import com.example.mmanalog.models.Photo;
+import com.example.mmanalog.models.PhotoLog;
 import com.example.mmanalog.models.User;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
@@ -21,7 +21,7 @@ public class ProjectFolderInputDto {
     public String projectTitle;
     public String projectConcept;
 
-    public List<Photo> photos;
-    public Photo photo;
+    public List<PhotoLog> photoLogs;
+    public PhotoLog photoLog;
     public User user;
 }

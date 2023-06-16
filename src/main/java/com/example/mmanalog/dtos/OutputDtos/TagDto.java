@@ -1,6 +1,5 @@
 package com.example.mmanalog.dtos.OutputDtos;
 
-import com.example.mmanalog.models.Photo;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
@@ -15,6 +14,4 @@ public class TagDto {
 
     public Long id;
     public String tagName;
-
-    public Photo photo;
 }

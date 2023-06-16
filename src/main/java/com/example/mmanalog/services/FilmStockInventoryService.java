@@ -9,7 +9,6 @@ import com.example.mmanalog.repositories.FilmStockInventoryRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -56,12 +55,12 @@ public class FilmStockInventoryService {
         filmStockInventoryRepository.deleteById(id);
     }
 
-    public FilmStockInventoryDto updateFilmStockInventory(Long id, FilmStockInventoryInputDto filmStockInventoryInputDto) {
+    public FilmStockInventoryDto updateFilmStockInventory(Long id, FilmStockInventoryInputDto updatedFilmStockInventory) {
 
         if (filmStockInventoryRepository.findById(id).isPresent()) {
             FilmStockInventory filmStockInventory = filmStockInventoryRepository.findById(id).get();
 
-            FilmStockInventory filmStockInventory1 = transferToFilmStockInventory(filmStockInventoryInputDto);
+            FilmStockInventory filmStockInventory1 = transferToFilmStockInventory(updatedFilmStockInventory);
             filmStockInventory1.setId(filmStockInventory.getId());
 
             return transferFilmStockInventoryToDto(filmStockInventory1);

@@ -54,9 +54,9 @@ public class ProjectFolderController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Object> updateProjectFolder(@PathVariable Long id, @Valid @RequestBody ProjectFolderInputDto newProjectFolder) {
+    public ResponseEntity<Object> updateProjectFolder(@PathVariable Long id, @Valid @RequestBody ProjectFolderInputDto updatedProjectFolder) {
 
-        ProjectFolderDto dtoProjectFolder = projectFolderService.updateProjectFolder(id, newProjectFolder);
+        ProjectFolderDto dtoProjectFolder = projectFolderService.updateProjectFolder(id, updatedProjectFolder);
 
         return ResponseEntity.ok().body(dtoProjectFolder);
     }

@@ -6,7 +6,6 @@ import com.example.mmanalog.services.FilmStockInventoryService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import jakarta.validation.Valid;
-
 import java.util.List;
 
 @RestController
@@ -50,9 +49,9 @@ public class FilmStockInventoryController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Object> updateFilmStockInventory(@PathVariable Long id, @Valid @RequestBody FilmStockInventoryInputDto newFilmStockInventory) {
+    public ResponseEntity<Object> updateFilmStockInventory(@PathVariable Long id, @Valid @RequestBody FilmStockInventoryInputDto updatedFilmStockInventory) {
 
-        FilmStockInventoryDto dtoFilmStockInventory = filmStockInventoryService.updateFilmStockInventory(id, newFilmStockInventory);
+        FilmStockInventoryDto dtoFilmStockInventory = filmStockInventoryService.updateFilmStockInventory(id, updatedFilmStockInventory);
 
         return ResponseEntity.ok().body(dtoFilmStockInventory);
     }

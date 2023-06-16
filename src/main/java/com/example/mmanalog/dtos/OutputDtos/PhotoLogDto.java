@@ -5,28 +5,36 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PhotoDto {
+public class PhotoLogDto {
 
     public Long id;
     public String photoTitle;
     public String camera;
-    public String filmStock;
+   public String filmStock;
     public String filmFormat;
-    public String developedBy;
-    public int iso;
+    public int shotAtIso;
     public String aperture;
     public String shutterSpeed;
     public String exposureCompensation;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    public LocalDate rollStarted;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    public LocalDate rollFinished;
+    public String developedByLab;
+    public boolean scanned;
+    public String notes;
 
-    public ProjectFolder projectFolder;
     public FilmStockInventory filmStockInventory;
+    public ProjectFolder projectFolder;
     public User user;
-    public Tag tag;
 }
 
 
