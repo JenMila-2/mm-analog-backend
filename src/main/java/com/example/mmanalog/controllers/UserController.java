@@ -1,22 +1,19 @@
 package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.UserDto;
+import com.example.mmanalog.services.UserService;
 import com.example.mmanalog.exceptions.BadRequestException;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.exceptions.UserNotFoundException;
-import com.example.mmanalog.services.UserService;
 import com.example.mmanalog.utilities.ImageUtility;
-import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import jakarta.validation.Valid;
-
-//
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.http.*;
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -49,6 +46,12 @@ public UserController(UserService userService) {
     return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
+    @GetMapping(path = "/usernames/{username}")
+    public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username) {
+
+    return ResponseEntity.ok(userService.getUserByUsername(username));
+    }
+
     @PostMapping(path = "")
     public ResponseEntity<UserDto> addUser(@Valid @RequestBody UserDto userDto) {
 
@@ -73,7 +76,7 @@ public UserController(UserService userService) {
     return ResponseEntity.ok().body(userDto);
     }
 
-    // *** Methods related to the relationship between entities ***
+    //// **** Methods related to the relationship between entities **** ////
     @PutMapping(path = "/{userId}/images/{imageId}")
     public ResponseEntity<UserDto> assignImageToUser(
             @PathVariable("userId") Long userId,
@@ -90,7 +93,7 @@ public UserController(UserService userService) {
             String imageName = "example.jpg";
             String imageType = "image/jpeg";
 
-            // Process the image data using the ImageUtility class
+            // Processes the image data using the ImageUtility class
             byte[] processedImageData = ImageUtility.decompressImage(imageData);
 
             ByteArrayResource resource = new ByteArrayResource(processedImageData);
@@ -104,7 +107,7 @@ public UserController(UserService userService) {
                     .headers(headers)
                     .body(resource);
         } else {
-            throw new BadRequestException("Error. Image or user not found.");
+            throw new BadRequestException("Image or user not found");
         }
     }
 
@@ -112,17 +115,16 @@ public UserController(UserService userService) {
     public ResponseEntity<String> deleteImage(@PathVariable("userId") Long userId, @PathVariable("imageId") Long imageId) {
         try {
             userService.deleteUserImage(userId, imageId);
-            return ResponseEntity.ok("Image deleted successfully.");
+            return ResponseEntity.ok("Image deleted successfully");
         } catch (UserNotFoundException e) {
-            throw new RecordNotFoundException("User not found with id: " + userId);
+            throw new UserNotFoundException("User not found with id: " + userId);
         } catch (RecordNotFoundException e) {
-            throw new RecordNotFoundException("Image with id: " + imageId + " does not exist or has already been deleted.");
+            throw new RecordNotFoundException("Image with id: " + imageId + " does not exist or has already been deleted");
         }
     }
 
-    ////*** Specials ***////
-
-    //Method below only returns the image data and not the actual images
+    //// **** Specials **** ////
+    //Method below only returns the image data and not the actual images//
     @GetMapping(path = "/{userId}/images")
     public ResponseEntity<List<byte[]>> getAllUserImages(@PathVariable("userId") Long userId) {
         try {
@@ -138,7 +140,7 @@ public UserController(UserService userService) {
         }
     }
 
-    //Method to retrieve the id's of the images//
+    //Method to retrieve an Array of the image id's//
     @GetMapping(path = "/{userId}/imageIds")
     public ResponseEntity<List<Long>> getUserImageIds(@PathVariable("userId") Long userId) {
         try {
@@ -147,10 +149,10 @@ public UserController(UserService userService) {
             if (!imageIds.isEmpty()) {
                 return ResponseEntity.ok(imageIds);
             } else {
-                throw new RecordNotFoundException("No image IDs found for the user.");
+                throw new RecordNotFoundException("No image id's found for user " + userId);
             }
         } catch (Exception e) {
-            throw new BadRequestException("Error while retrieving image IDs.");
+            throw new BadRequestException("Error while retrieving image id's");
         }
     }
 }

@@ -26,13 +26,13 @@ public class FilmStockInventoryService {
     }
 
     public List<FilmStockInventoryDto> getAllFilmStockInventories() {
-        List<FilmStockInventory> filmStockInventoryList = filmStockInventoryRepository.findAll();
-        List<FilmStockInventoryDto> filmStockInventoryDtos = new ArrayList<>();
+        List<FilmStockInventory> filmStockInventories = filmStockInventoryRepository.findAll();
+        List<FilmStockInventoryDto> filmStockInventoryList = new ArrayList<>();
 
-        for (FilmStockInventory filmStockInventory : filmStockInventoryList) {
-            filmStockInventoryDtos.add(transferFilmStockInventoryToDto(filmStockInventory));
+        for (FilmStockInventory filmStockInventory : filmStockInventories) {
+            filmStockInventoryList.add(transferFilmStockInventoryToDto(filmStockInventory));
         }
-        return filmStockInventoryDtos;
+        return filmStockInventoryList;
     }
 
     public FilmStockInventoryDto getFilmStockInventoryById(Long id) {
@@ -46,7 +46,6 @@ public class FilmStockInventoryService {
     }
 
     public FilmStockInventoryDto createFilmStockInventory(FilmStockInventoryInputDto filmStockInventoryInputDto) {
-
         FilmStockInventory filmStockInventory = transferToFilmStockInventory(filmStockInventoryInputDto);
         filmStockInventoryRepository.save(filmStockInventory);
 
@@ -60,7 +59,6 @@ public class FilmStockInventoryService {
     public FilmStockInventoryDto updateFilmStockInventory(Long id, FilmStockInventoryInputDto filmStockInventoryInputDto) {
 
         if (filmStockInventoryRepository.findById(id).isPresent()) {
-
             FilmStockInventory filmStockInventory = filmStockInventoryRepository.findById(id).get();
 
             FilmStockInventory filmStockInventory1 = transferToFilmStockInventory(filmStockInventoryInputDto);
@@ -72,6 +70,7 @@ public class FilmStockInventoryService {
         }
     }
 
+    //// ***** Transfers **** ////
     public FilmStockInventory transferToFilmStockInventory(FilmStockInventoryInputDto filmStockInventoryInputDto) {
         FilmStockInventory filmStockInventory = new FilmStockInventory();
 
@@ -104,11 +103,12 @@ public class FilmStockInventoryService {
         filmStockInventoryDto.setStorage(filmStockInventory.getStorage());
         filmStockInventoryDto.setRollsShot(filmStockInventory.getRollsShot());
         filmStockInventoryDto.setFilmExpirationDate(filmStockInventory.getFilmExpirationDate());
+        filmStockInventoryDto.setUser(filmStockInventory.getUser());
 
         return filmStockInventoryDto;
     }
 
-    // *** Methods related to the relationship between entities ***
+    //// **** Methods related to the relationship between entities **** ////
     public FilmStockInventoryDto assignFilmStockInventoryToUser(Long id, Long userId) {
         Optional<FilmStockInventory> optionalFilmStockInventory = filmStockInventoryRepository.findById(id);
         Optional<User> optionalUser = userRepository.findById(userId);
@@ -122,7 +122,7 @@ public class FilmStockInventoryService {
 
             return transferFilmStockInventoryToDto(filmStockInventory);
         } else {
-            throw new RecordNotFoundException("No film stock inventory or user found");
+            throw new RecordNotFoundException("No film stock inventory found with id: " + id + " or no user found with id: " + userId);
         }
     }
 }

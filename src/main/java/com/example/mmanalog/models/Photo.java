@@ -49,7 +49,4 @@ public class Photo {
     private Set<Tag> tags = new HashSet<>();
     //I used HashSet to avoid duplicate tags being added to a photo
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "image_id")
-    private Image image;
 }

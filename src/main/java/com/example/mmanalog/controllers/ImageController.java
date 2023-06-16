@@ -1,22 +1,13 @@
 package com.example.mmanalog.controllers;
 
-import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
-import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.models.Image;
-import com.example.mmanalog.models.Photo;
-import com.example.mmanalog.models.ProjectFolder;
-import com.example.mmanalog.services.ProjectFolderService;
 import com.example.mmanalog.repositories.ImageRepository;
-import com.example.mmanalog.repositories.ProjectFolderRepository;
 import com.example.mmanalog.utilities.ImageUtility;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.springframework.http.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,9 +15,8 @@ import java.util.Optional;
 public class ImageController {
     @Autowired
     ImageRepository imageRepository;
-    ProjectFolderRepository projectFolderRepository;
 
-    @PostMapping("/upload/image")
+    @PostMapping(path = "/upload/image")
     public ResponseEntity<ImageUploadResponse> uploadImage(@RequestParam("image") MultipartFile file)
             throws IOException {
 

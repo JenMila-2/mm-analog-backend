@@ -2,16 +2,15 @@ package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
+import com.example.mmanalog.services.ProjectFolderService;
 import com.example.mmanalog.exceptions.BadRequestException;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
-import com.example.mmanalog.services.ProjectFolderService;
 import com.example.mmanalog.utilities.ImageUtility;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
-import org.springframework.web.bind.annotation.*;
 import jakarta.validation.Valid;
-
 import java.util.List;
 
 @RestController
@@ -62,7 +61,7 @@ public class ProjectFolderController {
         return ResponseEntity.ok().body(dtoProjectFolder);
     }
 
-    // *** Methods related to the relationship between entities ***
+    //// **** Methods related to the relationship between entities **** ////
     @PutMapping(path = "/{id}/user/{userId}")
     public ResponseEntity<Object> assignFolderToUser(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
         ProjectFolderDto projectFolderDto = projectFolderService.assignFolderToUser(id, userId);
@@ -99,7 +98,7 @@ public class ProjectFolderController {
                     .headers(headers)
                     .body(resource);
         } else {
-            throw new BadRequestException("Error. Folder or user not found.");
+            throw new BadRequestException("Image not found with id: " + imageId);
         }
     }
 
@@ -107,15 +106,14 @@ public class ProjectFolderController {
     public ResponseEntity<String> deleteFolderImage(@PathVariable("folderId") Long folderId, @PathVariable("imageId") Long imageId) {
         try {
             projectFolderService.deleteFolderImage(folderId, imageId);
-            return ResponseEntity.ok("Image deleted successfully.");
+            return ResponseEntity.ok("Image deleted successfully");
         } catch (RecordNotFoundException e) {
-            throw new RecordNotFoundException("Image with id: " + imageId + " or folder with id: " + folderId + " do not exist.");
+            throw new RecordNotFoundException("Image with id: " + imageId + " or folder with id: " + folderId + " do not exist or not found");
         }
     }
 
-    ////*** Specials ***////
-
-    //Method below only returns the image data and not the actual images
+    //// **** Specials **** ////
+    //Method below only returns the image data and not the actual images//
     @GetMapping(path = "/{folderId}/images")
     public ResponseEntity<List<byte[]>> getAllFolderImages(@PathVariable("folderId") Long folderId) {
         try {

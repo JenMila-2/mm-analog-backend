@@ -1,11 +1,11 @@
 package com.example.mmanalog.dtos.OutputDtos;
 
 import com.example.mmanalog.models.User;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -25,7 +25,7 @@ public class FilmStockInventoryDto {
     public String developmentProcess;
     public String storage;
     public int rollsShot;
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate filmExpirationDate;
 
     public User user;

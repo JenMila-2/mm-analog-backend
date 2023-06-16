@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface FilmStockInventoryRepository extends JpaRepository<FilmStockInventory, Long> {
 
-    List<FilmStockInventory> findFilmStockInventoryListByUser(User user);
+    List<FilmStockInventory> findFilmStockInventoryByUser(User user);
 }

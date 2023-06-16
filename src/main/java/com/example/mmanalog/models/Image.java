@@ -9,9 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Getter
 @Setter
 @Entity
@@ -25,14 +22,12 @@ public class Image {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
+    private Long id;
     @Column(name = "name")
     private String name;
-
     @Column(name = "type")
     private String type;
-
     @Column(name = "image", unique = false, nullable = false, length = 100000)
     private byte[] image;
 
@@ -45,7 +40,4 @@ public class Image {
     @JoinColumn(name = "folder_id")
     @JsonIgnore
     private ProjectFolder projectFolder;
-
-    @OneToOne(mappedBy = "image", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Photo photo;
 }

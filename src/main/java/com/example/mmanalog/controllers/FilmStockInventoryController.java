@@ -50,14 +50,14 @@ public class FilmStockInventoryController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Object> updateFilmStockInventory(@PathVariable Long id, @Valid FilmStockInventoryInputDto newFilmStockInventory) {
+    public ResponseEntity<Object> updateFilmStockInventory(@PathVariable Long id, @Valid @RequestBody FilmStockInventoryInputDto newFilmStockInventory) {
 
-        FilmStockInventoryDto dtoPhotoGallery = filmStockInventoryService.updateFilmStockInventory(id, newFilmStockInventory);
+        FilmStockInventoryDto dtoFilmStockInventory = filmStockInventoryService.updateFilmStockInventory(id, newFilmStockInventory);
 
-        return ResponseEntity.ok().body(dtoPhotoGallery);
+        return ResponseEntity.ok().body(dtoFilmStockInventory);
     }
 
-    // *** Methods related to the relationship between entities ***
+    //// **** Methods related to the relationship between entities **** ////
     @PutMapping(path = "/{id}/user/{userId}")
     public ResponseEntity<Object> assignFilmStockInventoryToUser(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
         FilmStockInventoryDto filmStockInventoryDto = filmStockInventoryService.assignFilmStockInventoryToUser(id, userId);

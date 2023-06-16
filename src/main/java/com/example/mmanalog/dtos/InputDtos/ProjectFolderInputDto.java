@@ -1,7 +1,6 @@
 package com.example.mmanalog.dtos.InputDtos;
 
 import com.example.mmanalog.models.Photo;
-//import com.example.mmanalog.models.PhotoUploadResponse;
 import com.example.mmanalog.models.User;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
@@ -17,13 +16,12 @@ import java.util.List;
 public class ProjectFolderInputDto {
 
     public Long id;
-    @NotNull
-    @Size(max = 75, message = "Title must be between 0 and 75 characters.")
+    @NotNull(message = "Project title cannot be empty")
+    @Size(min = 5, max = 75, message = "Title must be between 5 and 75 characters")
     public String projectTitle;
-    public String projectNote;
+    public String projectConcept;
 
     public List<Photo> photos;
-    //public List<PhotoUploadResponse> photoUploadResponse;
     public Photo photo;
     public User user;
 }

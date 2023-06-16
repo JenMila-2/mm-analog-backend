@@ -18,9 +18,10 @@ public class ProjectFolder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
     private String projectTitle;
-    private String projectNote;
+    private String projectConcept;
 
     @OneToMany(mappedBy = "projectFolder")
     @JsonIgnore
@@ -31,8 +32,7 @@ public class ProjectFolder {
     @JsonIgnore
     private User user;
 
-    //
    @OneToMany(mappedBy = "projectFolder", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Image> images;
+   @JsonIgnore
+   private List<Image> images;
 }
