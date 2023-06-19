@@ -1,7 +1,6 @@
 package com.example.mmanalog.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.validation.constraints.Email;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,15 +18,18 @@ import java.util.List;
 public class User {
 
     @Id
-    @Email
-    @GeneratedValue
-    @Column(nullable = false, unique = true)
-
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String username;
+    @Column(nullable = false, unique = true)
     private String email;
     private String password;
     private boolean enabled;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Image> userImages;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -35,10 +37,9 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Photo> userPhotos;
+    private List<PhotoLog> userPhotoLogs;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_gallery_id")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
-    PhotoGallery photoGallery;
+    private List<FilmStockInventory> userFilmStockInventories;
 }

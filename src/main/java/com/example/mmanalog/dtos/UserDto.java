@@ -1,16 +1,13 @@
 package com.example.mmanalog.dtos;
 
-import com.example.mmanalog.models.PhotoGallery;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import com.example.mmanalog.models.FilmStockInventory;
+import jakarta.persistence.Column;
+import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import java.util.List;
-import java.util.Set;
+import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Setter
@@ -19,17 +16,20 @@ import java.util.Set;
 public class UserDto {
 
     public Long id;
-    @NotNull
+    @NotNull(message = "Name cannot be empty")
     public String name;
-    @NotBlank
-    @Email
+    @NotNull(message = "username cannot be empty")
+    @Column(unique = true)
+    public String username;
+    @NotNull(message = "Email cannot be empty")
+    @Email(message = "Please enter a valid email address")
+    @Column(unique = true)
     public String email;
-    @NotBlank
-    @Size(min=6, max=30)
+    @NotNull(message = "Password cannot be empty")
+    @Length(min = 7, message = "Password should be at least 7 characters long")
     public String password;
-    @NotNull
-    public boolean enabled;
+    public boolean enabled = true;
 
-    public PhotoGallery photoGallery;
+    public FilmStockInventory filmStockInventory;
     //public Set<String> authorities;
 }

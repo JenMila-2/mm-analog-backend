@@ -17,17 +17,22 @@ import java.util.List;
 public class ProjectFolder {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
     private String projectTitle;
-    private String projectNote;
+    private String projectConcept;
 
     @OneToMany(mappedBy = "projectFolder")
     @JsonIgnore
-    private List<Photo> photos;
+    private List<PhotoLog> photoLogs;
 
     @ManyToOne
-    @JoinColumn(name = "user_folder_id")
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+
+   @OneToMany(mappedBy = "projectFolder", cascade = CascadeType.ALL)
+   @JsonIgnore
+   private List<Image> images;
 }

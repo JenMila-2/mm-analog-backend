@@ -14,7 +14,7 @@ public class ProjectFolderDto {
 
     public Long id;
     public String projectTitle;
-    public String projectNote;
+    public String projectConcept;
 
     public User user;
 }
