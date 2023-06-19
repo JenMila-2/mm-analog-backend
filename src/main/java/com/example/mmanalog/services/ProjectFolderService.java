@@ -113,6 +113,26 @@ public class ProjectFolderService {
         }
     }
 
+    public ProjectFolderDto createFolderForUser(Long userId, ProjectFolderInputDto folderInputDto) {
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            ProjectFolder projectFolder = new ProjectFolder();
+            projectFolder.setUser(user);
+            projectFolder.setProjectTitle(folderInputDto.getProjectTitle());
+            projectFolder.setProjectConcept(folderInputDto.getProjectConcept());
+
+            projectFolderRepository.save(projectFolder);
+
+            return transferProjectFolderToDto(projectFolder);
+        } else {
+            throw new RecordNotFoundException("No user found with id: " + userId);
+        }
+    }
+
+
     //Assign image to folder method//
     public ProjectFolderDto assignImageToFolder(Long folderId, Long imageId) {
         Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);

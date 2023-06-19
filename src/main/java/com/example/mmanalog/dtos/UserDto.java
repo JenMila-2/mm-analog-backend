@@ -30,6 +30,5 @@ public class UserDto {
     public String password;
     public boolean enabled = true;
 
-    public FilmStockInventory filmStockInventory;
     //public Set<String> authorities;
 }

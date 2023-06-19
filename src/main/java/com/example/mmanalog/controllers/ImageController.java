@@ -1,7 +1,6 @@
 package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.models.Image;
-import com.example.mmanalog.models.ImageUploadResponse;
 import com.example.mmanalog.repositories.ImageRepository;
 import com.example.mmanalog.utilities.ImageUtility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +35,7 @@ public class ImageController {
         final Optional<Image> dbImage = imageRepository.findByName(name);
 
         return Image.builder()
+                .id(dbImage.get().getId())
                 .name(dbImage.get().getName())
                 .type(dbImage.get().getType())
                 .image(ImageUtility.decompressImage(dbImage.get().getImage())).build();

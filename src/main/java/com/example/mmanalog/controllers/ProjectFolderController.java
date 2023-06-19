@@ -40,9 +40,9 @@ public class ProjectFolderController {
     @PostMapping(path = "")
     public ResponseEntity<Object> addProjectFolder(@Valid @RequestBody ProjectFolderInputDto folderInputDto) {
 
-        ProjectFolderDto dtoFolder = projectFolderService.addProjectFolder(folderInputDto);
+        ProjectFolderDto newFolder = projectFolderService.addProjectFolder(folderInputDto);
 
-        return ResponseEntity.created(null).body(dtoFolder);
+        return ResponseEntity.created(null).body(newFolder);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -67,6 +67,15 @@ public class ProjectFolderController {
         ProjectFolderDto projectFolderDto = projectFolderService.assignFolderToUser(id, userId);
 
         return ResponseEntity.ok().body(projectFolderDto);
+    }
+
+    @PostMapping(path = "/new/{userId}")
+    public ResponseEntity<ProjectFolderDto> createFolderForUser(
+            @PathVariable("userId") Long userId,
+            @RequestBody ProjectFolderInputDto folderInputDto
+    ) {
+        ProjectFolderDto createdFolder = projectFolderService.createFolderForUser(userId, folderInputDto);
+        return ResponseEntity.created(null).body(createdFolder);
     }
 
     @PutMapping(path = "/{folderId}/images/{imageId}")
