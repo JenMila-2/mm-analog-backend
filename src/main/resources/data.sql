@@ -2,8 +2,8 @@
 INSERT INTO users (id, name, username, email, password, enabled)
 VALUES
     (100, 'Pedro Perez', 'Pedro_20','pedro.p@gmail.com', 'B23A@_Flash9', true),
-    (101, 'Marisol Mendez', 'Marisol_M', 'marisol-mendez@gmail.com', 'Mari_47_&99_0', true),
-    (102, 'Jensy Franco', 'Jensy_@_Photo', 'jenmilafran@gmail.com', '2@2J29SolER_56', true),
+    (101, 'Marisol Lopez', 'Marisol_M', 'marisol-lopez@gmail.com', 'Mari_47_&99_0', true),
+    (102, 'Jensy Franco', 'Jensy_@_Photo', 'jensyfranco@gmail.com', '2@2J29SolER_56', true),
     (103, 'Scott Bennie', 'Benniezzzzzz80', 'bennie2@gmail.com', 'BS7355@@67&Sgh', true);
 
 --Film Stock Inventory
