@@ -1,6 +1,7 @@
 package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.models.Image;
+import com.example.mmanalog.models.ImageUploadResponse;
 import com.example.mmanalog.repositories.ImageRepository;
 import com.example.mmanalog.utilities.ImageUtility;
 import org.springframework.beans.factory.annotation.Autowired;

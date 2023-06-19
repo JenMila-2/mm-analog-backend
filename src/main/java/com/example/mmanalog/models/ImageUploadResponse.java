@@ -1,4 +1,4 @@
-package com.example.mmanalog.controllers;
+package com.example.mmanalog.models;
 
 import lombok.Getter;
 import lombok.Setter;
