@@ -1,10 +1,10 @@
 --Users
 INSERT INTO users (id, name, username, email, password, enabled)
 VALUES
-    (100, 'Pedro Perez', 'Pedro_20','pedro.p@gmail.com', 'B23A@_Flash9', true),
-    (101, 'Marisol Lopez', 'Marisol_M', 'marisol-lopez@gmail.com', 'Mari_47_&99_0', true),
-    (102, 'Jensy Franco', 'Jensy_@_Photo', 'jensyfranco@gmail.com', '2@2J29SolER_56', true),
-    (103, 'Scott Bennie', 'Benniezzzzzz80', 'bennie2@gmail.com', 'BS7355@@67&Sgh', true);
+    (100, 'Pedro Perez', 'Pedro_20','pedro.p@gmail.com', '$2a$12$rBImbI7IECYBlcDSdUIXu.m4yPC8q15W1N4q5BaZtF0z2H6dRjaE2', true),
+    (101, 'Marisol Lopez', 'Marisol_M', 'marisol-lopez@gmail.com', '$2a$12$YGKrv7J7xvuajKHXY/GtYOdyElM2riBOZgxBbhK1ZEOepfDvWAD5.', true),
+    (102, 'Jensy Franco', 'Jensy_@_Photo', 'jensyfranco@gmail.com', '$2a$12$rYbeEqmxx.ElKC5PimWc1OVccCAJwy4Qyki93yc8Y8cHjhGHuMpuu', true),
+    (103, 'Scott Bennie', 'Benniezzzzzz80', 'bennie2@gmail.com', '$2a$12$h8YyS5u4hMHCC8E7tEMODetux9cZxZqgQf2UH/JVCfnK4kpdseusG', true);
 
 
 --Film Stock Inventory user 100
