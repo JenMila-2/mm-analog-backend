@@ -10,6 +10,7 @@ import com.example.mmanalog.repositories.*;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -133,8 +134,7 @@ public class ProjectFolderService {
         }
     }
 
-
-    //Assign image to folder method//
+    //// **** Methods related to the relationship between image and project folder **** ////
     public ProjectFolderDto assignImageToFolder(Long folderId, Long imageId) {
         Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);
         Optional<Image> optionalImage = imageRepository.findById(imageId);

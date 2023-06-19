@@ -125,6 +125,7 @@ public class UserService {
     }
 
     //// **** Methods related to the relationship between entities **** ////
+    //// **** Methods related to the relationship between image and user
     public UserDto assignImageToUser(Long userId, Long imageId) {
         Optional<User> optionalUser = userRepository.findById(userId);
         Optional<Image> optionalImage = imageRepository.findById(imageId);

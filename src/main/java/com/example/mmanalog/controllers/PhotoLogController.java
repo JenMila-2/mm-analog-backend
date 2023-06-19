@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
+
 import java.util.List;
 
 @RestController
@@ -72,7 +73,7 @@ public class PhotoLogController {
     }
 
     @PutMapping(path = "/{id}/user/{userId}")
-    public ResponseEntity<Object> assignPhotoToUser(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
+    public ResponseEntity<Object> assignPhotoLogToUser(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
         PhotoLogDto photoLogDto = photoLogService.assignPhotoLogToUser(id, userId);
 
         return ResponseEntity.ok().body(photoLogDto);

@@ -13,6 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.*;
+
 import jakarta.validation.Valid;
 import java.util.List;
 
@@ -77,6 +78,7 @@ public UserController(UserService userService) {
     }
 
     //// **** Methods related to the relationship between entities **** ////
+    //// **** Methods related to the relationship between image and user
     @PutMapping(path = "/{userId}/images/{imageId}")
     public ResponseEntity<UserDto> assignImageToUser(
             @PathVariable("userId") Long userId,

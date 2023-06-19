@@ -2,12 +2,13 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.PhotoLogDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoLogInputDto;
-import com.example.mmanalog.exceptions.UserNotFoundException;
 import com.example.mmanalog.models.*;
 import com.example.mmanalog.repositories.*;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
+import com.example.mmanalog.exceptions.UserNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -18,7 +19,6 @@ public class PhotoLogService {
     private final PhotoLogRepository photoLogRepository;
     private final ProjectFolderRepository projectFolderRepository;
     private final UserRepository userRepository;
-
 
     public PhotoLogService(PhotoLogRepository photoLogRepository, ProjectFolderRepository projectFolderRepository, UserRepository userRepository) {
         this.photoLogRepository = photoLogRepository;

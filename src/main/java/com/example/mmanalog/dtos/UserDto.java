@@ -1,6 +1,5 @@
 package com.example.mmanalog.dtos;
 
-import com.example.mmanalog.models.FilmStockInventory;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 import lombok.Getter;

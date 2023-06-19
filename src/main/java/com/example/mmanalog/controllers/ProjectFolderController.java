@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
+
 import jakarta.validation.Valid;
 import java.util.List;
 
@@ -78,6 +79,7 @@ public class ProjectFolderController {
         return ResponseEntity.created(null).body(createdFolder);
     }
 
+    //// **** Methods related to the relationship between image and project folder **** ////
     @PutMapping(path = "/{folderId}/images/{imageId}")
     public ResponseEntity<ProjectFolderDto> assignImageToFolder(
             @PathVariable("folderId") Long folderId,
