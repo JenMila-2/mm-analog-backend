@@ -77,6 +77,15 @@ public class PhotoLogController {
 
         return ResponseEntity.ok().body(photoLogDto);
     }
+
+    @PostMapping(path = "/new/{userId}")
+    public ResponseEntity<PhotoLogDto> createPhotoLogForUser(
+            @PathVariable("userId") Long userId,
+            @RequestBody PhotoLogInputDto newPhotoLogInput
+    ) {
+        PhotoLogDto createdPhotoLog = photoLogService.createPhotoLogForUser(userId, newPhotoLogInput);
+        return ResponseEntity.created(null).body(createdPhotoLog);
+    }
 }
 
 

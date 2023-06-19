@@ -55,3 +55,7 @@ VALUES
     (107, 'At midnight', 'Photographing the streets of London by night.', 103),
     (108, 'Family Portraits', 'Photographers of different families. Ongoing project.', 103);
 
+--Photo Logs
+INSERT INTO photologs (id, photo_title, camera, film_stock, film_format, shot_at_iso, aperture, shutter_speed, exposure_compensation, roll_started, roll_finished, developed_by_lab, scanned, notes, user_id)
+VALUES
+    (100, 'Dreaming_1', 'Minolta SRT101','HP5Plus', '35mm', 100, 'f5.6', '1/60', '+1', '2023-01-01', '2023-02-01', 'Developed at home', true, 'Shot this at moms home in Amsterdam', 102);

@@ -72,9 +72,9 @@ public class ProjectFolderController {
     @PostMapping(path = "/new/{userId}")
     public ResponseEntity<ProjectFolderDto> createFolderForUser(
             @PathVariable("userId") Long userId,
-            @RequestBody ProjectFolderInputDto folderInputDto
+            @RequestBody ProjectFolderInputDto newFolderInput
     ) {
-        ProjectFolderDto createdFolder = projectFolderService.createFolderForUser(userId, folderInputDto);
+        ProjectFolderDto createdFolder = projectFolderService.createFolderForUser(userId, newFolderInput);
         return ResponseEntity.created(null).body(createdFolder);
     }
 

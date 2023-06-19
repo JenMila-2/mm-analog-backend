@@ -2,6 +2,7 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.PhotoLogDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoLogInputDto;
+import com.example.mmanalog.exceptions.UserNotFoundException;
 import com.example.mmanalog.models.*;
 import com.example.mmanalog.repositories.*;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
@@ -158,6 +159,36 @@ public class PhotoLogService {
             return transferToPhotoLogDto(photoLog);
         } else {
             throw new RecordNotFoundException("No photo log found with id: " + id + " or no user found with id: " + userId);
+        }
+    }
+
+    public PhotoLogDto createPhotoLogForUser(Long userId, PhotoLogInputDto photoLogInputDto) {
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            PhotoLog photoLog = new PhotoLog();
+            photoLog.setUser(user);
+            photoLog.setPhotoTitle(photoLogInputDto.getPhotoTitle());
+            photoLog.setCamera(photoLogInputDto.getCamera());
+            photoLog.setFilmStock(photoLogInputDto.getFilmStock());
+            photoLog.setFilmFormat(photoLogInputDto.getFilmFormat());
+            photoLog.setShotAtIso(photoLogInputDto.getShotAtIso());
+            photoLog.setAperture(photoLogInputDto.getAperture());
+            photoLog.setShutterSpeed(photoLogInputDto.getShutterSpeed());
+            photoLog.setExposureCompensation(photoLogInputDto.getExposureCompensation());
+            photoLog.setRollStarted(photoLogInputDto.getRollStarted());
+            photoLog.setRollFinished(photoLogInputDto.getRollFinished());
+            photoLog.setDevelopedByLab(photoLogInputDto.getDevelopedByLab());
+            photoLog.setScanned(photoLogInputDto.isScanned());
+            photoLog.setNotes(photoLogInputDto.getNotes());
+
+            photoLogRepository.save(photoLog);
+
+            return transferToPhotoLogDto(photoLog);
+        } else {
+            throw new UserNotFoundException("No user found with id: " + userId);
         }
     }
 }
