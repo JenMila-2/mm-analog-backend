@@ -86,6 +86,16 @@ public class PhotoLogController {
         PhotoLogDto createdPhotoLog = photoLogService.createPhotoLogForUser(userId, newPhotoLogInput);
         return ResponseEntity.created(null).body(createdPhotoLog);
     }
+
+    @PostMapping(path = "/new/user/{userId}/folder/{folderId}")
+    public ResponseEntity<PhotoLogDto> createPhotoLogForProjectFolderForUser(
+            @PathVariable("userId") Long userId,
+            @PathVariable("folderId") Long folderId,
+            @RequestBody PhotoLogInputDto newPhotoLogInput
+    ) {
+        PhotoLogDto createdPhotoLogForFolderUser = photoLogService.createPhotoLogForProjectFolderForUser(userId, folderId, newPhotoLogInput);
+        return ResponseEntity.created(null).body(createdPhotoLogForFolderUser);
+    }
 }
 
 

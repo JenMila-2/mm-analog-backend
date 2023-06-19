@@ -191,6 +191,39 @@ public class PhotoLogService {
             throw new UserNotFoundException("No user found with id: " + userId);
         }
     }
+
+    public PhotoLogDto createPhotoLogForProjectFolderForUser(Long userId, Long folderId, PhotoLogInputDto photoLogInput) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        Optional<ProjectFolder> projectFolderOptional = projectFolderRepository.findById(folderId);
+
+        if (userOptional.isPresent() && projectFolderOptional.isPresent()) {
+            User user = userOptional.get();
+            ProjectFolder projectFolder = projectFolderOptional.get();
+
+            PhotoLog photoLog = new PhotoLog();
+            photoLog.setUser(user);
+            photoLog.setProjectFolder(projectFolder);
+            photoLog.setPhotoTitle(photoLogInput.getPhotoTitle());
+            photoLog.setCamera(photoLogInput.getCamera());
+            photoLog.setFilmStock(photoLogInput.getFilmStock());
+            photoLog.setFilmFormat(photoLogInput.getFilmFormat());
+            photoLog.setShotAtIso(photoLogInput.getShotAtIso());
+            photoLog.setAperture(photoLogInput.getAperture());
+            photoLog.setShutterSpeed(photoLogInput.getShutterSpeed());
+            photoLog.setExposureCompensation(photoLogInput.getExposureCompensation());
+            photoLog.setRollStarted(photoLogInput.getRollStarted());
+            photoLog.setRollFinished(photoLogInput.getRollFinished());
+            photoLog.setDevelopedByLab(photoLogInput.getDevelopedByLab());
+            photoLog.setScanned(photoLogInput.isScanned());
+            photoLog.setNotes(photoLogInput.getNotes());
+
+            photoLogRepository.save(photoLog);
+
+            return transferToPhotoLogDto(photoLog);
+        } else {
+            throw new RecordNotFoundException("No user with id: " + userId + " or project folder with id: " + folderId + " found");
+        }
+    }
 }
 
 
