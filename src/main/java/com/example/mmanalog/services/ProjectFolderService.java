@@ -2,6 +2,7 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
+import com.example.mmanalog.exceptions.UserNotFoundException;
 import com.example.mmanalog.models.Image;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.models.ProjectFolder;
@@ -128,7 +129,7 @@ public class ProjectFolderService {
 
             return transferProjectFolderToDto(projectFolder);
         } else {
-            throw new RecordNotFoundException("No user found with id: " + userId);
+            throw new UserNotFoundException("No user found with id: " + userId);
         }
     }
 

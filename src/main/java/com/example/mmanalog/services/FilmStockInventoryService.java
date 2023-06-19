@@ -2,6 +2,7 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.FilmStockInventoryDto;
 import com.example.mmanalog.dtos.InputDtos.FilmStockInventoryInputDto;
+import com.example.mmanalog.exceptions.UserNotFoundException;
 import com.example.mmanalog.models.FilmStockInventory;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.UserRepository;
@@ -122,6 +123,33 @@ public class FilmStockInventoryService {
             return transferFilmStockInventoryToDto(filmStockInventory);
         } else {
             throw new RecordNotFoundException("No film stock inventory found with id: " + id + " or no user found with id: " + userId);
+        }
+    }
+
+    public FilmStockInventoryDto createFilmStockInventoryForUser(Long userId, FilmStockInventoryInputDto filmStockInventoryInputDto) {
+        Optional<User> userOptional = userRepository.findById(userId);
+
+        if(userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            FilmStockInventory filmStockInventory = new FilmStockInventory();
+            filmStockInventory.setUser(user);
+            filmStockInventory.setFilmStockName(filmStockInventoryInputDto.getFilmStockName());
+            filmStockInventory.setRemainingRolls(filmStockInventoryInputDto.getRemainingRolls());
+            filmStockInventory.setBrand(filmStockInventoryInputDto.getBrand());
+            filmStockInventory.setStock(filmStockInventoryInputDto.getStock());
+            filmStockInventory.setFormat(filmStockInventoryInputDto.getFormat());
+            filmStockInventory.setIso(filmStockInventoryInputDto.getIso());
+            filmStockInventory.setDevelopmentProcess(filmStockInventoryInputDto.getDevelopmentProcess());
+            filmStockInventory.setStorage(filmStockInventoryInputDto.getStorage());
+            filmStockInventory.setRollsShot(filmStockInventoryInputDto.getRollsShot());
+            filmStockInventory.setFilmExpirationDate(filmStockInventoryInputDto.getFilmExpirationDate());
+
+            filmStockInventoryRepository.save(filmStockInventory);
+
+            return transferFilmStockInventoryToDto(filmStockInventory);
+        } else {
+            throw new UserNotFoundException("No user found with id: " + userId);
         }
     }
 }

@@ -63,4 +63,13 @@ public class FilmStockInventoryController {
 
         return ResponseEntity.ok().body(filmStockInventoryDto);
     }
+
+    @PostMapping(path = "/new/{userId}")
+    public ResponseEntity<FilmStockInventoryDto> createFilmStockInventoryForUser(
+            @PathVariable("userId") Long userId,
+            @RequestBody FilmStockInventoryInputDto filmStockInventoryInputDto
+    ) {
+        FilmStockInventoryDto createdFilmStockInventory = filmStockInventoryService.createFilmStockInventoryForUser(userId, filmStockInventoryInputDto);
+        return ResponseEntity.created(null).body(createdFilmStockInventory);
+    }
 }
