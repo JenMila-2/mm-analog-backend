@@ -110,9 +110,9 @@ public class FilmStockInventoryService {
     }
 
     //// **** Methods related to the relationship between entities **** ////
-    public FilmStockInventoryDto assignFilmStockInventoryToUser(Long id, Long userId) {
+    public FilmStockInventoryDto assignFilmStockInventoryToUser(Long id, String username) {
         Optional<FilmStockInventory> optionalFilmStockInventory = filmStockInventoryRepository.findById(id);
-        Optional<User> optionalUser = userRepository.findById(userId);
+        Optional<User> optionalUser = userRepository.findById(username);
 
         if (optionalFilmStockInventory.isPresent() && optionalUser.isPresent()) {
             FilmStockInventory filmStockInventory = optionalFilmStockInventory.get();
@@ -123,12 +123,12 @@ public class FilmStockInventoryService {
 
             return transferFilmStockInventoryToDto(filmStockInventory);
         } else {
-            throw new RecordNotFoundException("No film stock inventory found with id: " + id + " or no user found with id: " + userId);
+            throw new RecordNotFoundException("No film stock inventory found with id: " + id + " or no user found with username: " + username);
         }
     }
 
-    public FilmStockInventoryDto createFilmStockInventoryForUser(Long userId, FilmStockInventoryInputDto filmStockInventoryInputDto) {
-        Optional<User> userOptional = userRepository.findById(userId);
+    public FilmStockInventoryDto createFilmStockInventoryForUser(String username, FilmStockInventoryInputDto filmStockInventoryInputDto) {
+        Optional<User> userOptional = userRepository.findById(username);
 
         if(userOptional.isPresent()) {
             User user = userOptional.get();
@@ -150,7 +150,7 @@ public class FilmStockInventoryService {
 
             return transferFilmStockInventoryToDto(filmStockInventory);
         } else {
-            throw new UserNotFoundException("No user found with id: " + userId);
+            throw new UserNotFoundException("No user found with username: " + username);
         }
     }
 }

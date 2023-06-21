@@ -98,9 +98,9 @@ public class ProjectFolderService {
     }
 
     //// **** Methods related to the relationship between entities **** ////
-    public ProjectFolderDto assignFolderToUser(Long id, Long userId) {
+    public ProjectFolderDto assignFolderToUser(Long id, String username) {
         Optional<ProjectFolder> projectFolderOptional = projectFolderRepository.findById(id);
-        Optional<User> userOptional = userRepository.findById(userId);
+        Optional<User> userOptional = userRepository.findById(username);
 
         if (projectFolderOptional.isPresent() && userOptional.isPresent()) {
             ProjectFolder projectFolder = projectFolderOptional.get();
@@ -111,12 +111,12 @@ public class ProjectFolderService {
 
             return transferProjectFolderToDto(projectFolder);
         } else {
-            throw new RecordNotFoundException("No folder found with id: " + id + " or no user found with id: " + userId);
+            throw new RecordNotFoundException("No folder found with id: " + id + " or no user found with username: " + username);
         }
     }
 
-    public ProjectFolderDto createFolderForUser(Long userId, ProjectFolderInputDto folderInputDto) {
-        Optional<User> userOptional = userRepository.findById(userId);
+    public ProjectFolderDto createFolderForUser(String username, ProjectFolderInputDto folderInputDto) {
+        Optional<User> userOptional = userRepository.findById(username);
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
@@ -130,7 +130,7 @@ public class ProjectFolderService {
 
             return transferProjectFolderToDto(projectFolder);
         } else {
-            throw new UserNotFoundException("No user found with id: " + userId);
+            throw new UserNotFoundException("No user found with username: " + username);
         }
     }
 

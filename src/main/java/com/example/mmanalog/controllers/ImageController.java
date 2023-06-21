@@ -77,7 +77,7 @@ public class ImageController {
     @PostMapping(path = "/upload/userImage")
     public ResponseEntity<ImageUploadResponse> uploadImageUser(@RequestParam("username") String username, @RequestParam("projectFolder") Long projectFolderId, @RequestParam("image") MultipartFile file) throws IOException {
 
-        UserDto user = userService.getUserByUsername(username);
+        UserDto user = userService.getUser(username);
         ProjectFolderDto projectFolder = projectFolderService.getProjectFolderById(projectFolderId);
 
         // Specify the folder path within the project folder where you want to save the image

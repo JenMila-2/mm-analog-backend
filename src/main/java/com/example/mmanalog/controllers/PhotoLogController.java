@@ -72,29 +72,29 @@ public class PhotoLogController {
         return ResponseEntity.ok().body(photoLogDto);
     }
 
-    @PutMapping(path = "/{id}/user/{userId}")
-    public ResponseEntity<Object> assignPhotoLogToUser(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
-        PhotoLogDto photoLogDto = photoLogService.assignPhotoLogToUser(id, userId);
+    @PutMapping(path = "/{id}/user/{username}")
+    public ResponseEntity<Object> assignPhotoLogToUser(@PathVariable("id") Long id, @PathVariable("username") String username) {
+        PhotoLogDto photoLogDto = photoLogService.assignPhotoLogToUser(id, username);
 
         return ResponseEntity.ok().body(photoLogDto);
     }
 
-    @PostMapping(path = "/new/{userId}")
+    @PostMapping(path = "/new/{username}")
     public ResponseEntity<PhotoLogDto> createPhotoLogForUser(
-            @PathVariable("userId") Long userId,
+            @PathVariable("username") String username,
             @RequestBody PhotoLogInputDto newPhotoLogInput
     ) {
-        PhotoLogDto createdPhotoLog = photoLogService.createPhotoLogForUser(userId, newPhotoLogInput);
+        PhotoLogDto createdPhotoLog = photoLogService.createPhotoLogForUser(username, newPhotoLogInput);
         return ResponseEntity.created(null).body(createdPhotoLog);
     }
 
-    @PostMapping(path = "/new/user/{userId}/folder/{folderId}")
+    @PostMapping(path = "/new/user/{username}/folder/{folderId}")
     public ResponseEntity<PhotoLogDto> createPhotoLogForProjectFolderForUser(
-            @PathVariable("userId") Long userId,
+            @PathVariable("username") String username,
             @PathVariable("folderId") Long folderId,
             @RequestBody PhotoLogInputDto newPhotoLogInput
     ) {
-        PhotoLogDto createdPhotoLogForFolderUser = photoLogService.createPhotoLogForProjectFolderForUser(userId, folderId, newPhotoLogInput);
+        PhotoLogDto createdPhotoLogForFolderUser = photoLogService.createPhotoLogForProjectFolderForUser(username, folderId, newPhotoLogInput);
         return ResponseEntity.created(null).body(createdPhotoLogForFolderUser);
     }
 }

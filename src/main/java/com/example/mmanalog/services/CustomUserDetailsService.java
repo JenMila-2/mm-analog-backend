@@ -18,12 +18,14 @@ public class CustomUserDetailsService implements
 
     private final UserService userService;
 
+
     public CustomUserDetailsService(UserService personService) {
         this.userService = personService;
     }
 
+    @Override
     public UserDetails loadUserByUsername(String username) {
-        UserDto userDto = userService.getUserByUsername(username);
+        UserDto userDto = userService.getUser(username);
         String password = userDto.getPassword();
         Set<Authority> authorities = userDto.getAuthorities();
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();

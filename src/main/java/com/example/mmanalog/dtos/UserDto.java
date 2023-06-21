@@ -35,6 +35,8 @@ public class UserDto {
     @Column(nullable = false)
     public String password;
 
+    public String apikey;
+
     public boolean enabled = true;
 
     public Set<Authority> authorities;

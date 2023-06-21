@@ -58,19 +58,19 @@ public class FilmStockInventoryController {
     }
 
     //// **** Methods related to the relationship between entities **** ////
-    @PutMapping(path = "/{id}/user/{userId}")
-    public ResponseEntity<Object> assignFilmStockInventoryToUser(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
-        FilmStockInventoryDto filmStockInventoryDto = filmStockInventoryService.assignFilmStockInventoryToUser(id, userId);
+    @PutMapping(path = "/{id}/user/{username}")
+    public ResponseEntity<Object> assignFilmStockInventoryToUser(@PathVariable("id") Long id, @PathVariable("username") String username) {
+        FilmStockInventoryDto filmStockInventoryDto = filmStockInventoryService.assignFilmStockInventoryToUser(id, username);
 
         return ResponseEntity.ok().body(filmStockInventoryDto);
     }
 
-    @PostMapping(path = "/new/{userId}")
+    @PostMapping(path = "/new/{username}")
     public ResponseEntity<FilmStockInventoryDto> createFilmStockInventoryForUser(
-            @PathVariable("userId") Long userId,
+            @PathVariable("username") String username,
             @RequestBody FilmStockInventoryInputDto filmStockInventoryInputDto
     ) {
-        FilmStockInventoryDto createdFilmStockInventory = filmStockInventoryService.createFilmStockInventoryForUser(userId, filmStockInventoryInputDto);
+        FilmStockInventoryDto createdFilmStockInventory = filmStockInventoryService.createFilmStockInventoryForUser(username, filmStockInventoryInputDto);
         return ResponseEntity.created(null).body(createdFilmStockInventory);
     }
 }

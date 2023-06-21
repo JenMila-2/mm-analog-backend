@@ -145,9 +145,9 @@ public class PhotoLogService {
         }
     }
 
-   public PhotoLogDto assignPhotoLogToUser(Long id, Long userId) {
+   public PhotoLogDto assignPhotoLogToUser(Long id, String username) {
         Optional<PhotoLog> optionalPhotoLog = photoLogRepository.findById(id);
-        Optional<User> optionalUser = userRepository.findById(userId);
+        Optional<User> optionalUser = userRepository.findById(username);
 
         if (optionalPhotoLog.isPresent() && optionalUser.isPresent()) {
             PhotoLog photoLog = optionalPhotoLog.get();
@@ -158,12 +158,12 @@ public class PhotoLogService {
 
             return transferToPhotoLogDto(photoLog);
         } else {
-            throw new RecordNotFoundException("No photo log found with id: " + id + " or no user found with id: " + userId);
+            throw new RecordNotFoundException("No photo log found with id: " + id + " or no user found with username: " + username);
         }
     }
 
-    public PhotoLogDto createPhotoLogForUser(Long userId, PhotoLogInputDto photoLogInputDto) {
-        Optional<User> userOptional = userRepository.findById(userId);
+    public PhotoLogDto createPhotoLogForUser(String username, PhotoLogInputDto photoLogInputDto) {
+        Optional<User> userOptional = userRepository.findById(username);
 
         if (userOptional.isPresent()) {
             User user = userOptional.get();
@@ -188,12 +188,12 @@ public class PhotoLogService {
 
             return transferToPhotoLogDto(photoLog);
         } else {
-            throw new UserNotFoundException("No user found with id: " + userId);
+            throw new UserNotFoundException("No user found with username: " + username);
         }
     }
 
-    public PhotoLogDto createPhotoLogForProjectFolderForUser(Long userId, Long folderId, PhotoLogInputDto photoLogInput) {
-        Optional<User> userOptional = userRepository.findById(userId);
+    public PhotoLogDto createPhotoLogForProjectFolderForUser(String username, Long folderId, PhotoLogInputDto photoLogInput) {
+        Optional<User> userOptional = userRepository.findById(username);
         Optional<ProjectFolder> projectFolderOptional = projectFolderRepository.findById(folderId);
 
         if (userOptional.isPresent() && projectFolderOptional.isPresent()) {
@@ -221,7 +221,7 @@ public class PhotoLogService {
 
             return transferToPhotoLogDto(photoLog);
         } else {
-            throw new RecordNotFoundException("No user with id: " + userId + " or project folder with id: " + folderId + " found");
+            throw new RecordNotFoundException("No user with username: " + username + " or project folder with id: " + folderId + " found");
         }
     }
 }
