@@ -22,10 +22,10 @@ public class User {
     private Long id;
     private String name;
     private String username;
-    @Column(nullable = false, unique = true)
     private String email;
     private String password;
-    private boolean enabled;
+    private String apikey;
+    private boolean enabled = true;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
