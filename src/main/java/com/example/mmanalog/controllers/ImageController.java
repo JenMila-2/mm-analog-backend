@@ -1,14 +1,26 @@
 package com.example.mmanalog.controllers;
 
+import com.example.mmanalog.dtos.OutputDtos.ImageDto;
+import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
+import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.models.Image;
+import com.example.mmanalog.models.User;
+import com.example.mmanalog.services.ProjectFolderService;
+import com.example.mmanalog.services.UserService;
 import com.example.mmanalog.repositories.ImageRepository;
+import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.utilities.ImageUtility;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.*;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 @RestController
@@ -16,6 +28,14 @@ import java.util.Optional;
 public class ImageController {
     @Autowired
     ImageRepository imageRepository;
+
+    private final UserService userService;
+    private final ProjectFolderService projectFolderService;
+
+    public ImageController(UserService userService, ProjectFolderService projectFolderService) {
+        this.userService = userService;
+        this.projectFolderService = projectFolderService;
+    }
 
     @PostMapping(path = "/upload/image")
     public ResponseEntity<ImageUploadResponse> uploadImage(@RequestParam("image") MultipartFile file)
@@ -51,5 +71,50 @@ public class ImageController {
                 .ok()
                 .contentType(MediaType.valueOf(dbImage.get().getType()))
                 .body(ImageUtility.decompressImage(dbImage.get().getImage()));
+    }
+
+    ///// ***** Method for users to upload an image in project folder **** ////
+    @PostMapping(path = "/upload/userImage")
+    public ResponseEntity<ImageUploadResponse> uploadImageUser(@RequestParam("username") String username, @RequestParam("projectFolder") Long projectFolderId, @RequestParam("image") MultipartFile file) throws IOException {
+
+        UserDto user = userService.getUserByUsername(username);
+        ProjectFolderDto projectFolder = projectFolderService.getProjectFolderById(projectFolderId);
+
+        // Specify the folder path within the project folder where you want to save the image
+        String folderPath = projectFolder.getProjectTitle().replaceAll("\\s+", "_") + "/";
+
+        // Specify the file path within the project folder
+        String filePath = folderPath + file.getOriginalFilename();
+
+        // Save the image to the specified file path within the project folder
+        File savedFile = new File(filePath);
+        file.transferTo(savedFile);
+
+        imageRepository.save(Image.builder()
+                .name(file.getOriginalFilename())
+                .type(file.getContentType())
+                .image(ImageUtility.compressImage(file.getBytes())).build());
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ImageUploadResponse("Image uploaded successfully: " +
+                        file.getOriginalFilename() + " for user: " + user.getUsername() + " in project folder: " + projectFolder.getProjectTitle()));
+    }
+
+    @GetMapping(path = {"/image/{projectFolderId}/{imageName}"})
+    public ResponseEntity<Resource> getFolderImage(@PathVariable("projectFolderId") Long projectFolderId, @PathVariable("imageName") String imageName) throws IOException {
+        ProjectFolderDto projectFolder = projectFolderService.getProjectFolderById(projectFolderId);
+        String folderPath = projectFolder.getProjectTitle().replaceAll("\\s+", "_") + "/";
+        String filePath = folderPath + imageName;
+
+        // Load the image file
+        Path imageFile = Paths.get(filePath);
+        Resource resource = new UrlResource(imageFile.toUri());
+
+        if (resource.exists() && resource.isReadable()) {
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG) // Adjust the content type as per your requirement
+                    .body(resource);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

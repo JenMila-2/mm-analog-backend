@@ -134,7 +134,7 @@ public class ProjectFolderService {
         }
     }
 
-    //// **** Methods related to the relationship between image and project folder **** ////
+    //// **** Relationship between image and project folder **** ////
     public ProjectFolderDto assignImageToFolder(Long folderId, Long imageId) {
         Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);
         Optional<Image> optionalImage = imageRepository.findById(imageId);

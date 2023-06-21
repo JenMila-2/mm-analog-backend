@@ -78,7 +78,7 @@ public UserController(UserService userService) {
     }
 
     //// **** Methods related to the relationship between entities **** ////
-    //// **** Methods related to the relationship between image and user
+    //// **** Relationship between image and user **** ////
     @PutMapping(path = "/{userId}/images/{imageId}")
     public ResponseEntity<UserDto> assignImageToUser(
             @PathVariable("userId") Long userId,

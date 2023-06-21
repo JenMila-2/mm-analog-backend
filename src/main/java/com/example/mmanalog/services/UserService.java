@@ -1,7 +1,9 @@
 package com.example.mmanalog.services;
 
+import com.example.mmanalog.dtos.OutputDtos.ImageDto;
 import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.models.Image;
+import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.*;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
@@ -23,10 +25,12 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
+    private final ProjectFolderRepository projectFolderRepository;
 
-    public UserService(UserRepository userRepository, ImageRepository imageRepository) {
+    public UserService(UserRepository userRepository, ImageRepository imageRepository, ProjectFolderRepository projectFolderRepository) {
         this.userRepository = userRepository;
         this.imageRepository = imageRepository;
+        this.projectFolderRepository = projectFolderRepository;
     }
 
     public List<UserDto> getUsers() {
@@ -125,7 +129,7 @@ public class UserService {
     }
 
     //// **** Methods related to the relationship between entities **** ////
-    //// **** Methods related to the relationship between image and user
+    //// **** Relationship between image and user **** ////
     public UserDto assignImageToUser(Long userId, Long imageId) {
         Optional<User> optionalUser = userRepository.findById(userId);
         Optional<Image> optionalImage = imageRepository.findById(imageId);
