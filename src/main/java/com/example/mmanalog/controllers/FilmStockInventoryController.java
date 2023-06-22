@@ -20,15 +20,15 @@ public class FilmStockInventoryController {
     }
 
     @GetMapping(path = "")
-    public ResponseEntity<List<FilmStockInventoryDto>> getAllFilmStockInventories() {
+    public ResponseEntity<List<FilmStockInventoryDto>> getFilmStockInventories() {
 
-        return ResponseEntity.ok().body(filmStockInventoryService.getAllFilmStockInventories());
+        return ResponseEntity.ok().body(filmStockInventoryService.getFilmStockInventories());
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<FilmStockInventoryDto> getFilmStockInventory(@PathVariable("id") Long id) {
 
-        FilmStockInventoryDto filmStockInventoryDto = filmStockInventoryService.getFilmStockInventoryById(id);
+        FilmStockInventoryDto filmStockInventoryDto = filmStockInventoryService.getFilmStockInventory(id);
 
         return ResponseEntity.ok().body(filmStockInventoryDto);
     }
@@ -41,14 +41,6 @@ public class FilmStockInventoryController {
         return ResponseEntity.created(null).body(filmStockInventoryDto);
     }
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Object> deleteFilmStockInventory(@PathVariable Long id) {
-
-        filmStockInventoryService.deleteFilmStockInventory(id);
-
-        return ResponseEntity.noContent().build();
-    }
-
     @PutMapping(path = "/{id}")
     public ResponseEntity<Object> updateFilmStockInventory(@PathVariable Long id, @Valid @RequestBody FilmStockInventoryInputDto updatedFilmStockInventory) {
 
@@ -57,7 +49,16 @@ public class FilmStockInventoryController {
         return ResponseEntity.ok().body(dtoFilmStockInventory);
     }
 
-    //// **** Methods related to the relationship between entities **** ////
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Object> deleteFilmStockInventory(@PathVariable Long id) {
+
+        filmStockInventoryService.deleteFilmStockInventory(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    /* Methods related to the relationship between entities */
+
     @PutMapping(path = "/{id}/user/{username}")
     public ResponseEntity<Object> assignFilmStockInventoryToUser(@PathVariable("id") Long id, @PathVariable("username") String username) {
         FilmStockInventoryDto filmStockInventoryDto = filmStockInventoryService.assignFilmStockInventoryToUser(id, username);

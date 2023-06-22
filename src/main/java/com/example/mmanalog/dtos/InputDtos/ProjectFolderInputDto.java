@@ -18,7 +18,7 @@ public class ProjectFolderInputDto {
 
     public Long id;
     @NotNull(message = "Project title cannot be empty")
-    @Size(min = 5, max = 75, message = "Title must be between 5 and 75 characters")
+    @Size(min = 5, max = 50, message = "Title must be between 5 and 50 characters")
     public String projectTitle;
     public String projectConcept;
 

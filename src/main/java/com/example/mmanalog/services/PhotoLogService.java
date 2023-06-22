@@ -36,7 +36,7 @@ public class PhotoLogService {
         return photoLogList;
     }
 
-    public PhotoLogDto getPhotoLogById(Long id) {
+    public PhotoLogDto getPhotoLog(Long id) {
         Optional<PhotoLog> photoLogOptional = photoLogRepository.findById(id);
         if (photoLogOptional.isPresent()) {
             PhotoLog photoLog = photoLogOptional.get();
@@ -46,7 +46,7 @@ public class PhotoLogService {
         }
     }
 
-    public List<PhotoLogDto> getByFilmStock(String filmStock) {
+    public List<PhotoLogDto> getByPhotoLogFilmStock(String filmStock) {
         List<PhotoLog> photoLogs = photoLogRepository.findByFilmStock(filmStock);
         List<PhotoLogDto> filmStockPhotoLogList = new ArrayList<>();
 
@@ -56,15 +56,11 @@ public class PhotoLogService {
         return filmStockPhotoLogList;
     }
 
-    public PhotoLogDto addPhotoLog(PhotoLogInputDto inputDtoPhotoLog) {
+    public PhotoLogDto createPhotoLog(PhotoLogInputDto inputDtoPhotoLog) {
         PhotoLog photoLog = transferToPhotoLog(inputDtoPhotoLog);
         photoLogRepository.save(photoLog);
 
         return transferToPhotoLogDto(photoLog);
-    }
-
-    public void deletePhotoLog(@RequestBody Long id) {
-        photoLogRepository.deleteById(id);
     }
 
     public PhotoLogDto updatePhotoLog(Long id, PhotoLogInputDto updatedPhotoLog) {
@@ -83,51 +79,12 @@ public class PhotoLogService {
         }
     }
 
-    public PhotoLog transferToPhotoLog(PhotoLogInputDto photoLogInputDto) {
-        PhotoLog photoLog = new PhotoLog();
-
-        photoLog.setId(photoLogInputDto.getId());
-        photoLog.setPhotoTitle(photoLogInputDto.getPhotoTitle());
-        photoLog.setCamera(photoLogInputDto.getCamera());
-        photoLog.setFilmStock(photoLogInputDto.getFilmStock());
-        photoLog.setFilmFormat(photoLogInputDto.getFilmFormat());
-        photoLog.setShotAtIso(photoLogInputDto.getShotAtIso());
-        photoLog.setAperture(photoLogInputDto.getAperture());
-        photoLog.setShutterSpeed(photoLogInputDto.getShutterSpeed());
-        photoLog.setExposureCompensation(photoLogInputDto.getExposureCompensation());
-        photoLog.setRollStarted(photoLogInputDto.getRollStarted());
-        photoLog.setRollFinished(photoLogInputDto.getRollFinished());
-        photoLog.setDevelopedByLab(photoLogInputDto.getDevelopedByLab());
-        photoLog.setScanned(photoLogInputDto.isScanned());
-        photoLog.setNotes(photoLogInputDto.getNotes());
-
-        return photoLog;
+    public void deletePhotoLog(@RequestBody Long id) {
+        photoLogRepository.deleteById(id);
     }
 
-    public PhotoLogDto transferToPhotoLogDto(PhotoLog photoLog) {
-        PhotoLogDto photoLogDto = new PhotoLogDto();
+    /* Methods related to the relationship between entities */
 
-        photoLogDto.setId(photoLog.getId());
-        photoLogDto.setPhotoTitle(photoLog.getPhotoTitle());
-        photoLogDto.setCamera(photoLog.getCamera());
-        photoLogDto.setFilmStock(photoLog.getFilmStock());
-        photoLogDto.setFilmFormat(photoLog.getFilmFormat());
-        photoLogDto.setShotAtIso(photoLog.getShotAtIso());
-        photoLogDto.setAperture(photoLog.getAperture());
-        photoLogDto.setShutterSpeed(photoLog.getShutterSpeed());
-        photoLogDto.setExposureCompensation(photoLog.getExposureCompensation());
-        photoLogDto.setRollStarted(photoLog.getRollStarted());
-        photoLogDto.setRollFinished(photoLog.getRollFinished());
-        photoLogDto.setDevelopedByLab(photoLog.getDevelopedByLab());
-        photoLogDto.setScanned(photoLog.isScanned());
-        photoLogDto.setNotes(photoLog.getNotes());
-        photoLogDto.setProjectFolder(photoLog.getProjectFolder());
-        photoLogDto.setUser(photoLog.getUser());
-
-        return photoLogDto;
-    }
-
-    //// **** Methods related to the relationship between entities **** ////
     public PhotoLogDto assignPhotoLogToFolder(Long id, Long folderId) {
         Optional<PhotoLog> photoLogOptional = photoLogRepository.findById(id);
         Optional<ProjectFolder> folderOptional = projectFolderRepository.findById(folderId);
@@ -141,7 +98,7 @@ public class PhotoLogService {
 
             return transferToPhotoLogDto(photoLog);
         } else {
-            throw new RecordNotFoundException("No photo log found with id: " + id + " or no folder found with id: " + folderId);
+            throw new RecordNotFoundException("No photo log found with id: " + id + " or no project folder found with id: " + folderId);
         }
     }
 
@@ -223,6 +180,50 @@ public class PhotoLogService {
         } else {
             throw new RecordNotFoundException("No user with username: " + username + " or project folder with id: " + folderId + " found");
         }
+    }
+
+    public PhotoLog transferToPhotoLog(PhotoLogInputDto photoLogInputDto) {
+        PhotoLog photoLog = new PhotoLog();
+
+        photoLog.setId(photoLogInputDto.getId());
+        photoLog.setPhotoTitle(photoLogInputDto.getPhotoTitle());
+        photoLog.setCamera(photoLogInputDto.getCamera());
+        photoLog.setFilmStock(photoLogInputDto.getFilmStock());
+        photoLog.setFilmFormat(photoLogInputDto.getFilmFormat());
+        photoLog.setShotAtIso(photoLogInputDto.getShotAtIso());
+        photoLog.setAperture(photoLogInputDto.getAperture());
+        photoLog.setShutterSpeed(photoLogInputDto.getShutterSpeed());
+        photoLog.setExposureCompensation(photoLogInputDto.getExposureCompensation());
+        photoLog.setRollStarted(photoLogInputDto.getRollStarted());
+        photoLog.setRollFinished(photoLogInputDto.getRollFinished());
+        photoLog.setDevelopedByLab(photoLogInputDto.getDevelopedByLab());
+        photoLog.setScanned(photoLogInputDto.isScanned());
+        photoLog.setNotes(photoLogInputDto.getNotes());
+
+        return photoLog;
+    }
+
+    public PhotoLogDto transferToPhotoLogDto(PhotoLog photoLog) {
+        PhotoLogDto photoLogDto = new PhotoLogDto();
+
+        photoLogDto.setId(photoLog.getId());
+        photoLogDto.setPhotoTitle(photoLog.getPhotoTitle());
+        photoLogDto.setCamera(photoLog.getCamera());
+        photoLogDto.setFilmStock(photoLog.getFilmStock());
+        photoLogDto.setFilmFormat(photoLog.getFilmFormat());
+        photoLogDto.setShotAtIso(photoLog.getShotAtIso());
+        photoLogDto.setAperture(photoLog.getAperture());
+        photoLogDto.setShutterSpeed(photoLog.getShutterSpeed());
+        photoLogDto.setExposureCompensation(photoLog.getExposureCompensation());
+        photoLogDto.setRollStarted(photoLog.getRollStarted());
+        photoLogDto.setRollFinished(photoLog.getRollFinished());
+        photoLogDto.setDevelopedByLab(photoLog.getDevelopedByLab());
+        photoLogDto.setScanned(photoLog.isScanned());
+        photoLogDto.setNotes(photoLog.getNotes());
+        photoLogDto.setProjectFolder(photoLog.getProjectFolder());
+        photoLogDto.setUser(photoLog.getUser());
+
+        return photoLogDto;
     }
 }
 

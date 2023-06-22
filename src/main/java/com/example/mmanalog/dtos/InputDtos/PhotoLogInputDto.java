@@ -18,7 +18,7 @@ public class PhotoLogInputDto {
 
     public Long id;
     @NotNull
-    @Size(max = 75, message = "Title must be between 0 and 75 characters")
+    @Size(max = 50, message = "Title must be between 0 and 50 characters")
     public String photoTitle;
     @Size(max=50, message="This field cannot contain more than 50 characters")
     public String camera;

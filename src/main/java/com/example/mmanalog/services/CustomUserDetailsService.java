@@ -18,7 +18,6 @@ public class CustomUserDetailsService implements
 
     private final UserService userService;
 
-
     public CustomUserDetailsService(UserService personService) {
         this.userService = personService;
     }

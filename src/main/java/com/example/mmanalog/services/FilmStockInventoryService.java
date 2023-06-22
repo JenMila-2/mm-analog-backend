@@ -26,7 +26,7 @@ public class FilmStockInventoryService {
         this.userRepository = userRepository;
     }
 
-    public List<FilmStockInventoryDto> getAllFilmStockInventories() {
+    public List<FilmStockInventoryDto> getFilmStockInventories() {
         List<FilmStockInventory> filmStockInventories = filmStockInventoryRepository.findAll();
         List<FilmStockInventoryDto> filmStockInventoryList = new ArrayList<>();
 
@@ -36,7 +36,7 @@ public class FilmStockInventoryService {
         return filmStockInventoryList;
     }
 
-    public FilmStockInventoryDto getFilmStockInventoryById(Long id) {
+    public FilmStockInventoryDto getFilmStockInventory(Long id) {
         Optional<FilmStockInventory> filmStockInventoryOptional = filmStockInventoryRepository.findById(id);
         if (filmStockInventoryOptional.isPresent()) {
             FilmStockInventory filmStockInventory = filmStockInventoryOptional.get();
@@ -53,10 +53,6 @@ public class FilmStockInventoryService {
         return transferFilmStockInventoryToDto(filmStockInventory);
     }
 
-    public void deleteFilmStockInventory(@RequestBody Long id) {
-        filmStockInventoryRepository.deleteById(id);
-    }
-
     public FilmStockInventoryDto updateFilmStockInventory(Long id, FilmStockInventoryInputDto updatedFilmStockInventory) {
 
         if (filmStockInventoryRepository.findById(id).isPresent()) {
@@ -71,45 +67,12 @@ public class FilmStockInventoryService {
         }
     }
 
-    //// ***** Transfers **** ////
-    public FilmStockInventory transferToFilmStockInventory(FilmStockInventoryInputDto filmStockInventoryInputDto) {
-        FilmStockInventory filmStockInventory = new FilmStockInventory();
-
-        filmStockInventory.setId(filmStockInventoryInputDto.getId());
-        filmStockInventory.setFilmStockName(filmStockInventoryInputDto.getFilmStockName());
-        filmStockInventory.setRemainingRolls(filmStockInventoryInputDto.getRemainingRolls());
-        filmStockInventory.setBrand(filmStockInventoryInputDto.getBrand());
-        filmStockInventory.setStock(filmStockInventoryInputDto.getStock());
-        filmStockInventory.setFormat(filmStockInventoryInputDto.getFormat());
-        filmStockInventory.setIso(filmStockInventoryInputDto.getIso());
-        filmStockInventory.setDevelopmentProcess(filmStockInventoryInputDto.getDevelopmentProcess());
-        filmStockInventory.setStorage(filmStockInventoryInputDto.getStorage());
-        filmStockInventory.setRollsShot(filmStockInventoryInputDto.getRollsShot());
-        filmStockInventory.setFilmExpirationDate(filmStockInventoryInputDto.getFilmExpirationDate());
-
-        return filmStockInventory;
+    public void deleteFilmStockInventory(@RequestBody Long id) {
+        filmStockInventoryRepository.deleteById(id);
     }
 
-    public FilmStockInventoryDto transferFilmStockInventoryToDto(FilmStockInventory filmStockInventory) {
-        FilmStockInventoryDto filmStockInventoryDto = new FilmStockInventoryDto();
+    /* Methods related to the relationship between entities */
 
-        filmStockInventoryDto.setId(filmStockInventory.getId());
-        filmStockInventoryDto.setFilmStockName(filmStockInventory.getFilmStockName());
-        filmStockInventoryDto.setRemainingRolls(filmStockInventory.getRemainingRolls());
-        filmStockInventoryDto.setBrand(filmStockInventory.getBrand());
-        filmStockInventoryDto.setStock(filmStockInventory.getStock());
-        filmStockInventoryDto.setFormat(filmStockInventory.getFormat());
-        filmStockInventoryDto.setIso(filmStockInventory.getIso());
-        filmStockInventoryDto.setDevelopmentProcess(filmStockInventory.getDevelopmentProcess());
-        filmStockInventoryDto.setStorage(filmStockInventory.getStorage());
-        filmStockInventoryDto.setRollsShot(filmStockInventory.getRollsShot());
-        filmStockInventoryDto.setFilmExpirationDate(filmStockInventory.getFilmExpirationDate());
-        filmStockInventoryDto.setUser(filmStockInventory.getUser());
-
-        return filmStockInventoryDto;
-    }
-
-    //// **** Methods related to the relationship between entities **** ////
     public FilmStockInventoryDto assignFilmStockInventoryToUser(Long id, String username) {
         Optional<FilmStockInventory> optionalFilmStockInventory = filmStockInventoryRepository.findById(id);
         Optional<User> optionalUser = userRepository.findById(username);
@@ -152,5 +115,42 @@ public class FilmStockInventoryService {
         } else {
             throw new UserNotFoundException("No user found with username: " + username);
         }
+    }
+
+    public FilmStockInventory transferToFilmStockInventory(FilmStockInventoryInputDto filmStockInventoryInputDto) {
+        FilmStockInventory filmStockInventory = new FilmStockInventory();
+
+        filmStockInventory.setId(filmStockInventoryInputDto.getId());
+        filmStockInventory.setFilmStockName(filmStockInventoryInputDto.getFilmStockName());
+        filmStockInventory.setRemainingRolls(filmStockInventoryInputDto.getRemainingRolls());
+        filmStockInventory.setBrand(filmStockInventoryInputDto.getBrand());
+        filmStockInventory.setStock(filmStockInventoryInputDto.getStock());
+        filmStockInventory.setFormat(filmStockInventoryInputDto.getFormat());
+        filmStockInventory.setIso(filmStockInventoryInputDto.getIso());
+        filmStockInventory.setDevelopmentProcess(filmStockInventoryInputDto.getDevelopmentProcess());
+        filmStockInventory.setStorage(filmStockInventoryInputDto.getStorage());
+        filmStockInventory.setRollsShot(filmStockInventoryInputDto.getRollsShot());
+        filmStockInventory.setFilmExpirationDate(filmStockInventoryInputDto.getFilmExpirationDate());
+
+        return filmStockInventory;
+    }
+
+    public FilmStockInventoryDto transferFilmStockInventoryToDto(FilmStockInventory filmStockInventory) {
+        FilmStockInventoryDto filmStockInventoryDto = new FilmStockInventoryDto();
+
+        filmStockInventoryDto.setId(filmStockInventory.getId());
+        filmStockInventoryDto.setFilmStockName(filmStockInventory.getFilmStockName());
+        filmStockInventoryDto.setRemainingRolls(filmStockInventory.getRemainingRolls());
+        filmStockInventoryDto.setBrand(filmStockInventory.getBrand());
+        filmStockInventoryDto.setStock(filmStockInventory.getStock());
+        filmStockInventoryDto.setFormat(filmStockInventory.getFormat());
+        filmStockInventoryDto.setIso(filmStockInventory.getIso());
+        filmStockInventoryDto.setDevelopmentProcess(filmStockInventory.getDevelopmentProcess());
+        filmStockInventoryDto.setStorage(filmStockInventory.getStorage());
+        filmStockInventoryDto.setRollsShot(filmStockInventory.getRollsShot());
+        filmStockInventoryDto.setFilmExpirationDate(filmStockInventory.getFilmExpirationDate());
+        filmStockInventoryDto.setUser(filmStockInventory.getUser());
+
+        return filmStockInventoryDto;
     }
 }

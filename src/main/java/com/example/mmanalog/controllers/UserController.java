@@ -79,7 +79,8 @@ public UserController(UserService userService) {
         return ResponseEntity.noContent().build();
     }
 
-    //// ***** Authorities **** ////
+    /* Authorities */
+
     @GetMapping(path = "/{username}/authorities")
     public ResponseEntity<Object> getAuthorities(@PathVariable("username") String username) {
         return ResponseEntity.ok().body(userService.getAuthorities(username));
@@ -103,9 +104,8 @@ public UserController(UserService userService) {
         return ResponseEntity.noContent().build();
     }
 
-    //// **** Methods related to the relationship between entities **** ////
+    /* Methods related to the relationship between entities */
 
-    //// **** Relationship between image and user **** ////
     @PutMapping(path = "/{username}/images/{imageId}")
     public ResponseEntity<UserDto> assignImageToUser(
             @PathVariable("username") String username,
@@ -152,8 +152,8 @@ public UserController(UserService userService) {
         }
     }
 
-    //// **** Specials **** ////
-    //Method below only returns the image data and not the actual images//
+    /* Method below only returns the image data and not the actual images */
+
     @GetMapping(path = "/{username}/images")
     public ResponseEntity<List<byte[]>> getAllUserImages(@PathVariable("username") String username) {
         try {

@@ -1,13 +1,13 @@
 package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.UserDto;
-import com.example.mmanalog.exceptions.InvalidPasswordException;
 import com.example.mmanalog.models.Authority;
 import com.example.mmanalog.models.Image;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.*;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.exceptions.UserNotFoundException;
+import com.example.mmanalog.exceptions.InvalidPasswordException;
 import com.example.mmanalog.utilities.RandomStringGenerator;
 import org.hibernate.validator.internal.util.stereotypes.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -94,7 +94,7 @@ public class UserService {
         userRepository.deleteById(username);
     }
 
-    //// ***** Authorities **** ////
+    /* Authorities */
     public Set<Authority> getAuthorities(String username) {
         if (!userRepository.existsById(username)) throw new UserNotFoundException(username);
         User user = userRepository.findById(username).get();
@@ -118,37 +118,8 @@ public class UserService {
         userRepository.save(user);
     }
 
-    //// ***** Transfers **** ////
-    public User transferToUser(UserDto userDto) {
+    /* Methods related to the relationship between entities */
 
-        User user = new User();
-
-        user.setId(userDto.getId());
-        user.setName(userDto.getName());
-        user.setUsername(userDto.getUsername());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
-        user.setEnabled(userDto.isEnabled());
-
-        return user;
-    }
-
-    public UserDto transferUserToDto(User user) {
-        UserDto userDto = new UserDto();
-
-        userDto.id = user.getId();
-        userDto.name = user.getName();
-        userDto.username = user.getUsername();
-        userDto.email = user.getEmail();
-        userDto.password = user.getPassword();
-        userDto.enabled = user.isEnabled();
-
-        return userDto;
-    }
-
-    //// **** Methods related to the relationship between entities **** ////
-
-    //// **** Relationship between image and user **** ////
     public UserDto assignImageToUser(String username, Long imageId) {
         Optional<User> optionalUser = userRepository.findById(username);
         Optional<Image> optionalImage = imageRepository.findById(imageId);
@@ -214,8 +185,7 @@ public class UserService {
         }
     }
 
-    //// *** Specials *** ////
-    //Method below only returns the image data and not the actual images//
+    /* Method below only returns the image data and not the actual image */
     public List<byte[]> getAllUserImages(String username) {
         Optional<User> optionalUser = userRepository.findById(username);
 
@@ -231,6 +201,33 @@ public class UserService {
         } else {
             throw new RecordNotFoundException("No user found with id: " + username);
         }
+    }
+
+    public User transferToUser(UserDto userDto) {
+
+        User user = new User();
+
+        user.setId(userDto.getId());
+        user.setName(userDto.getName());
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(userDto.getPassword());
+        user.setEnabled(userDto.isEnabled());
+
+        return user;
+    }
+
+    public UserDto transferUserToDto(User user) {
+        UserDto userDto = new UserDto();
+
+        userDto.id = user.getId();
+        userDto.name = user.getName();
+        userDto.username = user.getUsername();
+        userDto.email = user.getEmail();
+        userDto.password = user.getPassword();
+        userDto.enabled = user.isEnabled();
+
+        return userDto;
     }
 }
 

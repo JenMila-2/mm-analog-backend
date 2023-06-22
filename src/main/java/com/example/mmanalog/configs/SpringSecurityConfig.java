@@ -2,7 +2,6 @@ package com.example.mmanalog.configs;
 
 import com.example.mmanalog.fiters.JwtRequestFilter;
 import com.example.mmanalog.services.CustomUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

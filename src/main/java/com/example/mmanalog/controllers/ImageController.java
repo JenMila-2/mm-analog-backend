@@ -1,14 +1,11 @@
 package com.example.mmanalog.controllers;
 
-import com.example.mmanalog.dtos.OutputDtos.ImageDto;
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.models.Image;
-import com.example.mmanalog.models.User;
 import com.example.mmanalog.services.ProjectFolderService;
 import com.example.mmanalog.services.UserService;
 import com.example.mmanalog.repositories.ImageRepository;
-import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.utilities.ImageUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -73,8 +70,9 @@ public class ImageController {
                 .body(ImageUtility.decompressImage(dbImage.get().getImage()));
     }
 
-    ///// ***** Method for users to upload an image in project folder **** ////
-    @PostMapping(path = "/upload/userImage")
+    /* Method for users to upload an image in project folder */
+
+    @PostMapping(path = "/upload/folder/image")
     public ResponseEntity<ImageUploadResponse> uploadImageUser(@RequestParam("username") String username, @RequestParam("projectFolder") Long projectFolderId, @RequestParam("image") MultipartFile file) throws IOException {
 
         UserDto user = userService.getUser(username);
@@ -111,7 +109,7 @@ public class ImageController {
 
         if (resource.exists() && resource.isReadable()) {
             return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_JPEG) // Adjust the content type as per your requirement
+                    .contentType(MediaType.IMAGE_JPEG)
                     .body(resource);
         } else {
             return ResponseEntity.notFound().build();
