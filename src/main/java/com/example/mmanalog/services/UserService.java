@@ -10,10 +10,8 @@ import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.exceptions.UserNotFoundException;
 import com.example.mmanalog.utilities.RandomStringGenerator;
 import org.hibernate.validator.internal.util.stereotypes.Lazy;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.*;
 
@@ -69,16 +67,12 @@ public class UserService {
             User newUser = userRepository.save(transferToUser(dtoUser));
             return newUser.getUsername();
         } else {
-            throw new InvalidPasswordException("Invalid password. Your password must contain minimal 6 characters, 1 uppercase letter, 1 lowercase letter, 1 special character. Make sure it does not contain white spaces.");
+            throw new InvalidPasswordException("Invalid password. Your password must contain minimal 7 characters, 1 uppercase letter, 1 lowercase letter, 1 special character. Make sure it does not contain white spaces.");
         }
     }
 
     public Boolean validatePassword(String password) {
         return password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*?=])(?=\\S+$).{6,}$");
-    }
-
-    public void deleteUser(String username) {
-        userRepository.deleteById(username);
     }
 
     public void updateUser(String username, UserDto updatedUser) {
@@ -94,6 +88,10 @@ public class UserService {
         } else {
             throw new UserNotFoundException("No user found with username: " + username);
         }
+    }
+
+    public void deleteUser(String username) {
+        userRepository.deleteById(username);
     }
 
     //// ***** Authorities **** ////
@@ -149,6 +147,7 @@ public class UserService {
     }
 
     //// **** Methods related to the relationship between entities **** ////
+
     //// **** Relationship between image and user **** ////
     public UserDto assignImageToUser(String username, Long imageId) {
         Optional<User> optionalUser = userRepository.findById(username);
@@ -231,24 +230,6 @@ public class UserService {
             return imageList;
         } else {
             throw new RecordNotFoundException("No user found with id: " + username);
-        }
-    }
-
-    //Method to retrieve an Array of the image id's//
-    public List<Long> getUserImageIds(String username) {
-        Optional<User> optionalUser = userRepository.findById(username);
-
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            List<Image> images = user.getUserImages();
-
-            List<Long> imageIds = new ArrayList<>();
-            for (Image image : images) {
-                imageIds.add(image.getId());
-            }
-            return imageIds;
-        } else {
-            throw new UserNotFoundException("No user found with id: " + username);
         }
     }
 }

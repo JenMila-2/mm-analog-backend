@@ -63,14 +63,6 @@ public UserController(UserService userService) {
     return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping(path = "/{username}")
-    public ResponseEntity<Object> deleteUser(@PathVariable("username") String username) {
-
-    userService.deleteUser(username);
-
-    return ResponseEntity.noContent().build();
-    }
-
     @PutMapping(path = "/{username}")
     public ResponseEntity<UserDto> updateUser(@PathVariable("username") String username, @Valid @RequestBody UserDto updatedUser) {
 
@@ -79,15 +71,22 @@ public UserController(UserService userService) {
     return ResponseEntity.noContent().build();
     }
 
-    //// ***** Authorities **** ////
+    @DeleteMapping(path = "/{username}")
+    public ResponseEntity<Object> deleteUser(@PathVariable("username") String username) {
 
+        userService.deleteUser(username);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    //// ***** Authorities **** ////
     @GetMapping(path = "/{username}/authorities")
-    public ResponseEntity<Object> getUserAuthorities(@PathVariable("username") String username) {
+    public ResponseEntity<Object> getAuthorities(@PathVariable("username") String username) {
         return ResponseEntity.ok().body(userService.getAuthorities(username));
     }
 
     @PostMapping(path = "/{username}/authorities")
-    public ResponseEntity<Object> addUserAuthority(@PathVariable("username") String username, @RequestBody Map<String, Object> fields) {
+    public ResponseEntity<Object> addAuthority(@PathVariable("username") String username, @RequestBody Map<String, Object> fields) {
         try {
             String authorityName = (String) fields.get("authority");
             userService.addAuthority(username, authorityName);
@@ -99,13 +98,13 @@ public UserController(UserService userService) {
     }
 
     @DeleteMapping(path = "/{username}/authorities/{authority}")
-    public ResponseEntity<Object> deleteUserAuthority(@PathVariable("username") String username, @PathVariable("authority") String authority) {
+    public ResponseEntity<Object> removeAuthority(@PathVariable("username") String username, @PathVariable("authority") String authority) {
         userService.removeAuthority(username, authority);
         return ResponseEntity.noContent().build();
     }
 
-
     //// **** Methods related to the relationship between entities **** ////
+
     //// **** Relationship between image and user **** ////
     @PutMapping(path = "/{username}/images/{imageId}")
     public ResponseEntity<UserDto> assignImageToUser(
@@ -137,12 +136,12 @@ public UserController(UserService userService) {
                     .headers(headers)
                     .body(resource);
         } else {
-            throw new BadRequestException("Image or user not found");
+            throw new BadRequestException("Image with id: " + imageId + " or user with username: " + username + " not found");
         }
     }
 
     @DeleteMapping(path = "/{username}/images/{imageId}")
-    public ResponseEntity<String> deleteImage(@PathVariable("username") String username, @PathVariable("imageId") Long imageId) {
+    public ResponseEntity<String> deleteUserImage(@PathVariable("username") String username, @PathVariable("imageId") Long imageId) {
         try {
             userService.deleteUserImage(username, imageId);
             return ResponseEntity.ok("Image deleted successfully");
@@ -167,22 +166,6 @@ public UserController(UserService userService) {
             }
         } catch (Exception e) {
             throw new BadRequestException("Error while retrieving data.");
-        }
-    }
-
-    //Method to retrieve an Array of the image id's//
-    @GetMapping(path = "/{username}/imageIds")
-    public ResponseEntity<List<Long>> getUserImageIds(@PathVariable("username") String username) {
-        try {
-            List<Long> imageIds = userService.getUserImageIds(username);
-
-            if (!imageIds.isEmpty()) {
-                return ResponseEntity.ok(imageIds);
-            } else {
-                throw new RecordNotFoundException("No image id's found for user " + username);
-            }
-        } catch (Exception e) {
-            throw new BadRequestException("Error while retrieving image id's");
         }
     }
 }
