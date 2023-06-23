@@ -3,13 +3,13 @@ INSERT INTO users (id, name, username, email, password, enabled)
 VALUES
     (100, 'Pedro Perez', 'Pedro20','pedro@mail.com', '$2a$12$rBImbI7IECYBlcDSdUIXu.m4yPC8q15W1N4q5BaZtF0z2H6dRjaE2', true),
     (101, 'Marisol Lopez', 'Marisol2023', 'marisol@mail.com', '$2a$12$YGKrv7J7xvuajKHXY/GtYOdyElM2riBOZgxBbhK1ZEOepfDvWAD5.', true),
-    (102, 'Jensy Franco', 'JensyFilmPhotography', 'jensyhotography@mail.com', '$2a$12$rYbeEqmxx.ElKC5PimWc1OVccCAJwy4Qyki93yc8Y8cHjhGHuMpuu', true),
+    (102, 'Jensy Franco', 'Jensy2222', 'jensyhotography@mail.com', '$2a$12$rYbeEqmxx.ElKC5PimWc1OVccCAJwy4Qyki93yc8Y8cHjhGHuMpuu', true),
     (103, 'Scott Bennie', 'Benniezzzzzz80', 'bennie@mail.com', '$2a$12$h8YyS5u4hMHCC8E7tEMODetux9cZxZqgQf2UH/JVCfnK4kpdseusG', true);
 
 INSERT INTO authorities (username, authority) VALUES ('Pedro20', 'ROLE_USER');
 INSERT INTO authorities (username, authority) VALUES ('Marisol2023', 'ROLE_USER');
 INSERT INTO authorities (username, authority) VALUES ('Benniezzzzzz80', 'ROLE_USER');
-INSERT INTO authorities (username, authority) VALUES ('JensyFilmPhotography', 'ROLE_ADMIN');
+INSERT INTO authorities (username, authority) VALUES ('Jensy2222', 'ROLE_ADMIN');
 
 --Film Stock Inventory user 100
 INSERT INTO filmstockinventories (id, film_stock_name, remaining_rolls, brand, stock, format, iso, development_process, storage, rolls_shot, film_expiration_date, user_id)

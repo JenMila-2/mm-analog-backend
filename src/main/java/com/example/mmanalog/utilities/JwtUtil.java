@@ -18,7 +18,7 @@ import java.util.function.Function;
 @Service
 public class JwtUtil {
 
-    private final static String SECRET_KEY = "filmphotographyisnotdead-selfieonfilm";
+    private final static String SECRET_KEY = "filmphotographyfilmphotographyfilmphotographyfilmphotography";
 
     private Key getSigningKey() {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);

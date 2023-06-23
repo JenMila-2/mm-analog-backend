@@ -115,6 +115,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .and()
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
             http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
             return http.build();
         }
 }

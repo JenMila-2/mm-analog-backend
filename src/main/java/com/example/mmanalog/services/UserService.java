@@ -211,7 +211,6 @@ public class UserService {
 
         User user = new User();
 
-        user.setId(userDto.getId());
         user.setName(userDto.getName());
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
@@ -224,7 +223,6 @@ public class UserService {
     public UserDto transferUserToDto(User user) {
         UserDto userDto = new UserDto();
 
-        userDto.id = user.getId();
         userDto.name = user.getName();
         userDto.username = user.getUsername();
         userDto.email = user.getEmail();
