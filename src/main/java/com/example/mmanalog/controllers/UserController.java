@@ -51,7 +51,7 @@ public UserController(UserService userService) {
     return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
-    @PostMapping(path = "")
+    @PostMapping(path = "/register")
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto) {
 
     String newUsername = userService.createUser(userDto);

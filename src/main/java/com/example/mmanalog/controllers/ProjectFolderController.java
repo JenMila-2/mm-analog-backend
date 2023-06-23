@@ -31,14 +31,14 @@ public class ProjectFolderController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ProjectFolderDto> getProjectFolderById(@PathVariable("id") Long id) {
+    public ResponseEntity<ProjectFolderDto> getProjectFolder(@PathVariable("id") Long id) {
 
-        ProjectFolderDto projectFolder = projectFolderService.getProjectFolderById(id);
+        ProjectFolderDto projectFolder = projectFolderService.getProjectFolder(id);
 
         return ResponseEntity.ok().body(projectFolder);
     }
 
-    @PostMapping(path = "")
+    @PostMapping(path = "/new")
     public ResponseEntity<Object> createProjectFolder(@Valid @RequestBody ProjectFolderInputDto folderInputDto) {
 
         ProjectFolderDto newFolder = projectFolderService.createProjectFolder(folderInputDto);

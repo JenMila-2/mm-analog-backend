@@ -38,7 +38,7 @@ public class ProjectFolderService {
         return projectFolderList;
     }
 
-    public ProjectFolderDto getProjectFolderById(Long id) {
+    public ProjectFolderDto getProjectFolder(Long id) {
         Optional<ProjectFolder> folderOptional = projectFolderRepository.findById(id);
         if (folderOptional.isPresent()) {
             ProjectFolder projectFolder = folderOptional.get();

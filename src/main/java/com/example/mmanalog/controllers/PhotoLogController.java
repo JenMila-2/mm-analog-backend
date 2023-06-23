@@ -34,13 +34,13 @@ public class PhotoLogController {
         return ResponseEntity.ok().body(photoLog);
     }
 
-    @GetMapping(path = "/filmstock/{filmStock}")
+    @GetMapping(path = "/films_stock/{film_stock}")
     public ResponseEntity<List<PhotoLogDto>> getByPhotoLogFilmStock(@PathVariable String filmStock) {
 
         return ResponseEntity.ok(photoLogService.getByPhotoLogFilmStock(filmStock));
     }
 
-    @PostMapping(path = "")
+    @PostMapping(path = "/new")
     public ResponseEntity<Object> createPhotoLog(@Valid @RequestBody PhotoLogInputDto photoLogInputDto) {
 
         PhotoLogDto photoLog = photoLogService.createPhotoLog(photoLogInputDto);
@@ -80,7 +80,7 @@ public class PhotoLogController {
         return ResponseEntity.ok().body(photoLogDto);
     }
 
-    @PostMapping(path = "/user/{username}")
+    @PostMapping(path = "/new/{username}")
     public ResponseEntity<PhotoLogDto> createPhotoLogForUser(
             @PathVariable("username") String username,
             @RequestBody PhotoLogInputDto newPhotoLogInput

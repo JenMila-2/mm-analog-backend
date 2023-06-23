@@ -49,6 +49,10 @@ public class UserService {
         }
     }
 
+    public boolean userExists(String username) {
+        return userRepository.existsById(username);
+    }
+
     public UserDto getUserByEmail(String email) {
         User user = userRepository.findUserByEmail(email);
         if (user == null) {

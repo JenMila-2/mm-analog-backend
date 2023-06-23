@@ -33,7 +33,7 @@ public class FilmStockInventoryController {
         return ResponseEntity.ok().body(filmStockInventoryDto);
     }
 
-    @PostMapping(path = "")
+    @PostMapping(path = "/new")
     public ResponseEntity<Object> createFilmStockInventory(@Valid @RequestBody FilmStockInventoryInputDto filmStockInventoryInputDto) {
 
         FilmStockInventoryDto filmStockInventoryDto = filmStockInventoryService.createFilmStockInventory(filmStockInventoryInputDto);

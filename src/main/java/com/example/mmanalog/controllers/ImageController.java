@@ -76,7 +76,7 @@ public class ImageController {
     public ResponseEntity<ImageUploadResponse> uploadImageUser(@RequestParam("username") String username, @RequestParam("projectFolder") Long projectFolderId, @RequestParam("image") MultipartFile file) throws IOException {
 
         UserDto user = userService.getUser(username);
-        ProjectFolderDto projectFolder = projectFolderService.getProjectFolderById(projectFolderId);
+        ProjectFolderDto projectFolder = projectFolderService.getProjectFolder(projectFolderId);
 
         // Specify the folder path within the project folder where you want to save the image
         String folderPath = projectFolder.getProjectTitle().replaceAll("\\s+", "_") + "/";
@@ -99,7 +99,7 @@ public class ImageController {
 
     @GetMapping(path = {"/image/{projectFolderId}/{imageName}"})
     public ResponseEntity<Resource> getFolderImage(@PathVariable("projectFolderId") Long projectFolderId, @PathVariable("imageName") String imageName) throws IOException {
-        ProjectFolderDto projectFolder = projectFolderService.getProjectFolderById(projectFolderId);
+        ProjectFolderDto projectFolder = projectFolderService.getProjectFolder(projectFolderId);
         String folderPath = projectFolder.getProjectTitle().replaceAll("\\s+", "_") + "/";
         String filePath = folderPath + imageName;
 
