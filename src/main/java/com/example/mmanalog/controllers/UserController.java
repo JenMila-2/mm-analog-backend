@@ -21,6 +21,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
+@CrossOrigin
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
@@ -80,14 +81,13 @@ public UserController(UserService userService) {
     }
 
     /* Authorities */
-
     @GetMapping(path = "/{username}/authorities")
     public ResponseEntity<Object> getAuthorities(@PathVariable("username") String username) {
         return ResponseEntity.ok().body(userService.getAuthorities(username));
     }
 
     @PostMapping(path = "/{username}/authorities")
-    public ResponseEntity<Object> addAuthority(@PathVariable("username") String username, @RequestBody Map<String, Object> fields) {
+    public ResponseEntity<Object> addAuthority(@PathVariable("username") String username, @RequestBody Map<String, Object> fields) throws BadRequestException {
         try {
             String authorityName = (String) fields.get("authority");
             userService.addAuthority(username, authorityName);

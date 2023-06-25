@@ -18,8 +18,8 @@ public class CustomUserDetailsService implements
 
     private final UserService userService;
 
-    public CustomUserDetailsService(UserService personService) {
-        this.userService = personService;
+    public CustomUserDetailsService(UserService userService) {
+        this.userService = userService;
     }
 
     @Override

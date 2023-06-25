@@ -1,6 +1,7 @@
 package com.example.mmanalog.dtos;
 
 import com.example.mmanalog.models.Authority;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
@@ -39,5 +40,14 @@ public class UserDto {
 
     public boolean enabled = true;
 
+    @JsonSerialize
     public Set<Authority> authorities;
+
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+    }
 }

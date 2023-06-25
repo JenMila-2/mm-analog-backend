@@ -20,17 +20,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
     public class SpringSecurityConfig {
 
         public final CustomUserDetailsService customUserDetailsService;
-
         private final JwtRequestFilter jwtRequestFilter;
 
         public SpringSecurityConfig(CustomUserDetailsService customUserDetailsService, JwtRequestFilter jwtRequestFilter) {
             this.customUserDetailsService = customUserDetailsService;
             this.jwtRequestFilter = jwtRequestFilter;
-        }
-
-        @Bean
-        public PasswordEncoder passwordEncoder() {
-            return new BCryptPasswordEncoder();
         }
 
         @Bean
@@ -43,6 +37,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
         }
 
         @Bean
+        public PasswordEncoder passwordEncoder() {
+            return new BCryptPasswordEncoder();
+        }
+
+        @Bean
         protected SecurityFilterChain filter (HttpSecurity http) throws Exception {
 
             http
@@ -51,7 +50,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .cors().and()
                     .authorizeHttpRequests()
 
-                    //----------------------------------------Endpoints User--------------------------------------
+                    //----------------------------------------User--------------------------------------
                     .requestMatchers(HttpMethod.GET,"/users").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET,"/users/{username}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.GET,"/users/emails/{email}").hasRole("ADMIN")
@@ -67,7 +66,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.DELETE,"/users/{username}/authorities").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE, "/users/{username}/images/{imageId}").hasRole("ADMIN")
 
-                    //----------------------------------------Endpoints Project Folder--------------------------------------
+                    //----------------------------------------Authentication--------------------------------------
+                    .requestMatchers(HttpMethod.GET,"/authenticated").authenticated()
+                    .requestMatchers(HttpMethod.POST,"/authenticate").permitAll()
+
+                    //----------------------------------------Project Folder--------------------------------------
                     .requestMatchers(HttpMethod.GET,"/projectfolders").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET,"/projectfolders/{id}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.GET,"/projectfolders/{folderId}/images/{imageId}").hasAnyRole("ADMIN", "USER")
@@ -81,7 +84,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.DELETE,"/projectfolders/{id}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.DELETE,"/projectfolders/{folderId}/images/{imageId}").hasAnyRole("ADMIN", "USER")
 
-                    //----------------------------------------Endpoints Photo Log--------------------------------------
+                    //----------------------------------------Photo Log--------------------------------------
                     .requestMatchers(HttpMethod.GET,"/photologs").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET,"/photologs/{id}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.GET,"/photologs/film_stock/{film_stock}").hasAnyRole("ADMIN", "USER")
@@ -93,7 +96,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.PUT, "/photologs/{id}/user/{userId}").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/photologs/{id}").hasAnyRole("ADMIN", "USER")
 
-                    //----------------------------------------Endpoints Film Stock Inventory--------------------------------------
+                    //----------------------------------------Film Stock Inventory--------------------------------------
                     .requestMatchers(HttpMethod.GET, "/filmstockinventories").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET,"/filmstockinventories/{id}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.POST,"/filmstockinventories/new").hasRole("ADMIN")
@@ -102,15 +105,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.PUT, "/filmstockinventories/{id}/user/{username}").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/filmstockinventories/{id}").hasAnyRole("ADMIN", "USER")
 
-                    //----------------------------------------Endpoints Image--------------------------------------
+                    //----------------------------------------Image--------------------------------------
                     .requestMatchers(HttpMethod.GET, "/image/info{name}").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET,"/image/{name}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.GET,"/image/{projectFolderId}/{imageName}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.POST, "/upload/image").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST,"/upload/folder/image").hasAnyRole("ADMIN", "USER")
 
-                    .requestMatchers("/authenticated").authenticated()
-                    .requestMatchers("/authenticate").permitAll()
                     .anyRequest().denyAll()
                     .and()
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -19,10 +19,8 @@ import java.security.Principal;
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
-
     private final CustomUserDetailsService userDetailsService;
-
-    private final JwtUtil jwtUtl;
+    final JwtUtil jwtUtl;
 
     public AuthenticationController(AuthenticationManager authenticationManager, CustomUserDetailsService userDetailsService, JwtUtil jwtUtl) {
         this.authenticationManager = authenticationManager;
@@ -30,13 +28,13 @@ public class AuthenticationController {
         this.jwtUtl = jwtUtl;
     }
 
-    @GetMapping(value = "/authenticated")
+    @GetMapping(path = "/authenticated")
     public ResponseEntity<Object> authenticated(Authentication authentication, Principal principal) {
         return ResponseEntity.ok().body(principal);
     }
 
-    @PostMapping(value = "/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
+    @PostMapping(path = "/authenticate")
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws BadCredentialsException {
 
         String username = authenticationRequest.getUsername();
         String password = authenticationRequest.getPassword();
@@ -47,7 +45,7 @@ public class AuthenticationController {
             );
         }
         catch (BadCredentialsException ex) {
-            throw new Exception("Incorrect username or password", ex);
+            throw new BadCredentialsException("Incorrect username or password", ex);
         }
 
         final UserDetails userDetails = userDetailsService
@@ -57,5 +55,4 @@ public class AuthenticationController {
 
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
-
 }

@@ -51,7 +51,6 @@ public class User {
             cascade = CascadeType.ALL,
             orphanRemoval = true,
             fetch = FetchType.EAGER)
-    @JsonIgnore
     private Set<Authority> authorities = new HashSet<>();
 
     public Set<Authority> getAuthorities() {

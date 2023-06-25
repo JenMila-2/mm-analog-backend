@@ -9,8 +9,10 @@ import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.exceptions.UserNotFoundException;
 import com.example.mmanalog.exceptions.InvalidPasswordException;
 import com.example.mmanalog.utilities.RandomStringGenerator;
-import org.hibernate.validator.internal.util.stereotypes.Lazy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -19,8 +21,8 @@ import java.util.*;
 public class UserService {
 
     @Lazy
+    @Autowired
     private PasswordEncoder passwordEncoder;
-
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
 
@@ -45,7 +47,7 @@ public class UserService {
             User user = userOptional.get();
             return transferUserToDto(user);
         } else {
-            throw new UserNotFoundException("No user found with username: " + username);
+            throw new UsernameNotFoundException("No user found with username: " + username);
         }
     }
 
@@ -62,36 +64,18 @@ public class UserService {
         }
     }
 
-    public String createUser(UserDto dtoUser) {
-        String password = dtoUser.getPassword();
-        if (validatePassword(password)) {
-            String randomString = RandomStringGenerator.generateAlphaNumeric(20);
-            dtoUser.setApikey(randomString);
-            dtoUser.setPassword(passwordEncoder.encode(dtoUser.getPassword()));
-            User newUser = userRepository.save(transferToUser(dtoUser));
-            return newUser.getUsername();
-        } else {
-            throw new InvalidPasswordException("Invalid password. Your password must contain minimal 7 characters, 1 uppercase letter, 1 lowercase letter, 1 special character. Make sure it does not contain white spaces.");
-        }
+    public String createUser(UserDto userDto) {
+        String randomString = RandomStringGenerator.generateAlphaNumeric(20);
+        userDto.setApikey(randomString);
+        User newUser = userRepository.save(transferToUser(userDto));
+        return newUser.getUsername();
     }
 
-    public Boolean validatePassword(String password) {
-        return password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*?=])(?=\\S+$).{6,}$");
-    }
-
-    public void updateUser(String username, UserDto updatedUser) {
-        String password = updatedUser.getPassword();
-        if (!userRepository.existsById(username)) throw new RecordNotFoundException();
-        if (validatePassword(password)) {
-            User user = userRepository.findById(username).get();
-            user.setName(updatedUser.getName());
-            user.setEmail(updatedUser.getEmail());
-            user.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
-
-            userRepository.save(user);
-        } else {
-            throw new UserNotFoundException("No user found with username: " + username);
-        }
+    public void updateUser(String username, UserDto newUser) {
+        if (!userRepository.existsById(username)) throw new RecordNotFoundException("User not found with username: " + username);
+        User user = userRepository.findById(username).get();
+        user.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        userRepository.save(user);
     }
 
     public void deleteUser(String username) {
@@ -100,22 +84,21 @@ public class UserService {
 
     /* Authorities */
     public Set<Authority> getAuthorities(String username) {
-        if (!userRepository.existsById(username)) throw new UserNotFoundException(username);
+        if (!userRepository.existsById(username)) throw new UsernameNotFoundException("No user found with username: " + username);
         User user = userRepository.findById(username).get();
         UserDto userDto = transferUserToDto(user);
         return userDto.getAuthorities();
     }
 
     public void addAuthority(String username, String authority) {
-
-        if (!userRepository.existsById(username)) throw new UserNotFoundException(username);
+        if (!userRepository.existsById(username)) throw new UsernameNotFoundException("No user found with username: " + username);
         User user = userRepository.findById(username).get();
         user.addAuthority(new Authority(username, authority));
         userRepository.save(user);
     }
 
     public void removeAuthority(String username, String authority) {
-        if (!userRepository.existsById(username)) throw new UserNotFoundException(username);
+        if (!userRepository.existsById(username)) throw new UserNotFoundException("No user found with username: " + username);
         User user = userRepository.findById(username).get();
         Authority authorityToRemove = user.getAuthorities().stream().filter((a) -> a.getAuthority().equalsIgnoreCase(authority)).findAny().get();
         user.removeAuthority(authorityToRemove);
@@ -208,14 +191,14 @@ public class UserService {
     }
 
     public User transferToUser(UserDto userDto) {
-
         User user = new User();
 
         user.setName(userDto.getName());
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setEnabled(userDto.isEnabled());
+        user.setApikey(userDto.getApikey());
 
         return user;
     }
@@ -223,11 +206,13 @@ public class UserService {
     public UserDto transferUserToDto(User user) {
         UserDto userDto = new UserDto();
 
-        userDto.name = user.getName();
-        userDto.username = user.getUsername();
-        userDto.email = user.getEmail();
-        userDto.password = user.getPassword();
-        userDto.enabled = user.isEnabled();
+        userDto.setName(user.getName());
+        userDto.setUsername(user.getUsername());
+        userDto.setEmail(user.getEmail());
+        userDto.setPassword(user.getPassword());
+        userDto.setEnabled(user.isEnabled());
+        userDto.setAuthorities(user.getAuthorities());
+        userDto.setApikey(user.getApikey());
 
         return userDto;
     }
