@@ -30,11 +30,8 @@ public class PhotoLog {
     private String shutterSpeed;
     private String exposureCompensation;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate rollStarted;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate rollFinished;
+    private LocalDate dateTaken;
     private String developedByLab;
-    private boolean scanned;
     private String notes;
 
     @ManyToOne(cascade = CascadeType.ALL)

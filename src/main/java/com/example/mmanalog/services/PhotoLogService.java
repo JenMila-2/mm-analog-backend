@@ -135,10 +135,8 @@ public class PhotoLogService {
             photoLog.setAperture(photoLogInputDto.getAperture());
             photoLog.setShutterSpeed(photoLogInputDto.getShutterSpeed());
             photoLog.setExposureCompensation(photoLogInputDto.getExposureCompensation());
-            photoLog.setRollStarted(photoLogInputDto.getRollStarted());
-            photoLog.setRollFinished(photoLogInputDto.getRollFinished());
+            photoLog.setDateTaken(photoLogInputDto.getDateTaken());
             photoLog.setDevelopedByLab(photoLogInputDto.getDevelopedByLab());
-            photoLog.setScanned(photoLogInputDto.isScanned());
             photoLog.setNotes(photoLogInputDto.getNotes());
 
             photoLogRepository.save(photoLog);
@@ -168,10 +166,8 @@ public class PhotoLogService {
             photoLog.setAperture(photoLogInput.getAperture());
             photoLog.setShutterSpeed(photoLogInput.getShutterSpeed());
             photoLog.setExposureCompensation(photoLogInput.getExposureCompensation());
-            photoLog.setRollStarted(photoLogInput.getRollStarted());
-            photoLog.setRollFinished(photoLogInput.getRollFinished());
+            photoLog.setDateTaken(photoLogInput.getDateTaken());
             photoLog.setDevelopedByLab(photoLogInput.getDevelopedByLab());
-            photoLog.setScanned(photoLogInput.isScanned());
             photoLog.setNotes(photoLogInput.getNotes());
 
             photoLogRepository.save(photoLog);
@@ -194,10 +190,8 @@ public class PhotoLogService {
         photoLog.setAperture(photoLogInputDto.getAperture());
         photoLog.setShutterSpeed(photoLogInputDto.getShutterSpeed());
         photoLog.setExposureCompensation(photoLogInputDto.getExposureCompensation());
-        photoLog.setRollStarted(photoLogInputDto.getRollStarted());
-        photoLog.setRollFinished(photoLogInputDto.getRollFinished());
+        photoLog.setDateTaken(photoLogInputDto.getDateTaken());
         photoLog.setDevelopedByLab(photoLogInputDto.getDevelopedByLab());
-        photoLog.setScanned(photoLogInputDto.isScanned());
         photoLog.setNotes(photoLogInputDto.getNotes());
 
         return photoLog;
@@ -215,10 +209,8 @@ public class PhotoLogService {
         photoLogDto.setAperture(photoLog.getAperture());
         photoLogDto.setShutterSpeed(photoLog.getShutterSpeed());
         photoLogDto.setExposureCompensation(photoLog.getExposureCompensation());
-        photoLogDto.setRollStarted(photoLog.getRollStarted());
-        photoLogDto.setRollFinished(photoLog.getRollFinished());
+        photoLogDto.setDateTaken(photoLog.getDateTaken());
         photoLogDto.setDevelopedByLab(photoLog.getDevelopedByLab());
-        photoLogDto.setScanned(photoLog.isScanned());
         photoLogDto.setNotes(photoLog.getNotes());
         photoLogDto.setProjectFolder(photoLog.getProjectFolder());
         photoLogDto.setUser(photoLog.getUser());

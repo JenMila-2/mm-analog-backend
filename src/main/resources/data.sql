@@ -60,6 +60,6 @@ VALUES
     (108, 'Family Portraits', 'Photographers of different families. Ongoing project.', 103);
 
 --Photo Logs
-INSERT INTO photologs (id, photo_title, camera, film_stock, film_format, shot_at_iso, aperture, shutter_speed, exposure_compensation, roll_started, roll_finished, developed_by_lab, scanned, notes, user_id)
+INSERT INTO photologs (id, photo_title, camera, film_stock, film_format, shot_at_iso, aperture, shutter_speed, exposure_compensation, date_taken, developed_by_lab, notes, user_id)
 VALUES
-    (100, 'Dreaming_1', 'Minolta SRT101','HP5Plus', '35mm', 100, 'f5.6', '1/60', '+1', '2023-01-01', '2023-02-01', 'Developed at home', true, 'Shot this at moms home in Amsterdam', 102);
+    (100, 'Dreaming_1', 'Minolta SRT101','HP5Plus', '35mm', 100, 'f5.6', '1/60', '+1', '2023-01-01', 'Developed at home', 'Shot this at moms home in Amsterdam', 102);

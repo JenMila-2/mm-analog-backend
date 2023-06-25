@@ -30,12 +30,9 @@ public class PhotoLogInputDto {
     public String shutterSpeed;
     public String exposureCompensation;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public LocalDate rollStarted;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public LocalDate rollFinished;
+    public LocalDate dateTaken;
     @Size(max=50, message="This field cannot contain more than 50 characters.")
     public String developedByLab;
-    public boolean scanned;
     @Size(max=250, message="This field cannot contain more than 250 characters.")
     public String notes;
 
