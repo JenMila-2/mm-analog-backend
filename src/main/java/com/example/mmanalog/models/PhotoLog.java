@@ -40,7 +40,7 @@ public class PhotoLog {
     private ProjectFolder projectFolder;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "username")
     @JsonIgnore
     private User user;
 }

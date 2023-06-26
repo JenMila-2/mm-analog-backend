@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.data.annotation.Id;
 
 import java.util.Set;
 
@@ -18,13 +19,13 @@ import java.util.Set;
 @NoArgsConstructor
 public class UserDto {
 
-    public Long id;
-    @NotNull(message = "Name cannot be empty")
-    public String name;
-
+    @Id
     @NotNull(message = "username cannot be empty")
     @Column(nullable = false, unique = true)
     public String username;
+
+    @NotNull(message = "Name cannot be empty")
+    public String name;
 
     @NotNull(message = "Email cannot be empty")
     @Email(message = "Please enter a valid email address")

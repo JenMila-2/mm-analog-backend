@@ -34,7 +34,7 @@ public class FilmStockInventory {
     private LocalDate filmExpirationDate;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "username")
     @JsonIgnore
     private User user;
 }
