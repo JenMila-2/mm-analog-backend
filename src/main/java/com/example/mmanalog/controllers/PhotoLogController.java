@@ -34,10 +34,10 @@ public class PhotoLogController {
         return ResponseEntity.ok().body(photoLog);
     }
 
-    @GetMapping(path = "/films_stock/{film_stock}")
-    public ResponseEntity<List<PhotoLogDto>> getByPhotoLogFilmStock(@PathVariable String filmStock) {
+    @GetMapping(path = "/film_stock/{film_stock}")
+    public ResponseEntity<List<PhotoLogDto>> getByPhotoLogFilmStock(@PathVariable String film_stock) {
 
-        return ResponseEntity.ok(photoLogService.getByPhotoLogFilmStock(filmStock));
+        return ResponseEntity.ok(photoLogService.getByPhotoLogFilmStock(film_stock));
     }
 
     @PostMapping(path = "/new")
@@ -64,7 +64,8 @@ public class PhotoLogController {
         return ResponseEntity.noContent().build();
     }
 
-    /* Methods related to the relationship between entities */
+
+    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
     @PutMapping(path = "/{id}/folder/{folderId}")
     public ResponseEntity<Object> assignPhotoLogToFolder(@PathVariable("id") Long id, @PathVariable("folderId") Long folderId) {
@@ -89,7 +90,7 @@ public class PhotoLogController {
         return ResponseEntity.created(null).body(createdPhotoLog);
     }
 
-    @PostMapping(path = "/user/{username}/folder/{folderId}")
+    @PostMapping(path = "/new/{username}/folder/{folderId}")
     public ResponseEntity<PhotoLogDto> createPhotoLogForProjectFolderForUser(
             @PathVariable("username") String username,
             @PathVariable("folderId") Long folderId,

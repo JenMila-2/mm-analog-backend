@@ -57,7 +57,8 @@ public class FilmStockInventoryController {
         return ResponseEntity.noContent().build();
     }
 
-    /* Methods related to the relationship between entities */
+
+    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
     @PutMapping(path = "/{id}/user/{username}")
     public ResponseEntity<Object> assignFilmStockInventoryToUser(@PathVariable("id") Long id, @PathVariable("username") String username) {

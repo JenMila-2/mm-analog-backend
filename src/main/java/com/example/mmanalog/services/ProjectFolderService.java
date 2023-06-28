@@ -75,7 +75,25 @@ public class ProjectFolderService {
         projectFolderRepository.deleteById(id);
     }
 
-    /* Methods related to the relationship between entities */
+
+    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
+
+    public ProjectFolderDto assignFolderToUser(Long id, String username) {
+        Optional<ProjectFolder> projectFolderOptional = projectFolderRepository.findById(id);
+        Optional<User> userOptional = userRepository.findById(username);
+
+        if (projectFolderOptional.isPresent() && userOptional.isPresent()) {
+            ProjectFolder projectFolder = projectFolderOptional.get();
+            User user = userOptional.get();
+
+            projectFolder.setUser(user);
+            projectFolderRepository.save(projectFolder);
+
+            return transferProjectFolderToDto(projectFolder);
+        } else {
+            throw new RecordNotFoundException("No project folder found with id: " + id + " or no user found with username: " + username);
+        }
+    }
 
     public ProjectFolderDto createFolderForUser(String username, ProjectFolderInputDto folderInputDto) {
         Optional<User> userOptional = userRepository.findById(username);
@@ -93,23 +111,6 @@ public class ProjectFolderService {
             return transferProjectFolderToDto(projectFolder);
         } else {
             throw new UserNotFoundException("No user found with username: " + username);
-        }
-    }
-
-    public ProjectFolderDto assignFolderToUser(Long id, String username) {
-        Optional<ProjectFolder> projectFolderOptional = projectFolderRepository.findById(id);
-        Optional<User> userOptional = userRepository.findById(username);
-
-        if (projectFolderOptional.isPresent() && userOptional.isPresent()) {
-            ProjectFolder projectFolder = projectFolderOptional.get();
-            User user = userOptional.get();
-
-            projectFolder.setUser(user);
-            projectFolderRepository.save(projectFolder);
-
-            return transferProjectFolderToDto(projectFolder);
-        } else {
-            throw new RecordNotFoundException("No project folder found with id: " + id + " or no user found with username: " + username);
         }
     }
 
@@ -179,7 +180,6 @@ public class ProjectFolderService {
     }
 
     /* Method below only returns the image data and not the actual images */
-
     public List<byte[]> getAllFolderImages(Long folderId) {
         Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);
 

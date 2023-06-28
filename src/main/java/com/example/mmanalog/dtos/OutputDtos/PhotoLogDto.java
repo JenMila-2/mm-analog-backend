@@ -31,6 +31,7 @@ public class PhotoLogDto {
 
     public FilmStockInventory filmStockInventory;
     public ProjectFolder projectFolder;
+
     public User user;
 }
 

@@ -1,6 +1,7 @@
 package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.UserDto;
+import com.example.mmanalog.models.Image;
 import com.example.mmanalog.services.UserService;
 import com.example.mmanalog.exceptions.BadRequestException;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
@@ -15,8 +16,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.*;
 
 import jakarta.validation.Valid;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
@@ -80,7 +83,7 @@ public UserController(UserService userService) {
         return ResponseEntity.noContent().build();
     }
 
-    /* Authorities */
+    //*-----------------------------Authorities-----------------------------*//
     @GetMapping(path = "/{username}/authorities")
     public ResponseEntity<Object> getAuthorities(@PathVariable("username") String username) {
         return ResponseEntity.ok().body(userService.getAuthorities(username));
@@ -104,7 +107,8 @@ public UserController(UserService userService) {
         return ResponseEntity.noContent().build();
     }
 
-    /* Methods related to the relationship between entities */
+
+    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
     @PutMapping(path = "/{username}/images/{imageId}")
     public ResponseEntity<UserDto> assignImageToUser(
@@ -153,7 +157,6 @@ public UserController(UserService userService) {
     }
 
     /* Method below only returns the image data and not the actual images */
-
     @GetMapping(path = "/{username}/images")
     public ResponseEntity<List<byte[]>> getAllUserImages(@PathVariable("username") String username) {
         try {

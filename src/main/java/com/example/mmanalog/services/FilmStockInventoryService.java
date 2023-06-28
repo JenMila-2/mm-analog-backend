@@ -71,7 +71,8 @@ public class FilmStockInventoryService {
         filmStockInventoryRepository.deleteById(id);
     }
 
-    /* Methods related to the relationship between entities */
+
+    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
     public FilmStockInventoryDto assignFilmStockInventoryToUser(Long id, String username) {
         Optional<FilmStockInventory> optionalFilmStockInventory = filmStockInventoryRepository.findById(id);

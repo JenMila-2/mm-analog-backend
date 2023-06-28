@@ -17,17 +17,19 @@ import java.time.LocalDate;
 public class FilmStockInventoryInputDto {
 
     public Long id;
-    @Size(max=50, message="This field cannot contain more than 50 characters.")
+    @Size(max=75, message="This field cannot contain more than 75 characters.")
     public String filmStockName;
     public int remainingRolls;
-    @Size(max=50, message="This field cannot contain more than 50 characters.")
+    @Size(max=75, message="This field cannot contain more than 75 characters.")
     public String brand;
-    @Size(max=50, message="This field cannot contain more than 50 characters.")
+    @Size(max=75, message="This field cannot contain more than 75 characters.")
     public String stock;
+    @Size(max=75, message="This field cannot contain more than 75 characters.")
     public String format;
     public int iso;
+    @Size(max=75, message="This field cannot contain more than 75 characters.")
     public String developmentProcess;
-    @Size(max=50, message="This field cannot contain more than 50 characters.")
+    @Size(max=75, message="This field cannot contain more than 75 characters.")
     public String storage;
     public int rollsShot;
     @DateTimeFormat(pattern = "yyyy-MM-dd")

@@ -62,7 +62,15 @@ public class ProjectFolderController {
         return ResponseEntity.noContent().build();
     }
 
-    /* Methods related to the relationship between entities */
+
+    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
+
+    @PutMapping(path = "/{id}/user/{username}")
+    public ResponseEntity<Object> assignFolderToUser(@PathVariable("id") Long id, @PathVariable("username") String username) {
+        ProjectFolderDto projectFolderDto = projectFolderService.assignFolderToUser(id, username);
+
+        return ResponseEntity.ok().body(projectFolderDto);
+    }
 
     @PostMapping(path = "/new/{username}")
     public ResponseEntity<ProjectFolderDto> createFolderForUser(
@@ -71,13 +79,6 @@ public class ProjectFolderController {
     ) {
         ProjectFolderDto createdFolder = projectFolderService.createFolderForUser(username, newFolderInput);
         return ResponseEntity.created(null).body(createdFolder);
-    }
-
-    @PutMapping(path = "/{id}/user/{username}")
-    public ResponseEntity<Object> assignFolderToUser(@PathVariable("id") Long id, @PathVariable("username") String username) {
-        ProjectFolderDto projectFolderDto = projectFolderService.assignFolderToUser(id, username);
-
-        return ResponseEntity.ok().body(projectFolderDto);
     }
 
     @PutMapping(path = "/{folderId}/images/{imageId}")
@@ -124,7 +125,6 @@ public class ProjectFolderController {
     }
 
     /* Method below only returns the image data and not the actual images */
-
     @GetMapping(path = "/{folderId}/images")
     public ResponseEntity<List<byte[]>> getAllFolderImages(@PathVariable("folderId") Long folderId) {
         try {

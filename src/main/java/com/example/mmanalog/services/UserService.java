@@ -10,7 +10,6 @@ import com.example.mmanalog.exceptions.UserNotFoundException;
 import com.example.mmanalog.utilities.RandomStringGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -73,9 +72,11 @@ public class UserService {
     }
 
     public void updateUser(String username, UserDto newUser) {
-        if (!userRepository.existsById(username)) throw new RecordNotFoundException("User not found with username: " + username);
+        if (!userRepository.existsById(username)) throw new RecordNotFoundException("No user found with username: " + username);
         User user = userRepository.findById(username).get();
         user.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        user.setName(newUser.getName());
+        user.setEmail(newUser.getEmail());
         userRepository.save(user);
     }
 
@@ -83,7 +84,8 @@ public class UserService {
         userRepository.deleteById(username);
     }
 
-    /* Authorities */
+
+    //*-----------------------------Authorities-----------------------------*//
     public Set<Authority> getAuthorities(String username) {
         if (!userRepository.existsById(username)) throw new UsernameNotFoundException("No user found with username: " + username);
         User user = userRepository.findById(username).get();
@@ -106,7 +108,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    /* Methods related to the relationship between entities */
+    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
     public UserDto assignImageToUser(String username, Long imageId) {
         Optional<User> optionalUser = userRepository.findById(username);
@@ -187,7 +189,7 @@ public class UserService {
             }
             return imageList;
         } else {
-            throw new RecordNotFoundException("No user found with id: " + username);
+            throw new RecordNotFoundException("No user found with username: " + username);
         }
     }
 

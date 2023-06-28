@@ -34,19 +34,6 @@ public class ImageController {
         this.projectFolderService = projectFolderService;
     }
 
-    @PostMapping(path = "/upload/image")
-    public ResponseEntity<ImageUploadResponse> uploadImage(@RequestParam("image") MultipartFile file)
-            throws IOException {
-
-        imageRepository.save(Image.builder()
-                .name(file.getOriginalFilename())
-                .type(file.getContentType())
-                .image(ImageUtility.compressImage(file.getBytes())).build());
-        return ResponseEntity.status(HttpStatus.OK)
-                .body(new ImageUploadResponse("Image uploaded successfully: " +
-                        file.getOriginalFilename()));
-    }
-
     @GetMapping(path = {"/image/info/{name}"})
     public Image getImageDetails(@PathVariable("name") String name) throws IOException {
 
@@ -70,23 +57,9 @@ public class ImageController {
                 .body(ImageUtility.decompressImage(dbImage.get().getImage()));
     }
 
-    /* Method for users to upload an image in project folder */
-
-    @PostMapping(path = "/upload/folder/image")
-    public ResponseEntity<ImageUploadResponse> uploadImageUser(@RequestParam("username") String username, @RequestParam("projectFolder") Long projectFolderId, @RequestParam("image") MultipartFile file) throws IOException {
-
-        UserDto user = userService.getUser(username);
-        ProjectFolderDto projectFolder = projectFolderService.getProjectFolder(projectFolderId);
-
-        // Specify the folder path within the project folder where you want to save the image
-        String folderPath = projectFolder.getProjectTitle().replaceAll("\\s+", "_") + "/";
-
-        // Specify the file path within the project folder
-        String filePath = folderPath + file.getOriginalFilename();
-
-        // Save the image to the specified file path within the project folder
-        File savedFile = new File(filePath);
-        file.transferTo(savedFile);
+    @PostMapping(path = "/upload/image")
+    public ResponseEntity<ImageUploadResponse> uploadImage(@RequestParam("image") MultipartFile file)
+            throws IOException {
 
         imageRepository.save(Image.builder()
                 .name(file.getOriginalFilename())
@@ -94,25 +67,6 @@ public class ImageController {
                 .image(ImageUtility.compressImage(file.getBytes())).build());
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new ImageUploadResponse("Image uploaded successfully: " +
-                        file.getOriginalFilename() + " for user: " + user.getUsername() + " in project folder: " + projectFolder.getProjectTitle()));
-    }
-
-    @GetMapping(path = {"/image/{projectFolderId}/{imageName}"})
-    public ResponseEntity<Resource> getFolderImage(@PathVariable("projectFolderId") Long projectFolderId, @PathVariable("imageName") String imageName) throws IOException {
-        ProjectFolderDto projectFolder = projectFolderService.getProjectFolder(projectFolderId);
-        String folderPath = projectFolder.getProjectTitle().replaceAll("\\s+", "_") + "/";
-        String filePath = folderPath + imageName;
-
-        // Load the image file
-        Path imageFile = Paths.get(filePath);
-        Resource resource = new UrlResource(imageFile.toUri());
-
-        if (resource.exists() && resource.isReadable()) {
-            return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_JPEG)
-                    .body(resource);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+                        file.getOriginalFilename()));
     }
 }

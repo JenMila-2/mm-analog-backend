@@ -83,7 +83,8 @@ public class PhotoLogService {
         photoLogRepository.deleteById(id);
     }
 
-    /* Methods related to the relationship between entities */
+
+    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
     public PhotoLogDto assignPhotoLogToFolder(Long id, Long folderId) {
         Optional<PhotoLog> photoLogOptional = photoLogRepository.findById(id);
