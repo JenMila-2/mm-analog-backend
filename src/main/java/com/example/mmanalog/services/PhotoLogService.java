@@ -95,40 +95,6 @@ public class PhotoLogService {
 
     //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
-    public PhotoLogDto assignPhotoLogToFolder(Long id, Long folderId) {
-        Optional<PhotoLog> photoLogOptional = photoLogRepository.findById(id);
-        Optional<ProjectFolder> folderOptional = projectFolderRepository.findById(folderId);
-
-        if (photoLogOptional.isPresent() && folderOptional.isPresent()) {
-            PhotoLog photoLog = photoLogOptional.get();
-            ProjectFolder folder = folderOptional.get();
-
-            photoLog.setProjectFolder(folder);
-            photoLogRepository.save(photoLog);
-
-            return transferToPhotoLogDto(photoLog);
-        } else {
-            throw new RecordNotFoundException("No photo log found with id: " + id + " or no project folder found with id: " + folderId);
-        }
-    }
-
-   public PhotoLogDto assignPhotoLogToUser(Long id, String username) {
-        Optional<PhotoLog> optionalPhotoLog = photoLogRepository.findById(id);
-        Optional<User> optionalUser = userRepository.findById(username);
-
-        if (optionalPhotoLog.isPresent() && optionalUser.isPresent()) {
-            PhotoLog photoLog = optionalPhotoLog.get();
-            User user = optionalUser.get();
-
-            photoLog.setUser(user);
-            photoLogRepository.save(photoLog);
-
-            return transferToPhotoLogDto(photoLog);
-        } else {
-            throw new RecordNotFoundException("No photo log found with id: " + id + " or no user found with username: " + username);
-        }
-    }
-
     public PhotoLogDto createPhotoLogForUser(String username, PhotoLogInputDto photoLogInputDto) {
         Optional<User> userOptional = userRepository.findById(username);
 
@@ -187,6 +153,8 @@ public class PhotoLogService {
             throw new RecordNotFoundException("No user with username: " + username + " or project folder with id: " + folderId + " found");
         }
     }
+
+    //*---------------------------------Transfers---------------------------------*//
 
     public PhotoLog transferToPhotoLog(PhotoLogInputDto photoLogInputDto) {
         PhotoLog photoLog = new PhotoLog();

@@ -73,20 +73,6 @@ public class PhotoLogController {
 
     //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
-    @PutMapping(path = "/{id}/folder/{folderId}")
-    public ResponseEntity<Object> assignPhotoLogToFolder(@PathVariable("id") Long id, @PathVariable("folderId") Long folderId) {
-        PhotoLogDto photoLogDto = photoLogService.assignPhotoLogToFolder(id, folderId);
-
-        return ResponseEntity.ok().body(photoLogDto);
-    }
-
-    @PutMapping(path = "/{id}/user/{username}")
-    public ResponseEntity<Object> assignPhotoLogToUser(@PathVariable("id") Long id, @PathVariable("username") String username) {
-        PhotoLogDto photoLogDto = photoLogService.assignPhotoLogToUser(id, username);
-
-        return ResponseEntity.ok().body(photoLogDto);
-    }
-
     @PostMapping(path = "/new/{username}")
     public ResponseEntity<PhotoLogDto> createPhotoLogForUser(
             @PathVariable("username") String username,

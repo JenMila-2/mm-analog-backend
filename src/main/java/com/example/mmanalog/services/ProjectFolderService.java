@@ -77,23 +77,6 @@ public class ProjectFolderService {
 
     //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
-    public ProjectFolderDto assignFolderToUser(Long id, String username) {
-        Optional<ProjectFolder> projectFolderOptional = projectFolderRepository.findById(id);
-        Optional<User> userOptional = userRepository.findById(username);
-
-        if (projectFolderOptional.isPresent() && userOptional.isPresent()) {
-            ProjectFolder projectFolder = projectFolderOptional.get();
-            User user = userOptional.get();
-
-            projectFolder.setUser(user);
-            projectFolderRepository.save(projectFolder);
-
-            return transferProjectFolderToDto(projectFolder);
-        } else {
-            throw new RecordNotFoundException("No project folder found with id: " + id + " or no user found with username: " + username);
-        }
-    }
-
     public ProjectFolderDto createFolderForUser(String username, ProjectFolderInputDto folderInputDto) {
         Optional<User> userOptional = userRepository.findById(username);
 
@@ -195,6 +178,8 @@ public class ProjectFolderService {
             throw new RecordNotFoundException("N0 folder found with id: " + folderId);
         }
     }
+
+    //*---------------------------------Transfers---------------------------------*//
 
     public ProjectFolder transferToProjectFolder(ProjectFolderInputDto projectFolderInputDto) {
         ProjectFolder folder = new ProjectFolder();

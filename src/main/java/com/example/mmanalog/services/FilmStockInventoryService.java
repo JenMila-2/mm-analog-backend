@@ -75,23 +75,6 @@ public class FilmStockInventoryService {
 
     //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
-    public FilmStockInventoryDto assignFilmStockInventoryToUser(Long id, String username) {
-        Optional<FilmStockInventory> optionalFilmStockInventory = filmStockInventoryRepository.findById(id);
-        Optional<User> optionalUser = userRepository.findById(username);
-
-        if (optionalFilmStockInventory.isPresent() && optionalUser.isPresent()) {
-            FilmStockInventory filmStockInventory = optionalFilmStockInventory.get();
-            User user = optionalUser.get();
-
-            filmStockInventory.setUser(user);
-            filmStockInventoryRepository.save(filmStockInventory);
-
-            return transferFilmStockInventoryToDto(filmStockInventory);
-        } else {
-            throw new RecordNotFoundException("No film stock inventory found with id: " + id + " or no user found with username: " + username);
-        }
-    }
-
     public FilmStockInventoryDto createFilmStockInventoryForUser(String username, FilmStockInventoryInputDto filmStockInventoryInputDto) {
         Optional<User> userOptional = userRepository.findById(username);
 
@@ -118,6 +101,8 @@ public class FilmStockInventoryService {
             throw new UserNotFoundException("No user found with username: " + username);
         }
     }
+
+    //*---------------------------------Transfers---------------------------------*//
 
     public FilmStockInventory transferToFilmStockInventory(FilmStockInventoryInputDto filmStockInventoryInputDto) {
         FilmStockInventory filmStockInventory = new FilmStockInventory();

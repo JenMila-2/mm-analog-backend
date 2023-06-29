@@ -60,13 +60,6 @@ public class FilmDevelopmentLogController {
 
     //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
-    @PutMapping(path = "/{id}/user/{username}")
-    public ResponseEntity<Object> assignFilmDevelopmentLogToUser(@PathVariable("id") Long id, @PathVariable("username") String username) {
-        FilmDevelopmentLogDto filmDevelopmentLogDto = filmDevelopmentLogService.assignFilmDevelopmentLogToUser(id, username);
-
-        return ResponseEntity.ok().body(filmDevelopmentLogDto);
-    }
-
     @PostMapping(path = "/new/{username}")
     public ResponseEntity<FilmDevelopmentLogDto> createFilmDevelopmentLogForUser(
             @PathVariable("username") String username,

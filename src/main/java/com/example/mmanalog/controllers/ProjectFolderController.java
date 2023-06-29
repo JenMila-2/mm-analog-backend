@@ -65,13 +65,6 @@ public class ProjectFolderController {
 
     //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
-    @PutMapping(path = "/{id}/user/{username}")
-    public ResponseEntity<Object> assignFolderToUser(@PathVariable("id") Long id, @PathVariable("username") String username) {
-        ProjectFolderDto projectFolderDto = projectFolderService.assignFolderToUser(id, username);
-
-        return ResponseEntity.ok().body(projectFolderDto);
-    }
-
     @PostMapping(path = "/new/{username}")
     public ResponseEntity<ProjectFolderDto> createFolderForUser(
             @PathVariable("username") String username,

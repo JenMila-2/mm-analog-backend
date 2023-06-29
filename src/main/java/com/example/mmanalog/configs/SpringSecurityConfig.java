@@ -78,8 +78,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.POST, "/projectfolders/new").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST,"/projectfolders/new/{username}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.PUT,"/projectfolders/{id}").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.PUT, "/projectfolders/{id}/user/{username}").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.PUT, "/projectfolders/{id}/user/{username}").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.PUT, "/projectfolders/{folderId}/images/{imageId}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.DELETE,"/projectfolders/{id}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.DELETE,"/projectfolders/{folderId}/images/{imageId}").hasAnyRole("ADMIN", "USER")
@@ -93,8 +91,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.POST,"/photologs/new/{username}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.POST,"/photologs/new/{username}/folder/{folderId}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.PUT,"/photologs/{id}").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.PUT, "/photologs/{id}/folder/{folderId}").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.PUT, "/photologs/{id}/user/{userId}").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/photologs/{id}").hasAnyRole("ADMIN", "USER")
 
                     //----------------------------------------Film Stock Inventory--------------------------------------//
@@ -103,7 +99,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.POST,"/filmstockinventories/new").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST,"/filmstockinventories/new/{username}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.PUT,"/filmstockinventories/{id}").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.PUT, "/filmstockinventories/{id}/user/{username}").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/filmstockinventories/{id}").hasAnyRole("ADMIN", "USER")
 
                     //----------------------------------------Film Development Log--------------------------------------//
@@ -112,7 +107,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.POST,"/filmsdevelopmentlogs/new").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST,"/filmdevelopmentlogs/new/{username}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.PUT,"/filmdevelopmentlogs/{id}").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.PUT, "/filmdevelopmentlogs/{id}/user/{username}").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/filmdevelopmentlogs/{id}").hasAnyRole("ADMIN", "USER")
 
                     //----------------------------------------Image--------------------------------------//

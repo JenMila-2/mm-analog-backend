@@ -60,13 +60,6 @@ public class FilmStockInventoryController {
 
     //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
-    @PutMapping(path = "/{id}/user/{username}")
-    public ResponseEntity<Object> assignFilmStockInventoryToUser(@PathVariable("id") Long id, @PathVariable("username") String username) {
-        FilmStockInventoryDto filmStockInventoryDto = filmStockInventoryService.assignFilmStockInventoryToUser(id, username);
-
-        return ResponseEntity.ok().body(filmStockInventoryDto);
-    }
-
     @PostMapping(path = "/new/{username}")
     public ResponseEntity<FilmStockInventoryDto> createFilmStockInventoryForUser(
             @PathVariable("username") String username,

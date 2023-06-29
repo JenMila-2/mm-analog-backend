@@ -74,23 +74,6 @@ public class FilmDevelopmentLogService {
 
     //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
-    public FilmDevelopmentLogDto assignFilmDevelopmentLogToUser(Long id, String username) {
-        Optional<FilmDevelopmentLog> optionalFilmDevelopmentLog = filmDevelopmentLogRepository.findById(id);
-        Optional<User> optionalUser = userRepository.findById(username);
-
-        if (optionalFilmDevelopmentLog.isPresent() && optionalUser.isPresent()) {
-            FilmDevelopmentLog filmDevelopmentLog = optionalFilmDevelopmentLog.get();
-            User user = optionalUser.get();
-
-            filmDevelopmentLog.setUser(user);
-            filmDevelopmentLogRepository.save(filmDevelopmentLog);
-
-            return transferFilmDevelopmentLogToDto(filmDevelopmentLog);
-        } else {
-            throw new RecordNotFoundException("No film development log with id: " + id + " or user found with username: " + username);
-        }
-    }
-
     public FilmDevelopmentLogDto createFilmDevelopmentLogForUser(String username, FilmDevelopmentLogInputDto filmDevelopmentLogInputDto) {
         Optional<User> userOptional = userRepository.findById(username);
 
@@ -121,6 +104,8 @@ public class FilmDevelopmentLogService {
             throw new UserNotFoundException("No user found with username: " + username);
         }
     }
+
+    //*---------------------------------Transfers---------------------------------*//
 
     public FilmDevelopmentLog transferToFilmDevelopmentLog(FilmDevelopmentLogInputDto filmDevelopmentLogInputDto) {
         FilmDevelopmentLog filmDevelopmentLog = new FilmDevelopmentLog();
