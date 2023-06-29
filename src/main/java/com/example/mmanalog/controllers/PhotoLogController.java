@@ -40,6 +40,12 @@ public class PhotoLogController {
         return ResponseEntity.ok(photoLogService.getByPhotoLogFilmStock(film_stock));
     }
 
+    @GetMapping(path = "/film_format/{film_format}")
+    public ResponseEntity<List<PhotoLogDto>> getByPhotoLogFilmFormat(@PathVariable String film_format) {
+
+        return ResponseEntity.ok(photoLogService.getByPhotoLogFilmFormat(film_format));
+    }
+
     @PostMapping(path = "/new")
     public ResponseEntity<Object> createPhotoLog(@Valid @RequestBody PhotoLogInputDto photoLogInputDto) {
 

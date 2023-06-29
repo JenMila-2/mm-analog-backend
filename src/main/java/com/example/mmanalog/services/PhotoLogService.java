@@ -56,6 +56,16 @@ public class PhotoLogService {
         return filmStockPhotoLogList;
     }
 
+    public List<PhotoLogDto> getByPhotoLogFilmFormat(String filmFormat) {
+        List<PhotoLog> photoLogs = photoLogRepository.findByFilmFormat(filmFormat);
+        List<PhotoLogDto> filmFormatPhotoLogList = new ArrayList<>();
+
+        for (PhotoLog photoLog : photoLogs) {
+            filmFormatPhotoLogList.add(transferToPhotoLogDto(photoLog));
+        }
+        return filmFormatPhotoLogList;
+    }
+
     public PhotoLogDto createPhotoLog(PhotoLogInputDto inputDtoPhotoLog) {
         PhotoLog photoLog = transferToPhotoLog(inputDtoPhotoLog);
         photoLogRepository.save(photoLog);
@@ -70,7 +80,6 @@ public class PhotoLogService {
 
             PhotoLog photoLog1 = transferToPhotoLog(updatedPhotoLog);
             photoLog1.setId(photoLog.getId());
-
             photoLogRepository.save(photoLog1);
 
             return transferToPhotoLogDto(photoLog1);

@@ -59,6 +59,7 @@ public class FilmDevelopmentLogService {
 
             FilmDevelopmentLog filmDevelopmentLog1 = transferToFilmDevelopmentLog(updatedFilmDevelopmentLog);
             filmDevelopmentLog1.setId(filmDevelopmentLog.getId());
+            filmDevelopmentLogRepository.save(filmDevelopmentLog1);
 
             return transferFilmDevelopmentLogToDto(filmDevelopmentLog1);
         } else {

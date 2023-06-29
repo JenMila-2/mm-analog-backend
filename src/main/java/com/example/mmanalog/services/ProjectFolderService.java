@@ -62,7 +62,6 @@ public class ProjectFolderService {
 
             ProjectFolder projectFolder1 = transferToProjectFolder(updatedProjectFolder);
             projectFolder1.setId(projectFolder.getId());
-
             projectFolderRepository.save(projectFolder1);
 
             return transferProjectFolderToDto(projectFolder1);

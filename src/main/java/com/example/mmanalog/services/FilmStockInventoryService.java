@@ -60,6 +60,7 @@ public class FilmStockInventoryService {
 
             FilmStockInventory filmStockInventory1 = transferToFilmStockInventory(updatedFilmStockInventory);
             filmStockInventory1.setId(filmStockInventory.getId());
+            filmStockInventoryRepository.save(filmStockInventory1);
 
             return transferFilmStockInventoryToDto(filmStockInventory1);
         } else {
