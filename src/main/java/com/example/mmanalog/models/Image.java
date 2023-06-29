@@ -31,7 +31,7 @@ public class Image {
     private byte[] image;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "username")
     @JsonIgnore
     private User user;
 

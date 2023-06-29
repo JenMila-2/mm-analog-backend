@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 @Getter
@@ -18,7 +19,6 @@ public class ProjectFolder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     private String projectTitle;
     private String projectConcept;
@@ -28,7 +28,7 @@ public class ProjectFolder {
     private List<PhotoLog> photoLogs;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "username")
     @JsonIgnore
     private User user;
 

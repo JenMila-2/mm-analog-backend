@@ -1,26 +1,27 @@
 package com.example.mmanalog.services;
 
-import com.example.mmanalog.dtos.UserDto;
+import com.example.mmanalog.dtos.User.UserDto;
+import com.example.mmanalog.models.Authority;
 import com.example.mmanalog.models.Image;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.*;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.exceptions.UserNotFoundException;
+import com.example.mmanalog.utilities.RandomStringGenerator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
 
-    //@Autowired
-    //@Lazy
-    //private PasswordEncoder passwordEncoder;
-
+    @Lazy
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
 
@@ -39,14 +40,18 @@ public class UserService {
         return userList;
     }
 
-    public UserDto getUserById(Long id) {
-        Optional<User> userOptional = userRepository.findById(id);
+    public UserDto getUser(String username) {
+        Optional<User> userOptional = userRepository.findById(username);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             return transferUserToDto(user);
         } else {
-            throw new UserNotFoundException("No user found with id: " + id);
+            throw new UsernameNotFoundException("No user found with username: " + username);
         }
+    }
+
+    public boolean userExists(String username) {
+        return userRepository.existsById(username);
     }
 
     public UserDto getUserByEmail(String email) {
@@ -58,75 +63,55 @@ public class UserService {
         }
     }
 
-    public UserDto getUserByUsername(String username) {
-        User user = userRepository.findUserByUsername(username);
-        if (user == null) {
-            throw new UserNotFoundException("No user found with username: " + username);
-        } else {
-            return transferUserToDto(user);
-        }
+    public String createUser(UserDto userDto) {
+        String randomString = RandomStringGenerator.generateAlphaNumeric(20);
+        userDto.setApikey(randomString);
+        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        User newUser = userRepository.save(transferToUser(userDto));
+        return newUser.getUsername();
     }
 
-    public UserDto addUser(UserDto dtoUser) {
-        User user = transferToUser(dtoUser);
+    public void updateUser(String username, UserDto newUser) {
+        if (!userRepository.existsById(username)) throw new RecordNotFoundException("No user found with username: " + username);
+        User user = userRepository.findById(username).get();
+        user.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        user.setName(newUser.getName());
+        user.setEmail(newUser.getEmail());
         userRepository.save(user);
-
-        return transferUserToDto(user);
     }
 
-    public void deleteUser(@RequestBody Long id) {
-        userRepository.deleteById(id);
+    public void deleteUser(String username) {
+        userRepository.deleteById(username);
     }
 
-    public UserDto updateUser(Long id, UserDto updatedUser) {
-        Optional<User> userOptional = userRepository.findById(id);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
 
-            user.setName(updatedUser.getName());
-            user.setEmail(updatedUser.getEmail());
-            user.setPassword(updatedUser.getPassword());
-
-            User returnUser = userRepository.save(user);
-
-            return transferUserToDto(returnUser);
-
-        } else {
-            throw new UserNotFoundException("No user found with id: " + id);
-        }
+    //*-----------------------------Authorities-----------------------------*//
+    public Set<Authority> getAuthorities(String username) {
+        if (!userRepository.existsById(username)) throw new UsernameNotFoundException("No user found with username: " + username);
+        User user = userRepository.findById(username).get();
+        UserDto userDto = transferUserToDto(user);
+        return userDto.getAuthorities();
     }
 
-    //// ***** Transfers **** ////
-    public User transferToUser(UserDto userDto) {
-
-        User user = new User();
-
-        user.setId(userDto.getId());
-        user.setName(userDto.getName());
-        user.setUsername(userDto.getUsername());
-        user.setEmail(userDto.getEmail());
-        user.setPassword(userDto.getPassword());
-        user.setEnabled(userDto.isEnabled());
-
-        return user;
+    public void addAuthority(String username, String authority) {
+        if (!userRepository.existsById(username)) throw new UsernameNotFoundException("No user found with username: " + username);
+        User user = userRepository.findById(username).get();
+        user.addAuthority(new Authority(username, authority));
+        userRepository.save(user);
     }
 
-    public UserDto transferUserToDto(User user) {
-        UserDto userDto = new UserDto();
-
-        userDto.id = user.getId();
-        userDto.name = user.getName();
-        userDto.username = user.getUsername();
-        userDto.email = user.getEmail();
-        userDto.password = user.getPassword();
-        userDto.enabled = user.isEnabled();
-
-        return userDto;
+    public void removeAuthority(String username, String authority) {
+        if (!userRepository.existsById(username)) throw new UserNotFoundException("No user found with username: " + username);
+        User user = userRepository.findById(username).get();
+        Authority authorityToRemove = user.getAuthorities().stream().filter((a) -> a.getAuthority().equalsIgnoreCase(authority)).findAny().get();
+        user.removeAuthority(authorityToRemove);
+        userRepository.save(user);
     }
 
-    //// **** Methods related to the relationship between entities **** ////
-    public UserDto assignImageToUser(Long userId, Long imageId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
+    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
+
+    public UserDto assignImageToUser(String username, Long imageId) {
+        Optional<User> optionalUser = userRepository.findById(username);
         Optional<Image> optionalImage = imageRepository.findById(imageId);
 
         if (optionalUser.isPresent() && optionalImage.isPresent()) {
@@ -140,12 +125,12 @@ public class UserService {
 
             return transferUserToDto(user);
         } else {
-            throw new RecordNotFoundException("User id: " + userId + " or image id: " + imageId + " not found");
+            throw new RecordNotFoundException("Username: " + username + " or image with id: " + imageId + " not found");
         }
     }
 
-    public byte[] getUserImage(Long userId, Long imageId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
+    public byte[] getUserImage(String username, Long imageId) {
+        Optional<User> optionalUser = userRepository.findById(username);
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -162,12 +147,12 @@ public class UserService {
                 throw new RecordNotFoundException("No image found with id: " + imageId);
             }
         } else {
-            throw new UserNotFoundException("No user found with id: " + userId);
+            throw new UserNotFoundException("No user found with username: " + username);
         }
     }
 
-    public void deleteUserImage(Long userId, Long imageId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
+    public void deleteUserImage(String username, Long imageId) {
+        Optional<User> optionalUser = userRepository.findById(username);
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -186,14 +171,13 @@ public class UserService {
                 throw new RecordNotFoundException("No image found with id: " + imageId);
             }
         } else {
-            throw new UserNotFoundException("No user found with id: " + userId);
+            throw new UserNotFoundException("No user found with username: " + username);
         }
     }
 
-    //// *** Specials *** ////
-    //Method below only returns the image data and not the actual images//
-    public List<byte[]> getAllUserImages(Long userId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
+    /* Method below only returns the image data and not the actual image */
+    public List<byte[]> getAllUserImages(String username) {
+        Optional<User> optionalUser = userRepository.findById(username);
 
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
@@ -205,26 +189,35 @@ public class UserService {
             }
             return imageList;
         } else {
-            throw new RecordNotFoundException("No user found with id: " + userId);
+            throw new RecordNotFoundException("No user found with username: " + username);
         }
     }
 
-    //Method to retrieve an Array of the image id's//
-    public List<Long> getUserImageIds(Long userId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
+    public User transferToUser(UserDto userDto) {
+        User user = new User();
 
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            List<Image> images = user.getUserImages();
+        user.setName(userDto.getName());
+        user.setUsername(userDto.getUsername());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        user.setEnabled(userDto.isEnabled());
+        user.setApikey(userDto.getApikey());
 
-            List<Long> imageIds = new ArrayList<>();
-            for (Image image : images) {
-                imageIds.add(image.getId());
-            }
-            return imageIds;
-        } else {
-            throw new UserNotFoundException("No user found with id: " + userId);
-        }
+        return user;
+    }
+
+    public UserDto transferUserToDto(User user) {
+        UserDto userDto = new UserDto();
+
+        userDto.setName(user.getName());
+        userDto.setUsername(user.getUsername());
+        userDto.setEmail(user.getEmail());
+        userDto.setPassword(user.getPassword());
+        userDto.setEnabled(user.isEnabled());
+        userDto.setAuthorities(user.getAuthorities());
+        userDto.setApikey(user.getApikey());
+
+        return userDto;
     }
 }
 
