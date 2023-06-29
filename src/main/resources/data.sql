@@ -62,8 +62,20 @@ VALUES
     (107, 'At midnight', 'Photographing the streets of London by night.', 'Benniezzzzzz80'),
     (108, 'Family Portraits', 'Photographers of different families. Ongoing project.', 'Benniezzzzzz80');
 
-
---Photo Logs
+--Photo Logs user Jensy2222
 INSERT INTO photologs (id, photo_title, camera, film_stock, film_format, shot_at_iso, aperture, shutter_speed, exposure_compensation, date_taken, developed_by_lab, notes, folder_id, username)
 VALUES
-    (100, 'Dreaming_1', 'Minolta SRT101','HP5Plus', '35mm', 100, 'f5.6', '1/60', '+1', '2023-01-01', 'Developed at home', 'Shot this at moms home in Amsterdam', 105, 'Jensy2222');
+    (200, 'Dreaming_1', 'Minolta SRT101','Kodak Gold 200', '35mm', 200, 'f5.6', '1/60', '+1', '2023-01-01', 'Ontwikkelservice Foto Verweij', 'Shot this at moms home in Amsterdam', 105, 'Jensy2222'),
+    (201, 'Dreaming_2', 'Minolta SRT101','Kodak Gold 200', '35mm', 200, 'f4', '1/60', '+1', '2023-01-01', 'Ontwikkelservice Foto Verweij', 'Re-take this image but in B&W', 105, 'Jensy2222'),
+    (202, 'Dreaming_3', 'Minolta SRT101','Ilford Delta 3200', '35mm', 1000, 'f8', '1/60', '0', '2023-04-01', 'Ontwikkelservice Foto Verweij', 'Love the look of the Delta 3200. I need to include this film stock more in my projects.', 105, 'Jensy2222'),
+    (203, 'Dreaming_4', 'Minolta SRT101','Ilford Delta 3200', '35mm', 1000, 'f8', '1/80', '0', '2023-05-21', 'Ontwikkelservice Foto Verweij', 'Shot at home during a Sunday morning', 105, 'Jensy2222'),
+    (204, 'Dreaming_5', 'Minolta SRT101','Ilford Delta 3200', '35mm', 1000, 'f5.6', '1/80', '0', '2023-05-21', 'Ontwikkelservice Foto Verweij', 'Sunday morning at home photo shoot session', 105, 'Jensy2222'),
+    (205, 'Dreaming_6', 'Minolta SRT101','Ilford Delta 3200', '35mm', 1000, 'f8', '1/60', '0', '2023-05-21', 'Ontwikkelservice Foto Verweij', 'Sunday morning at home photo shoot session', 105, 'Jensy2222');
+
+--Photo Logs user Benniezzzzzz80
+INSERT INTO photologs (id, photo_title, camera, film_stock, film_format, shot_at_iso, aperture, shutter_speed, exposure_compensation, date_taken, developed_by_lab, notes, folder_id, username)
+VALUES
+    (250, 'Night_1', 'Nikon F3','CineStill 800T', '35mm', 800, 'f8', '1/60', '+2', '2023-02-01', 'Ontwikkelservice Foto Verweij', 'Night photo walk', 107, 'Benniezzzzzz80'),
+    (251, 'Night_2', 'Nikon F3','CineStill 800T', '35mm', 800, 'f8', '1/60', '+2', '2023-02-01', 'Ontwikkelservice Foto Verweij', 'Night photo walk', 107, 'Benniezzzzzz80'),
+    (252, 'Night_3', 'Nikon F3','CineStill 800T', '35mm', 800, 'f8', '1/60', '+2', '2023-02-01', 'Ontwikkelservice Foto Verweij', 'Night photo walk', 107, 'Benniezzzzzz80');
+

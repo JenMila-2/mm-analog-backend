@@ -1,6 +1,6 @@
 package com.example.mmanalog.services;
 
-import com.example.mmanalog.dtos.UserDto;
+import com.example.mmanalog.dtos.User.UserDto;
 import com.example.mmanalog.models.Authority;
 import com.example.mmanalog.models.Image;
 import com.example.mmanalog.models.User;

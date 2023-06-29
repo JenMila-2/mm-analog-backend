@@ -1,6 +1,6 @@
 package com.example.mmanalog.services;
 
-import com.example.mmanalog.dtos.UserDto;
+import com.example.mmanalog.dtos.User.UserDto;
 import com.example.mmanalog.models.Authority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

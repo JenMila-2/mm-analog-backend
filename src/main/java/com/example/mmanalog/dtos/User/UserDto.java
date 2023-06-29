@@ -1,4 +1,4 @@
-package com.example.mmanalog.dtos;
+package com.example.mmanalog.dtos.User;
 
 import com.example.mmanalog.models.Authority;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;

@@ -1,23 +1,16 @@
 package com.example.mmanalog.controllers;
 
-import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
-import com.example.mmanalog.dtos.UserDto;
 import com.example.mmanalog.models.Image;
 import com.example.mmanalog.services.ProjectFolderService;
 import com.example.mmanalog.services.UserService;
 import com.example.mmanalog.repositories.ImageRepository;
 import com.example.mmanalog.utilities.ImageUtility;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.http.*;
 
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 
 @RestController
