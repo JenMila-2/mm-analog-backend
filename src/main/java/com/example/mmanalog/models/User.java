@@ -42,6 +42,10 @@ public class User {
     @JsonIgnore
     private List<FilmStockInventory> userFilmStockInventories;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<FilmDevelopmentLog> userFilmDevelopmentLogs;
+
     @OneToMany(
             targetEntity = Authority.class,
             mappedBy = "username",

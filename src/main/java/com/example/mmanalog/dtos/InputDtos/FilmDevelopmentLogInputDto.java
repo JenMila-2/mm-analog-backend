@@ -28,6 +28,7 @@ public class FilmDevelopmentLogInputDto {
     public String filmStock;
     @Size(max=75, message="This field cannot contain more than 75 characters.")
     public String filmFormat;
+    public int shotAtIso;
     @Size(max=75, message="This field cannot contain more than 75 characters.")
     public String developmentProcess;
     @Size(max=75, message="This field cannot contain more than 75 characters.")

@@ -79,3 +79,6 @@ VALUES
     (251, 'Night_2', 'Nikon F3','CineStill 800T', '35mm', 800, 'f8', '1/60', '+2', '2023-02-01', 'Ontwikkelservice Foto Verweij', 'Night photo walk', 107, 'Benniezzzzzz80'),
     (252, 'Night_3', 'Nikon F3','CineStill 800T', '35mm', 800, 'f8', '1/60', '+2', '2023-02-01', 'Ontwikkelservice Foto Verweij', 'Night photo walk', 107, 'Benniezzzzzz80');
 
+INSERT INTO filmdevelopmentlogs (id, name_film, project, camera, film_stock, film_format, shot_at_iso, development_process, status, roll_started, roll_finished, exposed, developed, scanned, developed_by_lab, username)
+VALUES
+    (300, 'Roll 101 - Kodak Ultra Max', 'Varia, no specific project','Minolta Riva Zoom 115', 'Kodak Ultra Max', '35mm', 400, 'C-41 Color', 'Done', '2023-04-01', '2023-04-20', true, true, true, 'Ontwikkelservice Foto Verweij', 'Jensy2222');

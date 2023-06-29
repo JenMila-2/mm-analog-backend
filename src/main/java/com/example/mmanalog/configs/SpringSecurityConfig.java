@@ -105,6 +105,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.PUT, "/filmstockinventories/{id}/user/{username}").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.DELETE,"/filmstockinventories/{id}").hasAnyRole("ADMIN", "USER")
 
+                    //----------------------------------------Film Stock Inventory--------------------------------------//
+                    .requestMatchers(HttpMethod.GET, "/filmdevelopmentlogs").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/filmdevelopmentlogs/{id}").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.POST,"/filmsdevelopmentlogs/new").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.POST,"/filmdevelopmentlogs/new/{username}").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.PUT,"/filmdevelopmentlogs/{id}").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.PUT, "/filmdevelopmentlogs/{id}/user/{username}").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE,"/filmdevelopmentlogs/{id}").hasAnyRole("ADMIN", "USER")
+
                     //----------------------------------------Image--------------------------------------//
                     .requestMatchers(HttpMethod.GET, "/image/info/{name}").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET,"/image/{name}").hasAnyRole("ADMIN", "USER")
