@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -34,5 +35,6 @@ public class ProjectFolder {
 
    @OneToMany(mappedBy = "projectFolder", cascade = CascadeType.ALL)
    @JsonIgnore
-   private List<Image> images;
+   private List<Image> images = new ArrayList<>();
+   //added array to the images
 }

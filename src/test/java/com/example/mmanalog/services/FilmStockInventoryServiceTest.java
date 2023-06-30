@@ -294,7 +294,7 @@ class FilmStockInventoryServiceTest {
     @Test
     void createFilmStockInventoryForUser_userNotFound() {
         // Arrange
-        String username = "NonExistentUser";
+        String username = "NonExistingUser";
         FilmStockInventoryInputDto inputDto = new FilmStockInventoryInputDto();
         inputDto.setFilmStockName("Kodak Portra 400");
 
