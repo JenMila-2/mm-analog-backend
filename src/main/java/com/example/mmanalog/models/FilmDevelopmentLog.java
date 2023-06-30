@@ -21,7 +21,7 @@ public class FilmDevelopmentLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nameFilm;
+    private String rollName;
     private String project;
     private String camera;
     private String filmStock;

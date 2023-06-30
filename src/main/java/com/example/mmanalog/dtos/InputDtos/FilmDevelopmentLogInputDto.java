@@ -18,7 +18,7 @@ public class FilmDevelopmentLogInputDto {
 
     public Long id;
     @Size(max=75, message="This field cannot contain more than 75 characters.")
-    public String nameFilm;
+    public String rollName;
 
     @Size(max=75, message="This field cannot contain more than 75 characters.")
     public String project;

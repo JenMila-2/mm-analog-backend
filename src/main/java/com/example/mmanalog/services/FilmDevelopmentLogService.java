@@ -82,7 +82,7 @@ public class FilmDevelopmentLogService {
 
             FilmDevelopmentLog filmDevelopmentLog = new FilmDevelopmentLog();
             filmDevelopmentLog.setUser(user);
-            filmDevelopmentLog.setNameFilm(filmDevelopmentLogInputDto.getNameFilm());
+            filmDevelopmentLog.setRollName(filmDevelopmentLogInputDto.getRollName());
             filmDevelopmentLog.setProject(filmDevelopmentLogInputDto.getProject());
             filmDevelopmentLog.setCamera(filmDevelopmentLogInputDto.getCamera());
             filmDevelopmentLog.setFilmStock(filmDevelopmentLogInputDto.getFilmStock());
@@ -111,7 +111,7 @@ public class FilmDevelopmentLogService {
         FilmDevelopmentLog filmDevelopmentLog = new FilmDevelopmentLog();
 
         filmDevelopmentLog.setId(filmDevelopmentLogInputDto.getId());
-        filmDevelopmentLog.setNameFilm(filmDevelopmentLogInputDto.getNameFilm());
+        filmDevelopmentLog.setRollName(filmDevelopmentLogInputDto.getRollName());
         filmDevelopmentLog.setProject(filmDevelopmentLogInputDto.getProject());
         filmDevelopmentLog.setCamera(filmDevelopmentLogInputDto.getCamera());
         filmDevelopmentLog.setFilmStock(filmDevelopmentLogInputDto.getFilmStock());
@@ -133,7 +133,7 @@ public class FilmDevelopmentLogService {
         FilmDevelopmentLogDto filmDevelopmentLogDto = new FilmDevelopmentLogDto();
 
         filmDevelopmentLogDto.setId(filmDevelopmentLog.getId());
-        filmDevelopmentLogDto.setNameFilm(filmDevelopmentLog.getNameFilm());
+        filmDevelopmentLogDto.setRollName(filmDevelopmentLog.getRollName());
         filmDevelopmentLogDto.setProject(filmDevelopmentLog.getProject());
         filmDevelopmentLogDto.setCamera(filmDevelopmentLog.getCamera());
         filmDevelopmentLogDto.setFilmStock(filmDevelopmentLog.getFilmStock());

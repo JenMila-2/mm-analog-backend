@@ -16,7 +16,7 @@ import java.time.LocalDate;
 public class FilmDevelopmentLogDto {
 
     public Long id;
-    public String nameFilm;
+    public String rollName;
     public String project;
     public String camera;
     public String filmStock;

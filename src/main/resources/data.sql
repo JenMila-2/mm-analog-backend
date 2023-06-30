@@ -15,39 +15,39 @@ INSERT INTO authorities (username, authority) VALUES ('Jensy2222', 'ROLE_ADMIN')
 --Film Stock Inventory user 100
 INSERT INTO filmstockinventories (id, film_stock_name, remaining_rolls, brand, stock, format, iso, development_process, storage, rolls_shot, film_expiration_date, username)
 VALUES
-    (100, 'Professional T-Max 100', 5, 'Kodak', 'T-Max 100', '120 film', 100, 'B&W', 'Freezer', 3, '2024-01-01', 'Pedro20'),
-    (101, 'Kodak Ultra Max', 7, 'Kodak', 'Ultra Max', '35mm', 400, 'C41', 'Freezer', 15, '2026-01-01', 'Pedro20'),
-    (102, 'Kodak Gold', 12, 'Kodak', 'Gold 200', '35mm', 200, 'C41', 'Freezer', 9, '2025-04-29', 'Pedro20'),
-    (103, 'Cinestill Xpro 50D', 1, 'CineStill', 'Xpro 50D', '35mm', 50, 'C41', 'Freezer', 1, '2026-02-01', 'Pedro20'),
-    (104, 'AgfaPhoto APX 100', 4, 'Ilford', ' AgfaPhoto', '35mm', 100, 'B&W', 'Freezer', 3, '2023-11-01', 'Pedro20');
+    (100, 'Professional T-Max 100', 5, 'Kodak', 'T-Max 100', '120 film (Medium)', 100, 'Black & White', 'Freezer', 3, '2024-01-01', 'Pedro20'),
+    (101, 'Kodak Ultra Max', 7, 'Kodak', 'Ultra Max', '35mm', 400, 'C-41 Color', 'Freezer', 15, '2026-01-01', 'Pedro20'),
+    (102, 'Kodak Gold', 12, 'Kodak', 'Gold 200', '35mm', 200, 'C-41 Color', 'Freezer', 9, '2025-04-29', 'Pedro20'),
+    (103, 'Cinestill Xpro 50D', 1, 'CineStill', 'Xpro 50D', '35mm', 50, 'C-41 Color', 'Freezer', 1, '2026-02-01', 'Pedro20'),
+    (104, 'AgfaPhoto APX 100', 4, 'Ilford', ' AgfaPhoto', '35mm', 100, 'Black & White', 'Freezer', 3, '2023-11-01', 'Pedro20');
 
 
 --Film Stock Inventory user 101
 INSERT INTO filmstockinventories (id, film_stock_name, remaining_rolls, brand, stock, format, iso, development_process, storage, rolls_shot, film_expiration_date, username)
 VALUES
-    (105, 'Kodak Portra 160', 4, 'Kodak', 'Portra 160', '35mm', 160, 'C41', 'Freezer', 2, '2024-06-01', 'Marisol2023'),
-    (106, 'Kodak Portra 400', 8, 'Kodak', 'Portra 400 (120 film)', '120 film', 400, 'C41', 'Freezer', 2, '2024-02-01', 'Marisol2023'),
-    (107, 'Kodak Gold', 8, 'Kodak', 'Gold 200', '35mm', 200, 'C41', 'Freezer', 5, '2025-06-01', 'Marisol2023'),
-    (108, 'CineStill 800T', 4, 'CineStill', 'CS 800T', '35mm', 800, 'C41', 'Freezer', 2, '2025-05-01', 'Marisol2023'),
-    (109, 'Ilford HP5 Plus', 10, 'Ilford', 'HP5Plus', '35mm', 400, 'B&W', 'Freezer', 6, '2026-01-20', 'Marisol2023');
+    (105, 'Kodak Portra 160', 4, 'Kodak', 'Portra 160', '35mm', 160, 'C-41 Color', 'Freezer', 2, '2024-06-01', 'Marisol2023'),
+    (106, 'Kodak Portra 400', 8, 'Kodak', 'Portra 400 (120 film)', '120 film (Medium)', 400, 'C-41 Color', 'Freezer', 2, '2024-02-01', 'Marisol2023'),
+    (107, 'Kodak Gold', 8, 'Kodak', 'Gold 200', '35mm', 200, 'C-41 Color', 'Freezer', 5, '2025-06-01', 'Marisol2023'),
+    (108, 'CineStill 800T', 4, 'CineStill', 'CS 800T', '35mm', 800, 'C-41 Color', 'Freezer', 2, '2025-05-01', 'Marisol2023'),
+    (109, 'Ilford HP5 Plus', 10, 'Ilford', 'HP5Plus', '35mm', 400, 'Black & White', 'Freezer', 6, '2026-01-20', 'Marisol2023');
 
 --Film Stock Inventory user 102
 INSERT INTO filmstockinventories (id, film_stock_name, remaining_rolls, brand, stock, format, iso, development_process, storage, rolls_shot, film_expiration_date, username)
 VALUES
-    (110, 'Lomo Lady Grey 400', 4, 'Lomography', 'Lady Greay 400', '35mm', 400, 'B&W', 'Freezer', 1, '2023-06-16', 'Jensy2222'),
-    (111, 'CineStill 800T', 2, 'CineStill', 'CS 800T', '35mm', 800, 'C41', 'Freezer', 0, '2024-04-01', 'Jensy2222'),
-    (112, 'Ilford HP5 Plus', 8, 'Ilford', 'HP5Plus', '35mm', 400, 'B&W', 'Freezer', 4, '2023-02-01', 'Jensy2222'),
-    (113, 'Kodak Gold', 3, 'Kodak', 'Gold 200', '35mm', 200, 'C41', 'Freezer', 2, '2024-04-10', 'Jensy2222'),
-    (114, 'Ilford Delta 3200', 2, 'Ilford', 'Delta3200', '35mm', 3200, 'B&W', 'Freezer', 4, '2025-04-20', 'Jensy2222');
+    (110, 'Lomo Lady Grey 400', 4, 'Lomography', 'Lady Greay 400', '35mm', 400, 'Black & White', 'Freezer', 1, '2023-06-16', 'Jensy2222'),
+    (111, 'CineStill 800T', 2, 'CineStill', 'CS 800T', '35mm', 800, 'C-41 Color', 'Freezer', 0, '2024-04-01', 'Jensy2222'),
+    (112, 'Ilford HP5 Plus', 8, 'Ilford', 'HP5Plus', '35mm', 400, 'Black & White', 'Freezer', 4, '2023-02-01', 'Jensy2222'),
+    (113, 'Kodak Gold', 3, 'Kodak', 'Gold 200', '35mm', 200, 'C-41 Color', 'Freezer', 2, '2024-04-10', 'Jensy2222'),
+    (114, 'Ilford Delta 3200', 2, 'Ilford', 'Delta3200', '35mm', 3200, 'Black & White', 'Freezer', 4, '2025-04-20', 'Jensy2222');
 
 --Film Stock Inventory user 103
 INSERT INTO filmstockinventories (id, film_stock_name, remaining_rolls, brand, stock, format, iso, development_process, storage, rolls_shot, film_expiration_date, username)
 VALUES
-    (115, 'Professional RO 400H 120 film', 6, 'Fujifilm', 'PRO 400H', '120 film', 400, 'C41', 'Freezer', 4, '2022-04-25', 'Benniezzzzzz80'),
-    (116, 'Lomography Color Negative 800', 4, ' Lomography ', ' 800 Color Negative', '35mm', 800, 'C41', 'Freezer', 6, '2024-04-20', 'Benniezzzzzz80'),
-    (117, 'CineStill BwXX ', 2, 'CineStill', ' CineStill BwXX ', '35mm', 200, 'B&W', 'Freezer', 0, '2023-12-01', 'Benniezzzzzz80'),
-    (118, 'Professional Kodak Tri-X 400 ', 8, 'Kodak', 'Tri-X 400', '35mm', 400, 'B&W', 'Freezer', 7, '2025-02-20', 'Benniezzzzzz80'),
-    (119, ' Professional Kodak Tri-X 400 ', 6, 'Kodak', 'Tri-X 400', '120 film', 400, 'B&W', 'Freezer', 9, '2026-02-01', 'Benniezzzzzz80');
+    (115, 'Professional RO 400H 120 film', 6, 'Fujifilm', 'PRO 400H', '120 film (Medium)', 400, 'C-41 Color', 'Freezer', 4, '2022-04-25', 'Benniezzzzzz80'),
+    (116, 'Lomography Color Negative 800', 4, ' Lomography ', ' 800 Color Negative', '35mm', 800, 'C-41 Color', 'Freezer', 6, '2024-04-20', 'Benniezzzzzz80'),
+    (117, 'CineStill BwXX ', 2, 'CineStill', ' CineStill BwXX ', '35mm', 200, 'Black & White', 'Freezer', 0, '2023-12-01', 'Benniezzzzzz80'),
+    (118, 'Professional Kodak Tri-X 400 ', 8, 'Kodak', 'Tri-X 400', '35mm', 400, 'Black & White', 'Freezer', 7, '2025-02-20', 'Benniezzzzzz80'),
+    (119, ' Professional Kodak Tri-X 400 ', 6, 'Kodak', 'Tri-X 400', '120 film (Medium)', 400, 'Black & White', 'Freezer', 9, '2026-02-01', 'Benniezzzzzz80');
 
 
 --Project Folders
@@ -79,6 +79,6 @@ VALUES
     (251, 'Night_2', 'Nikon F3','CineStill 800T', '35mm', 800, 'f8', '1/60', '+2', '2023-02-01', 'Ontwikkelservice Foto Verweij', 'Night photo walk', 107, 'Benniezzzzzz80'),
     (252, 'Night_3', 'Nikon F3','CineStill 800T', '35mm', 800, 'f8', '1/60', '+2', '2023-02-01', 'Ontwikkelservice Foto Verweij', 'Night photo walk', 107, 'Benniezzzzzz80');
 
-INSERT INTO filmdevelopmentlogs (id, name_film, project, camera, film_stock, film_format, shot_at_iso, development_process, status, roll_started, roll_finished, exposed, developed, scanned, developed_by_lab, username)
+INSERT INTO filmdevelopmentlogs (id, roll_name, project, camera, film_stock, film_format, shot_at_iso, development_process, status, roll_started, roll_finished, exposed, developed, scanned, developed_by_lab, username)
 VALUES
     (300, 'Roll 101 - Kodak Ultra Max', 'Varia, no specific project','Minolta Riva Zoom 115', 'Kodak Ultra Max', '35mm', 400, 'C-41 Color', 'Done', '2023-04-01', '2023-04-20', true, true, true, 'Ontwikkelservice Foto Verweij', 'Jensy2222');
