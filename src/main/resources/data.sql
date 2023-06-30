@@ -34,7 +34,7 @@ VALUES
 --Film Stock Inventory user 102
 INSERT INTO filmstockinventories (id, film_stock_name, remaining_rolls, brand, stock, format, iso, development_process, storage, rolls_shot, film_expiration_date, username)
 VALUES
-    (110, 'Lomo Lady Grey 400', 4, 'Lomography', 'Lady Greay 400', '35mm', 400, 'Black & White', 'Freezer', 1, '2023-06-16', 'Jensy2222'),
+    (110, 'Lomo Lady Grey 400', 4, 'Lomography', 'Lady Grey 400', '35mm', 400, 'Black & White', 'Freezer', 1, '2023-06-16', 'Jensy2222'),
     (111, 'CineStill 800T', 2, 'CineStill', 'CS 800T', '35mm', 800, 'C-41 Color', 'Freezer', 0, '2024-04-01', 'Jensy2222'),
     (112, 'Ilford HP5 Plus', 8, 'Ilford', 'HP5Plus', '35mm', 400, 'Black & White', 'Freezer', 4, '2023-02-01', 'Jensy2222'),
     (113, 'Kodak Gold', 3, 'Kodak', 'Gold 200', '35mm', 200, 'C-41 Color', 'Freezer', 2, '2024-04-10', 'Jensy2222'),
