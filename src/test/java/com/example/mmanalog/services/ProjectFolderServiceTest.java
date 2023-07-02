@@ -135,7 +135,7 @@ class ProjectFolderServiceTest {
         //Act
         ProjectFolderDto resultProjectFolderDto = projectFolderService.createProjectFolder(projectFolderInputDto);
 
-        //Asserts
+        //Assert
         verify(projectFolderRepository).save(captor.capture());
         ProjectFolder savedProjectFolder = captor.getValue();
 
