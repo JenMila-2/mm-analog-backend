@@ -40,7 +40,5 @@ public class PhotoLogInputDto {
     @Size(max=250, message="This field cannot contain more than 250 characters")
     public String notes;
 
-    public FilmStockInventory filmStockInventory;
-
     public User user;
 }

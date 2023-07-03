@@ -34,7 +34,6 @@ class FilmDevelopmentLogIntegrationTest {
 
     @Autowired
     FilmDevelopmentLogRepository filmDevelopmentLogRepository;
-
     @Autowired
     FilmDevelopmentLogService filmDevelopmentLogService;
 

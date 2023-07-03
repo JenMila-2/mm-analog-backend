@@ -18,7 +18,7 @@ public class PhotoLogDto {
     public Long id;
     public String photoTitle;
     public String camera;
-   public String filmStock;
+    public String filmStock;
     public String filmFormat;
     public int shotAtIso;
     public String aperture;
@@ -29,7 +29,6 @@ public class PhotoLogDto {
     public String developedByLab;
     public String notes;
 
-    public FilmStockInventory filmStockInventory;
     public ProjectFolder projectFolder;
 
     public User user;
