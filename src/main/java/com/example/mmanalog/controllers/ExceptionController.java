@@ -3,7 +3,6 @@ package com.example.mmanalog.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.example.mmanalog.exceptions.BadRequestException;
-import com.example.mmanalog.exceptions.IndexOutOfBoundsException;
 import com.example.mmanalog.exceptions.InvalidEmailException;
 import com.example.mmanalog.exceptions.InvalidPasswordException;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
@@ -21,11 +20,6 @@ public class ExceptionController {
 
     @ExceptionHandler(value = RecordNotFoundException.class)
     public ResponseEntity<Object> exception(RecordNotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(value = IndexOutOfBoundsException.class)
-    public ResponseEntity<Object> exception(IndexOutOfBoundsException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 

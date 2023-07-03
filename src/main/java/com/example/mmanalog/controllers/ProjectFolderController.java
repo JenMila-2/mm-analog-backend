@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.*;
+
 import jakarta.validation.Valid;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class ProjectFolderController {
     }
 
     @GetMapping(path = "")
-    public ResponseEntity<List<ProjectFolderDto>> getAllProjectFolders() {
+    public ResponseEntity<List<ProjectFolderDto>> getProjectFolders() {
 
         return ResponseEntity.ok().body(projectFolderService.getProjectFolders());
     }
@@ -32,25 +33,17 @@ public class ProjectFolderController {
     @GetMapping(path = "/{id}")
     public ResponseEntity<ProjectFolderDto> getProjectFolder(@PathVariable("id") Long id) {
 
-        ProjectFolderDto projectFolder = projectFolderService.getProjectFolderById(id);
+        ProjectFolderDto projectFolder = projectFolderService.getProjectFolder(id);
 
         return ResponseEntity.ok().body(projectFolder);
     }
 
-    @PostMapping(path = "")
-    public ResponseEntity<Object> addProjectFolder(@Valid @RequestBody ProjectFolderInputDto folderInputDto) {
+    @PostMapping(path = "/new")
+    public ResponseEntity<Object> createProjectFolder(@Valid @RequestBody ProjectFolderInputDto folderInputDto) {
 
-        ProjectFolderDto dtoFolder = projectFolderService.addProjectFolder(folderInputDto);
+        ProjectFolderDto newFolder = projectFolderService.createProjectFolder(folderInputDto);
 
-        return ResponseEntity.created(null).body(dtoFolder);
-    }
-
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Object> deleteProjectFolder(@PathVariable Long id) {
-
-        projectFolderService.deleteProjectFolder(id);
-
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.created(null).body(newFolder);
     }
 
     @PutMapping(path = "/{id}")
@@ -61,12 +54,31 @@ public class ProjectFolderController {
         return ResponseEntity.ok().body(dtoProjectFolder);
     }
 
-    //// **** Methods related to the relationship between entities **** ////
-    @PutMapping(path = "/{id}/user/{userId}")
-    public ResponseEntity<Object> assignFolderToUser(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
-        ProjectFolderDto projectFolderDto = projectFolderService.assignFolderToUser(id, userId);
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Object> deleteProjectFolder(@PathVariable Long id) {
+
+        projectFolderService.deleteProjectFolder(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+
+    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
+
+    @PutMapping(path = "/{id}/user/{username}")
+    public ResponseEntity<Object> assignFolderToUser(@PathVariable("id") Long id, @PathVariable("username") String username) {
+        ProjectFolderDto projectFolderDto = projectFolderService.assignFolderToUser(id, username);
 
         return ResponseEntity.ok().body(projectFolderDto);
+    }
+
+    @PostMapping(path = "/new/{username}")
+    public ResponseEntity<ProjectFolderDto> createFolderForUser(
+            @PathVariable("username") String username,
+            @RequestBody ProjectFolderInputDto newFolderInput
+    ) {
+        ProjectFolderDto createdFolder = projectFolderService.createFolderForUser(username, newFolderInput);
+        return ResponseEntity.created(null).body(createdFolder);
     }
 
     @PutMapping(path = "/{folderId}/images/{imageId}")
@@ -78,8 +90,8 @@ public class ProjectFolderController {
     }
 
     @GetMapping(path = "/{folderId}/images/{imageId}")
-    public ResponseEntity<Resource> getFolderImages(@PathVariable("folderId") Long folderId, @PathVariable("imageId") Long imageId) {
-        byte[] imageData = projectFolderService.getFolderImages(folderId, imageId);
+    public ResponseEntity<Resource> getFolderImage(@PathVariable("folderId") Long folderId, @PathVariable("imageId") Long imageId) {
+        byte[] imageData = projectFolderService.getFolderImage(folderId, imageId);
 
         if (imageData != null && imageData.length > 0) {
             String imageName = "example.jpg";
@@ -108,12 +120,11 @@ public class ProjectFolderController {
             projectFolderService.deleteFolderImage(folderId, imageId);
             return ResponseEntity.ok("Image deleted successfully");
         } catch (RecordNotFoundException e) {
-            throw new RecordNotFoundException("Image with id: " + imageId + " or folder with id: " + folderId + " do not exist or not found");
+            throw new RecordNotFoundException("Image with id: " + imageId + " or project folder with id: " + folderId + " do not exist or not found");
         }
     }
 
-    //// **** Specials **** ////
-    //Method below only returns the image data and not the actual images//
+    /* Method below only returns the image data and not the actual images */
     @GetMapping(path = "/{folderId}/images")
     public ResponseEntity<List<byte[]>> getAllFolderImages(@PathVariable("folderId") Long folderId) {
         try {

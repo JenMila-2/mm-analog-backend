@@ -2,6 +2,7 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
+import com.example.mmanalog.exceptions.UserNotFoundException;
 import com.example.mmanalog.models.Image;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.models.ProjectFolder;
@@ -9,6 +10,7 @@ import com.example.mmanalog.repositories.*;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -36,7 +38,7 @@ public class ProjectFolderService {
         return projectFolderList;
     }
 
-    public ProjectFolderDto getProjectFolderById(Long id) {
+    public ProjectFolderDto getProjectFolder(Long id) {
         Optional<ProjectFolder> folderOptional = projectFolderRepository.findById(id);
         if (folderOptional.isPresent()) {
             ProjectFolder projectFolder = folderOptional.get();
@@ -46,15 +48,11 @@ public class ProjectFolderService {
         }
     }
 
-    public ProjectFolderDto addProjectFolder(ProjectFolderInputDto dtoInputProjectFolder) {
+    public ProjectFolderDto createProjectFolder(ProjectFolderInputDto dtoInputProjectFolder) {
         ProjectFolder folder = transferToProjectFolder(dtoInputProjectFolder);
         projectFolderRepository.save(folder);
 
         return transferProjectFolderToDto(folder);
-    }
-
-    public void deleteProjectFolder(@RequestBody Long id) {
-        projectFolderRepository.deleteById(id);
     }
 
     public ProjectFolderDto updateProjectFolder(Long id, ProjectFolderInputDto updatedProjectFolder) {
@@ -73,32 +71,16 @@ public class ProjectFolderService {
         }
     }
 
-    //// ***** Transfers **** ////
-    public ProjectFolder transferToProjectFolder(ProjectFolderInputDto projectFolderInputDto) {
-        ProjectFolder folder = new ProjectFolder();
-
-        folder.setId(projectFolderInputDto.getId());
-        folder.setProjectTitle(projectFolderInputDto.getProjectTitle());
-        folder.setProjectConcept(projectFolderInputDto.getProjectConcept());
-
-        return folder;
+    public void deleteProjectFolder(@RequestBody Long id) {
+        projectFolderRepository.deleteById(id);
     }
 
-    public ProjectFolderDto transferProjectFolderToDto(ProjectFolder projectFolder) {
-        ProjectFolderDto projectFolderDto = new ProjectFolderDto();
 
-        projectFolderDto.setId(projectFolder.getId());
-        projectFolderDto.setProjectTitle(projectFolder.getProjectTitle());
-        projectFolderDto.setProjectConcept(projectFolder.getProjectConcept());
-        projectFolderDto.setUser(projectFolder.getUser());
+    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
-        return projectFolderDto;
-    }
-
-    //// **** Methods related to the relationship between entities **** ////
-    public ProjectFolderDto assignFolderToUser(Long id, Long userId) {
+    public ProjectFolderDto assignFolderToUser(Long id, String username) {
         Optional<ProjectFolder> projectFolderOptional = projectFolderRepository.findById(id);
-        Optional<User> userOptional = userRepository.findById(userId);
+        Optional<User> userOptional = userRepository.findById(username);
 
         if (projectFolderOptional.isPresent() && userOptional.isPresent()) {
             ProjectFolder projectFolder = projectFolderOptional.get();
@@ -109,11 +91,29 @@ public class ProjectFolderService {
 
             return transferProjectFolderToDto(projectFolder);
         } else {
-            throw new RecordNotFoundException("No folder found with id: " + id + " or no user found with id: " + userId);
+            throw new RecordNotFoundException("No project folder found with id: " + id + " or no user found with username: " + username);
         }
     }
 
-    //Assign image to folder method//
+    public ProjectFolderDto createFolderForUser(String username, ProjectFolderInputDto folderInputDto) {
+        Optional<User> userOptional = userRepository.findById(username);
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            ProjectFolder projectFolder = new ProjectFolder();
+            projectFolder.setUser(user);
+            projectFolder.setProjectTitle(folderInputDto.getProjectTitle());
+            projectFolder.setProjectConcept(folderInputDto.getProjectConcept());
+
+            projectFolderRepository.save(projectFolder);
+
+            return transferProjectFolderToDto(projectFolder);
+        } else {
+            throw new UserNotFoundException("No user found with username: " + username);
+        }
+    }
+
     public ProjectFolderDto assignImageToFolder(Long folderId, Long imageId) {
         Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);
         Optional<Image> optionalImage = imageRepository.findById(imageId);
@@ -129,11 +129,11 @@ public class ProjectFolderService {
 
             return transferProjectFolderToDto(projectFolder);
         } else {
-            throw new RecordNotFoundException("No folder found with id: " + folderId + " or no image found with id: " + imageId);
+            throw new RecordNotFoundException("No project folder found with id: " + folderId + " or no image found with id: " + imageId);
         }
     }
 
-    public byte[] getFolderImages(Long folderId, Long imageId) {
+    public byte[] getFolderImage(Long folderId, Long imageId) {
         Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);
 
         if (optionalProjectFolder.isPresent()) {
@@ -151,7 +151,7 @@ public class ProjectFolderService {
                 throw new RecordNotFoundException("No image found with id: " + imageId);
             }
         } else {
-            throw new RecordNotFoundException("No folder found with id: " + folderId);
+            throw new RecordNotFoundException("No project folder found with id: " + folderId);
         }
     }
 
@@ -175,12 +175,11 @@ public class ProjectFolderService {
                 throw new RecordNotFoundException("No image found with id: " + imageId);
             }
         } else {
-            throw new RecordNotFoundException("No folder found with id: " + folderId);
+            throw new RecordNotFoundException("No project folder found with id: " + folderId);
         }
     }
 
-    //// **** Specials **** ////
-    //Method below only returns the image data and not the actual images//
+    /* Method below only returns the image data and not the actual images */
     public List<byte[]> getAllFolderImages(Long folderId) {
         Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);
 
@@ -196,6 +195,27 @@ public class ProjectFolderService {
         } else {
             throw new RecordNotFoundException("N0 folder found with id: " + folderId);
         }
+    }
+
+    public ProjectFolder transferToProjectFolder(ProjectFolderInputDto projectFolderInputDto) {
+        ProjectFolder folder = new ProjectFolder();
+
+        folder.setId(projectFolderInputDto.getId());
+        folder.setProjectTitle(projectFolderInputDto.getProjectTitle());
+        folder.setProjectConcept(projectFolderInputDto.getProjectConcept());
+
+        return folder;
+    }
+
+    public ProjectFolderDto transferProjectFolderToDto(ProjectFolder projectFolder) {
+        ProjectFolderDto projectFolderDto = new ProjectFolderDto();
+
+        projectFolderDto.setId(projectFolder.getId());
+        projectFolderDto.setProjectTitle(projectFolder.getProjectTitle());
+        projectFolderDto.setProjectConcept(projectFolder.getProjectConcept());
+        projectFolderDto.setUser(projectFolder.getUser());
+
+        return projectFolderDto;
     }
 }
 

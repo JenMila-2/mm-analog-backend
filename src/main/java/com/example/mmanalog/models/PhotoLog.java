@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -32,11 +30,8 @@ public class PhotoLog {
     private String shutterSpeed;
     private String exposureCompensation;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate rollStarted;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate rollFinished;
+    private LocalDate dateTaken;
     private String developedByLab;
-    private boolean scanned;
     private String notes;
 
     @ManyToOne(cascade = CascadeType.ALL)
@@ -45,7 +40,7 @@ public class PhotoLog {
     private ProjectFolder projectFolder;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "username")
     @JsonIgnore
     private User user;
 }

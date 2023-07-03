@@ -25,15 +25,13 @@ public class PhotoLogDto {
     public String shutterSpeed;
     public String exposureCompensation;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public LocalDate rollStarted;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public LocalDate rollFinished;
+    public LocalDate dateTaken;
     public String developedByLab;
-    public boolean scanned;
     public String notes;
 
     public FilmStockInventory filmStockInventory;
     public ProjectFolder projectFolder;
+
     public User user;
 }
 
