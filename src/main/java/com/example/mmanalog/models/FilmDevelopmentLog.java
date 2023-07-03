@@ -15,29 +15,28 @@ import java.time.LocalDate;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "photologs")
-public class PhotoLog {
+@Table(name = "filmdevelopmentlogs")
+public class FilmDevelopmentLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String photoTitle;
+    private String rollName;
+    private String project;
     private String camera;
     private String filmStock;
     private String filmFormat;
     private int shotAtIso;
-    private String aperture;
-    private String shutterSpeed;
-    private String exposureCompensation;
+    private String developmentProcess;
+    private String status;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dateTaken;
+    private LocalDate rollStarted;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate rollFinished;
+    private boolean exposed;
+    private boolean developed;
+    private boolean scanned;
     private String developedByLab;
-    private String notes;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "folder_id")
-    @JsonIgnore
-    private ProjectFolder projectFolder;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "username")

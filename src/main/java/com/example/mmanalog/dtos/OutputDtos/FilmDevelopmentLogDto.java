@@ -1,6 +1,6 @@
 package com.example.mmanalog.dtos.OutputDtos;
 
-import com.example.mmanalog.models.*;
+import com.example.mmanalog.models.User;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
@@ -13,25 +13,25 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PhotoLogDto {
+public class FilmDevelopmentLogDto {
 
     public Long id;
-    public String photoTitle;
+    public String rollName;
+    public String project;
     public String camera;
     public String filmStock;
     public String filmFormat;
     public int shotAtIso;
-    public String aperture;
-    public String shutterSpeed;
-    public String exposureCompensation;
+    public String developmentProcess;
+    public String status;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public LocalDate dateTaken;
+   public LocalDate rollStarted;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    public LocalDate rollFinished;
+    public boolean exposed;
+    public boolean developed;
+    public boolean scanned;
     public String developedByLab;
-    public String notes;
-
-    public ProjectFolder projectFolder;
 
     public User user;
 }
-
-
