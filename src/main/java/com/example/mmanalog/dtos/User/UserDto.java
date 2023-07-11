@@ -20,7 +20,7 @@ import java.util.Set;
 public class UserDto {
 
     @Id
-    @NotNull(message = "username cannot be empty")
+    @NotNull(message = "Username cannot be empty")
     @Column(nullable = false, unique = true)
     public String username;
 

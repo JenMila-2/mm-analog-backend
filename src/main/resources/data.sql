@@ -4,7 +4,8 @@ VALUES
     ('Pedro20', 'Pedro Perez','pedro@mail.com', '$2a$12$rBImbI7IECYBlcDSdUIXu.m4yPC8q15W1N4q5BaZtF0z2H6dRjaE2', true),
     ('Marisol2023', 'Marisol Lopez', 'marisol@mail.com', '$2a$12$YGKrv7J7xvuajKHXY/GtYOdyElM2riBOZgxBbhK1ZEOepfDvWAD5.', true),
     ('Jensy2222', 'Jensy Franco', 'jensyhotography@mail.com', '$2a$12$rYbeEqmxx.ElKC5PimWc1OVccCAJwy4Qyki93yc8Y8cHjhGHuMpuu', true),
-    ('Benniezzzzzz80', 'Scott Bennie', 'bennie@mail.com', '$2a$12$h8YyS5u4hMHCC8E7tEMODetux9cZxZqgQf2UH/JVCfnK4kpdseusG', true);
+    ('Benniezzzzzz80', 'Scott Bennie', 'bennie@mail.com', '$2a$12$h8YyS5u4hMHCC8E7tEMODetux9cZxZqgQf2UH/JVCfnK4kpdseusG', true),
+    ('Admin2', 'Administrator', 'admin@mail.com', '$2a$12$lzHg9K/PNrkjzUCJUUWol.ojbHuHwCbbNueirHxVWY5GKEGAId0vi', true);
 
 INSERT INTO authorities (username, authority) VALUES ('Pedro20', 'ROLE_USER');
 INSERT INTO authorities (username, authority) VALUES ('Marisol2023', 'ROLE_USER');

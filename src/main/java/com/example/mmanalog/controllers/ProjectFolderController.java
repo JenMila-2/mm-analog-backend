@@ -14,6 +14,7 @@ import org.springframework.http.*;
 import jakarta.validation.Valid;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(path = "/projectfolders")
 public class ProjectFolderController {

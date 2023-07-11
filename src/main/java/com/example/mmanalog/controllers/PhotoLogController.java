@@ -10,6 +10,7 @@ import jakarta.validation.Valid;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(path = "/photologs")
 public class PhotoLogController {

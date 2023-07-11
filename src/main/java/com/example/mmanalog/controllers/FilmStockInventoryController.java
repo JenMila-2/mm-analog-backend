@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import jakarta.validation.Valid;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(path = "/filmstockinventories")
 public class FilmStockInventoryController {
