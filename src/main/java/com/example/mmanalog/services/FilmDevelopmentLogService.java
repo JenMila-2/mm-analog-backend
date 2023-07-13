@@ -45,6 +45,16 @@ public class FilmDevelopmentLogService {
         }
     }
 
+    public List<FilmDevelopmentLogDto> getAllFilmDevelopmentLogsByUser(User user) {
+        List<FilmDevelopmentLog> filmDevelopmentLogList = filmDevelopmentLogRepository.findFilmDevelopmentLogsByUser(user);
+        List<FilmDevelopmentLogDto> filmDevelopmentLogDtoList = new ArrayList<>();
+        for(FilmDevelopmentLog filmDevelopmentLog : filmDevelopmentLogList) {
+            FilmDevelopmentLogDto dto = transferFilmDevelopmentLogToDto(filmDevelopmentLog);
+            filmDevelopmentLogDtoList.add(dto);
+        }
+        return filmDevelopmentLogDtoList;
+    }
+
     public FilmDevelopmentLogDto createFilmDevelopmentLog(FilmDevelopmentLogInputDto filmDevelopmentLogInputDto) {
         FilmDevelopmentLog filmDevelopmentLog = transferToFilmDevelopmentLog(filmDevelopmentLogInputDto);
         filmDevelopmentLogRepository.save(filmDevelopmentLog);

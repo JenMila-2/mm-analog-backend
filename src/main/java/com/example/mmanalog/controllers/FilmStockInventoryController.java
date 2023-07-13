@@ -2,6 +2,7 @@ package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.OutputDtos.FilmStockInventoryDto;
 import com.example.mmanalog.dtos.InputDtos.FilmStockInventoryInputDto;
+import com.example.mmanalog.models.User;
 import com.example.mmanalog.services.FilmStockInventoryService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,13 @@ public class FilmStockInventoryController {
         FilmStockInventoryDto filmStockInventoryDto = filmStockInventoryService.getFilmStockInventory(id);
 
         return ResponseEntity.ok().body(filmStockInventoryDto);
+    }
+
+    @GetMapping(path = "/user/{username}")
+    public ResponseEntity<List<FilmStockInventoryDto>> getAllFilmStockInventoriesByUser(@PathVariable("username") User user) {
+        List<FilmStockInventoryDto> userFilmStockInventories;
+        userFilmStockInventories = filmStockInventoryService.getAllFilmStockInventoriesByUser(user);
+        return ResponseEntity.ok().body(userFilmStockInventories);
     }
 
     @PostMapping(path = "/new")

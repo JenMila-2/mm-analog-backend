@@ -2,6 +2,7 @@ package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.OutputDtos.PhotoLogDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoLogInputDto;
+import com.example.mmanalog.models.User;
 import com.example.mmanalog.services.PhotoLogService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -27,12 +28,19 @@ public class PhotoLogController {
         return ResponseEntity.ok().body(photoLogService.getPhotoLogs());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(path = "/{id}")
     public ResponseEntity<PhotoLogDto> getPhotoLog(@PathVariable("id") Long id) {
 
         PhotoLogDto photoLog = photoLogService.getPhotoLog(id);
 
         return ResponseEntity.ok().body(photoLog);
+    }
+
+    @GetMapping(path = "/user/{username}")
+    public ResponseEntity<List<PhotoLogDto>> getAllPhotoLogsByUser(@PathVariable("username") User user) {
+        List<PhotoLogDto> userPhotoLogs;
+        userPhotoLogs = photoLogService.getAllPhotoLogsByUser(user);
+        return ResponseEntity.ok().body(userPhotoLogs);
     }
 
     @GetMapping(path = "/film_stock/{film_stock}")

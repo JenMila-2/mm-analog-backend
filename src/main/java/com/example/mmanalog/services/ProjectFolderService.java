@@ -48,6 +48,16 @@ public class ProjectFolderService {
         }
     }
 
+    public List<ProjectFolderDto> getAllProjectFoldersByUser(User user) {
+        List<ProjectFolder> projectFolderList = projectFolderRepository.findProjectFolderByUser(user);
+        List<ProjectFolderDto> projectFolderDtoList = new ArrayList<>();
+        for(ProjectFolder projectFolder : projectFolderList) {
+            ProjectFolderDto dto = transferProjectFolderToDto(projectFolder);
+            projectFolderDtoList.add(dto);
+        }
+        return projectFolderDtoList;
+    }
+
     public ProjectFolderDto createProjectFolder(ProjectFolderInputDto dtoInputProjectFolder) {
         ProjectFolder folder = transferToProjectFolder(dtoInputProjectFolder);
         projectFolderRepository.save(folder);

@@ -46,6 +46,16 @@ public class PhotoLogService {
         }
     }
 
+    public List<PhotoLogDto> getAllPhotoLogsByUser(User user) {
+        List<PhotoLog> photoLogList = photoLogRepository.findPhotoLogsByUser(user);
+        List<PhotoLogDto> photoLogDtoList = new ArrayList<>();
+        for(PhotoLog photoLog : photoLogList) {
+            PhotoLogDto dto = transferToPhotoLogDto(photoLog);
+            photoLogDtoList.add(dto);
+        }
+        return photoLogDtoList;
+    }
+
     public List<PhotoLogDto> getByPhotoLogFilmStock(String filmStock) {
         List<PhotoLog> photoLogs = photoLogRepository.findByFilmStock(filmStock);
         List<PhotoLogDto> filmStockPhotoLogList = new ArrayList<>();

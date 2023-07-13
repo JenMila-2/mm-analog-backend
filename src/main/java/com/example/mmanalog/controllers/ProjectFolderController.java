@@ -2,6 +2,7 @@ package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
+import com.example.mmanalog.models.User;
 import com.example.mmanalog.services.ProjectFolderService;
 import com.example.mmanalog.exceptions.BadRequestException;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
@@ -37,6 +38,13 @@ public class ProjectFolderController {
         ProjectFolderDto projectFolder = projectFolderService.getProjectFolder(id);
 
         return ResponseEntity.ok().body(projectFolder);
+    }
+
+    @GetMapping(path = "/user/{username}")
+    public ResponseEntity<List<ProjectFolderDto>> getAllProjectFoldersByUser(@PathVariable("username") User user) {
+        List<ProjectFolderDto> userProjectFolders;
+        userProjectFolders = projectFolderService.getAllProjectFoldersByUser(user);
+        return ResponseEntity.ok().body(userProjectFolders);
     }
 
     @PostMapping(path = "/new")

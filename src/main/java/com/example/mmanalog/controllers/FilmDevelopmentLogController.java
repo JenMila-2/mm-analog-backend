@@ -2,6 +2,7 @@ package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.OutputDtos.FilmDevelopmentLogDto;
 import com.example.mmanalog.dtos.InputDtos.FilmDevelopmentLogInputDto;
+import com.example.mmanalog.models.User;
 import com.example.mmanalog.services.FilmDevelopmentLogService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,13 @@ public class FilmDevelopmentLogController {
         FilmDevelopmentLogDto filmDevelopmentLogDto = filmDevelopmentLogService.getFilmDevelopmentLog(id);
 
         return ResponseEntity.ok().body(filmDevelopmentLogDto);
+    }
+
+    @GetMapping(path = "/user/{username}")
+    public ResponseEntity<List<FilmDevelopmentLogDto>> getAllFilmDevelopmentLOgsByUser(@PathVariable("username") User user) {
+        List<FilmDevelopmentLogDto> userFilmDevelopmentLogs;
+        userFilmDevelopmentLogs = filmDevelopmentLogService.getAllFilmDevelopmentLogsByUser(user);
+        return ResponseEntity.ok().body(userFilmDevelopmentLogs);
     }
 
     @PostMapping(path = "/new")

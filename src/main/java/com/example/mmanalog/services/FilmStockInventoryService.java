@@ -46,6 +46,16 @@ public class FilmStockInventoryService {
         }
     }
 
+    public List<FilmStockInventoryDto> getAllFilmStockInventoriesByUser(User user) {
+        List<FilmStockInventory> filmStockInventoryList = filmStockInventoryRepository.findFilmStockInventoryByUser(user);
+        List<FilmStockInventoryDto> filmStockInventoryDtoList = new ArrayList<>();
+        for(FilmStockInventory filmStockInventory : filmStockInventoryList) {
+            FilmStockInventoryDto dto = transferFilmStockInventoryToDto(filmStockInventory);
+            filmStockInventoryDtoList.add(dto);
+        }
+        return filmStockInventoryDtoList;
+    }
+
     public FilmStockInventoryDto createFilmStockInventory(FilmStockInventoryInputDto filmStockInventoryInputDto) {
         FilmStockInventory filmStockInventory = transferToFilmStockInventory(filmStockInventoryInputDto);
         filmStockInventoryRepository.save(filmStockInventory);
