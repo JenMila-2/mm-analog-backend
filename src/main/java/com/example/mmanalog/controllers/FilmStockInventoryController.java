@@ -51,11 +51,11 @@ public class FilmStockInventoryController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Object> updateFilmStockInventory(@PathVariable Long id, @Valid @RequestBody FilmStockInventoryInputDto updatedFilmStockInventory) {
+    public ResponseEntity<Object> updateFilmStockInventory(@PathVariable("id") Long id, @RequestBody FilmStockInventoryDto dto) {
 
-        FilmStockInventoryDto dtoFilmStockInventory = filmStockInventoryService.updateFilmStockInventory(id, updatedFilmStockInventory);
+        filmStockInventoryService.updateFilmStockInventory(id, dto);
 
-        return ResponseEntity.ok().body(dtoFilmStockInventory);
+        return ResponseEntity.ok().body(dto);
     }
 
     @DeleteMapping(path = "/{id}")

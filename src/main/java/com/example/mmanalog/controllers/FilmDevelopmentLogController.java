@@ -51,11 +51,11 @@ public class FilmDevelopmentLogController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Object> updateFilmDevelopmentLog(@PathVariable Long id, @Valid @RequestBody FilmDevelopmentLogInputDto updatedFilmDevelopmentLog) {
+    public ResponseEntity<FilmDevelopmentLogDto> updateFilmDevelopmentLog(@PathVariable("id") Long id, @RequestBody FilmDevelopmentLogDto dto) {
 
-        FilmDevelopmentLogDto filmDevelopmentLogDto = filmDevelopmentLogService.updateFilmDevelopmentLog(id, updatedFilmDevelopmentLog);
+        filmDevelopmentLogService.updateFilmDevelopmentLog(id, dto);
 
-        return ResponseEntity.ok().body(filmDevelopmentLogDto);
+        return ResponseEntity.ok().body(dto);
     }
 
     @DeleteMapping(path = "/{id}")

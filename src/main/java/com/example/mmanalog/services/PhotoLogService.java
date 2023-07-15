@@ -83,19 +83,29 @@ public class PhotoLogService {
         return transferToPhotoLogDto(photoLog);
     }
 
-    public PhotoLogDto updatePhotoLog(Long id, PhotoLogInputDto updatedPhotoLog) {
-
-        if (photoLogRepository.findById(id).isPresent()) {
-            PhotoLog photoLog = photoLogRepository.findById(id).get();
-
-            PhotoLog photoLog1 = transferToPhotoLog(updatedPhotoLog);
-            photoLog1.setId(photoLog.getId());
-            photoLogRepository.save(photoLog1);
-
-            return transferToPhotoLogDto(photoLog1);
-        } else {
+    public void updatePhotoLog(Long id, PhotoLogDto updatedPhotoLog) {
+        if (!photoLogRepository.existsById(id)) {
             throw new RecordNotFoundException("No photo log found with id: " + id);
         }
+        PhotoLog storedPhotoLog = photoLogRepository.findById(id).orElse(null);
+        storedPhotoLog.setId(updatedPhotoLog.getId());
+        storedPhotoLog.setPhotoTitle(updatedPhotoLog.getPhotoTitle());
+        storedPhotoLog.setCamera(updatedPhotoLog.getCamera());
+        storedPhotoLog.setFilmStock(updatedPhotoLog.getFilmStock());
+        storedPhotoLog.setFilmFormat(updatedPhotoLog.getFilmFormat());
+        storedPhotoLog.setShotAtIso(updatedPhotoLog.getShotAtIso());
+        storedPhotoLog.setAperture(updatedPhotoLog.getAperture());
+        storedPhotoLog.setShutterSpeed(updatedPhotoLog.getShutterSpeed());
+        storedPhotoLog.setExposureCompensation(updatedPhotoLog.getExposureCompensation());
+        storedPhotoLog.setDateTaken(updatedPhotoLog.getDateTaken());
+        storedPhotoLog.setDevelopedByLab(updatedPhotoLog.getDevelopedByLab());
+        storedPhotoLog.setNotes(updatedPhotoLog.getNotes());
+        storedPhotoLog.setProjectFolder(updatedPhotoLog.getProjectFolder());
+        storedPhotoLog.setUser(updatedPhotoLog.getUser());
+
+            photoLogRepository.save(storedPhotoLog);
+
+        //transferToPhotoLogDto(photoLogRepository.save(storedPhotoLog));
     }
 
     public void deletePhotoLog(@RequestBody Long id) {

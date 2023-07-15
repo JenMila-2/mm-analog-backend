@@ -56,11 +56,11 @@ public class ProjectFolderController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Object> updateProjectFolder(@PathVariable Long id, @Valid @RequestBody ProjectFolderInputDto updatedProjectFolder) {
+    public ResponseEntity<Object> updateProjectFolder(@PathVariable Long id, @RequestBody ProjectFolderDto dto) {
 
-        ProjectFolderDto dtoProjectFolder = projectFolderService.updateProjectFolder(id, updatedProjectFolder);
+        projectFolderService.updateProjectFolder(id, dto);
 
-        return ResponseEntity.ok().body(dtoProjectFolder);
+        return ResponseEntity.ok().body(dto);
     }
 
     @DeleteMapping(path = "/{id}")

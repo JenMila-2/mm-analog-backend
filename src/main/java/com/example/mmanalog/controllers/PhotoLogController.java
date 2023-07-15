@@ -64,11 +64,11 @@ public class PhotoLogController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Object> updatePhotoLog(@PathVariable Long id, @Valid @RequestBody PhotoLogInputDto updatedPhotoLog) {
+    public ResponseEntity<Object> updatePhotoLog(@PathVariable("id") Long id, @RequestBody PhotoLogDto dto) {
 
-        PhotoLogDto photoLog = photoLogService.updatePhotoLog(id, updatedPhotoLog);
+        photoLogService.updatePhotoLog(id, dto);
 
-        return ResponseEntity.ok().body(photoLog);
+        return ResponseEntity.ok().body(dto);
     }
 
     @DeleteMapping(path = "/{id}")

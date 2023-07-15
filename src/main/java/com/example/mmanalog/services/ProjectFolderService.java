@@ -65,19 +65,20 @@ public class ProjectFolderService {
         return transferProjectFolderToDto(folder);
     }
 
-    public ProjectFolderDto updateProjectFolder(Long id, ProjectFolderInputDto updatedProjectFolder) {
-
-        if (projectFolderRepository.findById(id).isPresent()) {
-            ProjectFolder projectFolder = projectFolderRepository.findById(id).get();
-
-            ProjectFolder projectFolder1 = transferToProjectFolder(updatedProjectFolder);
-            projectFolder1.setId(projectFolder.getId());
-            projectFolderRepository.save(projectFolder1);
-
-            return transferProjectFolderToDto(projectFolder1);
-        } else {
+    public void updateProjectFolder(Long id, ProjectFolderDto updatedProjectFolder) {
+        if (!projectFolderRepository.existsById(id)) {
             throw new RecordNotFoundException("No project folder found with id: " + id);
         }
+        ProjectFolder storedProjectFolder = projectFolderRepository.findById(id).orElse(null);
+
+            storedProjectFolder.setId(updatedProjectFolder.getId());
+            storedProjectFolder.setProjectTitle(updatedProjectFolder.getProjectTitle());
+            storedProjectFolder.setProjectConcept(updatedProjectFolder.getProjectConcept());
+            storedProjectFolder.setUser(updatedProjectFolder.getUser());
+//            storedProjectFolder.setPhotoLogs(updatedProjectFolder.user.getUserPhotoLogs());
+            projectFolderRepository.save(storedProjectFolder);
+
+        //transferProjectFolderToDto(projectFolderRepository.save(storedProjectFolder));
     }
 
     public void deleteProjectFolder(@RequestBody Long id) {

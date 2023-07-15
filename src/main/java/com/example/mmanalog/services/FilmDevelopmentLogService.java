@@ -62,19 +62,31 @@ public class FilmDevelopmentLogService {
         return transferFilmDevelopmentLogToDto(filmDevelopmentLog);
     }
 
-    public FilmDevelopmentLogDto updateFilmDevelopmentLog(Long id, FilmDevelopmentLogInputDto updatedFilmDevelopmentLog) {
-
-        if (filmDevelopmentLogRepository.findById(id).isPresent()) {
-            FilmDevelopmentLog filmDevelopmentLog = filmDevelopmentLogRepository.findById(id).get();
-
-            FilmDevelopmentLog filmDevelopmentLog1 = transferToFilmDevelopmentLog(updatedFilmDevelopmentLog);
-            filmDevelopmentLog1.setId(filmDevelopmentLog.getId());
-            filmDevelopmentLogRepository.save(filmDevelopmentLog1);
-
-            return transferFilmDevelopmentLogToDto(filmDevelopmentLog1);
-        } else {
+    public void updateFilmDevelopmentLog(Long id, FilmDevelopmentLogDto updatedFilmDevelopmentLog) {
+        if(!filmDevelopmentLogRepository.existsById(id)) {
             throw new RecordNotFoundException("No film development log found with id: " + id);
         }
+        FilmDevelopmentLog storedFilmDevelopmentLog = filmDevelopmentLogRepository.findById(id).orElse(null);
+        storedFilmDevelopmentLog.setId(updatedFilmDevelopmentLog.getId());
+        storedFilmDevelopmentLog.setRollName(updatedFilmDevelopmentLog.getRollName());
+        storedFilmDevelopmentLog.setProject(updatedFilmDevelopmentLog.getProject());
+        storedFilmDevelopmentLog.setCamera(updatedFilmDevelopmentLog.getCamera());
+        storedFilmDevelopmentLog.setFilmStock(updatedFilmDevelopmentLog.getFilmStock());
+        storedFilmDevelopmentLog.setFilmFormat(updatedFilmDevelopmentLog.getFilmFormat());
+        storedFilmDevelopmentLog.setShotAtIso(updatedFilmDevelopmentLog.getShotAtIso());
+        storedFilmDevelopmentLog.setDevelopmentProcess(updatedFilmDevelopmentLog.getDevelopmentProcess());
+        storedFilmDevelopmentLog.setStatus(updatedFilmDevelopmentLog.getStatus());
+        storedFilmDevelopmentLog.setRollStarted(updatedFilmDevelopmentLog.getRollStarted());
+        storedFilmDevelopmentLog.setRollFinished(updatedFilmDevelopmentLog.getRollFinished());
+        storedFilmDevelopmentLog.setExposed(updatedFilmDevelopmentLog.isExposed());
+        storedFilmDevelopmentLog.setDeveloped(updatedFilmDevelopmentLog.isDeveloped());
+        storedFilmDevelopmentLog.setScanned(updatedFilmDevelopmentLog.isScanned());
+        storedFilmDevelopmentLog.setDevelopedByLab(updatedFilmDevelopmentLog.getDevelopedByLab());
+        storedFilmDevelopmentLog.setUser(updatedFilmDevelopmentLog.getUser());
+
+        filmDevelopmentLogRepository.save(storedFilmDevelopmentLog);
+
+        //transferFilmDevelopmentLogToDto(filmDevelopmentLogRepository.save(storedFilmDevelopmentLog));
     }
 
     public void deleteFilmDevelopmentLog(@RequestBody Long id) {

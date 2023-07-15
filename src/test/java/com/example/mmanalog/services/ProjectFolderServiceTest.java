@@ -146,39 +146,51 @@ class ProjectFolderServiceTest {
         assertEquals(projectFolder.getProjectConcept(), resultProjectFolderDto.getProjectConcept());
     }
 
-    @Test
+  @Test
     void updateProjectFolder() {
-        //Arrange
-        ProjectFolderInputDto projectFolderInputDto = new ProjectFolderInputDto();
-        projectFolderInputDto.setProjectTitle("Project 2 update");
-        projectFolderInputDto.setProjectConcept("Updated concept of project 2");
-        ProjectFolder projectFolder = new ProjectFolder();
-        projectFolder.setProjectTitle("Project 2 update");
-        projectFolder.setProjectConcept("Updated concept of project 2");
+        // Arrange
+        Long projectId = 2L;
+        ProjectFolderDto updatedProjectFolder = new ProjectFolderDto();
+        updatedProjectFolder.setId(projectId);
+        updatedProjectFolder.setProjectTitle("Project 2 update");
+        updatedProjectFolder.setProjectConcept("Updated concept of project 2");
 
-        //Act
-        when(projectFolderRepository.findById(2L)).thenReturn(Optional.of(projectFolder2));
+        ProjectFolder storedProjectFolder = new ProjectFolder();
+        storedProjectFolder.setId(projectId);
+        storedProjectFolder.setProjectTitle("Old project title");
+        storedProjectFolder.setProjectConcept("Old project concept");
 
-        projectFolderService.updateProjectFolder(2L, projectFolderInputDto);
+        when(projectFolderRepository.existsById(projectId)).thenReturn(true);
+        when(projectFolderRepository.findById(projectId)).thenReturn(Optional.of(storedProjectFolder));
+        when(projectFolderRepository.save(any(ProjectFolder.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
-        verify(projectFolderRepository, times(1)).save(captor.capture());
+        // Act
+        projectFolderService.updateProjectFolder(projectId, updatedProjectFolder);
 
-        ProjectFolder captured = captor.getValue();
+        // Assert
+        verify(projectFolderRepository, times(1)).existsById(projectId);
+        verify(projectFolderRepository, times(1)).findById(projectId);
+        verify(projectFolderRepository, times(1)).save(any(ProjectFolder.class));
 
-        //Assert
-        assertEquals(projectFolder.getProjectTitle(), captured.getProjectTitle());
-        assertEquals(projectFolder.getProjectConcept(), captured.getProjectConcept());
+        // Verify that the storedProjectFolder is updated
+        assertEquals(updatedProjectFolder.getProjectTitle(), storedProjectFolder.getProjectTitle());
+        assertEquals(updatedProjectFolder.getProjectConcept(), storedProjectFolder.getProjectConcept());
     }
 
     @Test
     void updateProjectFolderThrowsExceptionTest() {
-        //Arrange
+        // Arrange
         Long nonExistingId = 888L;
-        ProjectFolderInputDto updatedProjectFolder = new ProjectFolderInputDto();
+        ProjectFolderDto updatedProjectFolder = new ProjectFolderDto();
         updatedProjectFolder.setProjectTitle("updated project folder");
 
-        //Act and Assert
+        when(projectFolderRepository.existsById(nonExistingId)).thenReturn(false);
+
+        // Act and Assert
         assertThrows(RecordNotFoundException.class, () -> projectFolderService.updateProjectFolder(nonExistingId, updatedProjectFolder));
+
+        // Verify that the repository method was called
+        verify(projectFolderRepository, times(1)).existsById(nonExistingId);
     }
 
     @Test

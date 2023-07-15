@@ -210,42 +210,47 @@ class FilmStockInventoryServiceTest {
 
     @Test
     void updateFilmStockInventory() {
-        //Arrange
-        FilmStockInventoryInputDto filmStockInventoryInputDto = new FilmStockInventoryInputDto();
-        filmStockInventoryInputDto.setFilmStockName("Kodak Ultra Max");
-        filmStockInventoryInputDto.setStock("Ultra Max");
-        filmStockInventoryInputDto.setIso(400);
-        FilmStockInventory filmStockInventory = new FilmStockInventory();
-        filmStockInventory.setFilmStockName("Kodak Ultra Max");
-        filmStockInventory.setStock("Ultra Max");
-        filmStockInventory.setIso(400);
+        // Arrange
+        FilmStockInventoryDto filmStockInventoryDto = new FilmStockInventoryDto();
+        filmStockInventoryDto.setFilmStockName("Kodak Ultra Max");
+        filmStockInventoryDto.setStock("Ultra Max");
+        filmStockInventoryDto.setIso(400);
+        FilmStockInventory storedFilmStockInventory = new FilmStockInventory();
+        storedFilmStockInventory.setId(3L);
+        storedFilmStockInventory.setFilmStockName("Original Film Stock");
+        storedFilmStockInventory.setStock("Original Stock");
+        storedFilmStockInventory.setIso(200);
 
-        //Act
-        when(filmStockInventoryRepository.findById(3L)).thenReturn(Optional.of(filmStockInventory3));
+        // Mock the behavior of the filmStockInventoryRepository
+        when(filmStockInventoryRepository.existsById(3L)).thenReturn(true);
+        when(filmStockInventoryRepository.findById(3L)).thenReturn(Optional.of(storedFilmStockInventory));
 
-        filmStockInventoryService.updateFilmStockInventory(3L, filmStockInventoryInputDto);
+        // Act
+        filmStockInventoryService.updateFilmStockInventory(3L, filmStockInventoryDto);
 
-        verify(filmStockInventoryRepository, times(1)).save(captor.capture());
-
-        FilmStockInventory captured = captor.getValue();
-
-        //Assert
-        assertEquals(filmStockInventory.getFilmStockName(), captured.getFilmStockName());
-        assertEquals(filmStockInventory.getStock(), captured.getStock());
-        assertEquals(filmStockInventory.getIso(), captured.getIso());
+        // Assert
+        verify(filmStockInventoryRepository, times(1)).save(any(FilmStockInventory.class));
+        assertEquals(filmStockInventoryDto.getFilmStockName(), storedFilmStockInventory.getFilmStockName());
+        assertEquals(filmStockInventoryDto.getStock(), storedFilmStockInventory.getStock());
+        assertEquals(filmStockInventoryDto.getIso(), storedFilmStockInventory.getIso());
     }
+
 
     @Test
     void updateFilmStockInventoryThrowsExceptionTest() {
         // Arrange
         Long nonExistingId = 999L;
-        FilmStockInventoryInputDto updatedFilmStockInventory = new FilmStockInventoryInputDto();
+        FilmStockInventoryDto updatedFilmStockInventory = new FilmStockInventoryDto();
         updatedFilmStockInventory.setFilmStockName("Updated Film Stock");
+
+        // Mock the behavior of the filmStockInventoryRepository
+        when(filmStockInventoryRepository.existsById(nonExistingId)).thenReturn(false);
 
         // Act and Assert
         assertThrows(RecordNotFoundException.class, () ->
                 filmStockInventoryService.updateFilmStockInventory(nonExistingId, updatedFilmStockInventory));
     }
+
 
     @Test
     void deleteFilmStockInventory() {

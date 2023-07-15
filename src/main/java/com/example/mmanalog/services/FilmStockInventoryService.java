@@ -8,7 +8,6 @@ import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.repositories.FilmStockInventoryRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -64,20 +63,29 @@ public class FilmStockInventoryService {
         return transferFilmStockInventoryToDto(filmStockInventory);
     }
 
-    public FilmStockInventoryDto updateFilmStockInventory(Long id, FilmStockInventoryInputDto updatedFilmStockInventory) {
+    public void updateFilmStockInventory(Long id, FilmStockInventoryDto updatedFilmStockInventory) {
 
-
-        if (filmStockInventoryRepository.findById(id).isPresent()) {
-            FilmStockInventory filmStockInventory = filmStockInventoryRepository.findById(id).get();
-
-            FilmStockInventory filmStockInventory1 = transferToFilmStockInventory(updatedFilmStockInventory);
-            filmStockInventory1.setId(filmStockInventory.getId());
-            filmStockInventoryRepository.save(filmStockInventory1);
-
-            return transferFilmStockInventoryToDto(filmStockInventory1);
-        } else {
+        if (!filmStockInventoryRepository.existsById(id)) {
             throw new RecordNotFoundException("No film stock inventory found with id: " + id);
         }
+        FilmStockInventory storedFilmStockInventory = filmStockInventoryRepository.findById(id).orElse(null);
+        storedFilmStockInventory.setId(updatedFilmStockInventory.getId());
+        storedFilmStockInventory.setFilmStockName(updatedFilmStockInventory.getFilmStockName());
+        storedFilmStockInventory.setRemainingRolls(updatedFilmStockInventory.getRemainingRolls());
+        storedFilmStockInventory.setBrand(updatedFilmStockInventory.getBrand());
+        storedFilmStockInventory.setStock(updatedFilmStockInventory.getStock());
+        storedFilmStockInventory.setFormat(updatedFilmStockInventory.getFormat());
+        storedFilmStockInventory.setIso(updatedFilmStockInventory.getIso());
+        storedFilmStockInventory.setDevelopmentProcess(updatedFilmStockInventory.getDevelopmentProcess());
+        storedFilmStockInventory.setStorage(updatedFilmStockInventory.getStorage());
+        storedFilmStockInventory.setRollsShot(updatedFilmStockInventory.getRollsShot());
+        storedFilmStockInventory.setFilmExpirationDate(updatedFilmStockInventory.getFilmExpirationDate());
+        storedFilmStockInventory.setUser(updatedFilmStockInventory.getUser());
+
+
+            filmStockInventoryRepository.save(storedFilmStockInventory);
+
+        //transferFilmStockInventoryToDto(filmStockInventoryRepository.save(storedFilmStockInventory));
     }
 
     public void deleteFilmStockInventory(@RequestBody Long id) {
