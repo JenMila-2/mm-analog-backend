@@ -8,6 +8,7 @@ import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.repositories.FilmStockInventoryRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -64,6 +65,7 @@ public class FilmStockInventoryService {
     }
 
     public FilmStockInventoryDto updateFilmStockInventory(Long id, FilmStockInventoryInputDto updatedFilmStockInventory) {
+
 
         if (filmStockInventoryRepository.findById(id).isPresent()) {
             FilmStockInventory filmStockInventory = filmStockInventoryRepository.findById(id).get();
