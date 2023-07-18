@@ -67,7 +67,6 @@ public class FilmDevelopmentLogService {
             throw new RecordNotFoundException("No film development log found with id: " + id);
         }
         FilmDevelopmentLog storedFilmDevelopmentLog = filmDevelopmentLogRepository.findById(id).orElse(null);
-        storedFilmDevelopmentLog.setId(updatedFilmDevelopmentLog.getId());
         storedFilmDevelopmentLog.setRollName(updatedFilmDevelopmentLog.getRollName());
         storedFilmDevelopmentLog.setProject(updatedFilmDevelopmentLog.getProject());
         storedFilmDevelopmentLog.setCamera(updatedFilmDevelopmentLog.getCamera());
@@ -85,8 +84,6 @@ public class FilmDevelopmentLogService {
         storedFilmDevelopmentLog.setUser(updatedFilmDevelopmentLog.getUser());
 
         filmDevelopmentLogRepository.save(storedFilmDevelopmentLog);
-
-        //transferFilmDevelopmentLogToDto(filmDevelopmentLogRepository.save(storedFilmDevelopmentLog));
     }
 
     public void deleteFilmDevelopmentLog(@RequestBody Long id) {

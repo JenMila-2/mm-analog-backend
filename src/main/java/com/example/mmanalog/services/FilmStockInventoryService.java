@@ -69,7 +69,6 @@ public class FilmStockInventoryService {
             throw new RecordNotFoundException("No film stock inventory found with id: " + id);
         }
         FilmStockInventory storedFilmStockInventory = filmStockInventoryRepository.findById(id).orElse(null);
-        storedFilmStockInventory.setId(updatedFilmStockInventory.getId());
         storedFilmStockInventory.setFilmStockName(updatedFilmStockInventory.getFilmStockName());
         storedFilmStockInventory.setRemainingRolls(updatedFilmStockInventory.getRemainingRolls());
         storedFilmStockInventory.setBrand(updatedFilmStockInventory.getBrand());
@@ -82,10 +81,7 @@ public class FilmStockInventoryService {
         storedFilmStockInventory.setFilmExpirationDate(updatedFilmStockInventory.getFilmExpirationDate());
         storedFilmStockInventory.setUser(updatedFilmStockInventory.getUser());
 
-
-            filmStockInventoryRepository.save(storedFilmStockInventory);
-
-        //transferFilmStockInventoryToDto(filmStockInventoryRepository.save(storedFilmStockInventory));
+        filmStockInventoryRepository.save(storedFilmStockInventory);
     }
 
     public void deleteFilmStockInventory(@RequestBody Long id) {

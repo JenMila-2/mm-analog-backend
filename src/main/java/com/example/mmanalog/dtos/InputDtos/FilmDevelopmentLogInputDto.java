@@ -17,21 +17,18 @@ import java.time.LocalDate;
 public class FilmDevelopmentLogInputDto {
 
     public Long id;
-    @Size(max=75, message="This field cannot contain more than 75 characters.")
+    @Size(min = 5, max = 75, message = "This field must be between 5 and 75 characters long")
     public String rollName;
-
-    @Size(max=75, message="This field cannot contain more than 75 characters.")
+    @Size(min = 5, max = 75, message = "This field must be between 5 and 75 characters long")
     public String project;
-    @Size(max=75, message="This field cannot contain more than 75 characters.")
+    @Size(min = 5, max = 75, message = "This field must be between 5 and 75 characters long")
     public String camera;
-    @Size(max=75, message="This field cannot contain more than 75 characters.")
+    @Size(min = 5, max = 75, message = "This field must be between 5 and 75 characters long")
     public String filmStock;
-    @Size(max=75, message="This field cannot contain more than 75 characters.")
     public String filmFormat;
     public int shotAtIso;
-    @Size(max=75, message="This field cannot contain more than 75 characters.")
+    @Size(min = 5, max = 75, message = "This field must be between 5 and 75 characters long")
     public String developmentProcess;
-    @Size(max=75, message="This field cannot contain more than 75 characters.")
     public String status;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate rollStarted;
@@ -40,7 +37,7 @@ public class FilmDevelopmentLogInputDto {
     public boolean exposed;
     public boolean developed;
     public boolean scanned;
-    @Size(max=75, message="This field cannot contain more than 75 characters.")
+    @Size(min = 5, max = 75, message = "This field must be between 5 and 75 characters long")
     public String developedByLab;
 
     public User user;

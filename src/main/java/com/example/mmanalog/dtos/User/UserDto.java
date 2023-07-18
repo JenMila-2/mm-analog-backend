@@ -21,10 +21,12 @@ public class UserDto {
 
     @Id
     @NotNull(message = "Username cannot be empty")
+    @Length(min = 5, message = "Username should be at least 5 characters long")
     @Column(nullable = false, unique = true)
     public String username;
 
     @NotNull(message = "Name cannot be empty")
+    @Length(min = 5, message = "Name should be at least 5 characters long")
     public String name;
 
     @NotNull(message = "Email cannot be empty")

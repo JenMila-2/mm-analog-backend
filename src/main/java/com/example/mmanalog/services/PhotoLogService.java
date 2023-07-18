@@ -88,7 +88,6 @@ public class PhotoLogService {
             throw new RecordNotFoundException("No photo log found with id: " + id);
         }
         PhotoLog storedPhotoLog = photoLogRepository.findById(id).orElse(null);
-        storedPhotoLog.setId(updatedPhotoLog.getId());
         storedPhotoLog.setPhotoTitle(updatedPhotoLog.getPhotoTitle());
         storedPhotoLog.setCamera(updatedPhotoLog.getCamera());
         storedPhotoLog.setFilmStock(updatedPhotoLog.getFilmStock());

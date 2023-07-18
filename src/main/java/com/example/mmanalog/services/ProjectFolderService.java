@@ -70,15 +70,11 @@ public class ProjectFolderService {
             throw new RecordNotFoundException("No project folder found with id: " + id);
         }
         ProjectFolder storedProjectFolder = projectFolderRepository.findById(id).orElse(null);
-
-            storedProjectFolder.setId(updatedProjectFolder.getId());
             storedProjectFolder.setProjectTitle(updatedProjectFolder.getProjectTitle());
             storedProjectFolder.setProjectConcept(updatedProjectFolder.getProjectConcept());
             storedProjectFolder.setUser(updatedProjectFolder.getUser());
-//            storedProjectFolder.setPhotoLogs(updatedProjectFolder.user.getUserPhotoLogs());
+            //storedProjectFolder.setPhotoLogs(updatedProjectFolder.user.getUserPhotoLogs());
             projectFolderRepository.save(storedProjectFolder);
-
-        //transferProjectFolderToDto(projectFolderRepository.save(storedProjectFolder));
     }
 
     public void deleteProjectFolder(@RequestBody Long id) {
