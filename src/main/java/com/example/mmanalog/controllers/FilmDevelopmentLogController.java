@@ -51,7 +51,7 @@ public class FilmDevelopmentLogController {
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<FilmDevelopmentLogDto> updateFilmDevelopmentLog(@PathVariable("id") Long id, @RequestBody FilmDevelopmentLogDto dto) {
+    public ResponseEntity<Object> updateFilmDevelopmentLog(@PathVariable("id") Long id, @RequestBody FilmDevelopmentLogDto dto) {
 
         filmDevelopmentLogService.updateFilmDevelopmentLog(id, dto);
 
