@@ -24,8 +24,8 @@ public class FilmDevelopmentLog {
     private String rollName;
     private String project;
     private String camera;
-    private String filmStock;
-    private String filmFormat;
+    private String stock;
+    private String format;
     private int shotAtIso;
     private String developmentProcess;
     private String status;
@@ -38,7 +38,7 @@ public class FilmDevelopmentLog {
     private boolean scanned;
     private String developedByLab;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "username")
     @JsonIgnore
     private User user;

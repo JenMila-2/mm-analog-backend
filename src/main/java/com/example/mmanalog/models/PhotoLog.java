@@ -21,25 +21,23 @@ public class PhotoLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String photoTitle;
+    private String title;
     private String camera;
-    private String filmStock;
-    private String filmFormat;
-    private int shotAtIso;
+    private String stock;
+    private int iso;
     private String aperture;
     private String shutterSpeed;
     private String exposureCompensation;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateTaken;
-    private String developedByLab;
     private String notes;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "folder_id")
     @JsonIgnore
     private ProjectFolder projectFolder;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "username")
     @JsonIgnore
     private User user;

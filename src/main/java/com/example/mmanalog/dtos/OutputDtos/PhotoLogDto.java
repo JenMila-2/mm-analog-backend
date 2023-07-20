@@ -16,17 +16,15 @@ import java.time.LocalDate;
 public class PhotoLogDto {
 
     public Long id;
-    public String photoTitle;
+    public String title;
     public String camera;
-    public String filmStock;
-    public String filmFormat;
-    public int shotAtIso;
+    public String stock;
+    public int iso;
     public String aperture;
     public String shutterSpeed;
     public String exposureCompensation;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate dateTaken;
-    public String developedByLab;
     public String notes;
 
     public ProjectFolder projectFolder;

@@ -19,8 +19,8 @@ public class FilmDevelopmentLogDto {
     public String rollName;
     public String project;
     public String camera;
-    public String filmStock;
-    public String filmFormat;
+    public String stock;
+    public String format;
     public int shotAtIso;
     public String developmentProcess;
     public String status;

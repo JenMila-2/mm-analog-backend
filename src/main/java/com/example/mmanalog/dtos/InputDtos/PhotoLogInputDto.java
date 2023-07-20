@@ -19,13 +19,12 @@ public class PhotoLogInputDto {
     public Long id;
     @NotNull
     @Size(min = 3, max = 75, message = "This field must be between 3 and 75 characters long")
-    public String photoTitle;
+    public String title;
     @Size(min = 3, max = 75, message = "This field must be between 3 and 75 characters long")
     public String camera;
     @Size(min = 3, max = 75, message = "This field must be between 3 and 75 characters long")
-    public String filmStock;
-    public String filmFormat;
-    public int shotAtIso;
+    public String stock;
+    public int iso;
     @Size(min = 3, max = 75, message = "This field must be between 3 and 75 characters long")
     public String aperture;
     @Size(min = 3, max = 75, message = "This field must be between 3 and 75 characters long")
@@ -34,8 +33,6 @@ public class PhotoLogInputDto {
     public String exposureCompensation;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate dateTaken;
-    @Size(min = 3, max = 75, message = "This field must be between 3 and 75 characters long")
-    public String developedByLab;
     @Size(min = 5, max = 250, message = "This field must be between 5 and 250 characters long")
     public String notes;
 

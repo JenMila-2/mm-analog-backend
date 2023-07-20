@@ -43,16 +43,10 @@ public class PhotoLogController {
         return ResponseEntity.ok().body(userPhotoLogs);
     }
 
-    @GetMapping(path = "/film_stock/{film_stock}")
-    public ResponseEntity<List<PhotoLogDto>> getByPhotoLogFilmStock(@PathVariable String film_stock) {
+    @GetMapping(path = "/film_stock/{filmStock}")
+    public ResponseEntity<List<PhotoLogDto>> getByPhotoLogFilmStock(@PathVariable String filmStock) {
 
-        return ResponseEntity.ok(photoLogService.getByPhotoLogFilmStock(film_stock));
-    }
-
-    @GetMapping(path = "/film_format/{film_format}")
-    public ResponseEntity<List<PhotoLogDto>> getByPhotoLogFilmFormat(@PathVariable String film_format) {
-
-        return ResponseEntity.ok(photoLogService.getByPhotoLogFilmFormat(film_format));
+        return ResponseEntity.ok(photoLogService.getByPhotoLogFilmStock(filmStock));
     }
 
     @PostMapping(path = "/new")

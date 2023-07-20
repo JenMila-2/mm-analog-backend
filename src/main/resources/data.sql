@@ -75,76 +75,76 @@ VALUES
     (110, 'Project B&W', 'Collection of B&W portraits.', 'User2');
 
 --Photo Logs user Pedro20
-INSERT INTO photologs (id, photo_title, camera, film_stock, film_format, shot_at_iso, aperture, shutter_speed, exposure_compensation, date_taken, developed_by_lab, notes, folder_id, username)
+INSERT INTO photologs (id, title, camera, stock, iso, aperture, shutter_speed, exposure_compensation, date_taken, notes, folder_id, username)
 VALUES
-    (100, 'Portrait_Mom_1', 'Minolta X-570','Kodak Portra 400', '35mm', 400, 'f/4', '1/60', '+1', '2022-10-01', 'Fotowereld Utrecht', 'Portrait of mom', 100, 'Pedro20'),
-    (101, 'Portrait_Mom_2', 'Minolta X-570','Kodak Portra 400', '35mm', 400, 'f/4', '1/60', '+1', '2022-10-01', 'Fotowereld Utrecht', 'Portrait of mom', 100, 'Pedro20'),
-    (102, 'Portrait_Mom_3', 'Minolta X-570','Kodak Portra 400', '35mm', 400, 'f/4', '1/60', '+1', '2022-10-01', 'Fotowereld Utrecht', 'Portrait of mom', 100, 'Pedro20'),
-    (103, 'Portrait_Mom_4', 'Minolta X-570','Kodak Portra 400', '35mm', 400, 'f/4', '1/60', '+1', '2022-10-01', 'Fotowereld Utrecht', 'Portrait of mom', 100, 'Pedro20'),
-    (104, 'Portrait_Mom_5', 'Minolta X-570','Kodak Portra 400', '35mm', 400, 'f/4', '1/60', '+1', '2022-10-01', 'Fotowereld Utrecht', 'Portrait of mom', 100, 'Pedro20');
+    (100, 'Portrait_Mom_1', 'Minolta X-570','Kodak Portra 400', 400, 'f/4', '1/60', '+1', '2022-10-01', 'Portrait of mom', 100, 'Pedro20'),
+    (101, 'Portrait_Mom_2', 'Minolta X-570','Kodak Portra 400', 400, 'f/4', '1/60', '+1', '2022-10-01', 'Portrait of mom', 100, 'Pedro20'),
+    (102, 'Portrait_Mom_3', 'Minolta X-570','Kodak Portra 400', 400, 'f/4', '1/60', '+1', '2022-10-01', 'Portrait of mom', 100, 'Pedro20'),
+    (103, 'Portrait_Mom_4', 'Minolta X-570','Kodak Portra 400', 400, 'f/4', '1/60', '+1', '2022-10-01', 'Portrait of mom', 100, 'Pedro20'),
+    (104, 'Portrait_Mom_5', 'Minolta X-570','Kodak Portra 400', 400, 'f/4', '1/60', '+1', '2022-10-01', 'Portrait of mom', 100, 'Pedro20');
 
 --Photo Logs user Marisol2023
-INSERT INTO photologs (id, photo_title, camera, film_stock, film_format, shot_at_iso, aperture, shutter_speed, exposure_compensation, date_taken, developed_by_lab, notes, folder_id, username)
+INSERT INTO photologs (id, title, camera, stock, iso, aperture, shutter_speed, exposure_compensation, date_taken, notes, folder_id, username)
 VALUES
-    (105, 'Goddess_1', 'Nikon F6','Kodak Portra 800', '35mm', 800, 'f/4', '1/80', '0', '2022-06-10', 'Fotowereld Utrecht', 'Portrait of Jenny', 103, 'Marisol2023'),
-    (106, 'Goddess_2', 'Nikon F6','Kodak Portra 800', '35mm', 800, 'f/4', '1/80', '+1', '2022-07-01', 'Fotowereld Utrecht', 'Portrait of Nicolle', 103, 'Marisol2023'),
-    (107, 'Goddess_3', 'Nikon F6','Kodak Portra 800', '35mm', 800, 'f/4', '1/80', '0', '2023-02-01', 'Fotowereld Utrecht', 'Portrait of Nathalie', 103, 'Marisol2023'),
-    (108, 'Goddess_4', 'Nikon F6','Kodak Portra 800', '35mm', 800, 'f/5.6', '1/60', '0', '2023-02-01', 'Fotowereld Utrecht', 'Portrait of Solange', 103, 'Marisol2023'),
-    (109, 'Goddess_5', 'Nikon F6','Kodak Portra 800', '35mm', 800, 'f/5.6', '1/60', '0', '2023-03-14', 'Fotowereld Utrecht', 'Portrait of Sharine', 103, 'Marisol2023');
+    (105, 'Goddess_1', 'Nikon F6','Kodak Portra 800', 800, 'f/4', '1/80', '0', '2022-06-10', 'Portrait of Jenny', 103, 'Marisol2023'),
+    (106, 'Goddess_2', 'Nikon F6','Kodak Portra 800', 800, 'f/4', '1/80', '+1', '2022-07-01', 'Portrait of Nicolle', 103, 'Marisol2023'),
+    (107, 'Goddess_3', 'Nikon F6','Kodak Portra 800', 800, 'f/4', '1/80', '0', '2023-02-01', 'Portrait of Nathalie', 103, 'Marisol2023'),
+    (108, 'Goddess_4', 'Nikon F6','Kodak Portra 800', 800, 'f/5.6', '1/60', '0', '2023-02-01', 'Portrait of Solange', 103, 'Marisol2023'),
+    (109, 'Goddess_5', 'Nikon F6','Kodak Portra 800', 800, 'f/5.6', '1/60', '0', '2023-03-14', 'Portrait of Sharine', 103, 'Marisol2023');
 
 --Photo Logs user Jensy2222
-INSERT INTO photologs (id, photo_title, camera, film_stock, film_format, shot_at_iso, aperture, shutter_speed, exposure_compensation, date_taken, developed_by_lab, notes, folder_id, username)
+INSERT INTO photologs (id, title, camera, stock, iso, aperture, shutter_speed, exposure_compensation, date_taken, notes, folder_id, username)
 VALUES
-    (110, 'Dreaming_1', 'Minolta SRT101','Kodak Gold 200', '35mm', 200, 'f/5.6', '1/60', '+1', '2023-01-01', 'Fotowereld Utrecht', 'Shot this at moms home in Amsterdam', 105, 'Jensy2222'),
-    (111, 'Dreaming_2', 'Minolta SRT101','Kodak Gold 200', '35mm', 200, 'f/4', '1/60', '+1', '2023-01-10', 'Fotowereld Utrecht', 'Re-take this image but in B&W', 105, 'Jensy2222'),
-    (112, 'Dreaming_3', 'Minolta SRT101','Ilford Delta 3200', '35mm', 1000, 'f/8', '1/60', '0', '2023-04-14', 'Fotowereld Utrecht', 'Love the look of the Delta 3200. I need to include this film stock more in my projects.', 105, 'Jensy2222'),
-    (113, 'Dreaming_4', 'Minolta SRT101','Ilford Delta 3200', '35mm', 1000, 'f/8', '1/80', '0', '2023-05-21', 'Fotowereld Utrecht', 'Shot at home during a Sunday morning', 105, 'Jensy2222'),
-    (114, 'Dreaming_5', 'Minolta SRT101','Ilford Delta 3200', '35mm', 1000, 'f/5.6', '1/80', '0', '2023-05-21', 'Fotowereld Utrecht', 'Sunday morning at home photo shoot session', 105, 'Jensy2222');
+    (110, 'Dreaming_1', 'Minolta SRT101','Kodak Gold 200', 200, 'f/5.6', '1/60', '+1', '2023-01-01', 'Shot this at moms home in Amsterdam', 105, 'Jensy2222'),
+    (111, 'Dreaming_2', 'Minolta SRT101','Kodak Gold 200', 200, 'f/4', '1/60', '+1', '2023-01-10', 'Re-take this image but in B&W', 105, 'Jensy2222'),
+    (112, 'Dreaming_3', 'Minolta SRT101','Ilford Delta 3200', 1000, 'f/8', '1/60', '0', '2023-04-14', 'Love the look of the Delta 3200. I need to include this film stock more in my projects.', 105, 'Jensy2222'),
+    (113, 'Dreaming_4', 'Minolta SRT101','Ilford Delta 3200', 1000, 'f/8', '1/80', '0', '2023-05-21', 'Shot at home during a Sunday morning', 105, 'Jensy2222'),
+    (114, 'Dreaming_5', 'Minolta SRT101','Ilford Delta 3200', 1000, 'f/5.6', '1/80', '0', '2023-05-21', 'Sunday morning at home photo shoot session', 105, 'Jensy2222');
 
 --Photo Logs user Benniezzzzzz80
-INSERT INTO photologs (id, photo_title, camera, film_stock, film_format, shot_at_iso, aperture, shutter_speed, exposure_compensation, date_taken, developed_by_lab, notes, folder_id, username)
+INSERT INTO photologs (id, title, camera, stock, iso, aperture, shutter_speed, exposure_compensation, date_taken, notes, folder_id, username)
 VALUES
-    (115, 'Night_1', 'Nikon F3','CineStill 800T', '35mm', 800, 'f/8', '1/60', '+2', '2023-03-01', 'Ontwikkelservice Foto Verweij', 'Night photo walk', 107, 'Benniezzzzzz80'),
-    (116, 'Night_2', 'Nikon F3','CineStill 800T', '35mm', 800, 'f/8', '1/60', '+2', '2023-03-01', 'Ontwikkelservice Foto Verweij', 'Night photo walk', 107, 'Benniezzzzzz80'),
-    (117, 'Night_3', 'Nikon F3','CineStill 800T', '35mm', 800, 'f/8', '1/60', '+2', '2023-03-01', 'Ontwikkelservice Foto Verweij', 'Night photo walk', 107, 'Benniezzzzzz80'),
-    (118, 'Night_4', 'Nikon F3','CineStill 800T', '35mm', 800, 'f/8', '1/60', '+2', '2023-03-01', 'Ontwikkelservice Foto Verweij', 'Night photo walk', 107, 'Benniezzzzzz80'),
-    (119, 'Night_5', 'Nikon F3','CineStill 800T', '35mm', 800, 'f/8', '1/60', '+2', '2023-03-01', 'Ontwikkelservice Foto Verweij', 'Night photo walk', 107, 'Benniezzzzzz80');
+    (115, 'Night_1', 'Nikon F3','CineStill 800T', 800, 'f/8', '1/60', '+2', '2023-03-01', 'Night photo walk', 107, 'Benniezzzzzz80'),
+    (116, 'Night_2', 'Nikon F3','CineStill 800T', 800, 'f/8', '1/60', '+2', '2023-03-01', 'Night photo walk', 107, 'Benniezzzzzz80'),
+    (117, 'Night_3', 'Nikon F3','CineStill 800T', 800, 'f/8', '1/60', '+2', '2023-03-01', 'Night photo walk', 107, 'Benniezzzzzz80'),
+    (118, 'Night_4', 'Nikon F3','CineStill 800T', 800, 'f/8', '1/60', '+2', '2023-03-01', 'Night photo walk', 107, 'Benniezzzzzz80'),
+    (119, 'Night_5', 'Nikon F3','CineStill 800T', 800, 'f/8', '1/60', '+2', '2023-03-01', 'Night photo walk', 107, 'Benniezzzzzz80');
 
 --Photo Logs user User2
-INSERT INTO photologs (id, photo_title, camera, film_stock, film_format, shot_at_iso, aperture, shutter_speed, exposure_compensation, date_taken, developed_by_lab, notes, folder_id, username)
+INSERT INTO photologs (id, title, camera, stock, iso, aperture, shutter_speed, exposure_compensation, date_taken, notes, folder_id, username)
 VALUES
-    (120, 'Color_1', 'Canon AE-1','Kodak Ultra Max', '35mm', 400, 'f/5.6', '1/60', '+1', '2023-04-01', 'Ontwikkelservice Foto Verweij', 'Shot on a trip to Paris', 109, 'User2'),
-    (121, 'Color_2', 'Canon AE-1','Kodak Ultra Max', '35mm', 400, 'f/8', '1/60', '0', '2023-04-01', 'Ontwikkelservice Foto Verweij', 'Shot on a trip to Paris', 109, 'User2'),
-    (122, 'Color_3', 'Canon AE-1','Kodak Ultra Max', '35mm', 400, 'f/5.6', '1/80', '0', '2023-04-01', 'Ontwikkelservice Foto Verweij', 'Shot on a trip to Paris', 109, 'User2'),
-    (123, 'Color_4', 'Canon AE-1','Kodak Ultra Max', '35mm', 400, 'f/8', '1/60', '0', '2023-04-01', 'Ontwikkelservice Foto Verweij', 'Shot on a trip to Paris', 109, 'User2'),
-    (124, 'Color_5', 'Canon AE-1','Kodak Ultra Max', '35mm', 400, 'f/8', '1/60', '0', '2023-04-01', 'Ontwikkelservice Foto Verweij', 'Shot on a trip to Paris', 109, 'User2');
+    (120, 'Color_1', 'Canon AE-1','Kodak Ultra Max', 400, 'f/5.6', '1/60', '+1', '2023-04-01', 'Shot on a trip to Paris', 109, 'User2'),
+    (121, 'Color_2', 'Canon AE-1','Kodak Ultra Max', 400, 'f/8', '1/60', '0', '2023-04-01', 'Shot on a trip to Paris', 109, 'User2'),
+    (122, 'Color_3', 'Canon AE-1','Kodak Ultra Max', 400, 'f/5.6', '1/80', '0', '2023-04-01', 'Shot on a trip to Paris', 109, 'User2'),
+    (123, 'Color_4', 'Canon AE-1','Kodak Ultra Max', 400, 'f/8', '1/60', '0', '2023-04-01', 'Shot on a trip to Paris', 109, 'User2'),
+    (124, 'Color_5', 'Canon AE-1','Kodak Ultra Max', 400, 'f/8', '1/60', '0', '2023-04-01', 'Shot on a trip to Paris', 109, 'User2');
 
 --Film Development logs user Pedro20
-INSERT INTO filmdevelopmentlogs (id, roll_name, project, camera, film_stock, film_format, shot_at_iso, development_process, status, roll_started, roll_finished, exposed, developed, scanned, developed_by_lab, username)
+INSERT INTO filmdevelopmentlogs (id, roll_name, project, camera, stock, format, shot_at_iso, development_process, status, roll_started, roll_finished, exposed, developed, scanned, developed_by_lab, username)
 VALUES
     (100, 'Roll 100 - Kodak Portra 800', 'Varia, no specific project','Minolta X-57', 'Kodak Portra 800', '35mm', 800, 'C-41 Color', 'Done', '2023-04-01', '2023-04-20', true, true, true, 'Ontwikkelservice Foto Verweij', 'Pedro20'),
     (101, 'Roll 101 - HP5 Plus', 'Street photos in B&W','Minolta X-57', 'HP5 Plus', '35mm', 400, 'Black & White', 'Done', '2023-02-01', '2023-04-30', true, true, true, 'Ontwikkelservice Foto Verweij', 'Pedro20');
 
 --Film Development logs user Marisol2023
-INSERT INTO filmdevelopmentlogs (id, roll_name, project, camera, film_stock, film_format, shot_at_iso, development_process, status, roll_started, roll_finished, exposed, developed, scanned, developed_by_lab, username)
+INSERT INTO filmdevelopmentlogs (id, roll_name, project, camera, stock, format, shot_at_iso, development_process, status, roll_started, roll_finished, exposed, developed, scanned, developed_by_lab, username)
 VALUES
     (102, 'Roll 1 - By the River Project', 'By the river','Nikon F6', 'Lady Grey 400', '35mm', 400, 'Black & White', 'Done', '2023-01-21', '2023-03-10', true, true, true, 'Ontwikkelservice Foto Verweij', 'Marisol2023'),
     (103, 'Roll 2 - By the River Project', 'By the River','Nikon F6', 'HP5 Plus', '35mm', 400, 'Black & White', 'Done', '2023-02-01', '2023-04-30', true, true, false, 'Ontwikkelservice Foto Verweij', 'Marisol2023');
 
 --Film Development logs user Jensy2222
-INSERT INTO filmdevelopmentlogs (id, roll_name, project, camera, film_stock, film_format, shot_at_iso, development_process, status, roll_started, roll_finished, exposed, developed, scanned, developed_by_lab, username)
+INSERT INTO filmdevelopmentlogs (id, roll_name, project, camera, stock, format, shot_at_iso, development_process, status, roll_started, roll_finished, exposed, developed, scanned, developed_by_lab, username)
 VALUES
     (104, 'Roll 20 - Kodak Ultra Max', 'New project','Minolta Riva Zoom 115', 'Kodak Ultra Max', '35mm', 400, 'C-41 Color', 'Done', '2023-03-01', '2023-03-31', true, true, true, 'Ontwikkelservice Foto Verweij', 'Jensy2222'),
     (105, 'Roll 21 - Kodak Ultra Max', 'New project','Minolta Riva Zoom 115', 'Kodak Ultra Max', '35mm', 400, 'C-41 Color', 'Done', '2023-04-01', '2023-04-20', true, true, true, 'Ontwikkelservice Foto Verweij', 'Jensy2222');
 
 --Film Development logs user Benniezzzzzz80
-INSERT INTO filmdevelopmentlogs (id, roll_name, project, camera, film_stock, film_format, shot_at_iso, development_process, status, roll_started, roll_finished, exposed, developed, scanned, developed_by_lab, username)
+INSERT INTO filmdevelopmentlogs (id, roll_name, project, camera, stock, format, shot_at_iso, development_process, status, roll_started, roll_finished, exposed, developed, scanned, developed_by_lab, username)
 VALUES
     (106, 'Test roll 1 - Cinestill Xpro 50D', 'Testing new film','Nikon F3', 'Cinestill Xpro 50D', '35mm', 50, 'C-41 Color', 'Done', '2023-06-01', '2023-06-15', true, true, true, 'Fotowereld Utrecht', 'Benniezzzzzz80'),
     (107, 'Test roll 2 - Cinestill Xpro 50D', 'testing new film','Nikon F3', 'Cinestill Xpro 50D', '35mm', 50, 'C-41 Color', 'Done', '2023-06-16', '2023-06-30', true, true, true, 'Fotowereld Utrecht', 'Benniezzzzzz80');
 
 --Film Development logs user User2
-INSERT INTO filmdevelopmentlogs (id, roll_name, project, camera, film_stock, film_format, shot_at_iso, development_process, status, roll_started, roll_finished, exposed, developed, scanned, developed_by_lab, username)
+INSERT INTO filmdevelopmentlogs (id, roll_name, project, camera, stock, format, shot_at_iso, development_process, status, roll_started, roll_finished, exposed, developed, scanned, developed_by_lab, username)
 VALUES
     (108, 'Roll 10 - Kodak Portra', 'Project Color','Canon AE-1', 'Kodak Portra 400', '35mm', 400, 'C-41 Color', 'Done', '2023-04-01', '2023-05-01', true, true, true, 'Ontwikkelservice Foto Verweij', 'User2'),
     (109, 'Roll 11 - Kodak Portra', 'Project Color','Canon AE-1', 'Kodak Portra 400', '35mm', 400, 'C-41 Color', 'Done', '2023-05-16', '2023-05-28', true, false, false, 'Ontwikkelservice Foto Verweij', 'User2');

@@ -57,23 +57,13 @@ public class PhotoLogService {
     }
 
     public List<PhotoLogDto> getByPhotoLogFilmStock(String filmStock) {
-        List<PhotoLog> photoLogs = photoLogRepository.findByFilmStock(filmStock);
+        List<PhotoLog> photoLogs = photoLogRepository.findByStock(filmStock);
         List<PhotoLogDto> filmStockPhotoLogList = new ArrayList<>();
 
         for (PhotoLog photoLog : photoLogs) {
             filmStockPhotoLogList.add(transferToPhotoLogDto(photoLog));
         }
         return filmStockPhotoLogList;
-    }
-
-    public List<PhotoLogDto> getByPhotoLogFilmFormat(String filmFormat) {
-        List<PhotoLog> photoLogs = photoLogRepository.findByFilmFormat(filmFormat);
-        List<PhotoLogDto> filmFormatPhotoLogList = new ArrayList<>();
-
-        for (PhotoLog photoLog : photoLogs) {
-            filmFormatPhotoLogList.add(transferToPhotoLogDto(photoLog));
-        }
-        return filmFormatPhotoLogList;
     }
 
     public PhotoLogDto createPhotoLog(PhotoLogInputDto inputDtoPhotoLog) {
@@ -88,23 +78,19 @@ public class PhotoLogService {
             throw new RecordNotFoundException("No photo log found with id: " + id);
         }
         PhotoLog storedPhotoLog = photoLogRepository.findById(id).orElse(null);
-        storedPhotoLog.setPhotoTitle(updatedPhotoLog.getPhotoTitle());
+        storedPhotoLog.setTitle(updatedPhotoLog.getTitle());
         storedPhotoLog.setCamera(updatedPhotoLog.getCamera());
-        storedPhotoLog.setFilmStock(updatedPhotoLog.getFilmStock());
-        storedPhotoLog.setFilmFormat(updatedPhotoLog.getFilmFormat());
-        storedPhotoLog.setShotAtIso(updatedPhotoLog.getShotAtIso());
+        storedPhotoLog.setStock(updatedPhotoLog.getStock());
+        storedPhotoLog.setIso(updatedPhotoLog.getIso());
         storedPhotoLog.setAperture(updatedPhotoLog.getAperture());
         storedPhotoLog.setShutterSpeed(updatedPhotoLog.getShutterSpeed());
         storedPhotoLog.setExposureCompensation(updatedPhotoLog.getExposureCompensation());
         storedPhotoLog.setDateTaken(updatedPhotoLog.getDateTaken());
-        storedPhotoLog.setDevelopedByLab(updatedPhotoLog.getDevelopedByLab());
         storedPhotoLog.setNotes(updatedPhotoLog.getNotes());
         storedPhotoLog.setProjectFolder(updatedPhotoLog.getProjectFolder());
         storedPhotoLog.setUser(updatedPhotoLog.getUser());
 
             photoLogRepository.save(storedPhotoLog);
-
-        //transferToPhotoLogDto(photoLogRepository.save(storedPhotoLog));
     }
 
     public void deletePhotoLog(@RequestBody Long id) {
@@ -122,16 +108,14 @@ public class PhotoLogService {
 
             PhotoLog photoLog = new PhotoLog();
             photoLog.setUser(user);
-            photoLog.setPhotoTitle(photoLogInputDto.getPhotoTitle());
+            photoLog.setTitle(photoLogInputDto.getTitle());
             photoLog.setCamera(photoLogInputDto.getCamera());
-            photoLog.setFilmStock(photoLogInputDto.getFilmStock());
-            photoLog.setFilmFormat(photoLogInputDto.getFilmFormat());
-            photoLog.setShotAtIso(photoLogInputDto.getShotAtIso());
+            photoLog.setStock(photoLogInputDto.getStock());
+            photoLog.setIso(photoLogInputDto.getIso());
             photoLog.setAperture(photoLogInputDto.getAperture());
             photoLog.setShutterSpeed(photoLogInputDto.getShutterSpeed());
             photoLog.setExposureCompensation(photoLogInputDto.getExposureCompensation());
             photoLog.setDateTaken(photoLogInputDto.getDateTaken());
-            photoLog.setDevelopedByLab(photoLogInputDto.getDevelopedByLab());
             photoLog.setNotes(photoLogInputDto.getNotes());
 
             photoLogRepository.save(photoLog);
@@ -153,16 +137,14 @@ public class PhotoLogService {
             PhotoLog photoLog = new PhotoLog();
             photoLog.setUser(user);
             photoLog.setProjectFolder(projectFolder);
-            photoLog.setPhotoTitle(photoLogInput.getPhotoTitle());
+            photoLog.setTitle(photoLogInput.getTitle());
             photoLog.setCamera(photoLogInput.getCamera());
-            photoLog.setFilmStock(photoLogInput.getFilmStock());
-            photoLog.setFilmFormat(photoLogInput.getFilmFormat());
-            photoLog.setShotAtIso(photoLogInput.getShotAtIso());
+            photoLog.setStock(photoLogInput.getStock());
+            photoLog.setIso(photoLogInput.getIso());
             photoLog.setAperture(photoLogInput.getAperture());
             photoLog.setShutterSpeed(photoLogInput.getShutterSpeed());
             photoLog.setExposureCompensation(photoLogInput.getExposureCompensation());
             photoLog.setDateTaken(photoLogInput.getDateTaken());
-            photoLog.setDevelopedByLab(photoLogInput.getDevelopedByLab());
             photoLog.setNotes(photoLogInput.getNotes());
 
             photoLogRepository.save(photoLog);
@@ -179,16 +161,14 @@ public class PhotoLogService {
         PhotoLog photoLog = new PhotoLog();
 
         photoLog.setId(photoLogInputDto.getId());
-        photoLog.setPhotoTitle(photoLogInputDto.getPhotoTitle());
+        photoLog.setTitle(photoLogInputDto.getTitle());
         photoLog.setCamera(photoLogInputDto.getCamera());
-        photoLog.setFilmStock(photoLogInputDto.getFilmStock());
-        photoLog.setFilmFormat(photoLogInputDto.getFilmFormat());
-        photoLog.setShotAtIso(photoLogInputDto.getShotAtIso());
+        photoLog.setStock(photoLogInputDto.getStock());
+        photoLog.setIso(photoLogInputDto.getIso());
         photoLog.setAperture(photoLogInputDto.getAperture());
         photoLog.setShutterSpeed(photoLogInputDto.getShutterSpeed());
         photoLog.setExposureCompensation(photoLogInputDto.getExposureCompensation());
         photoLog.setDateTaken(photoLogInputDto.getDateTaken());
-        photoLog.setDevelopedByLab(photoLogInputDto.getDevelopedByLab());
         photoLog.setNotes(photoLogInputDto.getNotes());
 
         return photoLog;
@@ -198,16 +178,14 @@ public class PhotoLogService {
         PhotoLogDto photoLogDto = new PhotoLogDto();
 
         photoLogDto.setId(photoLog.getId());
-        photoLogDto.setPhotoTitle(photoLog.getPhotoTitle());
+        photoLogDto.setTitle(photoLog.getTitle());
         photoLogDto.setCamera(photoLog.getCamera());
-        photoLogDto.setFilmStock(photoLog.getFilmStock());
-        photoLogDto.setFilmFormat(photoLog.getFilmFormat());
-        photoLogDto.setShotAtIso(photoLog.getShotAtIso());
+        photoLogDto.setStock(photoLog.getStock());
+        photoLogDto.setIso(photoLog.getIso());
         photoLogDto.setAperture(photoLog.getAperture());
         photoLogDto.setShutterSpeed(photoLog.getShutterSpeed());
         photoLogDto.setExposureCompensation(photoLog.getExposureCompensation());
         photoLogDto.setDateTaken(photoLog.getDateTaken());
-        photoLogDto.setDevelopedByLab(photoLog.getDevelopedByLab());
         photoLogDto.setNotes(photoLog.getNotes());
         photoLogDto.setProjectFolder(photoLog.getProjectFolder());
         photoLogDto.setUser(photoLog.getUser());

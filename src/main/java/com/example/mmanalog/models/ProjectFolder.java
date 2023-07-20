@@ -33,7 +33,7 @@ public class ProjectFolder {
     @JsonIgnore
     private User user;
 
-   @OneToMany(mappedBy = "projectFolder", cascade = CascadeType.ALL)
+   @OneToMany(mappedBy = "projectFolder")
    @JsonIgnore
    private List<Image> images = new ArrayList<>();
    //added array to the images
