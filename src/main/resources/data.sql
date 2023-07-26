@@ -86,9 +86,9 @@ VALUES
 --Photo Logs user Marisol2023
 INSERT INTO photologs (id, title, camera, stock, iso, aperture, shutter_speed, exposure_compensation, date_taken, notes, folder_id, username)
 VALUES
-    (105, 'Goddess_1', 'Nikon F6','Kodak Portra 800', 800, 'f/4', '1/80', '0', '2022-06-10', 'Portrait of Jenny', 103, 'Marisol2023'),
-    (106, 'Goddess_2', 'Nikon F6','Kodak Portra 800', 800, 'f/4', '1/80', '+1', '2022-07-01', 'Portrait of Nicolle', 103, 'Marisol2023'),
-    (107, 'Goddess_3', 'Nikon F6','Kodak Portra 800', 800, 'f/4', '1/80', '0', '2023-02-01', 'Portrait of Nathalie', 103, 'Marisol2023'),
+    (105, 'Goddess_1', 'Nikon F6','Kodak Portra 800', 800, 'f/4', '1/60', '0', '2022-06-10', 'Portrait of Jenny', 103, 'Marisol2023'),
+    (106, 'Goddess_2', 'Nikon F6','Kodak Portra 800', 800, 'f/4', '1/60', '+1', '2022-07-01', 'Portrait of Nicolle', 103, 'Marisol2023'),
+    (107, 'Goddess_3', 'Nikon F6','Kodak Portra 800', 800, 'f/4', '1/60', '0', '2023-02-01', 'Portrait of Nathalie', 103, 'Marisol2023'),
     (108, 'Goddess_4', 'Nikon F6','Kodak Portra 800', 800, 'f/5.6', '1/60', '0', '2023-02-01', 'Portrait of Solange', 103, 'Marisol2023'),
     (109, 'Goddess_5', 'Nikon F6','Kodak Portra 800', 800, 'f/5.6', '1/60', '0', '2023-03-14', 'Portrait of Sharine', 103, 'Marisol2023');
 
@@ -98,8 +98,8 @@ VALUES
     (110, 'Dreaming_1', 'Minolta SRT101','Kodak Gold 200', 200, 'f/5.6', '1/60', '+1', '2023-01-01', 'Shot this at moms home in Amsterdam', 105, 'Jensy2222'),
     (111, 'Dreaming_2', 'Minolta SRT101','Kodak Gold 200', 200, 'f/4', '1/60', '+1', '2023-01-10', 'Re-take this image but in B&W', 105, 'Jensy2222'),
     (112, 'Dreaming_3', 'Minolta SRT101','Ilford Delta 3200', 1000, 'f/8', '1/60', '0', '2023-04-14', 'Love the look of the Delta 3200. I need to include this film stock more in my projects.', 105, 'Jensy2222'),
-    (113, 'Dreaming_4', 'Minolta SRT101','Ilford Delta 3200', 1000, 'f/8', '1/80', '0', '2023-05-21', 'Shot at home during a Sunday morning', 105, 'Jensy2222'),
-    (114, 'Dreaming_5', 'Minolta SRT101','Ilford Delta 3200', 1000, 'f/5.6', '1/80', '0', '2023-05-21', 'Sunday morning at home photo shoot session', 105, 'Jensy2222');
+    (113, 'Dreaming_4', 'Minolta SRT101','Ilford Delta 3200', 1000, 'f/8', '1/60', '0', '2023-05-21', 'Shot at home during a Sunday morning', 105, 'Jensy2222'),
+    (114, 'Dreaming_5', 'Minolta SRT101','Ilford Delta 3200', 1000, 'f/5.6', '1/60', '0', '2023-05-21', 'Sunday morning at home photo shoot session', 105, 'Jensy2222');
 
 --Photo Logs user Benniezzzzzz80
 INSERT INTO photologs (id, title, camera, stock, iso, aperture, shutter_speed, exposure_compensation, date_taken, notes, folder_id, username)
@@ -115,7 +115,7 @@ INSERT INTO photologs (id, title, camera, stock, iso, aperture, shutter_speed, e
 VALUES
     (120, 'Color_1', 'Canon AE-1','Kodak Ultra Max', 400, 'f/5.6', '1/60', '+1', '2023-04-01', 'Shot on a trip to Paris', 109, 'User2'),
     (121, 'Color_2', 'Canon AE-1','Kodak Ultra Max', 400, 'f/8', '1/60', '0', '2023-04-01', 'Shot on a trip to Paris', 109, 'User2'),
-    (122, 'Color_3', 'Canon AE-1','Kodak Ultra Max', 400, 'f/5.6', '1/80', '0', '2023-04-01', 'Shot on a trip to Paris', 109, 'User2'),
+    (122, 'Color_3', 'Canon AE-1','Kodak Ultra Max', 400, 'f/5.6', '1/60', '0', '2023-04-01', 'Shot on a trip to Paris', 109, 'User2'),
     (123, 'Color_4', 'Canon AE-1','Kodak Ultra Max', 400, 'f/8', '1/60', '0', '2023-04-01', 'Shot on a trip to Paris', 109, 'User2'),
     (124, 'Color_5', 'Canon AE-1','Kodak Ultra Max', 400, 'f/8', '1/60', '0', '2023-04-01', 'Shot on a trip to Paris', 109, 'User2');
 

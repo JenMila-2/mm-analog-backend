@@ -66,14 +66,16 @@ public class UserService {
     public String createUser(UserDto userDto) {
         String randomString = RandomStringGenerator.generateAlphaNumeric(20);
         userDto.setApikey(randomString);
-        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
+//        userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));
         User newUser = userRepository.save(transferToUser(userDto));
         return newUser.getUsername();
     }
 
     public void updateUser(String username, UserDto newUser) {
-        if (!userRepository.existsById(username)) throw new RecordNotFoundException("No user found with username: " + username);
-        User user = userRepository.findById(username).get();
+        if (!userRepository.existsById(username)) {
+            throw new RecordNotFoundException("No user found with username: " + username);
+        }
+        User user = userRepository.findById(username).orElse(null);
         user.setPassword(passwordEncoder.encode(newUser.getPassword()));
         user.setName(newUser.getName());
         user.setEmail(newUser.getEmail());
