@@ -3,17 +3,21 @@ package com.example.mmanalog.services;
 import com.example.mmanalog.dtos.User.UserDto;
 import com.example.mmanalog.models.Authority;
 import com.example.mmanalog.models.Image;
+import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.*;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.exceptions.UserNotFoundException;
+import com.example.mmanalog.utilities.ImageUtility;
 import com.example.mmanalog.utilities.RandomStringGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -142,26 +146,28 @@ public class UserService {
 
     //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
-    public UserDto assignImageToUser(String username, Long imageId) {
+    public UserDto assignImageToUser(String username, MultipartFile file) throws IOException {
         Optional<User> optionalUser = userRepository.findById(username);
-        Optional<Image> optionalImage = imageRepository.findById(imageId);
 
-        if (optionalUser.isPresent() && optionalImage.isPresent()) {
+        if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            Image image = optionalImage.get();
 
-            image.setUser(user);
-            user.getUserImages().add(image);
+            Image image = Image.builder()
+                    .name(file.getOriginalFilename())
+                    .type(file.getContentType())
+                    .image(ImageUtility.compressImage(file.getBytes()))
+                    .user(user)
+                    .build();
 
-            userRepository.save(user);
+            imageRepository.save(image);
 
             return transferUserToDto(user);
         } else {
-            throw new RecordNotFoundException("Username: " + username + " or image with id: " + imageId + " not found");
+            throw new RecordNotFoundException("No user found with username: " + username);
         }
     }
 
-    public byte[] getUserImage(String username, Long imageId) {
+    public byte[] getUserImageByName(String username, String imageName) {
         Optional<User> optionalUser = userRepository.findById(username);
 
         if (optionalUser.isPresent()) {
@@ -169,21 +175,21 @@ public class UserService {
             List<Image> images = user.getUserImages();
 
             Optional<Image> optionalImage = images.stream()
-                    .filter(image -> image.getId().equals(imageId))
+                    .filter(image -> image.getName().equals(imageName))
                     .findFirst();
 
             if (optionalImage.isPresent()) {
                 Image image = optionalImage.get();
-                return image.getImage();
+                return ImageUtility.decompressImage(image.getImage());
             } else {
-                throw new RecordNotFoundException("No image found with id: " + imageId);
+                throw new RecordNotFoundException("No image found with name: " + imageName);
             }
         } else {
-            throw new UserNotFoundException("No user found with username: " + username);
+            throw new RecordNotFoundException("No user found with username: " + username);
         }
     }
 
-    public void deleteUserImage(String username, Long imageId) {
+    public void deleteUserImageByName(String username, String imageName) {
         Optional<User> optionalUser = userRepository.findById(username);
 
         if (optionalUser.isPresent()) {
@@ -191,37 +197,18 @@ public class UserService {
             List<Image> images = user.getUserImages();
 
             Optional<Image> optionalImage = images.stream()
-                    .filter(image -> image.getId().equals(imageId))
+                    .filter(image -> image.getName().equals(imageName))
                     .findFirst();
 
             if (optionalImage.isPresent()) {
                 Image image = optionalImage.get();
                 images.remove(image);
                 imageRepository.delete(image);
-                userRepository.save(user);
             } else {
-                throw new RecordNotFoundException("No image found with id: " + imageId);
+                throw new RecordNotFoundException("No image found with name: " + imageName);
             }
         } else {
-            throw new UserNotFoundException("No user found with username: " + username);
-        }
-    }
-
-    /* Method below only returns the image data and not the actual image */
-    public List<byte[]> getAllUserImages(String username) {
-        Optional<User> optionalUser = userRepository.findById(username);
-
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            List<Image> images = user.getUserImages();
-
-            List<byte[]> imageList = new ArrayList<>();
-            for (Image image : images) {
-                imageList.add(image.getImage());
-            }
-            return imageList;
-        } else {
-            throw new RecordNotFoundException("No user found with username: " + username);
+            throw new RecordNotFoundException("No project user found with username: " + username);
         }
     }
 

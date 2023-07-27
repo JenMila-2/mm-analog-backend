@@ -1,5 +1,6 @@
 package com.example.mmanalog.controllers;
 
+import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.User.UserDto;
 import com.example.mmanalog.services.UserService;
 import com.example.mmanalog.exceptions.BadRequestException;
@@ -15,8 +16,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.*;
 
 import jakarta.validation.Valid;
+import org.springframework.web.client.HttpServerErrorException;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
@@ -106,26 +110,26 @@ public UserController(UserService userService) {
 
     //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
-    @PutMapping(path = "/{username}/images/{imageId}")
+    @PostMapping(path = "/{username}/upload/image")
     public ResponseEntity<UserDto> assignImageToUser(
             @PathVariable("username") String username,
-            @PathVariable("imageId") Long imageId) {
-        UserDto userDto = userService.assignImageToUser(username, imageId);
+            @RequestParam("image") MultipartFile file
+    ) throws IOException {
+        UserDto userDto = userService.assignImageToUser(username, file);
         return ResponseEntity.ok().body(userDto);
     }
 
-    @GetMapping(path = "/{username}/images/{imageId}")
-    public ResponseEntity<Resource> getUserImage(@PathVariable("username") String username, @PathVariable("imageId") Long imageId) {
-        byte[] imageData = userService.getUserImage(username, imageId);
+    @GetMapping(path = "/{username}/images/{imageName}")
+    public ResponseEntity<Resource> getFolderImageByName(
+            @PathVariable("username") String username,
+            @PathVariable("imageName") String imageName
+    ) {
+        byte[] imageData = userService.getUserImageByName(username, imageName);
 
         if (imageData != null && imageData.length > 0) {
-            String imageName = "example.jpg";
             String imageType = "image/jpeg";
 
-            // Processes the image data using the ImageUtility class
-            byte[] processedImageData = ImageUtility.decompressImage(imageData);
-
-            ByteArrayResource resource = new ByteArrayResource(processedImageData);
+            ByteArrayResource resource = new ByteArrayResource(imageData);
 
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.parseMediaType(imageType));
@@ -136,20 +140,20 @@ public UserController(UserService userService) {
                     .headers(headers)
                     .body(resource);
         } else {
-            throw new BadRequestException("Image with id: " + imageId + " or user with username: " + username + " not found");
+            throw new BadRequestException("No image found with name: " + imageName);
         }
     }
 
-    @DeleteMapping(path = "/{username}/images/{imageId}")
-    public ResponseEntity<String> deleteUserImage(@PathVariable("username") String username, @PathVariable("imageId") Long imageId) {
+    @DeleteMapping(path = "/{username}/images/{imageName}")
+    public ResponseEntity<String> deleteFolderImageByName(
+            @PathVariable("username") String username,
+            @PathVariable("imageName") String imageName
+    ) {
         try {
-            userService.deleteUserImage(username, imageId);
+            userService.deleteUserImageByName(username, imageName);
             return ResponseEntity.ok("Image deleted successfully");
-        } catch (UserNotFoundException e) {
-            throw new UserNotFoundException("No user found with username: " + username);
         } catch (RecordNotFoundException e) {
-            throw new RecordNotFoundException("Image with id: " + imageId + " does not exist or has already been deleted");
+            throw new RecordNotFoundException("Image with name: " + imageName + " or user with username: " + username + " does not exist or not found");
         }
     }
-
 }
