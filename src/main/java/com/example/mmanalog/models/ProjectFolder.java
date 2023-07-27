@@ -36,5 +36,4 @@ public class ProjectFolder {
     @OneToMany(mappedBy = "projectFolder")
     @JsonIgnore
     private List<Image> images = new ArrayList<>();
-    //added array to the images
 }

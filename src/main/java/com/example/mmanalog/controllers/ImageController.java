@@ -14,8 +14,8 @@ import org.springframework.http.*;
 import java.io.IOException;
 import java.util.Optional;
 
-@RestController
 @CrossOrigin()
+@RestController
 public class ImageController {
     @Autowired
     ImageRepository imageRepository;

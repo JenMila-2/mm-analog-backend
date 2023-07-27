@@ -3,7 +3,6 @@ package com.example.mmanalog.services;
 import com.example.mmanalog.dtos.User.UserDto;
 import com.example.mmanalog.models.Authority;
 import com.example.mmanalog.models.Image;
-import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.*;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
@@ -90,7 +89,6 @@ public class UserService {
     public void deleteUser(String username) {
         userRepository.deleteById(username);
     }
-
 
     //*-----------------------------Authorities-----------------------------*//
     public Set<Authority> getAuthorities(String username) {
@@ -208,10 +206,9 @@ public class UserService {
                 throw new RecordNotFoundException("No image found with name: " + imageName);
             }
         } else {
-            throw new RecordNotFoundException("No project user found with username: " + username);
+            throw new RecordNotFoundException("No user found with username: " + username);
         }
     }
-
 }
 
 

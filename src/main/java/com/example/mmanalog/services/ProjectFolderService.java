@@ -2,12 +2,12 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
-import com.example.mmanalog.exceptions.UserNotFoundException;
 import com.example.mmanalog.models.Image;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.repositories.*;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
+import com.example.mmanalog.exceptions.UserNotFoundException;
 import com.example.mmanalog.utilities.ImageUtility;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -76,14 +76,12 @@ public class ProjectFolderService {
             storedProjectFolder.setProjectTitle(updatedProjectFolder.getProjectTitle());
             storedProjectFolder.setProjectConcept(updatedProjectFolder.getProjectConcept());
             storedProjectFolder.setUser(updatedProjectFolder.getUser());
-            //storedProjectFolder.setPhotoLogs(updatedProjectFolder.user.getUserPhotoLogs());
             projectFolderRepository.save(storedProjectFolder);
     }
 
     public void deleteProjectFolder(@RequestBody Long id) {
         projectFolderRepository.deleteById(id);
     }
-
 
     //*---------------------------------Transfers---------------------------------*//
 
@@ -165,7 +163,7 @@ public class ProjectFolderService {
                 Image image = optionalImage.get();
                 return ImageUtility.decompressImage(image.getImage());
             } else {
-                throw new RecordNotFoundException("No image found with name: " + imageName + " in folder with id: " + folderId);
+                throw new RecordNotFoundException("No image found with name: " + imageName + " in project folder with id: " + folderId);
             }
         } else {
             throw new RecordNotFoundException("No project folder found with id: " + folderId);

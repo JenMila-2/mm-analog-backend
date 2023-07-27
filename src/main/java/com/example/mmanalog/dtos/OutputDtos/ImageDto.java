@@ -14,5 +14,4 @@ public class ImageDto {
     private String name;
     private String type;
     private byte[] image;
-
 }

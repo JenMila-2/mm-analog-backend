@@ -2,11 +2,11 @@ package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
+import com.example.mmanalog.models.ImageUploadResponse;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.services.ProjectFolderService;
 import com.example.mmanalog.exceptions.BadRequestException;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
-import com.example.mmanalog.utilities.ImageUtility;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -74,7 +74,6 @@ public class ProjectFolderController {
         return ResponseEntity.noContent().build();
     }
 
-
     //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
     @PostMapping(path = "/new/{username}")
@@ -86,14 +85,19 @@ public class ProjectFolderController {
         return ResponseEntity.created(null).body(createdFolder);
     }
 
-    @PostMapping(path = "/{folderId}/images")
-    public ResponseEntity<ProjectFolderDto> uploadImageToFolder(
+    @PostMapping(path = "/{folderId}/upload/image")
+    public ResponseEntity<ImageUploadResponse> uploadImageToFolder(
             @PathVariable("folderId") Long folderId,
             @RequestParam("image") MultipartFile file
     ) throws IOException {
         ProjectFolderDto projectFolderDto = projectFolderService.uploadImageToFolder(folderId, file);
-        return ResponseEntity.ok().body(projectFolderDto);
+
+        String message = "Image uploaded successfully: " + file.getOriginalFilename();
+        ImageUploadResponse response = new ImageUploadResponse(message);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
 
     @GetMapping(path = "/{folderId}/images/{imageName}")
     public ResponseEntity<Resource> getFolderImageByName(

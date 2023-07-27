@@ -1,12 +1,10 @@
 package com.example.mmanalog.controllers;
 
-import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.User.UserDto;
+import com.example.mmanalog.models.ImageUploadResponse;
 import com.example.mmanalog.services.UserService;
 import com.example.mmanalog.exceptions.BadRequestException;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
-import com.example.mmanalog.exceptions.UserNotFoundException;
-import com.example.mmanalog.utilities.ImageUtility;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -16,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.*;
 
 import jakarta.validation.Valid;
-import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -107,16 +104,19 @@ public UserController(UserService userService) {
         return ResponseEntity.noContent().build();
     }
 
-
     //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
     @PostMapping(path = "/{username}/upload/image")
-    public ResponseEntity<UserDto> assignImageToUser(
+    public ResponseEntity<ImageUploadResponse> assignImageToUser(
             @PathVariable("username") String username,
             @RequestParam("image") MultipartFile file
     ) throws IOException {
         UserDto userDto = userService.assignImageToUser(username, file);
-        return ResponseEntity.ok().body(userDto);
+
+        String message = "Image uploaded successfully: " + file.getOriginalFilename();
+        ImageUploadResponse response = new ImageUploadResponse(message);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping(path = "/{username}/images/{imageName}")
