@@ -5,7 +5,6 @@ import com.example.mmanalog.services.UserService;
 import com.example.mmanalog.exceptions.BadRequestException;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.exceptions.UserNotFoundException;
-import com.example.mmanalog.utilities.ImageUtility;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -106,65 +105,4 @@ public UserController(UserService userService) {
 
     //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
-    @PutMapping(path = "/{username}/images/{imageId}")
-    public ResponseEntity<UserDto> assignImageToUser(
-            @PathVariable("username") String username,
-            @PathVariable("imageId") Long imageId) {
-        UserDto userDto = userService.assignImageToUser(username, imageId);
-        return ResponseEntity.ok().body(userDto);
-    }
-
-    @GetMapping(path = "/{username}/images/{imageId}")
-    public ResponseEntity<Resource> getUserImage(@PathVariable("username") String username, @PathVariable("imageId") Long imageId) {
-        byte[] imageData = userService.getUserImage(username, imageId);
-
-        if (imageData != null && imageData.length > 0) {
-            String imageName = "example.jpg";
-            String imageType = "image/jpeg";
-
-            // Processes the image data using the ImageUtility class
-            byte[] processedImageData = ImageUtility.decompressImage(imageData);
-
-            ByteArrayResource resource = new ByteArrayResource(processedImageData);
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.parseMediaType(imageType));
-            headers.setContentLength(resource.contentLength());
-            headers.setContentDisposition(ContentDisposition.builder("inline").filename(imageName).build());
-
-            return ResponseEntity.ok()
-                    .headers(headers)
-                    .body(resource);
-        } else {
-            throw new BadRequestException("Image with id: " + imageId + " or user with username: " + username + " not found");
-        }
-    }
-
-    @DeleteMapping(path = "/{username}/images/{imageId}")
-    public ResponseEntity<String> deleteUserImage(@PathVariable("username") String username, @PathVariable("imageId") Long imageId) {
-        try {
-            userService.deleteUserImage(username, imageId);
-            return ResponseEntity.ok("Image deleted successfully");
-        } catch (UserNotFoundException e) {
-            throw new UserNotFoundException("No user found with username: " + username);
-        } catch (RecordNotFoundException e) {
-            throw new RecordNotFoundException("Image with id: " + imageId + " does not exist or has already been deleted");
-        }
-    }
-
-    /* Method below only returns the image data and not the actual images */
-    @GetMapping(path = "/{username}/images")
-    public ResponseEntity<List<byte[]>> getAllUserImages(@PathVariable("username") String username) {
-        try {
-            List<byte[]> images = userService.getAllUserImages(username);
-
-            if (!images.isEmpty()) {
-                return new ResponseEntity<>(images, HttpStatus.OK);
-            } else {
-                throw new RecordNotFoundException("No images found for user with username: " + username);
-            }
-        } catch (Exception e) {
-            throw new BadRequestException("Error while retrieving data.");
-        }
-    }
 }

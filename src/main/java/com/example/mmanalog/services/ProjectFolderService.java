@@ -3,7 +3,6 @@ package com.example.mmanalog.services;
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
 import com.example.mmanalog.exceptions.UserNotFoundException;
-import com.example.mmanalog.models.Image;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.repositories.*;
@@ -20,12 +19,10 @@ public class ProjectFolderService {
 
     private final ProjectFolderRepository projectFolderRepository;
     private final UserRepository userRepository;
-    private final ImageRepository imageRepository;
 
-    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, UserRepository userRepository, ImageRepository imageRepository) {
+    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, UserRepository userRepository) {
         this.projectFolderRepository = projectFolderRepository;
         this.userRepository = userRepository;
-        this.imageRepository = imageRepository;
     }
 
     public List<ProjectFolderDto> getProjectFolders() {
@@ -100,89 +97,6 @@ public class ProjectFolderService {
             return transferProjectFolderToDto(projectFolder);
         } else {
             throw new UserNotFoundException("No user found with username: " + username);
-        }
-    }
-
-    public ProjectFolderDto assignImageToFolder(Long folderId, Long imageId) {
-        Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);
-        Optional<Image> optionalImage = imageRepository.findById(imageId);
-
-        if (optionalProjectFolder.isPresent() && optionalImage.isPresent()) {
-            ProjectFolder projectFolder = optionalProjectFolder.get();
-            Image image = optionalImage.get();
-
-            image.setProjectFolder(projectFolder);
-            projectFolder.getImages().add(image);
-
-            projectFolderRepository.save(projectFolder);
-
-            return transferProjectFolderToDto(projectFolder);
-        } else {
-            throw new RecordNotFoundException("No project folder found with id: " + folderId + " or no image found with id: " + imageId);
-        }
-    }
-
-    public byte[] getFolderImage(Long folderId, Long imageId) {
-        Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);
-
-        if (optionalProjectFolder.isPresent()) {
-            ProjectFolder projectFolder = optionalProjectFolder.get();
-            List<Image> images = projectFolder.getImages();
-
-            Optional<Image> optionalImage = images.stream()
-                    .filter(image -> image.getId().equals(imageId))
-                    .findFirst();
-
-            if (optionalImage.isPresent()) {
-                Image image = optionalImage.get();
-                return image.getImage();
-            } else {
-                throw new RecordNotFoundException("No image found with id: " + imageId);
-            }
-        } else {
-            throw new RecordNotFoundException("No project folder found with id: " + folderId);
-        }
-    }
-
-    public void deleteFolderImage(Long folderId, Long imageId) {
-        Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);
-
-        if (optionalProjectFolder.isPresent()) {
-            ProjectFolder projectFolder = optionalProjectFolder.get();
-            List<Image> images = projectFolder.getImages();
-
-            Optional<Image> optionalImage = images.stream()
-                    .filter(image -> image.getId().equals(imageId))
-                    .findFirst();
-
-            if (optionalImage.isPresent()) {
-                Image image = optionalImage.get();
-                images.remove(image);
-                imageRepository.delete(image);
-                projectFolderRepository.save(projectFolder);
-            } else {
-                throw new RecordNotFoundException("No image found with id: " + imageId);
-            }
-        } else {
-            throw new RecordNotFoundException("No project folder found with id: " + folderId);
-        }
-    }
-
-    /* Method below only returns the image data and not the actual images */
-    public List<byte[]> getAllFolderImages(Long folderId) {
-        Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);
-
-        if (optionalProjectFolder.isPresent()) {
-            ProjectFolder projectFolder = optionalProjectFolder.get();
-            List<Image> images = projectFolder.getImages();
-
-            List<byte[]> imageList = new ArrayList<>();
-            for (Image image : images) {
-                imageList.add(image.getImage());
-            }
-            return imageList;
-        } else {
-            throw new RecordNotFoundException("N0 folder found with id: " + folderId);
         }
     }
 

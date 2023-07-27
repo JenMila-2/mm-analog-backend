@@ -113,9 +113,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.DELETE,"/filmdevelopmentlogs/{id}").hasAnyRole("ADMIN", "USER")
 
                     //----------------------------------------Image--------------------------------------//
-                    .requestMatchers(HttpMethod.GET, "/image/info/{name}").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.GET,"/image/{name}").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.POST, "/upload/image").hasAnyRole("ADMIN", "USER")
+
 
                     .anyRequest().denyAll()
                     .and()

@@ -39,10 +39,10 @@ class UserServiceTest {
 
     @BeforeEach
     void setUp() {
-        user1 = new User("UsernameTest1", "Barry Allen", "barry@mail.com", "UserPassword1", "testApikey1", true, null, null, null, null, null, null);
+        /*user1 = new User("UsernameTest1", "Barry Allen", "barry@mail.com", "UserPassword1", "testApikey1", true, null, null, null, null, null, null);
 
         user2 = new User("UsernameTest2", "Donna Troy", "donna@mail.com", "UserPassword2", "testApikey2", true, null, null, null, null, null, null);
-
+*/
         userDto1 = new UserDto("UsernameTest1", "Barry Allen", "barry@mail.com", "UserPassword1", "testApikey1", true, null);
 
         userDto2 = new UserDto("UsernameTest2", "Donna Troy", "donna@mail.com", "UserPassword2", "testApikey2", true, null);
