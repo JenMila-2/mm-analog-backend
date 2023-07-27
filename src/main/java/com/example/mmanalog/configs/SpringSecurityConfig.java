@@ -74,14 +74,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.GET,"/projectfolders").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET,"/projectfolders/{id}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.GET,"/projectfolders/user/{username}").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.GET,"/projectfolders/{folderId}/images/{imageId}").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.GET,"/projectfolders/{folderId}/images").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.POST, "/projectfolders/new").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST,"/projectfolders/new/{username}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.PUT,"/projectfolders/{id}").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.PUT, "/projectfolders/{folderId}/images/{imageId}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.DELETE,"/projectfolders/{id}").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.DELETE,"/projectfolders/{folderId}/images/{imageId}").hasAnyRole("ADMIN", "USER")
 
                     //----------------------------------------Photo Log--------------------------------------//
                     .requestMatchers(HttpMethod.GET,"/photologs").hasRole("ADMIN")
@@ -113,7 +109,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.DELETE,"/filmdevelopmentlogs/{id}").hasAnyRole("ADMIN", "USER")
 
                     //----------------------------------------Image--------------------------------------//
-
+                    .requestMatchers(HttpMethod.POST,"/upload/image").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.POST,"/projectfolders/{folderId}/images").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.GET,"/image/{name}").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.GET,"/projectfolders/{folderId}/images/{imageName}").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.DELETE,"/projectfolders/{folderId}/images/{imageName}").hasAnyRole("ADMIN", "USER")
 
                     .anyRequest().denyAll()
                     .and()

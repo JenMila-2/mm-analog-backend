@@ -26,9 +26,9 @@ public class User {
     private String apikey;
     private boolean enabled = true;
 
-    /*@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Image> userImages;*/
+    private List<Image> userImages;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore

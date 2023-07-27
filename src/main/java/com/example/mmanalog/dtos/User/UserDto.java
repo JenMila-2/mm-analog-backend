@@ -1,6 +1,7 @@
 package com.example.mmanalog.dtos.User;
 
 import com.example.mmanalog.models.Authority;
+import com.example.mmanalog.models.Image;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.*;
@@ -45,6 +46,8 @@ public class UserDto {
 
     @JsonSerialize
     public Set<Authority> authorities;
+
+    public Image file;
 
     public Set<Authority> getAuthorities() {
         return authorities;

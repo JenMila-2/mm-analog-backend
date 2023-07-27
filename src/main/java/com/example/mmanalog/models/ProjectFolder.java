@@ -33,8 +33,8 @@ public class ProjectFolder {
     @JsonIgnore
     private User user;
 
-   /*@OneToMany(mappedBy = "projectFolder")
-   @JsonIgnore
-   private List<Image> images = new ArrayList<>();*/
-   //added array to the images
+    @OneToMany(mappedBy = "projectFolder")
+    @JsonIgnore
+    private List<Image> images = new ArrayList<>();
+    //added array to the images
 }
