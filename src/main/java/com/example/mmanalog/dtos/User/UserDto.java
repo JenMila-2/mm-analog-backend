@@ -47,8 +47,6 @@ public class UserDto {
     @JsonSerialize
     public Set<Authority> authorities;
 
-    public Image file;
-
     public Set<Authority> getAuthorities() {
         return authorities;
     }

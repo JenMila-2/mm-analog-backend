@@ -115,6 +115,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.DELETE,"/projectfolders/{folderId}/images/{imageName}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.DELETE,"/users/{username}/images/{imageName}").hasAnyRole("ADMIN", "USER")
 
+                    .requestMatchers(HttpMethod.POST,"/upload").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.GET,"/download/{fileName}").hasAnyRole("ADMIN", "USER")
+
                     .anyRequest().denyAll()
                     .and()
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -24,6 +24,9 @@ public class ProjectFolder {
     private String projectTitle;
     private String projectConcept;
 
+    @OneToOne
+    FileUploadResponse file;
+
     @OneToMany(mappedBy = "projectFolder")
     @JsonIgnore
     private List<PhotoLog> photoLogs;
@@ -36,4 +39,8 @@ public class ProjectFolder {
     @OneToMany(mappedBy = "projectFolder")
     @JsonIgnore
     private List<Image> images = new ArrayList<>();
+
+    public void setFile(FileUploadResponse file) {
+        this.file = file;
+    }
 }

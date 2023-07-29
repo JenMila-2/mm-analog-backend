@@ -3,6 +3,7 @@ package com.example.mmanalog.controllers;
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
 import com.example.mmanalog.models.ImageUploadResponse;
+import com.example.mmanalog.models.FileUploadResponse;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.services.ProjectFolderService;
 import com.example.mmanalog.exceptions.BadRequestException;
@@ -24,9 +25,11 @@ import java.util.List;
 public class ProjectFolderController {
 
     private final ProjectFolderService projectFolderService;
+    private final FileController fileController;
 
-    public ProjectFolderController(ProjectFolderService projectFolderService) {
+    public ProjectFolderController(ProjectFolderService projectFolderService, FileController fileController) {
         this.projectFolderService = projectFolderService;
+        this.fileController = fileController;
     }
 
     @GetMapping(path = "")
@@ -98,7 +101,6 @@ public class ProjectFolderController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-
     @GetMapping(path = "/{folderId}/images/{imageName}")
     public ResponseEntity<Resource> getFolderImageByName(
             @PathVariable("folderId") Long folderId,
@@ -124,6 +126,21 @@ public class ProjectFolderController {
         }
     }
 
+    // *** Alternative get method *** //
+    @GetMapping(path = "/{folderId}/images/url/{imageName}")
+    public ResponseEntity<String> getFolderImageByUrlName(
+            @PathVariable("folderId") Long folderId,
+            @PathVariable("imageName") String imageName
+    ) {
+        String imageUrl = projectFolderService.getFolderImageUrlByName(folderId, imageName);
+
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            return ResponseEntity.ok(imageUrl);
+        } else {
+            throw new BadRequestException("No image found with name: " + imageName + " in folder with id: " + folderId);
+        }
+    }
+
     @DeleteMapping(path = "/{folderId}/images/{imageName}")
     public ResponseEntity<String> deleteFolderImageByName(
             @PathVariable("folderId") Long folderId,
@@ -136,4 +153,5 @@ public class ProjectFolderController {
             throw new RecordNotFoundException("Image with name: " + imageName + " or project folder with id: " + folderId + " does not exist or not found");
         }
     }
+
 }

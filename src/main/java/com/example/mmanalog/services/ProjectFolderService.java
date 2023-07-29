@@ -3,6 +3,7 @@ package com.example.mmanalog.services;
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
 import com.example.mmanalog.models.Image;
+import com.example.mmanalog.models.FileUploadResponse;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.repositories.*;
@@ -25,7 +26,9 @@ public class ProjectFolderService {
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
 
-    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, UserRepository userRepository, ImageRepository imageRepository) {
+    private FileUploadRepository fileUploadRepository;
+
+    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, UserRepository userRepository, ImageRepository imageRepository, FileUploadRepository fileUploadRepository) {
         this.projectFolderRepository = projectFolderRepository;
         this.userRepository = userRepository;
         this.imageRepository = imageRepository;
@@ -170,6 +173,29 @@ public class ProjectFolderService {
         }
     }
 
+    // *** Alternative get method *** //
+    public String getFolderImageUrlByName(Long folderId, String imageName) {
+        Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);
+
+        if (optionalProjectFolder.isPresent()) {
+            ProjectFolder projectFolder = optionalProjectFolder.get();
+            List<Image> images = projectFolder.getImages();
+
+            Optional<Image> optionalImage = images.stream()
+                    .filter(image -> image.getName().equals(imageName))
+                    .findFirst();
+
+            if (optionalImage.isPresent()) {
+                Image image = optionalImage.get();
+                return "http://localhost:8080/projectfolders/" + folderId + "/images/url/" + imageName;
+            } else {
+                throw new RecordNotFoundException("No image found with name: " + imageName + " in project folder with id: " + folderId);
+            }
+        } else {
+            throw new RecordNotFoundException("No project folder found with id: " + folderId);
+        }
+    }
+
     public void deleteFolderImageByName(Long folderId, String imageName) {
         Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);
 
@@ -192,5 +218,10 @@ public class ProjectFolderService {
             throw new RecordNotFoundException("No project folder found with id: " + folderId);
         }
     }
+
+
+
+
+
 }
 

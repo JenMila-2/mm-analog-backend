@@ -28,6 +28,9 @@ public class Image {
     @Column(name = "image", unique = false, nullable = false, length = 100000)
     private byte[] image;
 
+    @Transient
+    private String imageUrl;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "username")
     @JsonIgnore
