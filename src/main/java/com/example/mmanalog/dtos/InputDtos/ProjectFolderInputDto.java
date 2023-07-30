@@ -1,6 +1,5 @@
 package com.example.mmanalog.dtos.InputDtos;
 
-import com.example.mmanalog.models.Image;
 import com.example.mmanalog.models.PhotoLog;
 import com.example.mmanalog.models.User;
 import jakarta.validation.constraints.*;
@@ -27,5 +26,4 @@ public class ProjectFolderInputDto {
     public PhotoLog photoLog;
 
     public User user;
-    public Image file;
 }

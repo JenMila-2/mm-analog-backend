@@ -37,9 +37,9 @@ public class FileController {
     }
 
     @GetMapping(path = "/download/{fileName}")
-    ResponseEntity<Resource> downLoadSingleFile(@PathVariable String fileName, HttpServletRequest request) {
+    ResponseEntity<Resource> downloadSingleFile(@PathVariable String fileName, HttpServletRequest request) {
 
-        Resource resource = fileService.downLoadFile(fileName);
+        Resource resource = fileService.downloadFile(fileName);
 
         String mimeType;
 
@@ -50,5 +50,42 @@ public class FileController {
         }
 
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(mimeType)).header(HttpHeaders.CONTENT_DISPOSITION, "inline;fileName=" + resource.getFilename()).body(resource);
+    }
+
+   @PostMapping(path = "/upload/{username}")
+   FileUploadResponse uploadFileForUser(@RequestParam("file") MultipartFile file, @PathVariable String username) {
+       String contentType = file.getContentType();
+       String fileName = fileService.uploadFileForUser(file, username);
+       String url = ServletUriComponentsBuilder.fromCurrentContextPath()
+               .path("/download/")
+               .path(username) // Include the username in the download URL
+               .path("/")
+               .path(fileName)
+               .toUriString();
+
+       return new FileUploadResponse(fileName, contentType, url);
+   }
+
+    @GetMapping(path = "/download/{username}/{fileName}")
+    ResponseEntity<Resource> downloadSingleFileForUser(@PathVariable String username, @PathVariable String fileName, HttpServletRequest request) {
+        Resource resource = fileService.downloadFileForUser(username, fileName);
+
+        String mimeType;
+        try {
+            mimeType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (IOException e) {
+            mimeType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(mimeType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline;fileName=" + resource.getFilename())
+                .body(resource);
+    }
+
+    @DeleteMapping(path = "/delete/{username}/{fileName}")
+    ResponseEntity<String> deleteFileForUser(@PathVariable String username, @PathVariable String fileName) {
+        fileService.deleteFileForUser(username, fileName);
+        return ResponseEntity.ok("File deleted successfully.");
     }
 }

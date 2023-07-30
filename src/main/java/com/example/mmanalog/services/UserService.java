@@ -2,21 +2,17 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.User.UserDto;
 import com.example.mmanalog.models.Authority;
-import com.example.mmanalog.models.Image;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.*;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
 import com.example.mmanalog.exceptions.UserNotFoundException;
-import com.example.mmanalog.utilities.ImageUtility;
 import com.example.mmanalog.utilities.RandomStringGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -26,11 +22,9 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private final ImageRepository imageRepository;
 
-    public UserService(UserRepository userRepository, ImageRepository imageRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.imageRepository = imageRepository;
     }
 
     public List<UserDto> getUsers() {
@@ -140,74 +134,6 @@ public class UserService {
         userDto.setApikey(user.getApikey());
 
         return userDto;
-    }
-
-    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
-
-    public UserDto assignImageToUser(String username, MultipartFile file) throws IOException {
-        Optional<User> optionalUser = userRepository.findById(username);
-
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-
-            Image image = Image.builder()
-                    .name(file.getOriginalFilename())
-                    .type(file.getContentType())
-                    .image(ImageUtility.compressImage(file.getBytes()))
-                    .user(user)
-                    .build();
-
-            imageRepository.save(image);
-
-            return transferUserToDto(user);
-        } else {
-            throw new RecordNotFoundException("No user found with username: " + username);
-        }
-    }
-
-    public byte[] getUserImageByName(String username, String imageName) {
-        Optional<User> optionalUser = userRepository.findById(username);
-
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            List<Image> images = user.getUserImages();
-
-            Optional<Image> optionalImage = images.stream()
-                    .filter(image -> image.getName().equals(imageName))
-                    .findFirst();
-
-            if (optionalImage.isPresent()) {
-                Image image = optionalImage.get();
-                return ImageUtility.decompressImage(image.getImage());
-            } else {
-                throw new RecordNotFoundException("No image found with name: " + imageName);
-            }
-        } else {
-            throw new RecordNotFoundException("No user found with username: " + username);
-        }
-    }
-
-    public void deleteUserImageByName(String username, String imageName) {
-        Optional<User> optionalUser = userRepository.findById(username);
-
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            List<Image> images = user.getUserImages();
-
-            Optional<Image> optionalImage = images.stream()
-                    .filter(image -> image.getName().equals(imageName))
-                    .findFirst();
-
-            if (optionalImage.isPresent()) {
-                Image image = optionalImage.get();
-                images.remove(image);
-                imageRepository.delete(image);
-            } else {
-                throw new RecordNotFoundException("No image found with name: " + imageName);
-            }
-        } else {
-            throw new RecordNotFoundException("No user found with username: " + username);
-        }
     }
 }
 

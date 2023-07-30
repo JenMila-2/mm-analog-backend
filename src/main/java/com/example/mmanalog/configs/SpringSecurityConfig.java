@@ -105,18 +105,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.PUT,"/filmdevelopmentlogs/{id}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.DELETE,"/filmdevelopmentlogs/{id}").hasAnyRole("ADMIN", "USER")
 
-                    //----------------------------------------Image--------------------------------------//
-                    .requestMatchers(HttpMethod.GET,"/image/{name}").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.GET,"/projectfolders/{folderId}/images/{imageName}").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.GET, "/users/{username}/images/{imageName}").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.POST,"/upload/image").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.POST,"/projectfolders/{folderId}/upload/image").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.POST,"/users/{username}/upload/image").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.DELETE,"/projectfolders/{folderId}/images/{imageName}").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.DELETE,"/users/{username}/images/{imageName}").hasAnyRole("ADMIN", "USER")
-
-                    .requestMatchers(HttpMethod.POST,"/upload").hasAnyRole("ADMIN", "USER")
+                    //----------------------------------------File--------------------------------------//
                     .requestMatchers(HttpMethod.GET,"/download/{fileName}").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.GET,"/download/{username}/{fileName}").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.POST,"/upload").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.POST,"/upload/{username}").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.DELETE,"/delete/{username}/{fileName}").hasAnyRole("ADMIN", "USER")
 
                     .anyRequest().denyAll()
                     .and()

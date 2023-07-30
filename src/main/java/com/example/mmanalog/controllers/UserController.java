@@ -1,7 +1,6 @@
 package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.User.UserDto;
-import com.example.mmanalog.models.ImageUploadResponse;
 import com.example.mmanalog.services.UserService;
 import com.example.mmanalog.exceptions.BadRequestException;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
@@ -102,58 +101,5 @@ public UserController(UserService userService) {
     public ResponseEntity<Object> removeAuthority(@PathVariable("username") String username, @PathVariable("authority") String authority) {
         userService.removeAuthority(username, authority);
         return ResponseEntity.noContent().build();
-    }
-
-    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
-
-    @PostMapping(path = "/{username}/upload/image")
-    public ResponseEntity<ImageUploadResponse> assignImageToUser(
-            @PathVariable("username") String username,
-            @RequestParam("image") MultipartFile file
-    ) throws IOException {
-        UserDto userDto = userService.assignImageToUser(username, file);
-
-        String message = "Image uploaded successfully: " + file.getOriginalFilename();
-        ImageUploadResponse response = new ImageUploadResponse(message);
-
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-    }
-
-    @GetMapping(path = "/{username}/images/{imageName}")
-    public ResponseEntity<Resource> getFolderImageByName(
-            @PathVariable("username") String username,
-            @PathVariable("imageName") String imageName
-    ) {
-        byte[] imageData = userService.getUserImageByName(username, imageName);
-
-        if (imageData != null && imageData.length > 0) {
-            String imageType = "image/jpeg";
-
-            ByteArrayResource resource = new ByteArrayResource(imageData);
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.parseMediaType(imageType));
-            headers.setContentLength(resource.contentLength());
-            headers.setContentDisposition(ContentDisposition.builder("inline").filename(imageName).build());
-
-            return ResponseEntity.ok()
-                    .headers(headers)
-                    .body(resource);
-        } else {
-            throw new BadRequestException("No image found with name: " + imageName);
-        }
-    }
-
-    @DeleteMapping(path = "/{username}/images/{imageName}")
-    public ResponseEntity<String> deleteFolderImageByName(
-            @PathVariable("username") String username,
-            @PathVariable("imageName") String imageName
-    ) {
-        try {
-            userService.deleteUserImageByName(username, imageName);
-            return ResponseEntity.ok("Image deleted successfully");
-        } catch (RecordNotFoundException e) {
-            throw new RecordNotFoundException("Image with name: " + imageName + " or user with username: " + username + " does not exist or not found");
-        }
     }
 }

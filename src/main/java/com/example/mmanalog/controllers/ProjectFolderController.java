@@ -2,21 +2,15 @@ package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
-import com.example.mmanalog.models.ImageUploadResponse;
-import com.example.mmanalog.models.FileUploadResponse;
 import com.example.mmanalog.models.User;
+import com.example.mmanalog.repositories.FileUploadRepository;
+import com.example.mmanalog.services.FileService;
 import com.example.mmanalog.services.ProjectFolderService;
-import com.example.mmanalog.exceptions.BadRequestException;
-import com.example.mmanalog.exceptions.RecordNotFoundException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.*;
 
 import jakarta.validation.Valid;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin
@@ -25,11 +19,15 @@ import java.util.List;
 public class ProjectFolderController {
 
     private final ProjectFolderService projectFolderService;
+    private final FileUploadRepository fileUploadRepository;
     private final FileController fileController;
+    private final FileService fileService;
 
-    public ProjectFolderController(ProjectFolderService projectFolderService, FileController fileController) {
+    public ProjectFolderController(ProjectFolderService projectFolderService, FileController fileController, FileService fileService, FileUploadRepository fileUploadRepository) {
         this.projectFolderService = projectFolderService;
         this.fileController = fileController;
+        this.fileService = fileService;
+        this.fileUploadRepository = fileUploadRepository;
     }
 
     @GetMapping(path = "")
@@ -87,71 +85,4 @@ public class ProjectFolderController {
         ProjectFolderDto createdFolder = projectFolderService.createFolderForUser(username, newFolderInput);
         return ResponseEntity.created(null).body(createdFolder);
     }
-
-    @PostMapping(path = "/{folderId}/upload/image")
-    public ResponseEntity<ImageUploadResponse> uploadImageToFolder(
-            @PathVariable("folderId") Long folderId,
-            @RequestParam("image") MultipartFile file
-    ) throws IOException {
-        ProjectFolderDto projectFolderDto = projectFolderService.uploadImageToFolder(folderId, file);
-
-        String message = "Image uploaded successfully: " + file.getOriginalFilename();
-        ImageUploadResponse response = new ImageUploadResponse(message);
-
-        return ResponseEntity.status(HttpStatus.OK).body(response);
-    }
-
-    @GetMapping(path = "/{folderId}/images/{imageName}")
-    public ResponseEntity<Resource> getFolderImageByName(
-            @PathVariable("folderId") Long folderId,
-            @PathVariable("imageName") String imageName
-    ) {
-        byte[] imageData = projectFolderService.getFolderImageByName(folderId, imageName);
-
-        if (imageData != null && imageData.length > 0) {
-            String imageType = "image/jpeg";
-
-            ByteArrayResource resource = new ByteArrayResource(imageData);
-
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.parseMediaType(imageType));
-            headers.setContentLength(resource.contentLength());
-            headers.setContentDisposition(ContentDisposition.builder("inline").filename(imageName).build());
-
-            return ResponseEntity.ok()
-                    .headers(headers)
-                    .body(resource);
-        } else {
-            throw new BadRequestException("No image found with name: " + imageName + " in folder with id: " + folderId);
-        }
-    }
-
-    // *** Alternative get method *** //
-    @GetMapping(path = "/{folderId}/images/url/{imageName}")
-    public ResponseEntity<String> getFolderImageByUrlName(
-            @PathVariable("folderId") Long folderId,
-            @PathVariable("imageName") String imageName
-    ) {
-        String imageUrl = projectFolderService.getFolderImageUrlByName(folderId, imageName);
-
-        if (imageUrl != null && !imageUrl.isEmpty()) {
-            return ResponseEntity.ok(imageUrl);
-        } else {
-            throw new BadRequestException("No image found with name: " + imageName + " in folder with id: " + folderId);
-        }
-    }
-
-    @DeleteMapping(path = "/{folderId}/images/{imageName}")
-    public ResponseEntity<String> deleteFolderImageByName(
-            @PathVariable("folderId") Long folderId,
-            @PathVariable("imageName") String imageName
-    ) {
-        try {
-            projectFolderService.deleteFolderImageByName(folderId, imageName);
-            return ResponseEntity.ok("Image deleted successfully");
-        } catch (RecordNotFoundException e) {
-            throw new RecordNotFoundException("Image with name: " + imageName + " or project folder with id: " + folderId + " does not exist or not found");
-        }
-    }
-
 }

@@ -1,6 +1,5 @@
 package com.example.mmanalog.dtos.OutputDtos;
 
-import com.example.mmanalog.models.Image;
 import com.example.mmanalog.models.User;
 import lombok.Getter;
 import lombok.Setter;
