@@ -25,7 +25,7 @@ public class FileController {
     }
 
     @PostMapping(path = "/upload")
-    FileUploadResponse singleFileUpload(@RequestParam("file") MultipartFile file){
+    FileUploadResponse singleFileUpload(@RequestParam("file") MultipartFile file) {
 
         String url = ServletUriComponentsBuilder.fromCurrentContextPath().path("/download/").path(Objects.requireNonNull(file.getOriginalFilename())).toUriString();
 
@@ -33,7 +33,7 @@ public class FileController {
 
         String fileName = fileService.uploadFile(file, url);
 
-        return new FileUploadResponse(fileName, contentType, url );
+        return new FileUploadResponse(fileName, contentType, url);
     }
 
     @GetMapping(path = "/download/{fileName}")
@@ -43,7 +43,7 @@ public class FileController {
 
         String mimeType;
 
-        try{
+        try {
             mimeType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
         } catch (IOException e) {
             mimeType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
@@ -52,19 +52,21 @@ public class FileController {
         return ResponseEntity.ok().contentType(MediaType.parseMediaType(mimeType)).header(HttpHeaders.CONTENT_DISPOSITION, "inline;fileName=" + resource.getFilename()).body(resource);
     }
 
-   @PostMapping(path = "/upload/{username}")
-   FileUploadResponse uploadFileForUser(@RequestParam("file") MultipartFile file, @PathVariable String username) {
-       String contentType = file.getContentType();
-       String fileName = fileService.uploadFileForUser(file, username);
-       String url = ServletUriComponentsBuilder.fromCurrentContextPath()
-               .path("/download/")
-               .path(username) // Include the username in the download URL
-               .path("/")
-               .path(fileName)
-               .toUriString();
+    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
-       return new FileUploadResponse(fileName, contentType, url);
-   }
+    @PostMapping(path = "/upload/{username}")
+    FileUploadResponse uploadFileForUser(@RequestParam("file") MultipartFile file, @PathVariable String username) {
+        String contentType = file.getContentType();
+        String fileName = fileService.uploadFileForUser(file, username);
+        String url = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/download/")
+                .path(username) // Include the username in the download URL
+                .path("/")
+                .path(fileName)
+                .toUriString();
+
+        return new FileUploadResponse(fileName, contentType, url);
+    }
 
     @GetMapping(path = "/download/{username}/{fileName}")
     ResponseEntity<Resource> downloadSingleFileForUser(@PathVariable String username, @PathVariable String fileName, HttpServletRequest request) {
@@ -86,6 +88,46 @@ public class FileController {
     @DeleteMapping(path = "/delete/{username}/{fileName}")
     ResponseEntity<String> deleteFileForUser(@PathVariable String username, @PathVariable String fileName) {
         fileService.deleteFileForUser(username, fileName);
+        return ResponseEntity.ok("File deleted successfully.");
+    }
+
+    @PostMapping(path = "/upload/project/{folderId}")
+    FileUploadResponse singleFileUpload(@RequestParam("file") MultipartFile file, @PathVariable Long folderId) {
+        String url = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/download/project/")
+                .path(folderId.toString())
+                .path("/")
+                .path(Objects.requireNonNull(file.getOriginalFilename()))
+                .toUriString();
+
+
+        String contentType = file.getContentType();
+
+        String fileName = fileService.assignFileToFolder(file, folderId);
+
+        return new FileUploadResponse(fileName, contentType, url);
+    }
+
+    @GetMapping(path = "/download/project/{folderId}/{fileName}")
+    ResponseEntity<Resource> downloadFileFromFolder(@PathVariable Long folderId, @PathVariable String fileName, HttpServletRequest request) {
+        Resource resource = fileService.downloadFileFromFolder(folderId, fileName);
+
+        String mimeType;
+        try {
+            mimeType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (IOException e) {
+            mimeType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(mimeType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline;fileName=" + resource.getFilename())
+                .body(resource);
+    }
+
+    @DeleteMapping(path = "/delete/project/{folderId}/{fileName}")
+    ResponseEntity<String> deleteFileFromFolder(@PathVariable Long folderId, @PathVariable String fileName) {
+        fileService.deleteFileFromFolder(folderId, fileName);
         return ResponseEntity.ok("File deleted successfully.");
     }
 }

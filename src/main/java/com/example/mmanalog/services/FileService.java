@@ -29,14 +29,14 @@ public class FileService {
 
     private final Path fileStoragePath;
     private final String fileStorageLocation;
-    private final FileUploadRepository repository;
+    private final FileUploadRepository fileRepository;
     private final UserRepository userRepository;
     private final ProjectFolderRepository projectFolderRepository;
 
-    public FileService(@Value("${my.upload_location}") String fileStorageLocation, FileUploadRepository repository, UserRepository userRepository, ProjectFolderRepository projectFolderRepository) {
+    public FileService(@Value("${my.upload_location}") String fileStorageLocation, FileUploadRepository fileRepository, UserRepository userRepository, ProjectFolderRepository projectFolderRepository) {
         fileStoragePath = Paths.get(fileStorageLocation).toAbsolutePath().normalize();
         this.fileStorageLocation = fileStorageLocation;
-        this.repository = repository;
+        this.fileRepository = fileRepository;
         this.userRepository = userRepository;
         this.projectFolderRepository = projectFolderRepository;
 
@@ -59,7 +59,7 @@ public class FileService {
             throw new RuntimeException("Issue in storing the selected file", e);
         }
 
-        repository.save(new FileUploadResponse(fileName, file.getContentType(), url));
+        fileRepository.save(new FileUploadResponse(fileName, file.getContentType(), url));
 
         return fileName;
     }
@@ -83,7 +83,8 @@ public class FileService {
         }
     }
 
-    ///
+    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
+
     public String uploadFileForUser(MultipartFile file, String username) {
         User user = userRepository.findById(username).orElseThrow(() -> new RuntimeException("User not found."));
 
@@ -98,7 +99,7 @@ public class FileService {
 
         FileUploadResponse uploadedFile = new FileUploadResponse(fileName, file.getContentType(), null);
         uploadedFile.setUser(user);
-        repository.save(uploadedFile);
+        fileRepository.save(uploadedFile);
 
         return fileName;
     }
@@ -106,7 +107,7 @@ public class FileService {
     public Resource downloadFileForUser(String username, String fileName) {
         User user = userRepository.findById(username).orElseThrow(() -> new RuntimeException("User not found."));
 
-        FileUploadResponse file = repository.findByFileName(fileName).orElseThrow(() -> new RecordNotFoundException("File not found for the given user or file has been deleted."));
+        FileUploadResponse file = fileRepository.findByFileName(fileName).orElseThrow(() -> new RecordNotFoundException("File not found for the given user or file has been deleted."));
 
         if (!file.getUser().getUsername().equals(username)) {
             throw new RecordNotFoundException("No file found for user: " + username);
@@ -132,7 +133,7 @@ public class FileService {
     public void deleteFileForUser(String username, String fileName) {
         User user = userRepository.findById(username).orElseThrow(() -> new RuntimeException("User not found."));
 
-        FileUploadResponse file = repository.findByFileName(fileName).orElseThrow(() -> new RuntimeException("File not found."));
+        FileUploadResponse file = fileRepository.findByFileName(fileName).orElseThrow(() -> new RuntimeException("File not found."));
         if (!file.getUser().getUsername().equals(username)) {
             throw new RuntimeException("File not found for the given user.");
         }
@@ -144,6 +145,70 @@ public class FileService {
             throw new RuntimeException("Failed to delete the file", e);
         }
 
-        repository.delete(file);
+        fileRepository.delete(file);
+    }
+
+    public String assignFileToFolder(MultipartFile file, Long folderId) {
+        ProjectFolder projectFolder = projectFolderRepository.findById(folderId)
+                .orElseThrow(() -> new RecordNotFoundException("Project folder not found."));
+
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+        Path filePath = Paths.get(fileStoragePath + "/" + fileName);
+
+        try {
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            throw new RuntimeException("Issue in storing the selected file", e);
+        }
+
+        FileUploadResponse uploadedFile = new FileUploadResponse(fileName, file.getContentType(), null);
+        uploadedFile.setProjectFolder(projectFolder);
+        fileRepository.save(uploadedFile);
+
+        return fileName;
+    }
+
+    public Resource downloadFileFromFolder(Long folderId, String fileName) {
+        ProjectFolder projectFolder = projectFolderRepository.findById(folderId).orElseThrow(() -> new RuntimeException("Folder not found."));
+
+        FileUploadResponse file = fileRepository.findByFileName(fileName).orElseThrow(() -> new RecordNotFoundException("File not found in the folder or file has been deleted."));
+
+        if (!file.getProjectFolder().getId().equals(folderId)) {
+            throw new RecordNotFoundException("No file found for folder: " + folderId);
+        }
+
+        Path path = Paths.get(fileStorageLocation).toAbsolutePath().resolve(fileName);
+
+        Resource resource;
+
+        try {
+            resource = new UrlResource(path.toUri());
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Issue in reading the file", e);
+        }
+
+        if (resource.exists() && resource.isReadable()) {
+            return resource;
+        } else {
+            throw new RuntimeException("The file doesn't exist or is not readable");
+        }
+    }
+
+    public void deleteFileFromFolder(Long folderId, String fileName) {
+        ProjectFolder projectFolder = projectFolderRepository.findById(folderId).orElseThrow(() -> new RuntimeException("Folder not found."));
+
+        FileUploadResponse file = fileRepository.findByFileName(fileName).orElseThrow(() -> new RuntimeException("File not found."));
+        if (!file.getProjectFolder().getId().equals(folderId)) {
+            throw new RuntimeException("File not found fin the project folder.");
+        }
+
+        Path filePath = Paths.get(fileStoragePath + "/" + fileName);
+        try {
+            Files.delete(filePath);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to delete the file", e);
+        }
+
+        fileRepository.delete(file);
     }
 }

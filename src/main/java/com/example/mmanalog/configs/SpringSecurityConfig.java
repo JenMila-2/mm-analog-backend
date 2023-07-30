@@ -108,10 +108,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     //----------------------------------------File--------------------------------------//
                     .requestMatchers(HttpMethod.GET,"/download/{fileName}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.GET,"/download/{username}/{fileName}").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.GET,"/download/project/{folderId}/{fileName}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.POST,"/upload").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.POST,"/upload/{username}").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.POST,"/upload/project/{folderId}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.DELETE,"/delete/{username}/{fileName}").hasAnyRole("ADMIN", "USER")
-
+                    .requestMatchers(HttpMethod.DELETE,"/delete/project/{folderId}/{fileName}").hasAnyRole("ADMIN", "USER")
                     .anyRequest().denyAll()
                     .and()
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
