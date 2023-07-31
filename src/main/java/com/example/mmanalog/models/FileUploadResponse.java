@@ -22,6 +22,7 @@ public class FileUploadResponse {
     @JsonIgnore
     private ProjectFolder projectFolder;
 
+
     public FileUploadResponse(String fileName, String contentType, String url) {
         this.fileName = fileName;
         this.contentType = contentType;

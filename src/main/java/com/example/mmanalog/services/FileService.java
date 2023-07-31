@@ -45,11 +45,14 @@ public class FileService {
         }
     }
 
+    // *** Important side note: project mm-analog was created using an Apple (Mac) computer. If you are using a Windows computer the Path filePath in the upload methods should be changed to: Path filePath = Paths.get(fileStoragePath + "\\" + fileName); Do not forget to also change the Path in the delete methods! *** //
+
     public String uploadFile(MultipartFile file, String url) {
 
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
 
         Path filePath = Paths.get(fileStoragePath + "/" + fileName);
+        //For Windows users: Path filePath = Paths.get(fileStoragePath + "\\" + fileName);
 
         try {
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
@@ -88,6 +91,7 @@ public class FileService {
 
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         Path filePath = Paths.get(fileStoragePath + "/" + fileName);
+        //For Windows users: Path filePath = Paths.get(fileStoragePath + "\\" + fileName);
 
         try {
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
@@ -152,6 +156,7 @@ public class FileService {
 
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         Path filePath = Paths.get(fileStoragePath + "/" + fileName);
+        //For Windows users: Path filePath = Paths.get(fileStoragePath + "\\" + fileName);
 
         try {
             Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
@@ -208,5 +213,63 @@ public class FileService {
         }
 
         fileRepository.delete(file);
+    }
+
+    public String assignFileToFolderByUser(MultipartFile file, Long folderId, String url, String username) {
+        ProjectFolder projectFolder = projectFolderRepository.findById(folderId)
+                .orElseThrow(() -> new RecordNotFoundException("Project folder not found"));
+
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+        Path filePath = Paths.get(fileStoragePath + "/" + fileName);
+        // For Windows users: Path filePath = Paths.get(fileStoragePath + "\\" + fileName);
+
+        try {
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            throw new RuntimeException("Issue in storing the selected file", e);
+        }
+
+        FileUploadResponse uploadedFile = new FileUploadResponse(fileName, file.getContentType(), url);
+
+        User user = userRepository.findById(username)
+                .orElseThrow(() -> new RecordNotFoundException("User not found"));
+        uploadedFile.setUser(user);
+
+        uploadedFile.setProjectFolder(projectFolder);
+        fileRepository.save(uploadedFile);
+
+        return fileName;
+    }
+
+    public Resource downloadFileFromFolderByUser(Long folderId, String fileName, String username) {
+        ProjectFolder projectFolder = projectFolderRepository.findById(folderId)
+                .orElseThrow(() -> new RuntimeException("Project folder not found"));
+
+        FileUploadResponse file = fileRepository.findByFileName(fileName)
+                .orElseThrow(() -> new RecordNotFoundException("File not found in the project folder or the file has already been deleted"));
+
+        if (!file.getProjectFolder().getId().equals(folderId)) {
+            throw new RecordNotFoundException("No file found for project folder: " + folderId);
+        }
+
+        if (!file.getUser().getUsername().equals(username)) {
+            throw new RecordNotFoundException("The file does not belong to the user: " + username);
+        }
+
+        Path path = Paths.get(fileStorageLocation).toAbsolutePath().resolve(fileName);
+
+        Resource resource;
+
+        try {
+            resource = new UrlResource(path.toUri());
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("Issue in reading the file", e);
+        }
+
+        if (resource.exists() && resource.isReadable()) {
+            return resource;
+        } else {
+            throw new RuntimeException("The file doesn't exist or is not readable");
+        }
     }
 }

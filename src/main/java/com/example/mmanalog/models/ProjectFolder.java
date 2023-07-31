@@ -36,4 +36,8 @@ public class ProjectFolder {
     @OneToMany(mappedBy = "projectFolder")
     @JsonIgnore
     private List<FileUploadResponse> files = new ArrayList<>();
+
+    //*-------------------------Additional relationship to show upload function in the frontend-------------------------*//
+    @OneToOne
+    FileUploadResponse file;
 }

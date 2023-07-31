@@ -1,5 +1,6 @@
 package com.example.mmanalog.dtos.OutputDtos;
 
+import com.example.mmanalog.models.FileUploadResponse;
 import com.example.mmanalog.models.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,4 +18,7 @@ public class ProjectFolderDto {
     public String projectConcept;
 
     public User user;
+    private FileUploadResponse file;
+
+    private FileUploadResponse image;
 }

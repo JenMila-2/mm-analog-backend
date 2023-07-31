@@ -127,4 +127,38 @@ public class FileController {
         fileService.deleteFileFromFolder(folderId, fileName);
         return ResponseEntity.ok("File deleted successfully.");
     }
+
+    @PostMapping(path = "/upload/project/{folderId}/{username}")
+    FileUploadResponse singleFileUploadToFolderByUser(@RequestParam("file") MultipartFile file, @PathVariable Long folderId, @PathVariable String username) {
+        String url = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/download/")
+                .path(username)
+                .path("/project/")
+                .path(folderId.toString())
+                .path("/")
+                .path(Objects.requireNonNull(file.getOriginalFilename()))
+                .toUriString();
+
+        String contentType = file.getContentType();
+        String fileName = fileService.assignFileToFolderByUser(file, folderId, url, username);
+
+        return new FileUploadResponse(fileName, contentType, url);
+    }
+
+    @GetMapping(path = "/download/{username}/project/{folderId}/{fileName}")
+    ResponseEntity<Resource> downloadFileFromFolderByUser(@PathVariable Long folderId, @PathVariable String fileName,  HttpServletRequest request, @PathVariable String username) {
+        Resource resource = fileService.downloadFileFromFolderByUser(folderId, fileName, username);
+
+        String mimeType;
+        try {
+            mimeType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+        } catch (IOException e) {
+            mimeType = MediaType.APPLICATION_OCTET_STREAM_VALUE;
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(mimeType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "inline;fileName=" + resource.getFilename())
+                .body(resource);
+    }
 }

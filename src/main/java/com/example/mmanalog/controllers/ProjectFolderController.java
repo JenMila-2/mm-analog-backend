@@ -2,12 +2,14 @@ package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
+import com.example.mmanalog.models.FileUploadResponse;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.services.ProjectFolderService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
 
 import jakarta.validation.Valid;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,9 +19,11 @@ import java.util.List;
 public class ProjectFolderController {
 
     private final ProjectFolderService projectFolderService;
+    private final FileController fileController;
 
-    public ProjectFolderController(ProjectFolderService projectFolderService) {
+    public ProjectFolderController(ProjectFolderService projectFolderService, FileController fileController) {
         this.projectFolderService = projectFolderService;
+        this.fileController = fileController;
     }
 
     @GetMapping(path = "")
@@ -76,5 +80,13 @@ public class ProjectFolderController {
     ) {
         ProjectFolderDto createdFolder = projectFolderService.createFolderForUser(username, newFolderInput);
         return ResponseEntity.created(null).body(createdFolder);
+    }
+
+    //*-------------------------Additional relationship to show upload function in the frontend-------------------------*//
+    @PostMapping("/{folderId}/photo")
+    public void assignSinglePhotoToFolder(@PathVariable("folderId") Long folderId,
+                                          @RequestBody MultipartFile file) {
+        FileUploadResponse photo = fileController.singleFileUpload(file);
+        projectFolderService.assignSinglePhotoToProjectFolder(photo.getFileName(), folderId);
     }
 }
