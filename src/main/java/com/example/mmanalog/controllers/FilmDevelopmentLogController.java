@@ -66,7 +66,6 @@ public class FilmDevelopmentLogController {
         return ResponseEntity.noContent().build();
     }
 
-
     //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
     @PostMapping(path = "/new/{username}")
@@ -77,5 +76,4 @@ public class FilmDevelopmentLogController {
         FilmDevelopmentLogDto createdFilmDevelopmentLog = filmDevelopmentLogService.createFilmDevelopmentLogForUser(username, filmDevelopmentLogInputDto);
         return ResponseEntity.created(null).body(createdFilmDevelopmentLog);
     }
-
 }

@@ -85,6 +85,7 @@ public class UserService {
     }
 
     //*-----------------------------Authorities-----------------------------*//
+
     public Set<Authority> getAuthorities(String username) {
         if (!userRepository.existsById(username)) throw new UsernameNotFoundException("No user found with username: " + username);
         User user = userRepository.findById(username).get();

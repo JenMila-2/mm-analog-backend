@@ -88,36 +88,6 @@ public class FilmStockInventoryService {
         filmStockInventoryRepository.deleteById(id);
     }
 
-
-    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
-
-    public FilmStockInventoryDto createFilmStockInventoryForUser(String username, FilmStockInventoryInputDto filmStockInventoryInputDto) {
-        Optional<User> userOptional = userRepository.findById(username);
-
-        if(userOptional.isPresent()) {
-            User user = userOptional.get();
-
-            FilmStockInventory filmStockInventory = new FilmStockInventory();
-            filmStockInventory.setUser(user);
-            filmStockInventory.setFilmStockName(filmStockInventoryInputDto.getFilmStockName());
-            filmStockInventory.setRemainingRolls(filmStockInventoryInputDto.getRemainingRolls());
-            filmStockInventory.setBrand(filmStockInventoryInputDto.getBrand());
-            filmStockInventory.setStock(filmStockInventoryInputDto.getStock());
-            filmStockInventory.setFormat(filmStockInventoryInputDto.getFormat());
-            filmStockInventory.setIso(filmStockInventoryInputDto.getIso());
-            filmStockInventory.setDevelopmentProcess(filmStockInventoryInputDto.getDevelopmentProcess());
-            filmStockInventory.setStorage(filmStockInventoryInputDto.getStorage());
-            filmStockInventory.setRollsShot(filmStockInventoryInputDto.getRollsShot());
-            filmStockInventory.setFilmExpirationDate(filmStockInventoryInputDto.getFilmExpirationDate());
-
-            filmStockInventoryRepository.save(filmStockInventory);
-
-            return transferFilmStockInventoryToDto(filmStockInventory);
-        } else {
-            throw new UserNotFoundException("No user found with username: " + username);
-        }
-    }
-
     //*---------------------------------Transfers---------------------------------*//
 
     public FilmStockInventory transferToFilmStockInventory(FilmStockInventoryInputDto filmStockInventoryInputDto) {
@@ -155,5 +125,34 @@ public class FilmStockInventoryService {
         filmStockInventoryDto.setUser(filmStockInventory.getUser());
 
         return filmStockInventoryDto;
+    }
+
+    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
+
+    public FilmStockInventoryDto createFilmStockInventoryForUser(String username, FilmStockInventoryInputDto filmStockInventoryInputDto) {
+        Optional<User> userOptional = userRepository.findById(username);
+
+        if(userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            FilmStockInventory filmStockInventory = new FilmStockInventory();
+            filmStockInventory.setUser(user);
+            filmStockInventory.setFilmStockName(filmStockInventoryInputDto.getFilmStockName());
+            filmStockInventory.setRemainingRolls(filmStockInventoryInputDto.getRemainingRolls());
+            filmStockInventory.setBrand(filmStockInventoryInputDto.getBrand());
+            filmStockInventory.setStock(filmStockInventoryInputDto.getStock());
+            filmStockInventory.setFormat(filmStockInventoryInputDto.getFormat());
+            filmStockInventory.setIso(filmStockInventoryInputDto.getIso());
+            filmStockInventory.setDevelopmentProcess(filmStockInventoryInputDto.getDevelopmentProcess());
+            filmStockInventory.setStorage(filmStockInventoryInputDto.getStorage());
+            filmStockInventory.setRollsShot(filmStockInventoryInputDto.getRollsShot());
+            filmStockInventory.setFilmExpirationDate(filmStockInventoryInputDto.getFilmExpirationDate());
+
+            filmStockInventoryRepository.save(filmStockInventory);
+
+            return transferFilmStockInventoryToDto(filmStockInventory);
+        } else {
+            throw new UserNotFoundException("No user found with username: " + username);
+        }
     }
 }

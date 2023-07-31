@@ -91,40 +91,6 @@ public class FilmDevelopmentLogService {
         filmDevelopmentLogRepository.deleteById(id);
     }
 
-
-    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
-
-    public FilmDevelopmentLogDto createFilmDevelopmentLogForUser(String username, FilmDevelopmentLogInputDto filmDevelopmentLogInputDto) {
-        Optional<User> userOptional = userRepository.findById(username);
-
-        if(userOptional.isPresent()) {
-            User user = userOptional.get();
-
-            FilmDevelopmentLog filmDevelopmentLog = new FilmDevelopmentLog();
-            filmDevelopmentLog.setUser(user);
-            filmDevelopmentLog.setRollName(filmDevelopmentLogInputDto.getRollName());
-            filmDevelopmentLog.setProject(filmDevelopmentLogInputDto.getProject());
-            filmDevelopmentLog.setCamera(filmDevelopmentLogInputDto.getCamera());
-            filmDevelopmentLog.setStock(filmDevelopmentLogInputDto.getStock());
-            filmDevelopmentLog.setFormat(filmDevelopmentLogInputDto.getFormat());
-            filmDevelopmentLog.setShotAtIso(filmDevelopmentLogInputDto.getShotAtIso());
-            filmDevelopmentLog.setDevelopmentProcess(filmDevelopmentLogInputDto.getDevelopmentProcess());
-            filmDevelopmentLog.setStatus(filmDevelopmentLogInputDto.getStatus());
-            filmDevelopmentLog.setRollStarted(filmDevelopmentLogInputDto.getRollStarted());
-            filmDevelopmentLog.setRollFinished(filmDevelopmentLogInputDto.getRollFinished());
-            filmDevelopmentLog.setExposed(filmDevelopmentLogInputDto.isExposed());
-            filmDevelopmentLog.setDeveloped(filmDevelopmentLogInputDto.isDeveloped());
-            filmDevelopmentLog.setScanned(filmDevelopmentLogInputDto.isScanned());
-            filmDevelopmentLog.setDevelopedByLab(filmDevelopmentLogInputDto.getDevelopedByLab());
-
-            filmDevelopmentLogRepository.save(filmDevelopmentLog);
-
-            return transferFilmDevelopmentLogToDto(filmDevelopmentLog);
-        } else {
-            throw new UserNotFoundException("No user found with username: " + username);
-        }
-    }
-
     //*---------------------------------Transfers---------------------------------*//
 
     public FilmDevelopmentLog transferToFilmDevelopmentLog(FilmDevelopmentLogInputDto filmDevelopmentLogInputDto) {
@@ -170,5 +136,38 @@ public class FilmDevelopmentLogService {
         filmDevelopmentLogDto.setUser(filmDevelopmentLog.getUser());
 
         return filmDevelopmentLogDto;
+    }
+
+    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
+
+    public FilmDevelopmentLogDto createFilmDevelopmentLogForUser(String username, FilmDevelopmentLogInputDto filmDevelopmentLogInputDto) {
+        Optional<User> userOptional = userRepository.findById(username);
+
+        if(userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            FilmDevelopmentLog filmDevelopmentLog = new FilmDevelopmentLog();
+            filmDevelopmentLog.setUser(user);
+            filmDevelopmentLog.setRollName(filmDevelopmentLogInputDto.getRollName());
+            filmDevelopmentLog.setProject(filmDevelopmentLogInputDto.getProject());
+            filmDevelopmentLog.setCamera(filmDevelopmentLogInputDto.getCamera());
+            filmDevelopmentLog.setStock(filmDevelopmentLogInputDto.getStock());
+            filmDevelopmentLog.setFormat(filmDevelopmentLogInputDto.getFormat());
+            filmDevelopmentLog.setShotAtIso(filmDevelopmentLogInputDto.getShotAtIso());
+            filmDevelopmentLog.setDevelopmentProcess(filmDevelopmentLogInputDto.getDevelopmentProcess());
+            filmDevelopmentLog.setStatus(filmDevelopmentLogInputDto.getStatus());
+            filmDevelopmentLog.setRollStarted(filmDevelopmentLogInputDto.getRollStarted());
+            filmDevelopmentLog.setRollFinished(filmDevelopmentLogInputDto.getRollFinished());
+            filmDevelopmentLog.setExposed(filmDevelopmentLogInputDto.isExposed());
+            filmDevelopmentLog.setDeveloped(filmDevelopmentLogInputDto.isDeveloped());
+            filmDevelopmentLog.setScanned(filmDevelopmentLogInputDto.isScanned());
+            filmDevelopmentLog.setDevelopedByLab(filmDevelopmentLogInputDto.getDevelopedByLab());
+
+            filmDevelopmentLogRepository.save(filmDevelopmentLog);
+
+            return transferFilmDevelopmentLogToDto(filmDevelopmentLog);
+        } else {
+            throw new UserNotFoundException("No user found with username: " + username);
+        }
     }
 }

@@ -73,7 +73,6 @@ public class PhotoLogController {
         return ResponseEntity.noContent().build();
     }
 
-
     //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
     @PostMapping(path = "/new/{username}")

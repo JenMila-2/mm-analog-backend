@@ -19,14 +19,10 @@ public class ProjectFolderService {
 
     private final ProjectFolderRepository projectFolderRepository;
     private final UserRepository userRepository;
-    private final FileUploadRepository fileUploadRepository;
-    private final FileService fileService;
 
-    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, UserRepository userRepository, FileUploadRepository fileUploadRepository, FileService fileService) {
+    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, UserRepository userRepository) {
         this.projectFolderRepository = projectFolderRepository;
-        this.fileUploadRepository = fileUploadRepository;
         this.userRepository = userRepository;
-        this.fileService = fileService;
     }
 
     public List<ProjectFolderDto> getProjectFolders() {

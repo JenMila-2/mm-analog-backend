@@ -19,7 +19,6 @@ import java.util.Objects;
 public class FileController {
     private final FileService fileService;
 
-
     public FileController(FileService fileService) {
         this.fileService = fileService;
     }
@@ -56,14 +55,14 @@ public class FileController {
 
     @PostMapping(path = "/upload/{username}")
     FileUploadResponse uploadFileForUser(@RequestParam("file") MultipartFile file, @PathVariable String username) {
-        String contentType = file.getContentType();
-        String fileName = fileService.uploadFileForUser(file, username);
         String url = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/download/")
-                .path(username) // Include the username in the download URL
+                .path(username)
                 .path("/")
-                .path(fileName)
-                .toUriString();
+                .path(Objects.requireNonNull(file.getOriginalFilename())).toUriString();
+
+        String contentType = file.getContentType();
+        String fileName = fileService.uploadFileForUser(file, username, url);
 
         return new FileUploadResponse(fileName, contentType, url);
     }
@@ -92,18 +91,16 @@ public class FileController {
     }
 
     @PostMapping(path = "/upload/project/{folderId}")
-    FileUploadResponse singleFileUpload(@RequestParam("file") MultipartFile file, @PathVariable Long folderId) {
+    FileUploadResponse singleFileUploadToFolder(@RequestParam("file") MultipartFile file, @PathVariable Long folderId) {
         String url = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path("/download/project/")
                 .path(folderId.toString())
                 .path("/")
-                .path(Objects.requireNonNull(file.getOriginalFilename()))
-                .toUriString();
+                .path(Objects.requireNonNull(file.getOriginalFilename())).toUriString();
 
 
         String contentType = file.getContentType();
-
-        String fileName = fileService.assignFileToFolder(file, folderId);
+        String fileName = fileService.assignFileToFolder(file, folderId, url);
 
         return new FileUploadResponse(fileName, contentType, url);
     }

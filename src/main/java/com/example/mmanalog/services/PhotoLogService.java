@@ -97,6 +97,43 @@ public class PhotoLogService {
         photoLogRepository.deleteById(id);
     }
 
+    //*---------------------------------Transfers---------------------------------*//
+
+    public PhotoLog transferToPhotoLog(PhotoLogInputDto photoLogInputDto) {
+        PhotoLog photoLog = new PhotoLog();
+
+        photoLog.setId(photoLogInputDto.getId());
+        photoLog.setTitle(photoLogInputDto.getTitle());
+        photoLog.setCamera(photoLogInputDto.getCamera());
+        photoLog.setStock(photoLogInputDto.getStock());
+        photoLog.setIso(photoLogInputDto.getIso());
+        photoLog.setAperture(photoLogInputDto.getAperture());
+        photoLog.setShutterSpeed(photoLogInputDto.getShutterSpeed());
+        photoLog.setExposureCompensation(photoLogInputDto.getExposureCompensation());
+        photoLog.setDateTaken(photoLogInputDto.getDateTaken());
+        photoLog.setNotes(photoLogInputDto.getNotes());
+
+        return photoLog;
+    }
+
+    public PhotoLogDto transferToPhotoLogDto(PhotoLog photoLog) {
+        PhotoLogDto photoLogDto = new PhotoLogDto();
+
+        photoLogDto.setId(photoLog.getId());
+        photoLogDto.setTitle(photoLog.getTitle());
+        photoLogDto.setCamera(photoLog.getCamera());
+        photoLogDto.setStock(photoLog.getStock());
+        photoLogDto.setIso(photoLog.getIso());
+        photoLogDto.setAperture(photoLog.getAperture());
+        photoLogDto.setShutterSpeed(photoLog.getShutterSpeed());
+        photoLogDto.setExposureCompensation(photoLog.getExposureCompensation());
+        photoLogDto.setDateTaken(photoLog.getDateTaken());
+        photoLogDto.setNotes(photoLog.getNotes());
+        photoLogDto.setProjectFolder(photoLog.getProjectFolder());
+        photoLogDto.setUser(photoLog.getUser());
+
+        return photoLogDto;
+    }
 
     //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
@@ -153,44 +190,6 @@ public class PhotoLogService {
         } else {
             throw new RecordNotFoundException("No user with username: " + username + " or project folder with id: " + folderId + " found");
         }
-    }
-
-    //*---------------------------------Transfers---------------------------------*//
-
-    public PhotoLog transferToPhotoLog(PhotoLogInputDto photoLogInputDto) {
-        PhotoLog photoLog = new PhotoLog();
-
-        photoLog.setId(photoLogInputDto.getId());
-        photoLog.setTitle(photoLogInputDto.getTitle());
-        photoLog.setCamera(photoLogInputDto.getCamera());
-        photoLog.setStock(photoLogInputDto.getStock());
-        photoLog.setIso(photoLogInputDto.getIso());
-        photoLog.setAperture(photoLogInputDto.getAperture());
-        photoLog.setShutterSpeed(photoLogInputDto.getShutterSpeed());
-        photoLog.setExposureCompensation(photoLogInputDto.getExposureCompensation());
-        photoLog.setDateTaken(photoLogInputDto.getDateTaken());
-        photoLog.setNotes(photoLogInputDto.getNotes());
-
-        return photoLog;
-    }
-
-    public PhotoLogDto transferToPhotoLogDto(PhotoLog photoLog) {
-        PhotoLogDto photoLogDto = new PhotoLogDto();
-
-        photoLogDto.setId(photoLog.getId());
-        photoLogDto.setTitle(photoLog.getTitle());
-        photoLogDto.setCamera(photoLog.getCamera());
-        photoLogDto.setStock(photoLog.getStock());
-        photoLogDto.setIso(photoLog.getIso());
-        photoLogDto.setAperture(photoLog.getAperture());
-        photoLogDto.setShutterSpeed(photoLog.getShutterSpeed());
-        photoLogDto.setExposureCompensation(photoLog.getExposureCompensation());
-        photoLogDto.setDateTaken(photoLog.getDateTaken());
-        photoLogDto.setNotes(photoLog.getNotes());
-        photoLogDto.setProjectFolder(photoLog.getProjectFolder());
-        photoLogDto.setUser(photoLog.getUser());
-
-        return photoLogDto;
     }
 }
 

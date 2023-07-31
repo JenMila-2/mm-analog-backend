@@ -3,8 +3,6 @@ package com.example.mmanalog.controllers;
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
 import com.example.mmanalog.models.User;
-import com.example.mmanalog.repositories.FileUploadRepository;
-import com.example.mmanalog.services.FileService;
 import com.example.mmanalog.services.ProjectFolderService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.*;
@@ -19,15 +17,9 @@ import java.util.List;
 public class ProjectFolderController {
 
     private final ProjectFolderService projectFolderService;
-    private final FileUploadRepository fileUploadRepository;
-    private final FileController fileController;
-    private final FileService fileService;
 
-    public ProjectFolderController(ProjectFolderService projectFolderService, FileController fileController, FileService fileService, FileUploadRepository fileUploadRepository) {
+    public ProjectFolderController(ProjectFolderService projectFolderService) {
         this.projectFolderService = projectFolderService;
-        this.fileController = fileController;
-        this.fileService = fileService;
-        this.fileUploadRepository = fileUploadRepository;
     }
 
     @GetMapping(path = "")

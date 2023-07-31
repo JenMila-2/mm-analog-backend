@@ -59,9 +59,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.POST,"/users/register").permitAll()
                     .requestMatchers(HttpMethod.POST,"/users/{username}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.PUT,"/users/{username}").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.PUT, "/users/{username}/images/{imageId}").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.DELETE, "/users/{username}").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.DELETE,"/users/{username}/authorities").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.DELETE, "/users/{username}").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.DELETE,"/{username}/authorities/{authority}").hasRole("ADMIN")
 
                     //----------------------------------------Authentication--------------------------------------//
                     .requestMatchers(HttpMethod.GET,"/authenticated").authenticated()
@@ -114,6 +113,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.POST,"/upload/project/{folderId}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.DELETE,"/delete/{username}/{fileName}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.DELETE,"/delete/project/{folderId}/{fileName}").hasAnyRole("ADMIN", "USER")
+
                     .anyRequest().denyAll()
                     .and()
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

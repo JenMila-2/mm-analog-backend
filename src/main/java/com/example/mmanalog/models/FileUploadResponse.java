@@ -9,9 +9,7 @@ public class FileUploadResponse {
 
     @Id
     private String fileName;
-
     private String contentType;
-
     private String url;
 
     @ManyToOne(fetch = FetchType.LAZY)
