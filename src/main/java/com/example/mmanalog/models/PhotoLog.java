@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -23,29 +21,27 @@ public class PhotoLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String photoTitle;
+    private String title;
     private String camera;
-    private String filmStock;
-    private String filmFormat;
-    private int shotAtIso;
+    private String stock;
+    private int iso;
     private String aperture;
     private String shutterSpeed;
     private String exposureCompensation;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate rollStarted;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate rollFinished;
-    private String developedByLab;
-    private boolean scanned;
+    private LocalDate dateTaken;
     private String notes;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "folder_id")
     @JsonIgnore
     private ProjectFolder projectFolder;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "username")
     @JsonIgnore
     private User user;
+
+    @OneToOne
+    FileUploadResponse file;
 }

@@ -4,7 +4,7 @@ import com.example.mmanalog.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, String> {
 
     User findUserByEmail(String email);
 

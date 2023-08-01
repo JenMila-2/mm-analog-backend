@@ -18,28 +18,23 @@ public class PhotoLogInputDto {
 
     public Long id;
     @NotNull
-    @Size(max = 75, message = "Title must be between 0 and 75 characters")
-    public String photoTitle;
-    @Size(max=50, message="This field cannot contain more than 50 characters")
+    @Size(min = 3, max = 75, message = "This field must be between 3 and 75 characters long")
+    public String title;
+    @Size(min = 3, max = 75, message = "This field must be between 3 and 75 characters long")
     public String camera;
-    @Size(max=50, message="This field cannot contain more than 50 characters")
-    public String filmStock;
-    public String filmFormat;
-    public int shotAtIso;
+    @Size(min = 3, max = 75, message = "This field must be between 3 and 75 characters long")
+    public String stock;
+    public int iso;
+    @Size(min = 3, max = 75, message = "This field must be between 3 and 75 characters long")
     public String aperture;
+    @Size(min = 3, max = 75, message = "This field must be between 3 and 75 characters long")
     public String shutterSpeed;
+    @Size(max = 5, message = "This field cannot contain more than 5 characters")
     public String exposureCompensation;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public LocalDate rollStarted;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    public LocalDate rollFinished;
-    @Size(max=50, message="This field cannot contain more than 50 characters.")
-    public String developedByLab;
-    public boolean scanned;
-    @Size(max=250, message="This field cannot contain more than 250 characters.")
+    public LocalDate dateTaken;
+    @Size(min = 10, max = 250, message = "This field must be between 10 and 250 characters long")
     public String notes;
 
-    public FilmStockInventory filmStockInventory;
     public User user;
 }
-

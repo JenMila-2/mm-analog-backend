@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -18,7 +20,6 @@ public class ProjectFolder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     private Long id;
     private String projectTitle;
     private String projectConcept;
@@ -28,11 +29,11 @@ public class ProjectFolder {
     private List<PhotoLog> photoLogs;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "username")
     @JsonIgnore
     private User user;
 
-   @OneToMany(mappedBy = "projectFolder", cascade = CascadeType.ALL)
-   @JsonIgnore
-   private List<Image> images;
+    @OneToMany(mappedBy = "projectFolder")
+    @JsonIgnore
+    private List<FileUploadResponse> files = new ArrayList<>();
 }

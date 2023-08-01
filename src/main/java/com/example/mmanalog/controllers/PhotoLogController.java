@@ -2,21 +2,29 @@ package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.OutputDtos.PhotoLogDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoLogInputDto;
+import com.example.mmanalog.models.FileUploadResponse;
+import com.example.mmanalog.models.ProjectFolder;
+import com.example.mmanalog.models.User;
 import com.example.mmanalog.services.PhotoLogService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping(path = "/photologs")
 public class PhotoLogController {
 
     private final PhotoLogService photoLogService;
+    private final FileController fileController;
 
-    public PhotoLogController(PhotoLogService photoLogService) {
+    public PhotoLogController(PhotoLogService photoLogService, FileController fileController) {
         this.photoLogService = photoLogService;
+        this.fileController = fileController;
     }
 
     @GetMapping(path = "")
@@ -25,26 +33,48 @@ public class PhotoLogController {
         return ResponseEntity.ok().body(photoLogService.getPhotoLogs());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<PhotoLogDto> getPhotoLogById(@PathVariable("id") Long id) {
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<PhotoLogDto> getPhotoLog(@PathVariable("id") Long id) {
 
-        PhotoLogDto photoLog = photoLogService.getPhotoLogById(id);
+        PhotoLogDto photoLog = photoLogService.getPhotoLog(id);
 
         return ResponseEntity.ok().body(photoLog);
     }
 
-    @GetMapping(path = "/filmstock/{filmStock}")
-    public ResponseEntity<List<PhotoLogDto>> getByFilmStock(@PathVariable String filmStock) {
-
-        return ResponseEntity.ok(photoLogService.getByFilmStock(filmStock));
+    @GetMapping(path = "/user/{username}")
+    public ResponseEntity<List<PhotoLogDto>> getAllPhotoLogsByUser(@PathVariable("username") User user) {
+        List<PhotoLogDto> userPhotoLogs;
+        userPhotoLogs = photoLogService.getAllPhotoLogsByUser(user);
+        return ResponseEntity.ok().body(userPhotoLogs);
     }
 
-    @PostMapping(path = "")
-    public ResponseEntity<Object> addPhotoLog(@Valid @RequestBody PhotoLogInputDto photoLogInputDto) {
+    @GetMapping(path = "/folder/{folderId}")
+    public ResponseEntity<List<PhotoLogDto>> getAllPhotoLogsByProjectFolder(@PathVariable("folderId") ProjectFolder projectFolder) {
+        List<PhotoLogDto> folderPhotoLogs;
+        folderPhotoLogs = photoLogService.getAllPhotoLogsByProjectFolder(projectFolder);
+        return ResponseEntity.ok().body(folderPhotoLogs);
+    }
 
-        PhotoLogDto photoLog = photoLogService.addPhotoLog(photoLogInputDto);
+    @GetMapping(path = "/film_stock/{filmStock}")
+    public ResponseEntity<List<PhotoLogDto>> getByPhotoLogFilmStock(@PathVariable String filmStock) {
+
+        return ResponseEntity.ok(photoLogService.getByPhotoLogFilmStock(filmStock));
+    }
+
+    @PostMapping(path = "/new")
+    public ResponseEntity<Object> createPhotoLog(@Valid @RequestBody PhotoLogInputDto photoLogInputDto) {
+
+        PhotoLogDto photoLog = photoLogService.createPhotoLog(photoLogInputDto);
 
         return ResponseEntity.created(null).body(photoLog);
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Object> updatePhotoLog(@PathVariable("id") Long id, @RequestBody PhotoLogDto dto) {
+
+        photoLogService.updatePhotoLog(id, dto);
+
+        return ResponseEntity.ok().body(dto);
     }
 
     @DeleteMapping(path = "/{id}")
@@ -55,27 +85,32 @@ public class PhotoLogController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping(path = "/{id}")
-    public ResponseEntity<Object> updatePhotoLog(@PathVariable Long id, @Valid @RequestBody PhotoLogInputDto updatedPhotoLog) {
+    //*-----------------------------Methods related to the relationship between entities-----------------------------*//
 
-        PhotoLogDto photoLog = photoLogService.updatePhotoLog(id, updatedPhotoLog);
-
-        return ResponseEntity.ok().body(photoLog);
+    @PostMapping(path = "/new/{username}")
+    public ResponseEntity<PhotoLogDto> createPhotoLogForUser(
+            @PathVariable("username") String username,
+            @RequestBody PhotoLogInputDto newPhotoLogInput
+    ) {
+        PhotoLogDto createdPhotoLog = photoLogService.createPhotoLogForUser(username, newPhotoLogInput);
+        return ResponseEntity.created(null).body(createdPhotoLog);
     }
 
-    //// **** Methods related to the relationship between entities **** ////
-    @PutMapping(path = "/{id}/folder/{folderId}")
-    public ResponseEntity<Object> assignPhotoLogToFolder(@PathVariable("id") Long id, @PathVariable("folderId") Long folderId) {
-        PhotoLogDto photoLogDto = photoLogService.assignPhotoLogToFolder(id, folderId);
-
-        return ResponseEntity.ok().body(photoLogDto);
+    @PostMapping(path = "/new/{username}/folder/{folderId}")
+    public ResponseEntity<PhotoLogDto> createPhotoLogForProjectFolderForUser(
+            @PathVariable("username") String username,
+            @PathVariable("folderId") Long folderId,
+            @RequestBody PhotoLogInputDto newPhotoLogInput
+    ) {
+        PhotoLogDto createdPhotoLogForFolderUser = photoLogService.createPhotoLogForProjectFolderForUser(username, folderId, newPhotoLogInput);
+        return ResponseEntity.created(null).body(createdPhotoLogForFolderUser);
     }
 
-    @PutMapping(path = "/{id}/user/{userId}")
-    public ResponseEntity<Object> assignPhotoToUser(@PathVariable("id") Long id, @PathVariable("userId") Long userId) {
-        PhotoLogDto photoLogDto = photoLogService.assignPhotoLogToUser(id, userId);
-
-        return ResponseEntity.ok().body(photoLogDto);
+    @PostMapping("/{photoLogId}/photo")
+    public void assignSinglePhotoToPhotoLog(@PathVariable("photoLogId") Long photoLogId,
+                                          @RequestBody MultipartFile file) {
+        FileUploadResponse photo = fileController.singleFileUpload(file);
+        photoLogService.assignSinglePhotoToPhotoLog(photo.getFileName(), photoLogId);
     }
 }
 
