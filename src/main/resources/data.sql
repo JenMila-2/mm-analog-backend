@@ -54,7 +54,7 @@ VALUES
 --Film Stock Inventory user User2
 INSERT INTO filmstockinventories (id, film_stock_name, remaining_rolls, brand, stock, format, iso, development_process, storage, rolls_shot, film_expiration_date, username)
 VALUES
-    (120, 'Kodak Gold', 8, 'Kodak', 'Gold 200', '35mm', 400, 'C-41 Color', 'Freezer', 4, '2023-04-25', 'User2'),
+    (120, 'Kodak Gold', 8, 'Kodak', 'Gold 200', '35mm', 200, 'C-41 Color', 'Freezer', 4, '2023-04-25', 'User2'),
     (121, 'Kodak Portra 400', 4, 'Kodak', 'Portra 400', '35mm', 400, 'C-41 Color', 'Freezer', 6, '2024-04-20', 'User2'),
     (122, 'Ilford HP5 Plus', 6, 'Ilford', 'HP5Plus', '35mm', 400, 'Black & White', 'Freezer', 10, '2025-01-20', 'User2'),
     (123, 'Kodak Ultra Max', 5, 'Kodak', 'Ultra Max', '35mm', 400, 'C-41 Color', 'Freezer', 9, '2026-01-01', 'User2'),
@@ -113,11 +113,19 @@ VALUES
 --Photo Logs user User2
 INSERT INTO photologs (id, title, camera, stock, iso, aperture, shutter_speed, exposure_compensation, date_taken, notes, folder_id, username)
 VALUES
-    (120, 'Color_1', 'Canon AE-1','Kodak Ultra Max', 400, 'f/5.6', '1/60', '+1', '2023-04-01', 'Shot on a trip to Paris', 109, 'User2'),
     (121, 'Color_2', 'Canon AE-1','Kodak Ultra Max', 400, 'f/8', '1/60', '0', '2023-04-01', 'Shot on a trip to Paris', 109, 'User2'),
     (122, 'Color_3', 'Canon AE-1','Kodak Ultra Max', 400, 'f/5.6', '1/60', '0', '2023-04-01', 'Shot on a trip to Paris', 109, 'User2'),
     (123, 'Color_4', 'Canon AE-1','Kodak Ultra Max', 400, 'f/8', '1/60', '0', '2023-04-01', 'Shot on a trip to Paris', 109, 'User2'),
     (124, 'Color_5', 'Canon AE-1','Kodak Ultra Max', 400, 'f/8', '1/60', '0', '2023-04-01', 'Shot on a trip to Paris', 109, 'User2');
+
+
+INSERT INTO files (file_name, content_type, url)
+VALUES
+    ('Dasha_Urvachova_1.jpg', 'image/jpeg', 'http://localhost:8080/download/Dasha_Urvachova_1.jpg');
+
+INSERT INTO photologs (id, title, camera, stock, iso, aperture, shutter_speed, exposure_compensation, date_taken, notes, file_file_name, folder_id, username)
+VALUES
+    (120, 'Color_1', 'Canon AE-1','Kodak Ultra Max', 400, 'f/5.6', '1/60', '+1', '2023-04-01', 'Shot on a trip to Paris', 'Dasha_Urvachova_1.jpg', 109, 'User2');
 
 --Film Development logs user Pedro20
 INSERT INTO filmdevelopmentlogs (id, roll_name, project, camera, stock, format, shot_at_iso, development_process, status, roll_started, roll_finished, exposed, developed, scanned, developed_by_lab, username)

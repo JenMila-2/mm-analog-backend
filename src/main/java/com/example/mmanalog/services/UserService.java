@@ -77,6 +77,7 @@ public class UserService {
         user.setName(newUser.getName());
         user.setEmail(newUser.getEmail());
         user.setEnabled(newUser.isEnabled());
+        user.setAuthorities(newUser.getAuthorities());
 
         userRepository.save(user);
     }
