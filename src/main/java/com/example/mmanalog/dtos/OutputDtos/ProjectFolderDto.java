@@ -18,7 +18,4 @@ public class ProjectFolderDto {
     public String projectConcept;
 
     public User user;
-    private FileUploadResponse file;
-
-    private FileUploadResponse image;
 }

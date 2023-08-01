@@ -41,4 +41,7 @@ public class PhotoLog {
     @JoinColumn(name = "username")
     @JsonIgnore
     private User user;
+
+    @OneToOne
+    FileUploadResponse file;
 }

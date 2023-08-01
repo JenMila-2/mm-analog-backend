@@ -2,12 +2,15 @@ package com.example.mmanalog.controllers;
 
 import com.example.mmanalog.dtos.OutputDtos.PhotoLogDto;
 import com.example.mmanalog.dtos.InputDtos.PhotoLogInputDto;
+import com.example.mmanalog.models.FileUploadResponse;
+import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.services.PhotoLogService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -17,9 +20,11 @@ import java.util.List;
 public class PhotoLogController {
 
     private final PhotoLogService photoLogService;
+    private final FileController fileController;
 
-    public PhotoLogController(PhotoLogService photoLogService) {
+    public PhotoLogController(PhotoLogService photoLogService, FileController fileController) {
         this.photoLogService = photoLogService;
+        this.fileController = fileController;
     }
 
     @GetMapping(path = "")
@@ -41,6 +46,13 @@ public class PhotoLogController {
         List<PhotoLogDto> userPhotoLogs;
         userPhotoLogs = photoLogService.getAllPhotoLogsByUser(user);
         return ResponseEntity.ok().body(userPhotoLogs);
+    }
+
+    @GetMapping(path = "/folder/{folderId}")
+    public ResponseEntity<List<PhotoLogDto>> getAllPhotoLogsByProjectFolder(@PathVariable("folderId") ProjectFolder projectFolder) {
+        List<PhotoLogDto> folderPhotoLogs;
+        folderPhotoLogs = photoLogService.getAllPhotoLogsByProjectFolder(projectFolder);
+        return ResponseEntity.ok().body(folderPhotoLogs);
     }
 
     @GetMapping(path = "/film_stock/{filmStock}")
@@ -92,6 +104,13 @@ public class PhotoLogController {
     ) {
         PhotoLogDto createdPhotoLogForFolderUser = photoLogService.createPhotoLogForProjectFolderForUser(username, folderId, newPhotoLogInput);
         return ResponseEntity.created(null).body(createdPhotoLogForFolderUser);
+    }
+
+    @PostMapping("/{photoLogId}/photo")
+    public void assignSinglePhotoToPhotoLog(@PathVariable("photoLogId") Long photoLogId,
+                                          @RequestBody MultipartFile file) {
+        FileUploadResponse photo = fileController.singleFileUpload(file);
+        photoLogService.assignSinglePhotoToPhotoLog(photo.getFileName(), photoLogId);
     }
 }
 

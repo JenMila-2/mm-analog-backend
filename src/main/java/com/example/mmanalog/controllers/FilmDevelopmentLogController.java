@@ -36,7 +36,7 @@ public class FilmDevelopmentLogController {
     }
 
     @GetMapping(path = "/user/{username}")
-    public ResponseEntity<List<FilmDevelopmentLogDto>> getAllFilmDevelopmentLOgsByUser(@PathVariable("username") User user) {
+    public ResponseEntity<List<FilmDevelopmentLogDto>> getAllFilmDevelopmentLogsByUser(@PathVariable("username") User user) {
         List<FilmDevelopmentLogDto> userFilmDevelopmentLogs;
         userFilmDevelopmentLogs = filmDevelopmentLogService.getAllFilmDevelopmentLogsByUser(user);
         return ResponseEntity.ok().body(userFilmDevelopmentLogs);

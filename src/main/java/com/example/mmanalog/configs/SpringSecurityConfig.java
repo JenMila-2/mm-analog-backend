@@ -79,6 +79,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.GET,"/photologs").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET,"/photologs/{id}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.GET,"/photologs/user/{username}").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.GET,"/photologs/folder/{folderId}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.GET,"/photologs/film_stock/{filmStock}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.POST,"/photologs/new").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.POST,"/photologs/new/{username}").hasAnyRole("ADMIN", "USER")
@@ -105,21 +106,17 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
                     .requestMatchers(HttpMethod.DELETE,"/filmdevelopmentlogs/{id}").hasAnyRole("ADMIN", "USER")
 
                     //----------------------------------------File--------------------------------------//
-                    //.requestMatchers(HttpMethod.GET,"/download/{fileName}").hasAnyRole("ADMIN", "USER")
+
                     .requestMatchers(HttpMethod.GET,"/download/{fileName}").permitAll()
                     .requestMatchers(HttpMethod.GET,"/download/{username}/{fileName}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.GET,"/download/project/{folderId}/{fileName}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.POST,"/upload").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.POST,"/upload/{username}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.POST,"/upload/project/{folderId}").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.POST,"/photologs/{photoLogId}/photo").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.DELETE,"/delete/{username}/{fileName}").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.DELETE,"/delete/project/{folderId}/{fileName}").hasAnyRole("ADMIN", "USER")
-
-                    .requestMatchers(HttpMethod.GET,"/download/{username}/project/{folderId}/{fileName}").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.POST,"/upload/project/{folderId}/{username}").hasAnyRole("ADMIN", "USER")
-
-                    .requestMatchers(HttpMethod.POST,"/projectfolders/{folderId}/photo").hasAnyRole("ADMIN", "USER")
-
+                    
                     .anyRequest().denyAll()
                     .and()
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

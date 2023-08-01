@@ -29,11 +29,11 @@ public class PhotoLogInputDto {
     public String aperture;
     @Size(min = 3, max = 75, message = "This field must be between 3 and 75 characters long")
     public String shutterSpeed;
-    @Size(max=5, message="This field cannot contain more than 5 characters")
+    @Size(max = 5, message = "This field cannot contain more than 5 characters")
     public String exposureCompensation;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate dateTaken;
-    @Size(min = 5, max = 250, message = "This field must be between 5 and 250 characters long")
+    @Size(min = 10, max = 250, message = "This field must be between 10 and 250 characters long")
     public String notes;
 
     public User user;

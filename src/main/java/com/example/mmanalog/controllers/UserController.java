@@ -71,7 +71,9 @@ public UserController(UserService userService) {
 
         return ResponseEntity.noContent().build();
     }
+
     //*-----------------------------Authorities-----------------------------*//
+
     @GetMapping(path = "/{username}/authorities")
     public ResponseEntity<Object> getAuthorities(@PathVariable("username") String username) {
         return ResponseEntity.ok().body(userService.getAuthorities(username));

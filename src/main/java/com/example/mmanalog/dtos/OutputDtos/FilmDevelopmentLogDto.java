@@ -25,7 +25,7 @@ public class FilmDevelopmentLogDto {
     public String developmentProcess;
     public String status;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-   public LocalDate rollStarted;
+    public LocalDate rollStarted;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate rollFinished;
     public boolean exposed;

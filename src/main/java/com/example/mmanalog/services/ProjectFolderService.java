@@ -2,7 +2,6 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.ProjectFolderDto;
 import com.example.mmanalog.dtos.InputDtos.ProjectFolderInputDto;
-import com.example.mmanalog.models.FileUploadResponse;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.models.ProjectFolder;
 import com.example.mmanalog.repositories.*;
@@ -20,12 +19,10 @@ public class ProjectFolderService {
 
     private final ProjectFolderRepository projectFolderRepository;
     private final UserRepository userRepository;
-    private final FileUploadRepository fileUploadRepository;
 
-    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, UserRepository userRepository, FileUploadRepository fileUploadRepository) {
+    public ProjectFolderService(ProjectFolderRepository projectFolderRepository, UserRepository userRepository) {
         this.projectFolderRepository = projectFolderRepository;
         this.userRepository = userRepository;
-        this.fileUploadRepository = fileUploadRepository;
     }
 
     public List<ProjectFolderDto> getProjectFolders() {
@@ -73,6 +70,7 @@ public class ProjectFolderService {
             storedProjectFolder.setProjectTitle(updatedProjectFolder.getProjectTitle());
             storedProjectFolder.setProjectConcept(updatedProjectFolder.getProjectConcept());
             storedProjectFolder.setUser(updatedProjectFolder.getUser());
+
             projectFolderRepository.save(storedProjectFolder);
     }
 
@@ -99,7 +97,6 @@ public class ProjectFolderService {
         projectFolderDto.setProjectTitle(projectFolder.getProjectTitle());
         projectFolderDto.setProjectConcept(projectFolder.getProjectConcept());
         projectFolderDto.setUser(projectFolder.getUser());
-        projectFolderDto.setFile(projectFolder.getFile());
 
         return projectFolderDto;
     }
@@ -122,18 +119,6 @@ public class ProjectFolderService {
             return transferProjectFolderToDto(projectFolder);
         } else {
             throw new UserNotFoundException("No user found with username: " + username);
-        }
-    }
-
-    //*-------------------------Additional relationship to show upload function in the frontend-------------------------*//
-    public void assignSinglePhotoToProjectFolder(String name, Long folderId) {
-        Optional<ProjectFolder> optionalProjectFolder = projectFolderRepository.findById(folderId);
-        Optional<FileUploadResponse> optionalPhoto = fileUploadRepository.findByFileName(name);
-        if (optionalProjectFolder.isPresent() && optionalPhoto.isPresent()) {
-            FileUploadResponse photo = optionalPhoto.get();
-            ProjectFolder projectFolder = optionalProjectFolder.get();
-            projectFolder.setFile(photo);
-            projectFolderRepository.save(projectFolder);
         }
     }
 }

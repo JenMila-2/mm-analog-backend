@@ -26,10 +26,10 @@ public class PhotoLogDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     public LocalDate dateTaken;
     public String notes;
-
     public ProjectFolder projectFolder;
 
     public User user;
+    private FileUploadResponse file;
 }
 
 

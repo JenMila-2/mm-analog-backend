@@ -19,11 +19,13 @@ public class PhotoLogService {
     private final PhotoLogRepository photoLogRepository;
     private final ProjectFolderRepository projectFolderRepository;
     private final UserRepository userRepository;
+    private final FileUploadRepository fileUploadRepository;
 
-    public PhotoLogService(PhotoLogRepository photoLogRepository, ProjectFolderRepository projectFolderRepository, UserRepository userRepository) {
+    public PhotoLogService(PhotoLogRepository photoLogRepository, ProjectFolderRepository projectFolderRepository, UserRepository userRepository, FileUploadRepository fileUploadRepository) {
         this.photoLogRepository = photoLogRepository;
         this.projectFolderRepository = projectFolderRepository;
         this.userRepository = userRepository;
+        this.fileUploadRepository = fileUploadRepository;
     }
 
     public List<PhotoLogDto> getPhotoLogs() {
@@ -52,6 +54,16 @@ public class PhotoLogService {
         for(PhotoLog photoLog : photoLogList) {
             PhotoLogDto dto = transferToPhotoLogDto(photoLog);
             photoLogDtoList.add(dto);
+        }
+        return photoLogDtoList;
+    }
+
+    public List<PhotoLogDto> getAllPhotoLogsByProjectFolder(ProjectFolder projectFolder) {
+        List<PhotoLog> folderPhotoLogList = photoLogRepository.findPhotoLogByProjectFolder(projectFolder);
+        List<PhotoLogDto> photoLogDtoList = new ArrayList<>();
+        for(PhotoLog photoLog : folderPhotoLogList) {
+            PhotoLogDto photoLogDto = transferToPhotoLogDto(photoLog);
+            photoLogDtoList.add(photoLogDto);
         }
         return photoLogDtoList;
     }
@@ -89,6 +101,7 @@ public class PhotoLogService {
         storedPhotoLog.setNotes(updatedPhotoLog.getNotes());
         storedPhotoLog.setProjectFolder(updatedPhotoLog.getProjectFolder());
         storedPhotoLog.setUser(updatedPhotoLog.getUser());
+        storedPhotoLog.setFile(updatedPhotoLog.getFile());
 
             photoLogRepository.save(storedPhotoLog);
     }
@@ -131,6 +144,7 @@ public class PhotoLogService {
         photoLogDto.setNotes(photoLog.getNotes());
         photoLogDto.setProjectFolder(photoLog.getProjectFolder());
         photoLogDto.setUser(photoLog.getUser());
+        photoLogDto.setFile(photoLog.getFile());
 
         return photoLogDto;
     }
@@ -189,6 +203,17 @@ public class PhotoLogService {
             return transferToPhotoLogDto(photoLog);
         } else {
             throw new RecordNotFoundException("No user with username: " + username + " or project folder with id: " + folderId + " found");
+        }
+    }
+
+    public void assignSinglePhotoToPhotoLog(String name, Long photoLogId) {
+        Optional<PhotoLog> optionalPhotoLog = photoLogRepository.findById(photoLogId);
+        Optional<FileUploadResponse> optionalPhoto = fileUploadRepository.findByFileName(name);
+        if (optionalPhotoLog.isPresent() && optionalPhoto.isPresent()) {
+            FileUploadResponse photo = optionalPhoto.get();
+            PhotoLog photoLog = optionalPhotoLog.get();
+            photoLog.setFile(photo);
+            photoLogRepository.save(photoLog);
         }
     }
 }
