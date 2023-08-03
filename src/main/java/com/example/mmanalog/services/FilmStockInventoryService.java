@@ -2,12 +2,12 @@ package com.example.mmanalog.services;
 
 import com.example.mmanalog.dtos.OutputDtos.FilmStockInventoryDto;
 import com.example.mmanalog.dtos.InputDtos.FilmStockInventoryInputDto;
-import com.example.mmanalog.exceptions.UserNotFoundException;
 import com.example.mmanalog.models.FilmStockInventory;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.UserRepository;
 import com.example.mmanalog.repositories.FilmStockInventoryRepository;
 import com.example.mmanalog.exceptions.RecordNotFoundException;
+import com.example.mmanalog.exceptions.UserNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
