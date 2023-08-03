@@ -65,21 +65,20 @@ INSERT INTO projectfolders (id, project_title, project_concept, username)
 VALUES
     (100, 'Portraits of my mother', 'Personal project reflecting on my relationship with my mother.', 'Pedro20'),
     (102, 'Night Garden', 'An extended project referencing sleepless nights, dealing with insomnia. Ongoing project.', 'Pedro20'),
-    (103, 'The house of Goddesses', 'Celebrating womanhood. Honouring the important women in my life.', 'Marisol2023'),
+    (103, 'The House of Goddesses', 'Celebrating womanhood. Honouring the important women in my life.', 'Marisol2023'),
     (104, 'By the River', 'New project. Planning on shooting portraits and landscape photos for this project.', 'Marisol2023'),
-    (105, 'In between dreams', 'A poetic, photographic meditation on the subtlety of everyday life. Ongoing project.', 'Jensy2222'),
+    (105, 'In Between Dreams', 'A poetic, photographic meditation on the subtlety of everyday life. Ongoing project.', 'Jensy2222'),
     (106, 'The Constructed Self', 'Collection of self portraits.', 'Jensy2222'),
-    (107, 'At midnight', 'Photographing the streets of London by night.', 'Benniezzzzzz80'),
+    (107, 'At Midnight', 'Photographing the streets of London by night.', 'Benniezzzzzz80'),
     (108, 'Family Portraits', 'Photographers of different families. Ongoing project.', 'Benniezzzzzz80'),
-    (109, 'Project color', 'Collection of photos shot with Kodak Portra 400.', 'User2'),
-    (110, 'Project B&W', 'Collection of B&W portraits.', 'User2');
+    (109, 'Project Color', 'Collection of photos shot with Kodak Portra 400.', 'User2'),
+    (110, 'Portraits in Black & White', 'Collection of B&W portraits of family and friends. This is an ongoing project that I started in 2021.', 'User2');
 
 --Upload files for the different users
 INSERT INTO files (file_name, content_type, url)
 VALUES
     ('Dasha_Urvachova_1.jpg', 'image/jpeg', 'http://localhost:8080/download/Dasha_Urvachova_1.jpg'),
     ('Jensy_Franco_Kodak400TX_05-2022_05.png', 'image/jpeg', 'http://localhost:8080/download/Jensy_Franco_Kodak400TX_05-2022_05.png'),
-    ('Jensy_Franco_Polaroid_Juni_2021.jpg', 'image/jpeg', 'http://localhost:8080/download/Jensy_Franco_Polaroid_Juni_2021.jpg'),
     ('Lawrence Chismorie_1.jpg', 'image/jpeg', 'http://localhost:8080/download/Lawrence%20Chismorie_1.jpg'),
     ('Hayes_Potter_6.jpg', 'image/jpeg', 'http://localhost:8080/download/Hayes_Potter_6.jpg');
 
@@ -105,7 +104,7 @@ VALUES
 INSERT INTO photologs (id, title, camera, stock, iso, aperture, shutter_speed, exposure_compensation, date_taken, notes, file_file_name, folder_id, username)
 VALUES
     (110, 'Dreaming_1', 'Minolta SRT101','Kodak 400TX', 400, 'f/5.6', '1/60', '+1', '2023-01-01', 'Part of my flower/plant image collection', 'Jensy_Franco_Kodak400TX_05-2022_05.png', 105, 'Jensy2222'),
-    (111, 'Dreaming_2', 'Polaroid OneStep Close Up','Polaroid Black & White', 200, 'f/4', '1/60', '+1', '2023-01-10', 'Polaroid images', 'Jensy_Franco_Polaroid_Juni_2021.jpg', 105, 'Jensy2222'),
+    (111, 'Dreaming_2', 'Minolta SRT101','Kodak 400TX', 200, 'f/4', '1/60', '+1', '2023-01-10', 'Retake this with polaroid', null, 105, 'Jensy2222'),
     (112, 'Dreaming_3', 'Minolta SRT101','Ilford Delta 3200', 1000, 'f/8', '1/60', '0', '2023-04-14', 'Love the look of the Delta 3200. I need to include this film stock more in my projects.', null, 105, 'Jensy2222'),
     (113, 'Dreaming_4', 'Minolta SRT101','Ilford Delta 3200', 1000, 'f/8', '1/60', '0', '2023-05-21', 'Shot at home during a Sunday morning', null, 105, 'Jensy2222'),
     (114, 'Dreaming_5', 'Minolta SRT101','Ilford Delta 3200', 1000, 'f/5.6', '1/60', '0', '2023-05-21', 'Sunday morning at home photo shoot session', null, 105, 'Jensy2222');
@@ -126,7 +125,11 @@ VALUES
     (121, 'Color_2', 'Canon AE-1','Kodak Ultra Max', 400, 'f/8', '1/60', '0', '2023-04-01', 'Love the look of this photo', 'Lawrence Chismorie_1.jpg', 109, 'User2'),
     (122, 'Color_3', 'Canon AE-1','Kodak Ultra Max', 400, 'f/5.6', '1/60', '0', '2023-04-01', 'I should try to retake this image in B&W', 'Hayes_Potter_6.jpg', 109, 'User2'),
     (123, 'Color_4', 'Canon AE-1','Kodak Ultra Max', 400, 'f/8', '1/60', '0', '2023-04-01', 'Shot at home', null, 109, 'User2'),
-    (124, 'Color_5', 'Canon AE-1','Kodak Ultra Max', 400, 'f/8', '1/60', '0', '2023-04-01', 'Need to take more photos like this', null, 109, 'User2');
+    (124, 'Color_5', 'Canon AE-1','Kodak Ultra Max', 400, 'f/8', '1/60', '0', '2023-04-01', 'Need to take more photos like this', null, 109, 'User2'),
+    (125, 'Portrait_Anne', 'Nikon F3','HP5 Plus', 400, 'f/5.6', '1/80', '+1', '2021-08-01', 'Portrait of Anna', null, 110, 'User2'),
+    (126, 'Portrait_Daniel', 'Nikon F3','HP5 Plus', 400, 'f/4', '1/80', '0', '2021-10-20', 'Portrait of Daniel', null, 110, 'User2'),
+    (127, 'Portrait_Jurgen', 'Nikon F3','HP5 Plus', 400, 'f/2.8', '1/125', '0', '2022-06-15', 'Portrait of Jurgen', null, 110, 'User2'),
+    (128, 'Portrait_Nathaly', 'Nikon F3','HP5 Plus', 400, 'f/2.8', '1/80', '0', '2023-04-30', 'Portrait of Nathaly', null, 110, 'User2');
 
 --Film Development logs user Pedro20
 INSERT INTO filmdevelopmentlogs (id, roll_name, project, camera, stock, format, shot_at_iso, development_process, status, roll_started, roll_finished, exposed, developed, scanned, developed_by_lab, username)
