@@ -73,11 +73,11 @@ public class UserService {
             throw new RecordNotFoundException("No user found with username: " + username);
         }
         User user = userRepository.findById(username).orElse(null);
+        assert user != null;
         user.setPassword(passwordEncoder.encode(newUser.getPassword()));
         user.setName(newUser.getName());
         user.setEmail(newUser.getEmail());
         user.setEnabled(newUser.isEnabled());
-        user.setAuthorities(newUser.getAuthorities());
 
         userRepository.save(user);
     }
