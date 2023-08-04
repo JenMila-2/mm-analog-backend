@@ -6,7 +6,7 @@ VALUES
     ('Jensy2222', 'Jensy Franco', 'jensyphotography@mail.com', '$2a$12$rYbeEqmxx.ElKC5PimWc1OVccCAJwy4Qyki93yc8Y8cHjhGHuMpuu', true),
     ('Benniezzzzzz80', 'Scott Bennie', 'bennie@mail.com', '$2a$12$h8YyS5u4hMHCC8E7tEMODetux9cZxZqgQf2UH/JVCfnK4kpdseusG', true),
     ('Admin2', 'Administrator', 'admin@mail.com', '$2a$12$lzHg9K/PNrkjzUCJUUWol.ojbHuHwCbbNueirHxVWY5GKEGAId0vi', true),
-    ('User2', 'Test User', 'user@mail.com', '$2a$12$ILqWKVyZIThtkt61gPCfLeQHuGuHFnxkC7CDSSAOCuCXjZOPfdopS', true);
+    ('User2', 'Dr. Strange', 'user@mail.com', '$2a$12$xctlMEQ5yM82YdfLLvpPruDA0sB7/NrKMpHU3Ksh28siznAiCYDQy', true);
 
 INSERT INTO authorities (username, authority) VALUES ('Pedro20', 'ROLE_USER');
 INSERT INTO authorities (username, authority) VALUES ('Marisol2023', 'ROLE_USER');
@@ -71,7 +71,7 @@ VALUES
     (106, 'The Constructed Self', 'Collection of self portraits.', 'Jensy2222'),
     (107, 'At Midnight', 'Photographing the streets of London by night.', 'Benniezzzzzz80'),
     (108, 'Family Portraits', 'Photographers of different families. Ongoing project.', 'Benniezzzzzz80'),
-    (109, 'Project Color', 'Collection of photos shot with Kodak Portra 400.', 'User2'),
+    (109, 'Project Color', 'Collection of my favorite color photos. Started this project in 2020.', 'User2'),
     (110, 'Portraits in Black & White', 'Collection of B&W portraits of family and friends. This is an ongoing project that I started in 2021.', 'User2');
 
 --Upload files for the different users
