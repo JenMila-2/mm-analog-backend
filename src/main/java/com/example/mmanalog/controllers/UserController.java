@@ -5,10 +5,8 @@ import com.example.mmanalog.services.UserService;
 import com.example.mmanalog.exceptions.BadRequestException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
-
-import jakarta.validation.Valid;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-;
+
 import java.net.URI;
 import java.util.List;
 import java.util.Map;

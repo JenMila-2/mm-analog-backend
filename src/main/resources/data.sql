@@ -74,11 +74,10 @@ VALUES
     (109, 'Project Color', 'Collection of my favorite color photos. Started this project in 2020.', 'User2'),
     (110, 'Portraits in Black & White', 'Collection of B&W portraits of family and friends. This is an ongoing project that I started in 2021.', 'User2');
 
---Upload files for the different users
+--Upload files User2
 INSERT INTO files (file_name, content_type, url)
 VALUES
     ('Dasha_Urvachova_1.jpg', 'image/jpeg', 'http://localhost:8080/download/Dasha_Urvachova_1.jpg'),
-    ('Jensy_Franco_Kodak400TX_05-2022_05.png', 'image/jpeg', 'http://localhost:8080/download/Jensy_Franco_Kodak400TX_05-2022_05.png'),
     ('Lawrence Chismorie_1.jpg', 'image/jpeg', 'http://localhost:8080/download/Lawrence%20Chismorie_1.jpg'),
     ('Hayes_Potter_6.jpg', 'image/jpeg', 'http://localhost:8080/download/Hayes_Potter_6.jpg');
 
@@ -103,7 +102,7 @@ VALUES
 --Photo Logs user Jensy2222 | folder 105
 INSERT INTO photologs (id, title, camera, stock, iso, aperture, shutter_speed, exposure_compensation, date_taken, notes, file_file_name, folder_id, username)
 VALUES
-    (110, 'Dreaming_1', 'Minolta SRT101','Kodak 400TX', 400, 'f/5.6', '1/60', '+1', '2023-01-01', 'Part of my flower/plant image collection', 'Jensy_Franco_Kodak400TX_05-2022_05.png', 105, 'Jensy2222'),
+    (110, 'Dreaming_1', 'Minolta SRT101','Kodak 400TX', 400, 'f/5.6', '1/60', '+1', '2023-01-01', 'Part of my flower/plant image collection', null, 105, 'Jensy2222'),
     (111, 'Dreaming_2', 'Minolta SRT101','Kodak 400TX', 200, 'f/4', '1/60', '+1', '2023-01-10', 'Retake this with polaroid', null, 105, 'Jensy2222'),
     (112, 'Dreaming_3', 'Minolta SRT101','Ilford Delta 3200', 1000, 'f/8', '1/60', '0', '2023-04-14', 'Love the look of the Delta 3200. I need to include this film stock more in my projects.', null, 105, 'Jensy2222'),
     (113, 'Dreaming_4', 'Minolta SRT101','Ilford Delta 3200', 1000, 'f/8', '1/60', '0', '2023-05-21', 'Shot at home during a Sunday morning', null, 105, 'Jensy2222'),

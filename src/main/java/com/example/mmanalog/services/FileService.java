@@ -31,7 +31,7 @@ public class FileService {
     private final UserRepository userRepository;
     private final ProjectFolderRepository projectFolderRepository;
 
-    //*-----Do not forget to change the upload location to your own file location-----*//
+    //*-----Do not forget to change the upload location below to your own file location-----*//
     public FileService(@Value("${my.upload_location}") String fileStorageLocation, FileUploadRepository fileRepository, UserRepository userRepository, ProjectFolderRepository projectFolderRepository) {
         fileStoragePath = Paths.get(fileStorageLocation).toAbsolutePath().normalize();
         this.fileStorageLocation = fileStorageLocation;
@@ -46,8 +46,7 @@ public class FileService {
         }
     }
 
-    //*-----Important side note: project mm-analog was created using an Apple (Mac) computer. If you are using a Windows computer the "Path filePath" in the upload methods should be changed to: Path filePath = Paths.get(fileStoragePath + "\\" + fileName); Do not forget to also change the Path in the delete methods!------*//
-
+    //*-----Important side note: project mm-analog. was created using an Apple (Mac) computer. If you are using a Windows computer the "Path filePath" in the upload methods should be changed to: Path filePath = Paths.get(fileStoragePath + "\\" + fileName); Do not forget to also change the Path in the delete methods!------*//
     public String uploadFile(MultipartFile file, String url) {
 
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));

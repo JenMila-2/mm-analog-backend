@@ -6,6 +6,7 @@ import java.util.zip.Inflater;
 
 public class ImageUtility {
 
+    //---------------The Image Utility class was not used for this version of the application but will be implemented in future developments---------------//
     public static byte[] compressImage(byte[] data) {
 
         Deflater deflater = new Deflater();
