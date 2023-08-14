@@ -10,7 +10,6 @@ import com.example.mmanalog.repositories.FilmStockInventoryRepository;
 import com.example.mmanalog.repositories.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -108,7 +107,6 @@ class FilmStockInventoryServiceTest {
     }
 
     @Test
-    //@Disabled
     void getFilmStockInventories() {
 
         //Arrange
@@ -133,6 +131,7 @@ class FilmStockInventoryServiceTest {
 
     @Test
     void getFilmStockInventory() {
+
         //Arrange
         when(filmStockInventoryRepository.findById(2L)).thenReturn(Optional.of(filmStockInventory2));
 
@@ -146,6 +145,48 @@ class FilmStockInventoryServiceTest {
     @Test
     void getFilmStockInventoryThrowsExceptionTest() {
         assertThrows(RecordNotFoundException.class, () -> filmStockInventoryService.getFilmStockInventory(null));
+    }
+
+    @Test
+    void getAllFilmStockInventoriesByUserTest() {
+
+        // Arrange
+        User user = new User();
+        user.setUsername("TestUser");
+        user.setName("Dr. Strange");
+        user.setEmail("dr.strange@example.com");
+        user.setPassword("testPassword");
+
+        FilmStockInventory filmStockInventory1 = new FilmStockInventory();
+        filmStockInventory1.setId(1L);
+        filmStockInventory1.setFilmStockName("Kodak Portra 400");
+        filmStockInventory1.setRemainingRolls(2);
+        filmStockInventory1.setUser(user);
+
+        FilmStockInventory filmStockInventory2 = new FilmStockInventory();
+        filmStockInventory2.setId(2L);
+        filmStockInventory2.setFilmStockName("Lomo Lady Grey 400");
+        filmStockInventory2.setRemainingRolls(6);
+        filmStockInventory2.setUser(user);
+
+        when(filmStockInventoryRepository.findFilmStockInventoryByUser(user)).thenReturn(List.of(filmStockInventory1, filmStockInventory2));
+
+        // Act
+        List<FilmStockInventoryDto> dtos = filmStockInventoryService.getAllFilmStockInventoriesByUser(user);
+
+        // Assert
+        assertEquals(2, dtos.size());
+
+        FilmStockInventoryDto dto1 = dtos.get(0);
+        FilmStockInventoryDto dto2 = dtos.get(1);
+
+        assertEquals(filmStockInventory1.getId(), dto1.getId());
+        assertEquals(filmStockInventory1.getFilmStockName(), dto1.getFilmStockName());
+        assertEquals(filmStockInventory1.getRemainingRolls(), dto1.getRemainingRolls());
+
+        assertEquals(filmStockInventory2.getId(), dto2.getId());
+        assertEquals(filmStockInventory2.getFilmStockName(), dto2.getFilmStockName());
+        assertEquals(filmStockInventory2.getRemainingRolls(), dto2.getRemainingRolls());
     }
 
     @Test
@@ -210,6 +251,7 @@ class FilmStockInventoryServiceTest {
 
     @Test
     void updateFilmStockInventory() {
+
         // Arrange
         FilmStockInventoryDto filmStockInventoryDto = new FilmStockInventoryDto();
         filmStockInventoryDto.setFilmStockName("Kodak Ultra Max");
@@ -238,6 +280,7 @@ class FilmStockInventoryServiceTest {
 
     @Test
     void updateFilmStockInventoryThrowsExceptionTest() {
+
         // Arrange
         Long nonExistingId = 999L;
         FilmStockInventoryDto updatedFilmStockInventory = new FilmStockInventoryDto();
@@ -266,6 +309,7 @@ class FilmStockInventoryServiceTest {
 
     @Test
     void createFilmStockInventoryForUser_userExists() {
+
         // Arrange
         String username = "Username1Test";
         FilmStockInventoryInputDto inputDto = new FilmStockInventoryInputDto();
@@ -298,6 +342,7 @@ class FilmStockInventoryServiceTest {
 
     @Test
     void createFilmStockInventoryForUser_userNotFound() {
+
         // Arrange
         String username = "NonExistingUser";
         FilmStockInventoryInputDto inputDto = new FilmStockInventoryInputDto();

@@ -24,7 +24,7 @@ public class ProjectFolder {
     private String projectTitle;
     private String projectConcept;
 
-    @OneToMany(mappedBy = "projectFolder")
+    @OneToMany(mappedBy = "projectFolder", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<PhotoLog> photoLogs;
 

@@ -4,6 +4,7 @@ import com.example.mmanalog.dtos.User.UserDto;
 import com.example.mmanalog.exceptions.UserNotFoundException;
 import com.example.mmanalog.models.User;
 import com.example.mmanalog.repositories.UserRepository;
+import com.example.mmanalog.utilities.RandomStringGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,6 +13,8 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,23 +29,29 @@ class UserServiceTest {
     @Mock
     UserRepository userRepository;
 
+    @Mock
+    RandomStringGenerator randomStringGenerator;
+
+    @Mock
+    private PasswordEncoder passwordEncoder;
+
     @InjectMocks
     UserService userService;
 
     @Captor
     ArgumentCaptor<User> captor;
 
-    User user1;
-    User user2;
+    User userTest1;
+    User userTest2;
     UserDto userDto1;
     UserDto userDto2;
 
     @BeforeEach
     void setUp() {
-        /*user1 = new User("UsernameTest1", "Barry Allen", "barry@mail.com", "UserPassword1", "testApikey1", true, null, null, null, null, null, null);
+        userTest1 = new User("UsernameTest1", "Barry Allen", "barry@mail.com", "UserPassword1", "testApikey1", true, null, null, null, null, null, null);
 
-        user2 = new User("UsernameTest2", "Donna Troy", "donna@mail.com", "UserPassword2", "testApikey2", true, null, null, null, null, null, null);
-*/
+        userTest2 = new User("UsernameTest2", "Donna Troy", "donna@mail.com", "UserPassword2", "testApikey2", true, null, null, null, null, null, null);
+
         userDto1 = new UserDto("UsernameTest1", "Barry Allen", "barry@mail.com", "UserPassword1", "testApikey1", true, null);
 
         userDto2 = new UserDto("UsernameTest2", "Donna Troy", "donna@mail.com", "UserPassword2", "testApikey2", true, null);
@@ -52,8 +61,8 @@ class UserServiceTest {
     void getUsers() {
 
         List<User> userList = new ArrayList<>();
-        userList.add(user1);
-        userList.add(user2);
+        userList.add(userTest1);
+        userList.add(userTest2);
 
         List<UserDto> userDtoList = new ArrayList<>();
         userDtoList.add(userDto1);
@@ -72,7 +81,7 @@ class UserServiceTest {
     @Test
     void getUser() {
         //Arrange
-        when(userRepository.findById("user1")).thenReturn(Optional.of(user1));
+        when(userRepository.findById("user1")).thenReturn(Optional.of(userTest1));
 
         //Act
         UserDto userDto = userService.getUser("user1");
@@ -81,6 +90,34 @@ class UserServiceTest {
         assertEquals("UsernameTest1", userDto.getUsername());
         assertEquals("UserPassword1", userDto.getPassword());
         assertEquals("barry@mail.com", userDto.getEmail());
+    }
+
+    @Test
+    void getUser_UserNotFound() {
+        // Arrange
+        String nonExistingUsername = "NonExistingUser";
+        when(userRepository.findById(nonExistingUsername)).thenReturn(Optional.empty());
+
+        // Act and Assert
+        assertThrows(UsernameNotFoundException.class, () -> userService.getUser(nonExistingUsername));
+
+        // Verify that the userRepository's findById method was called with the correct username
+        verify(userRepository).findById(nonExistingUsername);
+    }
+
+    @Test
+    void getUser_UserExists() {
+        // Arrange
+        String username = "UsernameTest1";
+        when(userRepository.findById(username)).thenReturn(Optional.of(userTest1));
+
+        // Act
+        UserDto userDto = userService.getUser(username);
+
+        // Assert
+        assertEquals(userTest1.getUsername(), userDto.getUsername());
+        assertEquals(userTest1.getPassword(), userDto.getPassword());
+        assertEquals(userTest1.getEmail(), userDto.getEmail());
     }
 
     @Test
@@ -127,6 +164,6 @@ class UserServiceTest {
         //Assert
         verify(userRepository).deleteById("UsernameTest2");
 
-        assertFalse(userRepository.findById(user2.getUsername()).isPresent());
+        assertFalse(userRepository.findById(userTest2.getUsername()).isPresent());
     }
 }

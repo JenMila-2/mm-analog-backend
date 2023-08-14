@@ -10,7 +10,6 @@ import com.example.mmanalog.repositories.ProjectFolderRepository;
 import com.example.mmanalog.repositories.UserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
@@ -20,7 +19,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -112,6 +110,48 @@ class ProjectFolderServiceTest {
     @Test
     void getProjectFolderThrowsExceptionTest() {
         assertThrows(RecordNotFoundException.class, () -> projectFolderService.getProjectFolder(null));
+    }
+
+    @Test
+    void getAllProjectFoldersByUserTest() {
+        // Arrange
+        User user = new User();
+        user.setUsername("TestUser");
+        user.setName("John Doe");
+        user.setEmail("john.doe@example.com");
+        user.setPassword("testPassword");
+        user.setEnabled(true);
+
+        ProjectFolder projectFolder1 = new ProjectFolder();
+        projectFolder1.setId(1L);
+        projectFolder1.setProjectTitle("Project 1");
+        projectFolder1.setProjectConcept("This is a concept for project 1");
+        projectFolder1.setUser(user);
+
+        ProjectFolder projectFolder2 = new ProjectFolder();
+        projectFolder2.setId(2L);
+        projectFolder2.setProjectTitle("Project 2");
+        projectFolder2.setProjectConcept("This is a concept for project 2");
+        projectFolder2.setUser(user);
+
+        when(projectFolderRepository.findProjectFolderByUser(user)).thenReturn(List.of(projectFolder1, projectFolder2));
+
+        // Act
+        List<ProjectFolderDto> folderDtos = projectFolderService.getAllProjectFoldersByUser(user);
+
+        // Assert
+        assertEquals(2, folderDtos.size());
+
+        ProjectFolderDto dto1 = folderDtos.get(0);
+        ProjectFolderDto dto2 = folderDtos.get(1);
+
+        assertEquals(projectFolder1.getId(), dto1.getId());
+        assertEquals(projectFolder1.getProjectTitle(), dto1.getProjectTitle());
+        assertEquals(projectFolder1.getProjectConcept(), dto1.getProjectConcept());
+
+        assertEquals(projectFolder2.getId(), dto2.getId());
+        assertEquals(projectFolder2.getProjectTitle(), dto2.getProjectTitle());
+        assertEquals(projectFolder2.getProjectConcept(), dto2.getProjectConcept());
     }
 
     @Test
